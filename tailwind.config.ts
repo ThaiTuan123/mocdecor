@@ -9,13 +9,12 @@ const config: Config = {
     theme: {
         extend: {
             backgroundImage: {
-                "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-                "gradient-conic":
-                    "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+                'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
             },
             colors: {
                 'pungaPrimary': '#523B18',
                 'sambuca': '#3A2A11',
+                'punga': '#4B3616',
                 'santaFe': '#AC744C',
                 'hotCinnamon': '#D2691E',
                 'calico': '#E0B894',
@@ -32,6 +31,10 @@ const config: Config = {
                 playfairMedium: ['Playfair Display Medium', 'serif'],
                 playfairBold: ['Playfair Display Bold', 'serif'],
             },
+            fontSize: {
+                l: ['16px', '24px'],
+            },
+
         },
     },
     plugins: [],
