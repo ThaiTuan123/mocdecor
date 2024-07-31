@@ -1,5 +1,5 @@
 // src/fonts/index.ts
-import localFont from '@next/font/local';
+import localFont from 'next/font/local';
 
 // Define and export the Raleway font configuration
 export const ralewayRegular = localFont({

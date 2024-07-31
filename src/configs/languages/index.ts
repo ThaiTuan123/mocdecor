@@ -22,7 +22,9 @@ class Languages {
             'whatMocHas': 'Mộc có gì',
             'flowerFrame': 'Khung hoa',
             'handmadeFrame': 'Khung handmade 3D',
-            'connectWithMoc': 'Kết nối với Mộc'
+            'connectWithMoc': 'Kết nối với Mộc',
+            'title': 'MocDecor',
+            'description': 'Đến với Mộc, đến với những món quà độc đáo',
         }
     }
 

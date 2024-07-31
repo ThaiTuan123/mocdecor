@@ -1,11 +1,9 @@
-import type {Metadata} from "next";
+import metadata from '@/configs/metadata';
 import "./app.css";
+import React from "react";
 
-
-export const metadata: Metadata = {
-    title: "MocDecor",
-    description: "Đến với Mộc, đến với những món quà độc đáo",
-};
+// Export metadata for use in Next.js
+export {metadata};
 
 export default function RootLayout({
                                        children,
