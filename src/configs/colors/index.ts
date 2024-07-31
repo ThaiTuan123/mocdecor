@@ -1,6 +1,8 @@
 const config = {
     Home: {
-        navbar_bg: 'regal-blue'
+        navbar_bg: 'regal-blue',
+        text_caption: 'doveGray'
+
     }
 }
 
