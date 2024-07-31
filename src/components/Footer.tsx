@@ -46,15 +46,17 @@ const Footer = () => {
             </div>
             <Line/>
             <div className="bg-brown-800 text-white bg-pungaPrimary">
-                <div className="container mx-auto flex justify-between">
-                    <div className="w-1/2 py-6 p-2">
-                        <div className="flex space-x-32">
-                            <p className="text-l font-normal font-raleway">Chính sách</p>
-                            <p className="text-l font-normal font-raleway">Điều khoản</p>
+                <div className="bg-brown-800 text-white bg-pungaPrimary">
+                    <div className="container mx-auto flex justify-between">
+                        <div className="w-1/2 py-6 p-2">
+                            <div className="flex space-x-32">
+                                <p className="text-l font-normal font-raleway">{languages.get('policy')}</p>
+                                <p className="text-l font-normal font-raleway">{languages.get('terms')}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="w-1/2 text-center mx-10 py-6">
-                        <p className='text-l font-normal font-raleway'>All right reserved MOC Decor, LLC2024</p>
+                        <div className="w-1/2 text-center mx-10 py-6">
+                            <p className='text-l font-normal font-raleway'>{languages.get('allRightsReserved')}</p>
+                        </div>
                     </div>
                 </div>
             </div>
