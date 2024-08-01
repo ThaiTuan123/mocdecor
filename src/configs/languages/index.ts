@@ -25,6 +25,9 @@ class Languages {
             'connectWithMoc': 'Kết nối với Mộc',
             'title': 'MocDecor',
             'description': 'Đến với Mộc, đến với những món quà độc đáo',
+            'errorTitle': 'UI!!! Đã có lỗi gì đó...',
+            'errorMessage': 'Trang bạn đang tìm kiếm bị lỗi và hiện không thể truy cập, team Mộc đang cố gắng khắc phục sự cố này. Trong lúc chờ, bạn có thể trở lại trang chủ để khám phá những nội dung thú vị khác từ Mộc nha.',
+            'returnHome': 'Trở về trang chủ',
         }
     }
 
