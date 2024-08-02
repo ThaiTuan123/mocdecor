@@ -42,7 +42,7 @@ const Footer = () => {
                         <p className="text-l font-normal font-raleway">{languages.get('phone')}</p>
                         <p className="text-l font-normal font-raleway">{languages.get('email')}</p>
                     </div>
-                    <div className="w-1/3 text-center bg-image-footer mx-10 py-6">
+                    <div className="w-1/3 text-center bg-image-footer mx-10 py-6 bg-cover">
                         <img src={images.logoWhite} alt="Moc Decor Logo" className="mx-auto mb-2 w-36 h-36"/>
                     </div>
                     <div className="w-1/3 py-6 ml-32">
