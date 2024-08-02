@@ -17,6 +17,7 @@ const images = {
     logo: "/assets/imgs/pictures/logo.png",
     logoWhite: "/assets/imgs/pictures/logo-white.png",
     imageFooter: "/assets/imgs/pictures/image-footer.png",
+    image404: "/assets/imgs/pictures/404.png",
 };
 
 export default images;

@@ -12,7 +12,7 @@ const config: Config = {
                 'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
             },
             colors: {
-                'pungaPrimary': '#523B18',
+                'primary': '#523B18',
                 'sambuca': '#3A2A11',
                 'punga': '#4B3616',
                 'santaFe': '#AC744C',
@@ -34,7 +34,15 @@ const config: Config = {
             fontSize: {
                 l: ['16px', '24px'],
             },
-
+            keyframes: {
+                upDown: {
+                    '0%, 100%': {transform: 'translateY(0)'},
+                    '50%': {transform: 'translateY(-20px)'},
+                },
+            },
+            animation: {
+                upDown: 'upDown 2s infinite ease-in-out',
+            },
         },
     },
     plugins: [],
