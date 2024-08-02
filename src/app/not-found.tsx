@@ -12,9 +12,9 @@ export default function NotFound() {
                 <div className="text-start flex-1">
                     {/*TODO Change background color without using bg-amber-200 and response mobile*/}
                     <div className='content-center px-40 py-72 bg-amber-200'>
-                        <h1 className="text-4xl font-bold mb-4 text-primary font-playfairBold">{languages.get('errorTitle')}</h1>
-                        <p className="text-lg mb-8">{languages.get('errorMessage')}</p>
-                        <CustomButton href="/">{languages.get('returnHome')}</CustomButton>
+                        <h1 className="text-4xl font-bold mb-4 text-primary font-playfairBold">{languages.get('404errorTitle')}</h1>
+                        <p className="text-lg mb-8">{languages.get('404errorMessage')}</p>
+                        <CustomButton href="/">{languages.get('404returnHome')}</CustomButton>
                     </div>
                 </div>
                 <div className="flex justify-center flex-1 animate-upDown">
