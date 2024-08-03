@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import images from "@/configs/images";
 import Image from 'next/image';
-import CustomButton from "@/components/Button /CustomButton";
+import CustomButton from "@/components/button/CustomButton";
 import languages from "@/configs/languages";
 
 export default function NotFound() {
