@@ -1,5 +1,7 @@
-import Product from "./product";
+import Header from "./Header"
+import Footer from "./Footer"
 
 export {
-    Product
+    Header,
+    Footer,
 }

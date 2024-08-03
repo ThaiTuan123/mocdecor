@@ -10,6 +10,7 @@ const config: Config = {
         extend: {
             backgroundImage: {
                 'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
+                'hero-policy': "url('/assets/imgs/pictures/hero-policy.png)"
             },
             colors: {
                 'primary': '#523B18',

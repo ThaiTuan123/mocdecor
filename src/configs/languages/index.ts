@@ -25,9 +25,21 @@ class Languages {
             'connectWithMoc': 'Kết nối với Mộc',
             'title': 'MocDecor',
             'description': 'Đến với Mộc, đến với những món quà độc đáo',
+
+            // 404 page
             '404.error.Title': 'UI!!! Đã có lỗi gì đó...',
             '404.error.Message': 'Trang bạn đang tìm kiếm bị lỗi và hiện không thể truy cập, team Mộc đang cố gắng khắc phục sự cố này. Trong lúc chờ, bạn có thể trở lại trang chủ để khám phá những nội dung thú vị khác từ Mộc nha.',
             '404.button.returnHome': 'Trở về trang chủ',
+
+            // policy page
+            "policy.hero.intro.text": "Giới thiệu",
+            "policy.hero.policy.text": "Chính sách",
+            "policy.title": "chính sách nhà mộc",
+            "policy.desc": "Khám phá các chính sách mua hàng, bảo hành và đổi trả của Mộc Decor để yên tâm khi chọn mua sản phẩm khung ảnh thủ công chất lượng",
+            "policy.collapse.title1": "HÌNH THỨC VÀ CHÍNH SÁCH VẬN CHUYỂN",
+            "policy.collapse.title2": "HÌNH THỨC THANH TOÁN",
+            "policy.collapse.title3": "HƯỚNG DẪN MUA HÀNG",
+            "policy.collapse.title4": "CHÍNH SÁCH BẢO HÀNH",
         }
     }
 

@@ -12,6 +12,8 @@ const images = {
         instagramLight: "/assets/imgs/icons/ic-instagram.png",
         xLight: "/assets/imgs/icons/ic-X.png",
         tiktokLight: "/assets/imgs/icons/ic-tiktok.png",
+        ic_plus: "/assets/imgs/icons/ic-plus.png",
+        ic_minus: "/assets/imgs/icons/ic-minus.png",
 
     },
     logo: "/assets/imgs/pictures/logo.png",
