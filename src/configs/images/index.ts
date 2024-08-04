@@ -14,11 +14,12 @@ const images = {
         tiktokLight: "/assets/imgs/icons/ic-tiktok.png",
         ic_plus: "/assets/imgs/icons/ic-plus.png",
         ic_minus: "/assets/imgs/icons/ic-minus.png",
+        instagramColor: "/assets/imgs/icons/ic-instagram-with-color.png",
+        tiktokColor: "/assets/imgs/icons/ic-tiktok-with-color.png",
 
     },
     logo: "/assets/imgs/pictures/logo.png",
     logoWhite: "/assets/imgs/pictures/logo-white.png",
-    imageFooter: "/assets/imgs/pictures/image-footer.png",
     image404: "/assets/imgs/pictures/404.png",
 };
 

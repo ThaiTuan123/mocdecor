@@ -10,7 +10,8 @@ const config: Config = {
         extend: {
             backgroundImage: {
                 'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
-                'hero-policy': "url('/assets/imgs/pictures/hero-policy.png)"
+                'hero-policy': "url('/assets/imgs/pictures/hero-policy.png)",
+                'footer-policy': "url('/assets/imgs/pictures/footer-policy.png)",
             },
             colors: {
                 'primary': '#523B18',
@@ -25,6 +26,7 @@ const config: Config = {
                 'black': '#111111',
                 'doveGray': '#6D6D6D',
                 'karaka': '#22190A',
+                'stroke': "#D9D9D9"
             },
             fontFamily: {
                 raleway: ['Raleway', 'sans-serif'],

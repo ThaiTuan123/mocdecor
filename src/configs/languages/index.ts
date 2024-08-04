@@ -40,6 +40,9 @@ class Languages {
             "policy.collapse.title2": "HÌNH THỨC THANH TOÁN",
             "policy.collapse.title3": "HƯỚNG DẪN MUA HÀNG",
             "policy.collapse.title4": "CHÍNH SÁCH BẢO HÀNH",
+            "policy.footer.title": "KHÁM PHÁ GIAN HÀNG NHÀ MỘC",
+            "policy.footer.button.text": "KHÁM PHÁ NGAY",
+            "policy.footer.or.text": "Hoặc truy cập"
         }
     }
 

@@ -4,33 +4,14 @@ import images from "@/configs/images"
 import languages from "@/configs/languages"
 import { Collapse } from "antd"
 import { useState } from "react"
+import { collapseData } from "./constant"
 
 const { Panel } = Collapse
 
-const collapseItems = [
-    {
-        "header": languages.get("policy.collapse.title1"),
-        "desc": "abcabc"
-    },
-    {
-        "header": languages.get("policy.collapse.title1"),
-        "desc": "abcabc"
-    },
-    {
-        "header": languages.get("policy.collapse.title1"),
-        "desc": "abcabc"
-    },
-    {
-        "header": languages.get("policy.collapse.title1"),
-        "desc": "abcabc"
-    },
-]
-
 export default function Home() {
+  const [collapseActive, setCollapseActive] = useState<string | string[]>([])
 
-    const [collapseActive, setCollapseActive] = useState<string | string[]>([]);
-  
-    const renderHero = () => {
+  const renderHero = () => {
     return (
       <div className="min-h-[307px] bg-hero-policy bg-no-repeat bg-cover flex justify-center pt-[63px] pb-[62px]">
         <div className="w-1/2 flex flex-col items-center gap-[8px]">
@@ -50,22 +31,90 @@ export default function Home() {
     )
   }
 
+  const renderFooterPolicy = () => {
+    return (
+      <div className="bg-footer-policy bg-no-repeat bg-cover flex items-center flex-col pb-[57px] pt-[98px]">
+        <h2 className="font-playfairBold text-[40px] leading-[53.32px] mb-[25px]">
+          {languages.get("policy.footer.title")}
+        </h2>
+        <div className="w-[209px] h-[48px] flex items-center justify-center border-primary border-solid border-[2px] cursor-pointer mb-[30px]">
+          <span className="">{languages.get("policy.footer.button.text")}</span>
+        </div>
+        <div className="flex items-center gap-[14px] mb-[23px]">
+          <div className="h-[1px] w-[43px] bg-black"></div>
+          <span>{languages.get("policy.footer.or.text")}</span>
+          <div className="h-[1px] w-[43px] bg-black"></div>
+        </div>
+        <div className="flex items-center gap-[21px]">
+          <div className="w-[42px] h-[42px] bg-white flex items-center justify-center">
+            <img src={images.icons.instagramColor} alt="" />
+          </div>
+          <div className="w-[42px] h-[42px] bg-white flex items-center justify-center">
+            <img src={images.icons.tiktokColor} alt="" />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   const onChangeCollapse = (key: string | string[]) => {
     setCollapseActive(key)
-  };
+  }
 
   const renderCollapsePolicy = () => {
+    const renderHeaderCollapse = (index: number, title: string) => {
+      return (
+        <div className="flex gap-[75px]">
+          <span className="font-raleway text-[20px] leading-[30px] text-doveGray">
+            0{index + 1}
+          </span>
+          <span className="font-raleway text-[20px] leading-[30px] text-karaka">
+            {title}
+          </span>
+        </div>
+      )
+    }
+
+    const renderDescCollapse = (item: { title: string; desc: string }[]) => {
+      return (
+        <div className="flex flex-col gap-[28px]">
+          {item.map((item, index) => (
+            <div className="flex flex-col gap-[17px]" key={index}>
+              <h3 className="text-karaka text-[18px] leading-[25.16px] font-raleway">
+                {item.title}
+              </h3>
+              <span className="whitespace-pre-line text-karaka text-[18px] leading-[25.16px] font-raleway">
+                {item.desc}
+              </span>
+            </div>
+          ))}
+        </div>
+      )
+    }
 
     return (
-      <Collapse onChange={onChangeCollapse}>
-        {collapseItems.map((item, index) => (
-            <Panel
+      <Collapse
+        onChange={onChangeCollapse}
+        className="border-t-[1px] border-b-[1px] border-solid border-stroke"
+        bordered={false}
+      >
+        {collapseData.map((item, index) => (
+          <Panel
             showArrow={false}
-            header={item.header}
+            header={renderHeaderCollapse(index, item.header)}
             key={index}
-            extra={<img src={collapseActive.includes(index.toString()) ? images.icons.ic_minus : images.icons.ic_plus} className="w-[18px] h-[18px]"/>}
+            extra={
+              <img
+                src={
+                  collapseActive.includes(index.toString())
+                    ? images.icons.ic_minus
+                    : images.icons.ic_plus
+                }
+                className="w-[18px] h-[18px]"
+              />
+            }
           >
-            <p>{item.desc}</p>
+            {renderDescCollapse(item.desc)}
           </Panel>
         ))}
       </Collapse>
@@ -76,6 +125,7 @@ export default function Home() {
     <>
       {renderHero()}
       {renderCollapsePolicy()}
+      {renderFooterPolicy()}
     </>
   )
 }
