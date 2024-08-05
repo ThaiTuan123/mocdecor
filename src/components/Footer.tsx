@@ -38,9 +38,9 @@ const Footer = () => {
                 <div className="container mx-auto flex justify-between">
                     <div className="w-1/3 py-6 p-2">
                         <h3 className="text-2xl font-playfairBold font-bold">{languages.get('contactInfo')}</h3>
-                        <p className="text-l font-normal font-raleway pt-4">{languages.get('address')}</p>
-                        <p className="text-l font-normal font-raleway">{languages.get('phone')}</p>
-                        <p className="text-l font-normal font-raleway">{languages.get('email')}</p>
+                        <p className="text-l font-normal font-raleway pt-4">{languages.get('txtAddress')} {languages.get('address')}</p>
+                        <p className="text-l font-normal font-raleway">{languages.get('txtPhone')} {languages.get('phone')}</p>
+                        <p className="text-l font-normal font-raleway">{languages.get('txtEmail')} {languages.get('email')}</p>
                     </div>
                     <div className="w-1/3 text-center bg-image-footer bg-no-repeat bg-cover mx-10 py-6">
                         <img src={images.logoWhite} alt="Moc Decor Logo" className="mx-auto mb-2 w-36 h-36"/>

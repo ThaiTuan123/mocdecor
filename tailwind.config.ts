@@ -10,6 +10,7 @@ const config: Config = {
         extend: {
             backgroundImage: {
                 'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
+                'image-contact': "url('/assets/imgs/backgrounds/bg-contact.png')",
             },
             colors: {
                 'primary': '#523B18',
@@ -17,6 +18,7 @@ const config: Config = {
                 'punga': '#4B3616',
                 'santaFe': '#AC744C',
                 'hotCinnamon': '#D2691E',
+                'caption': '#FF7F37',
                 'calico': '#E0B894',
                 'white': '#ffffff',
                 'alto': '#D4D4D4',
@@ -24,6 +26,8 @@ const config: Config = {
                 'black': '#111111',
                 'doveGray': '#6D6D6D',
                 'karaka': '#22190A',
+                'stroke': '#D9D9D9',
+                'black-50': '#E6E6E6',
             },
             fontFamily: {
                 raleway: ['Raleway', 'sans-serif'],
