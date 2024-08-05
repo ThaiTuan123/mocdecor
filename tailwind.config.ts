@@ -10,8 +10,8 @@ const config: Config = {
         extend: {
             backgroundImage: {
                 'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
-                'hero-policy': "url('/assets/imgs/pictures/hero-policy.png)",
-                'footer-policy': "url('/assets/imgs/pictures/footer-policy.png)",
+                'image-footer-policy': "url('/assets/imgs/backgrounds/footer-policy.png')",
+                'image-hero-policy': "url('/assets/imgs/backgrounds/hero-policy.png')",
             },
             colors: {
                 'primary': '#523B18',
@@ -26,7 +26,8 @@ const config: Config = {
                 'black': '#111111',
                 'doveGray': '#6D6D6D',
                 'karaka': '#22190A',
-                'stroke': "#D9D9D9"
+                'stroke': '#D9D9D9',
+                'black-50': '#E6E6E6',
             },
             fontFamily: {
                 raleway: ['Raleway', 'sans-serif'],
@@ -35,7 +36,7 @@ const config: Config = {
                 playfairBold: ['Playfair Display Bold', 'serif'],
             },
             fontSize: {
-                l: ['16px', '24px'],
+                lg: ['16px', '18.78px'],
             },
             keyframes: {
                 upDown: {

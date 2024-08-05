@@ -2,9 +2,9 @@
 
 import images from "@/configs/images"
 import languages from "@/configs/languages"
-import { Collapse } from "antd"
-import { useState } from "react"
-import { collapseData } from "./constant"
+import {Collapse} from "antd"
+import {useState} from "react"
+import {collapseData} from "./constant"
 
 const { Panel } = Collapse
 
@@ -13,10 +13,10 @@ export default function Home() {
 
   const renderHero = () => {
     return (
-      <div className="min-h-[307px] bg-hero-policy bg-no-repeat bg-cover flex justify-center pt-[63px] pb-[62px]">
+      <div className="min-h-[307px] bg-image-hero-policy bg-no-repeat bg-cover flex justify-center pt-[63px] pb-[62px] text-white">
         <div className="w-1/2 flex flex-col items-center gap-[8px]">
           <div className="flex flex-row gap-1">
-            <span>{languages.get("policy.hero.intro.text")}</span>
+            <span className='text-black-50'>{languages.get("policy.hero.intro.text")}</span>
             <span>/</span>
             <span>{languages.get("policy.hero.policy.text")}</span>
           </div>
@@ -33,23 +33,23 @@ export default function Home() {
 
   const renderFooterPolicy = () => {
     return (
-      <div className="bg-footer-policy bg-no-repeat bg-cover flex items-center flex-col pb-[57px] pt-[98px]">
+      <div className="bg-image-footer-policy bg-no-repeat bg-cover flex items-center flex-col pb-[57px] pt-[98px] text-white">
         <h2 className="font-playfairBold text-[40px] leading-[53.32px] mb-[25px]">
           {languages.get("policy.footer.title")}
         </h2>
-        <div className="w-[209px] h-[48px] flex items-center justify-center border-primary border-solid border-[2px] cursor-pointer mb-[30px]">
-          <span className="">{languages.get("policy.footer.button.text")}</span>
+        <div className="w-[209px] h-[48px] flex items-center justify-center border-primary border-solid border-[2px] cursor-pointer mb-[30px] bg-white rounded">
+          <span className="font-raleway text-primary font-bold text-lg">{languages.get("policy.footer.button.text")}</span>
         </div>
         <div className="flex items-center gap-[14px] mb-[23px]">
-          <div className="h-[1px] w-[43px] bg-black"></div>
+          <div className="h-[1px] w-[43px] bg-white"></div>
           <span>{languages.get("policy.footer.or.text")}</span>
-          <div className="h-[1px] w-[43px] bg-black"></div>
+          <div className="h-[1px] w-[43px] bg-white"></div>
         </div>
-        <div className="flex items-center gap-[21px]">
-          <div className="w-[42px] h-[42px] bg-white flex items-center justify-center">
+        <div className="flex items-center gap-[21px] ">
+          <div className="w-[42px] h-[42px] bg-white flex items-center justify-center rounded">
             <img src={images.icons.instagramColor} alt="" />
           </div>
-          <div className="w-[42px] h-[42px] bg-white flex items-center justify-center">
+          <div className="w-[42px] h-[42px] bg-white flex items-center justify-center rounded">
             <img src={images.icons.tiktokColor} alt="" />
           </div>
         </div>
@@ -100,6 +100,7 @@ export default function Home() {
       >
         {collapseData.map((item, index) => (
           <Panel
+            className='hover:bg-pampas'
             showArrow={false}
             header={renderHeaderCollapse(index, item.header)}
             key={index}
@@ -110,7 +111,7 @@ export default function Home() {
                     ? images.icons.ic_minus
                     : images.icons.ic_plus
                 }
-                className="w-[18px] h-[18px]"
+                className="w-[18px] h-[18px] transition-transform duration-300 hover:scale-150 "
               />
             }
           >
