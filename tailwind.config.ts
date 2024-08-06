@@ -28,6 +28,8 @@ const config: Config = {
                 'karaka': '#22190A',
                 'stroke': '#D9D9D9',
                 'black-50': '#E6E6E6',
+                'layout': '#5A5A5A99',
+                'gray': '#B0B0B0',
             },
             fontFamily: {
                 raleway: ['Raleway', 'sans-serif'],
@@ -39,6 +41,7 @@ const config: Config = {
                 'lg': ['16px', '18.78px'],
                 '1.25lg': ['18px', '25,16px'],
                 '2lg': ['20px', '30px'],
+                '2.25lg': ['24px', '36px'],
                 '4lg': ['40px', '53.32px'],
                 '6lg': ['60px', '90px']
             },

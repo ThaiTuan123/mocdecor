@@ -1,0 +1,3 @@
+div.hidden.md\:flex.md\:order-1.space-x-28.items-center > a:nth-child(2) :hover .subnav {
+    display: none;
+}
