@@ -34,3 +34,23 @@
 body {
     font-family: 'Raleway', sans-serif;
 }
+
+.ant-collapse-item {
+    background-color: white;
+}
+
+body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.css-dev-only-do-not-override-d2lrxs > div:nth-child(n) > div.ant-collapse-header {
+    align-items: center;
+    height: 87px;
+    padding-left: 144px;
+    padding-right: 144px;
+}
+
+body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid.css-dev-only-do-not-override-d2lrxs > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+    padding-left: 128px;
+    padding-right: 128px;
+}
+
+h1, h2, h3, h4, h5, span {
+    user-select: none;
+}

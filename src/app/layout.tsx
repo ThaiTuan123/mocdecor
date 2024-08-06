@@ -1,6 +1,7 @@
 import metadata from '@/configs/metadata';
 import "./app.css";
 import React from "react";
+import { Footer, Header } from '@/components';
 
 // Export metadata for use in Next.js
 export {metadata};
@@ -12,7 +13,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="vn">
-        <body>{children}</body>
+            <body className='w-full'>
+                <Header />
+                <div className='w-full'>
+                    {children}
+                </div>
+                <Footer />
+            </body>
         </html>
     );
 }
