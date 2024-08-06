@@ -36,7 +36,11 @@ const config: Config = {
                 playfairBold: ['Playfair Display Bold', 'serif'],
             },
             fontSize: {
-                lg: ['16px', '18.78px'],
+                'lg': ['16px', '18.78px'],
+                '1.25lg': ['18px', '25,16px'],
+                '2lg': ['20px', '30px'],
+                '4lg': ['40px', '53.32px'],
+                '6lg': ['60px', '90px']
             },
             keyframes: {
                 upDown: {
