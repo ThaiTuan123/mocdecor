@@ -18,7 +18,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-white py-3 shadow-md font-raleway relative">
+    <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0">
       <div className="container mx-auto flex justify-between items-center px-4">
         <div className="flex items-center md:hidden">
           <button onClick={toggleMenu} className="text-black">
@@ -53,7 +53,7 @@ const Header = () => {
                   onMouseEnter={() => setHoveredLabelKey("products")}
                   onMouseLeave={() => setHoveredLabelKey("")}
                 >
-                  <div className="w-full h-[451px] bg-pampas flex flex-row pl-36 pt-9 gap-6 relative">
+                  <div className="w-full h-[451px] bg-pampas flex flex-row pl-36 pt-9 gap-6">
                     {subNavData.map((item, index) => (
                       <div key={index} className="flex flex-col min-w-44">
                         <span className="text-gray text-1.25lg">{languages.get("navbar.sub.view.title")}</span>
