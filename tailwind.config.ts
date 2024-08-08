@@ -12,6 +12,8 @@ const config: Config = {
                 'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
                 'image-footer-policy': "url('/assets/imgs/backgrounds/footer-policy.png')",
                 'image-hero-policy': "url('/assets/imgs/backgrounds/hero-policy.png')",
+                'image-hero-contact': "url('/assets/imgs/backgrounds/hero-contact.png')",
+                'image-left-error': "url('/assets/imgs/backgrounds/left-404.png')",
             },
             colors: {
                 'primary': '#523B18',
@@ -30,6 +32,7 @@ const config: Config = {
                 'black-50': '#E6E6E6',
                 'layout': '#5A5A5A99',
                 'gray': '#B0B0B0',
+                'caption': '#FF7F37',
             },
             fontFamily: {
                 raleway: ['Raleway', 'sans-serif'],
