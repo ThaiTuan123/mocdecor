@@ -42,7 +42,10 @@ class Languages {
             "policy.collapse.title4": "CHÍNH SÁCH BẢO HÀNH",
             "policy.footer.title": "KHÁM PHÁ GIAN HÀNG NHÀ MỘC",
             "policy.footer.button.text": "KHÁM PHÁ NGAY",
-            "policy.footer.or.text": "Hoặc truy cập"
+            "policy.footer.or.text": "Hoặc truy cập",
+
+            // sub nav
+            "navbar.sub.view.title": "Các loại"
         }
     }
 
