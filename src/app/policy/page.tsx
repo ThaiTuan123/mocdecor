@@ -8,7 +8,7 @@ import { collapseData } from "./constant"
 
 const { Panel } = Collapse
 
-export default function Home() {
+export default function Policy() {
   const [collapseActive, setCollapseActive] = useState<string | string[]>([])
 
   const renderHero = () => {

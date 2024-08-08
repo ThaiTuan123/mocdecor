@@ -21,6 +21,9 @@ const images = {
     logo: "/assets/imgs/pictures/logo.png",
     logoWhite: "/assets/imgs/pictures/logo-white.png",
     image404: "/assets/imgs/pictures/404.png",
+
+    // sub nav
+    heroSubNav: "/assets/imgs/pictures/hero_sub_nav.png"
 };
 
 export default images;
