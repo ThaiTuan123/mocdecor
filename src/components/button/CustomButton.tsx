@@ -16,8 +16,8 @@ const CommonButton: React.FC<CommonButtonProps> = ({onClick, type = "button", ch
         <button
             type={type}
             onClick={onClick}
-            className={`px-20 py-4 rounded transition-all duration-300 ${className} ${
-                isHovered ? 'bg-white text-primary border-2 border-primary' : 'bg-primary text-white'
+            className={`px-20 py-4 rounded transition-all duration-300 border-2 border-primary ${className} ${
+                isHovered ? 'bg-white text-primary' : 'bg-primary text-white'
             }`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
