@@ -14,9 +14,6 @@ class Languages {
             'complete': 'HOÀN THIỆN CHỈNH CHU',
             'consultant': 'HỖ TRỢ TƯ VẤN',
             'contactInfo': 'Thông tin liên hệ',
-            'address': 'Địa chỉ: 59 Hùng Vương, Thị Trấn Nam Phước, Duy Xuyên, Quảng Nam',
-            'phone': 'Điện thoại: 037 866 3309 / 0965 920 507',
-            'email': 'Email: mocdecor99@gmail.com',
             'newsletterText': 'Nhận thông tin mới nhất từ Mộc',
             'emailPlaceholder': 'Nhập địa chỉ email',
             'whatMocHas': 'Mộc có gì',
@@ -25,6 +22,12 @@ class Languages {
             'connectWithMoc': 'Kết nối với Mộc',
             'title': 'MocDecor',
             'description': 'Đến với Mộc, đến với những món quà độc đáo',
+            'txtAddress': 'Địa chỉ:',
+            'address': '59 Hùng Vương, Thị Trấn Nam Phước, Duy Xuyên, Quảng Nam',
+            'txtPhone': 'Điện thoại:',
+            'phone': '037 866 3309 / 0965 920 507',
+            'txtEmail': 'Email:',
+            'email': 'mocdecor99@gmail.com',
 
             // 404 page
             '404.error.Title': 'UI!!! Đã có lỗi gì đó...',
@@ -43,9 +46,32 @@ class Languages {
             "policy.footer.title": "KHÁM PHÁ GIAN HÀNG NHÀ MỘC",
             "policy.footer.button.text": "KHÁM PHÁ NGAY",
             "policy.footer.or.text": "Hoặc truy cập",
-
+          
             // sub nav
-            "navbar.sub.view.title": "Các loại"
+            "navbar.sub.view.title": "Các loại",
+          
+            //contact
+            'contact.subTitle.description': 'Nếu bạn có bất kì thắc mắc về sản phẩm của chúng tôi, cần trợ giúp đặt hàng hay muốn cung cấp phản hồi về trải nghiệm của bạn, đội ngũ của Mộc luôn sẵn sàng hỗ trợ bạn từng bước.',
+            'contact.title.name': 'Liên hệ với Mộc Decor',
+            'contact.subtitle.findUs': 'Tìm Mộc Decor ở đâu?',
+            'contact.button.send': 'Gửi',
+            'contact.label.username': 'Họ và tên',
+            'contact.label.email': 'Email',
+            'contact.label.phone': 'Số điện thoại',
+            'contact.label.message': 'Thông điệp của bạn',
+            'contact.placeholder.username': 'Nhập họ và tên',
+            'contact.placeholder.email': 'Nhập địa chỉ email',
+            'contact.placeholder.phone': 'Nhập số điện thoại',
+            'contact.placeholder.message': 'Nhập thông điệp',
+            'contact.tooltip.facebook': 'Follow us on Facebook',
+            'contact.tooltip.instagram': 'Follow us on Instagram',
+            'contact.tooltip.tiktok': 'Follow us on Tiktok',
+            'contact.title.banner': 'Liên hệ với mộc',
+            'contact.subTitle.banner': 'Liên hệ với MỘC Decor để nhận được sự tư vấn và hỗ trợ tận tình về các sản phẩm khung ảnh thủ công độc đáo của chúng tôi.',
+            'contact.title.username': 'Họ và tên.',
+            'contact.title.email': 'Email',
+            'contact.title.phone': 'Số điện thoại',
+            'contact.title.message': 'Thông điệp của bạn',
         }
     }
 
