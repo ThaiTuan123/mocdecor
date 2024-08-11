@@ -1,6 +1,7 @@
 import React from 'react';
 import images from "@/configs/images";
 import languages from '@/configs/languages';
+import Image from 'next/image';
 
 import IconWithText from "@/components/icons/IconWithText";
 import Icon from "@/components/icons/Icon";
@@ -51,7 +52,13 @@ const FooterContactInfo = () => {
 
 const FooterLogo = () => (
     <div className="w-1/3 text-center bg-image-footer bg-no-repeat bg-cover mx-10 py-6">
-        <img src={images.logoWhite} alt="Moc Decor Logo" className="mx-auto mb-2 w-36 h-36"/>
+        <Image 
+            src={images.logoWhite} 
+            alt="Moc Decor Logo" 
+            width={144} // Replace with the actual width of your image
+            height={144} // Replace with the actual height of your image
+            className="mx-auto mb-2 w-36 h-36" 
+        />
     </div>
 );
 
