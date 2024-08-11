@@ -65,7 +65,7 @@ class Languages {
             'contact.tooltip.tiktok': 'Follow us on Tiktok',
             'contact.title.banner': 'Liên hệ với mộc',
             'contact.subTitle.banner': 'Liên hệ với MỘC Decor để nhận được sự tư vấn và hỗ trợ tận tình về các sản phẩm khung ảnh thủ công độc đáo của chúng tôi.',
-            'contact.title.username': 'Họ và tên.',
+            'contact.title.username': 'Họ và tên',
             'contact.title.email': 'Email',
             'contact.title.phone': 'Số điện thoại',
             'contact.title.message': 'Thông điệp của bạn',
