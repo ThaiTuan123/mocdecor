@@ -51,7 +51,7 @@ body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collap
     padding-right: 128px;
 }
 
-body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14.css-dev-only-do-not-override-d2lrxs > div:nth-child(n) > div {
+body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div {
     position: static;
 }
 
