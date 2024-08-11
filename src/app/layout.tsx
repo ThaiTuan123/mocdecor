@@ -16,7 +16,7 @@ export default function RootLayout({
         <html lang="vn">
             <body className='w-full'>
                 <Header />
-                <div className='w-full'>
+                <div className='w-full mt-navbar'>
                     {children}
                     <SpeedInsights />
                 </div>
