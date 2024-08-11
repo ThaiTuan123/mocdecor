@@ -46,7 +46,10 @@ class Languages {
             "policy.footer.title": "KHÁM PHÁ GIAN HÀNG NHÀ MỘC",
             "policy.footer.button.text": "KHÁM PHÁ NGAY",
             "policy.footer.or.text": "Hoặc truy cập",
-
+          
+            // sub nav
+            "navbar.sub.view.title": "Các loại",
+          
             //contact
             'contact.subTitle.description': 'Nếu bạn có bất kì thắc mắc về sản phẩm của chúng tôi, cần trợ giúp đặt hàng hay muốn cung cấp phản hồi về trải nghiệm của bạn, đội ngũ của Mộc luôn sẵn sàng hỗ trợ bạn từng bước.',
             'contact.title.name': 'Liên hệ với Mộc Decor',
