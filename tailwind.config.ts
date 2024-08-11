@@ -57,6 +57,9 @@ const config: Config = {
             animation: {
                 upDown: 'upDown 2s infinite ease-in-out',
             },
+            margin: {
+                navbar: '72px'
+            }
         },
     },
     plugins: [],

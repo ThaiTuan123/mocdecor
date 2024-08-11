@@ -33,12 +33,8 @@ const HeroSection = () => (
 const SocialIcons = ({icons}: { icons: IconType[] }) => (
     <div className="flex justify-around space-x-6 pt-1 pl-4">
         {icons.map(icon => (
-            <div key={icon.key} className="relative group">
+            <div key={icon.key} className="group">
                 <Icon src={icon.src} alt={icon.alt} size="small"/>
-                <div
-                    className="absolute bottom-full m-2 hidden group-hover:block bg-black text-white text-xs rounded p-2">
-                    {icon.tooltip}
-                </div>
             </div>
         ))}
     </div>
@@ -72,7 +68,7 @@ const ContactDetails = () => (
             <SocialIcons icons={socialIcons}/>
         </div>
         <div className="mt-4">
-            <img className="transition-transform duration-300 transform hover:scale-110 peer" src={images.contactMap}
+            <img className="transition-transform duration-300 hover:scale-110" src={images.contactMap}
                  alt="Map"/>
         </div>
     </div>
