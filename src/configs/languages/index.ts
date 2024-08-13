@@ -72,6 +72,18 @@ class Languages {
             'contact.title.email': 'Email',
             'contact.title.phone': 'Số điện thoại',
             'contact.title.message': 'Thông điệp của bạn',
+
+            // gallery
+            'gallery.hero.intro.text': "Giới thiệu",
+            'gallery.hero.upload.text': "Tải ảnh",
+            'galley.hero.title': "Tìm kiếm mã đơn hàng",
+            'galley.hero.desc': "Để tiến hành tải ảnh cho đơn hàng, trước tiên bạn cần nhập mã đơn hàng vào khung tìm kiếm",
+            'galley.hero.input.place.holder': "Nhập mã đơn hàng của bạn (Mã đơn hàng được lấy từ đơn hàng trên Tiktok)",
+            'galley.hero.button.text': "TÌM KIẾM",
+            'galley.empty.title': "Không tìm thấy đơn hàng",
+            'galley.empty.desc': "Đơn hàng bạn đang tìm kiếm hiện không khả dụng, có lẽ bạn đã nhập sai thông tin nào đó. Hãy thử tìm kiếm lại nhé.",
+            'galley.not.found.title': "Bạn chưa có đơn hàng nào...",
+            'galley.not.found.desc': "Hãy tìm kiếm mã đơn hàng của bạn trên thanh tìm kiếm để tiến hành upload ảnh. Nếu chưa có đơn hàng, hãy đặt hàng trên website của Mộc nhé.",
         }
     }
 

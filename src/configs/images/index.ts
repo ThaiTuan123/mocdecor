@@ -35,6 +35,10 @@ const images = {
     heroSubNav: "/assets/imgs/pictures/hero_sub_nav.png",
   
     contactMap: "/assets/imgs/pictures/map-contact.png",
+
+    // gallery
+    emptyGallery: "/assets/imgs/pictures/empty-gallery.png",
+    notFoundGallery: "/assets/imgs/pictures/not-found-gallery.png"
 };
 
 export default images;
