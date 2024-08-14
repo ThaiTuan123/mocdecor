@@ -14,6 +14,7 @@ const config: Config = {
                 'image-hero-policy': "url('/assets/imgs/backgrounds/hero-policy.png')",
                 'image-hero-contact': "url('/assets/imgs/backgrounds/hero-contact.png')",
                 'image-left-error': "url('/assets/imgs/backgrounds/left-404.png')",
+                'image-hero-gallery': "url('/assets/imgs/backgrounds/hero-gallery-bg.png')",
             },
             colors: {
                 'primary': '#523B18',
