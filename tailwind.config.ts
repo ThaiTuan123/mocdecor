@@ -60,6 +60,9 @@ const config: Config = {
             },
             margin: {
                 navbar: '72px'
+            },
+            height: {
+                '525': '525px'
             }
         },
     },
