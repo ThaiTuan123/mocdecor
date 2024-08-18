@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function NotFoundGallery() {
     return (
-        <div className="flex h-[525px]">
+        <div className="flex h-525">
             <div className="flex flex-1 bg-image-left-error bg-cover pr-5 justify-end items-center">
                 <div className="flex flex-col w-4/5 gap-6">
                     <h2 className="text-primary text-4lg">{languages.get("galley.not.found.title")}</h2>
