@@ -1,19 +1,13 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef} from "react";
 import Carousel from "@/components/carousel/Carousel";
 import Image from 'next/image';
-import categories, {cardServiceData, socialLinks} from "@/app/home/constant";
+import categories, {cardServiceData, clientData, customerData, socialLinks} from "@/app/home/constant";
 import images from "@/configs/images";
 import {motion} from 'framer-motion';
-import ProductCard from "@/components/product/ProductCard";
-import {Product} from "@/types/product";
-import {fetchProducts} from "@/services/fetchProducts";
-import OutlineButton from "@/components/button/OutlineButton";
 import BackgroundSection from "@/components/banners/BackgroundSection";
-import ProductCardWhite from "@/components/product/ProductCardWhite";
 import SolidButton from "@/components/button/SolidButton";
-import Tab from "@/components/tab/Tab";
 import IconSocialLink from "@/components/icons/IconSocialLink";
 import RightArrowButton from "@/components/button/RightArrowButton";
 import DiscoverButton from "@/components/button/DiscoverButton";
@@ -29,6 +23,10 @@ import ServiceCard from "@/components/card/ServiceCard";
 import CoopClientCard from "@/components/card/CoopClientCard";
 import languages from "@/configs/languages";
 import {ARROW_RIGHT, REPEAT_INTERVAL, SCROLL_AMOUNT} from "@/utils/constants";
+import TabFrame from "@/components/tab/TabFrame";
+import TabPrint from "@/components/tab/TabPrint";
+import Heading3 from "@/components/texts/Heading3";
+import {shuffleArray} from "@/utils/shuffle";
 
 const CategorySection = () => (
     <section id='category' className="py-8 text-center md:container md:mx-auto">
@@ -91,7 +89,7 @@ const TextContentAbout = () => (
 
 const SocialLinksAbout = () => (
     <div className="flex items-center mt-4">
-        <h4 className="text-1.25lg font-normal font-raleway text-caption mr-5">HIỂU HƠN VỀ MỘC:</h4>
+        <h4 className="text-1.25lg font-normal font-raleway text-caption mr-5">{languages.get('home.header4.socialLinks.about')}</h4>
         <div className="flex space-x-4">
             {socialLinks.map((link, index) => (
                 <IconSocialLink key={index} src={link.src} alt={link.alt}/>
@@ -142,157 +140,26 @@ const AboutSection = () => (
     </section>
 );
 
-const TabPrint = () => {
-
-    const tabsPrint = [
-        {label: 'Ảnh in 6x9', value: '6x9'},
-        {label: 'Ảnh in 9x12', value: '9x12'},
-        {label: 'Ảnh Photostrip', value: 'Photostrip'},
-        {label: 'Ảnh in Instagram', value: 'Instagram'},
-    ];
-
-    const renderPrintContent = (activeTab: string) => {
-        switch (activeTab) {
-            case '6x9':
-                return <div><ProductGrid/></div>;
-            case '9x12':
-                return <div>Content for Ảnh in 9x12</div>;
-            case 'Photostrip':
-                return <div>Content for Ảnh Photostrip</div>;
-            case 'Instagram':
-                return <div>Content for Ảnh in Instagram</div>;
-            default:
-                return null;
-        }
-    };
-
-    return (
-        <Tab
-            tabs={tabsPrint}
-            defaultActiveTab="6x9"
-            renderContent={renderPrintContent}
-        />
-    );
-};
-
-const TabFrame = () => {
-    const tabsFrame = [
-        {label: 'Khung dẹp', value: 'Khung dẹp'},
-        {label: 'Khung nổi', value: 'Khung nổi'},
-        {label: 'Khung 3D', value: 'Khung 3D'},
-        {label: 'Khung nhựa', value: 'Khung nhựa'},
-        {label: 'Khung gỗ', value: 'Khung gỗ'},
-        {label: 'Khung mica', value: 'Khung mica'},
-        {label: 'Khung trong suốt', value: 'Khung trong suốt'},
-    ];
-
-    const renderFrameContent = (activeTab: string) => {
-        switch (activeTab) {
-            case 'Khung dẹp':
-                return <div><ProductGridFrame/></div>;
-            case 'Khung nổi':
-                return <div>Content for Khung nổi</div>;
-            case 'Khung 3D':
-                return <div>Content for Khung 3D</div>;
-            case 'Khung nhựa':
-                return <div>Content for Khung nhựa</div>;
-            case 'Khung gỗ':
-                return <div>Content for Khung gỗ</div>;
-            case 'Khung mica':
-                return <div>Content for Khung mica</div>;
-            case 'Khung trong suốt':
-                return <div>Content for Khung trong suốt</div>;
-            default:
-                return null;
-        }
-    };
-
-    return (
-        <Tab
-            tabs={tabsFrame}
-            defaultActiveTab="Khung dẹp"
-            renderContent={renderFrameContent}
-            background={"bg-image-gradient-frame bg-cover"}
-            textColor="text-white"
-            borderActive='border-white'
-            hoverButton='hover:text-white'
-            hoverBorder='hover:border-white'
-            textColorInactive='text-black-50'
-        />
-    );
-};
-
-const ProductGrid: React.FC = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-
-    useEffect(() => {
-        const loadProducts = async () => {
-            const productsData = await fetchProducts();
-            setProducts(productsData);
-        };
-        loadProducts();
-    }, []);
-
-    return (
-        <div>
-            <div className="grid grid-cols-3 gap-6">
-                {products.map((product) => (
-                    <ProductCard key={product.id} {...product} />
-                ))}
-
-            </div>
-            <div className="flex justify-center my-10">
-                <OutlineButton text={languages.get('button.viewMore')} href="/your-target-page"/>
-            </div>
-        </div>
-    );
-};
-
-const ProductGridFrame: React.FC = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-    useEffect(() => {
-        const loadProducts = async () => {
-            const productsData = await fetchProducts();
-            setProducts(productsData);
-        };
-        loadProducts();
-    }, []);
-    return (
-        <div>
-            <div className="grid grid-cols-3 gap-6">
-                {products.map((product) => (
-                    <ProductCardWhite key={product.id} {...product} />
-                ))}
-
-            </div>
-            <div className="flex justify-center my-10">
-                <SolidButton text={languages.get('button.viewMore')} href="/your-target-page"/>
-            </div>
-        </div>
-    );
-};
-
 const sectionsData = [
     {
-        title: "ẢNH IN",
-        subTitle: `Hãy để những khoảnh khắc, những kỉ niệm được sắp<br/>xếp theo phong cách của riêng bạn.`,
+        title: languages.get('home.title.background.print'),
+        subTitle: languages.get('home.subTitle.background.print'),
         backgroundClass: "bg-image-home-background-print",
         tabComponent: <TabPrint/>
     },
     {
-        title: "KHUNG ẢNH",
-        subTitle: `Một khung ảnh được thiết kế riêng theo yêu cầu, liệu có đủ<br/>thể hiện tình cảm của bạn? Hãy cùng Mộc khám phá nhé.`,
+        title: languages.get('home.title.background.frame'),
+        subTitle: languages.get('home.subTitle.background.frame'),
         backgroundClass: "bg-image-home-background-frame",
         tabComponent: <TabFrame/>
     },
     {
-        title: "ALBUM ẢNH",
-        subTitle: `Hãy để những khoảnh khắc, những kỉ niệm được sắp<br/>xếp theo phong cách của riêng bạn.`,
+        title: languages.get('home.title.background.album'),
+        subTitle: languages.get('home.subTitle.background.album'),
         backgroundClass: "bg-image-home-background-album",
         tabComponent: <TabPrint/>
     }
 ];
-
 
 const OtherProductsSection: React.FC = () => {
     const handleClick = () => {
@@ -304,26 +171,26 @@ const OtherProductsSection: React.FC = () => {
             <div className="container mx-auto flex flex-col items-center">
                 <div className="flex items-center mb-2">
                     <TitleText
-                        firstText="Những"
-                        secondText="Dòng sản phẩm khác"
+                        firstText={languages.get('home.title.firstText.otherProducts')}
+                        secondText={languages.get('home.title.secondText.otherProducts')}
                     />
                 </div>
-                <Heading2 text='Bạn có thể sẽ thích của nhà Mộc'/>
+                <Heading2 text={languages.get('home.title.header2.otherProducts')}/>
                 <div className="grid gap-6 max-w-7xl w-full ">
                     <div className="flex col-span-2 h-80">
                         {/* Sổ tay */}
                         <div
                             className="bg-image-notebook-home bg-cover text-white px-10 py-8 rounded-lg relative flex flex-col justify-center items-start w-7/12">
-                            <h3 className="text-6lg font-bold font-playfairBold uppercase">Sổ <br/> Tay</h3>
+                            <Heading3 text={languages.get('home.title.header3.notebook')}/>
                             <DiscoverButton onClick={handleClick}>
-                                Khám Phá Ngay
+                                {languages.get('button.discover')}
                             </DiscoverButton>
                         </div>
 
                         {/* Vòng Tay */}
                         <div
                             className="bg-image-bracelet-home bg-cover text-white p-4 rounded-lg flex justify-between items-end w-5/12 ml-4 h-80">
-                            <h3 className="text-4xl font-bold uppercase font-playfairBold ">Vòng Tay</h3>
+                            <h3 className="text-4xl font-bold uppercase font-playfairBold ">{languages.get('home.title.header3.bracelet')}</h3>
                             <RightArrowButton onClick={handleClick}/>
                         </div>
                     </div>
@@ -332,17 +199,17 @@ const OtherProductsSection: React.FC = () => {
                         <div
                             className="bg-image-calendar-home bg-cover text-white px-10 py-8 rounded-lg relative flex flex-col justify-end w-5/12">
                             <div className="flex items-center justify-between w-full">
-                                <h3 className="text-4xl font-bold uppercase font-playfairBold">Lịch gỗ</h3>
+                                <h3 className="text-4xl font-bold uppercase font-playfairBold">{languages.get('home.title.header3.calendar')}</h3>
                                 <RightArrowButton onClick={handleClick}/>
                             </div>
                         </div>
                         {/* Vòng Tay */}
                         <div
                             className="bg-image-wooden-pen-home bg-cover text-white p-4 rounded-lg flex flex-col justify-center items-start w-7/12 ml-4 h-80">
-                            <h3 className="text-6lg font-bold font-playfairBold uppercase">Bút <br/> Gỗ</h3>
-                            <DiscoverButton onClick={handleClick}>
-                                Khám Phá Ngay
-                            </DiscoverButton>
+                            <Heading3 text={languages.get('home.title.header3.woodenPen')}/> <DiscoverButton
+                            onClick={handleClick}>
+                            {languages.get('button.discover')}
+                        </DiscoverButton>
                         </div>
                     </div>
                 </div>
@@ -352,21 +219,16 @@ const OtherProductsSection: React.FC = () => {
 };
 
 const StorySection: React.FC = () => {
-
-    const handleClick = () => {
-        alert('Discover button clicked!');
-    };
-
     return (
         <section className='h-946'>
             <div className='relative'>
                 <div className='bg-image-product-story md:h-80 relative z-10'>
                     <div className='w-full flex flex-col pt-16'>
                         <TitleText
-                            firstText="Câu chuyện "
-                            secondText="Nhà Mộc"
+                            firstText={languages.get('home.title.firstText.story')}
+                            secondText={languages.get('home.title.secondText.story')}
                         />
-                        <Heading2 text='Hành trình lưu giữ những <br/> kỉ niệm tại Mộc Decor'/>
+                        <Heading2 text={languages.get('home.title.header2.story')}/>
                     </div>
                 </div>
 
@@ -375,24 +237,22 @@ const StorySection: React.FC = () => {
                     className='absolute max-w-6xl mx-auto inset-0 z-20 mt-52'
                 >
                     <div className='flex h-[600] '>
-                        {/* Main Image Section */}
                         <div
                             className="w-3/5 bg-image-story-home-1 bg-cover flex items-end justify-between px-8 py-8 rounded">
-                            <h3 className="text-2xl  font-bold font-playfairBold uppercase text-white text-left">
-                                CÁCH CHÚNG TÔI TẠO <br/> NÊN NHỮNG BỘ KHUNG <br/> ẢNH THẬT ĐẸP ?
-                            </h3>
-                            <SolidButton text="Đọc thêm" href="/your-target-page"/>
+                            <Heading3 size={'text-2xl'}
+                                      text={languages.get('home.title.header3.itemStory1')}/>
+                            <SolidButton text={languages.get('button.readMore')} href="/your-target-page"/>
                         </div>
                         <div className='w-2/5 flex flex-col gap-4 pl-4'>
                             <MotionImageCard
                                 src={images.homeStory2}
-                                alt="Other Image 1"
-                                text="Lễ tốt nghiệp sắp đến rồi, gửi ngay món quà này đến đứa bạn thân thôi"
+                                alt="Other Image 2"
+                                text={languages.get('home.title.p.itemStory2')}
                             />
                             <MotionImageCard
                                 src={images.homeStory3}
-                                alt="Other Image 2"
-                                text="Bạn đã có kế hoạch gì cho việc kỉ niệm những ngày đặc biệt chưa?"
+                                alt="Other Image 3"
+                                text={languages.get('home.title.p.itemStory3')}
                             />
                         </div>
                     </div>
@@ -415,13 +275,13 @@ const GiftSection: React.FC = () => {
                     <div className="h-24 w-1 bg-white mx-4"></div>
                     <div id='title'>
                         <div className="flex-n1 flex flex-col items-start">
-                            <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">TẶNG BẠN</h2>
-                            <h2 className="text-4xl font-extrabold text-white font-raleway">QUÀ KHỦNG</h2>
+                            <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">{languages.get('home.title.header2.gift1')}</h2>
+                            <h2 className="text-4xl font-extrabold text-white font-raleway">{languages.get('home.title.header2.gift2')}</h2>
                         </div>
                     </div>
                 </div>
                 <DiscoverButton className='ml-8' onClick={handleClick}>
-                    Khám Phá Ngay
+                    {languages.get('button.discover')}
                 </DiscoverButton>
             </div>
         </section>
@@ -442,7 +302,7 @@ const FeedbackScrollableSection: React.FC<{ scrollInterval: number }> = ({scroll
                     behavior: 'smooth',
                 });
             }
-        }, scrollInterval); // Dynamic interval based on prop
+        }, scrollInterval);
 
         return () => clearInterval(intervalId);
     }, [scrollInterval]);
@@ -450,52 +310,14 @@ const FeedbackScrollableSection: React.FC<{ scrollInterval: number }> = ({scroll
     return (
         <div className="overflow-x-auto scroll-smooth pb-10" ref={scrollRef}>
             <div className="inline-flex space-x-4">
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-1'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-2'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-3'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-1'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-2'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-3'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-1'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-2'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                <CustomerCard
-                    imageCustomerUrl='bg-image-customer-3'
-                    textDescription="Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!"
-                    nameCustomer="BÙI LÊ THÙY VY"
-                />
-                {/* Repeat or add more cards as needed */}
+                {customerData.concat(customerData).map((data, index) => (
+                    <CustomerCard
+                        key={index}
+                        imageCustomerUrl={data.imageCustomerUrl}
+                        textDescription={data.textDescription}
+                        nameCustomer={data.nameCustomer}
+                    />
+                ))}
             </div>
         </div>
     );
@@ -507,10 +329,10 @@ const FeedbackSection: React.FC = () => {
             <div id='content' className='flex flex-col pt-28'>
                 <div className='flex flex-col items-center pb-16'>
                     <TitleText
-                        firstText="Cảm nhận "
-                        secondText="Nhà Mộc"
+                        firstText={languages.get('home.title.firstText.feedback')}
+                        secondText={languages.get('home.title.secondText.feedback')}
                     />
-                    <Heading2 text="Khách hàng nghĩ gì về <br/> Mộc Decor?"/>
+                    <Heading2 text={languages.get('home.title.header2.feedback')}/>
                 </div>
 
                 <div className='flex flex-col'>
@@ -531,22 +353,22 @@ const ServiceSection: React.FC = () => {
                     <div className='flex flex-row gap-16 justify-center items-center'>
                         <div className='flex-col flex justify-start items-start w-3/5'>
                             <TitleText
-                                firstText="Cảm nhận "
-                                secondText="Nhà Mộc"
+                                firstText={languages.get('home.title.firstText.service')}
+                                secondText={languages.get('home.title.secondText.service')}
                                 textColor='text-white'
                                 bgColor='bg-white'
                             />
                             <Heading2
                                 className='mt-8'
-                                text="Nhà Mộc cam kết mang đến trải <br/> nghiệm tốt nhất cho khách hàng"
+                                text={languages.get('home.title.header2.service')}
                                 textColor={"text-white"}
                                 align={"left"}
                             />
                             <TextContent
                                 textColor={'text-white'}
-                                text={'Mộc Decor mang đến những dịch vụ khung ảnh thủ công đầy cảm hứng và tinh tế. Chúng tôi thiết kế khung ảnh theo yêu cầu, tạo ra những tác phẩm độc đáo phản ánh phong cách riêng của từng khách hàng. <br/> Ngoài ra, Mộc Decor còn tư vấn trang trí, giúp bạn tạo nên không gian sống ấm cúng và nghệ thuật.'}
+                                text={languages.get('home.title.textContentHieu.service')}
                             />
-                            <h4 className='text-white font-semibold font-raleway'> HIẾU NGUYỄN - Mộc Founder </h4>
+                            <h4 className='text-white font-semibold font-raleway'> {languages.get('home.title.header4Hieu.service')} </h4>
                         </div>
                         <div className='w-2/5 items-center justify-center flex'>
                             <Image
@@ -572,15 +394,15 @@ const ServiceSection: React.FC = () => {
                         </div>
                         <div className='flex-col flex justify-start items-start w-3/5'>
                             <Heading2
-                                text="Nhà Mộc cam kết mang đến trải <br/> nghiệm tốt nhất cho khách hàng"
+                                text={languages.get('home.title.header2Phu.service')}
                                 textColor={"text-white"}
                                 align={"left"}
                             />
                             <TextContent
                                 textColor={'text-white'}
-                                text={'Hiểu được mong muốn lưu giữ kỉ niệm và tình yêu thương vào những món đồ handmade, Mộc Decor luôn cố gắng tỉ mỉ và đặt trọn trái tim của mình vào từng sản phẩm, để khách hàng có thể hài lòng nhất. <br/> “Yêu thương đong đầy, nghĩa tình trao tận tay” luôn là phương châm hoạt động của nhà Mộc.'}
+                                text={languages.get('home.title.textContentPhu.service')}
                             />
-                            <h4 className='text-white font-semibold font-raleway'> PHƯỚC PHÚ - Mộc Founder </h4>
+                            <h4 className='text-white font-semibold font-raleway'> {languages.get('home.title.header4Phu.service')} </h4>
                         </div>
                     </div>
                 </div>
@@ -597,6 +419,7 @@ const ServiceSection: React.FC = () => {
 
 const ScrollableSection: React.FC<{ scrollInterval: number }> = ({scrollInterval = REPEAT_INTERVAL}) => {
     const scrollRef = useRef<HTMLDivElement>(null);
+    const shuffledClientData = shuffleArray([...clientData]);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -617,20 +440,13 @@ const ScrollableSection: React.FC<{ scrollInterval: number }> = ({scrollInterval
     return (
         <div className="overflow-x-auto whitespace-nowrap scroll-smooth pb-10" ref={scrollRef}>
             <div className="inline-flex space-x-4">
-                {/* Add multiple CoopClientCard instances or any other content here */}
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                <CoopClientCard/>
-                {/* Repeat or add more cards as needed */}
+                {shuffledClientData.map((client, index) => (
+                    <CoopClientCard
+                        key={index}
+                        src={client.src}
+                        alt={client.alt}
+                    />
+                ))}
             </div>
         </div>
     );
@@ -642,10 +458,10 @@ const CoopClientsSection: React.FC = () => {
             <div id='content' className='flex flex-col py-28 gap-y-12'>
                 <div className='flex flex-col items-center'>
                     <TitleText
-                        firstText="Khách hàng"
-                        secondText="Nhà Mộc"
+                        firstText={languages.get('home.title.firstText.coopClient')}
+                        secondText={languages.get('home.title.secondText.coopClient')}
                     />
-                    <Heading2 text='Thật hân hạnh khi là nơi đặt trọn yêu <br/> thương của những khách hàng này'/>
+                    <Heading2 text={languages.get('home.title.header2.coopClient')}/>
                 </div>
 
                 <div className='gap-y-8 flex flex-col'>

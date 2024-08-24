@@ -122,6 +122,7 @@ const config: Config = {
             },
             width: {
                 '412':'25.75rem',
+                '232.77': '14.55rem',
                 '7/10': '70%', // Custom width class for 70%
                 '3/10': '30%', // Custom width class for 30%
             },

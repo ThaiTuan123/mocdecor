@@ -88,13 +88,71 @@ class Languages {
             // homepage
             'home.title.category': 'NHÀ MỘC decor',
             'home.subTitle.category': 'Các dòng sản phẩm',
+
             'home.title.firstText.about': 'Về',
             'home.title.secondText.about': 'Nhà mộc',
             'home.title.header2.about': 'MỘC DECOR - Nơi lưu giữ <br/> yêu thương và kỉ niệm của bạn',
             'home.title.textContent.about': 'Với Mộc, đem lại cho bạn những món quà được làm bằng sự tỉ mỉ,<br/> chỉnh chu và tâm huyết nhất.Đó là kim chỉ nam để Mộc không<br/>ngừng nỗ lực, hoàn thiện chất lượng sản phẩm, dịch vụ.',
+            'home.header4.socialLinks.about': 'HIỂU HƠN VỀ MỘC:',
+
+            'home.title.background.print': 'ẢNH IN',
+            'home.title.background.frame': 'KHUNG ẢNH',
+            'home.title.background.album': 'ALBUM ẢNH',
+            'home.subTitle.background.print': 'Hãy để những khoảnh khắc, những kỉ niệm được sắp<br/>xếp theo phong cách của riêng bạn.',
+            'home.subTitle.background.frame': 'Một khung ảnh được thiết kế riêng theo yêu cầu, liệu có đủ<br/>thể hiện tình cảm của bạn? Hãy cùng Mộc khám phá nhé.',
+            'home.subTitle.background.album': 'Hãy để những khoảnh khắc, những kỉ niệm được sắp<br/>xếp theo phong cách của riêng bạn.',
+
+            'home.title.firstText.otherProducts': 'Những',
+            'home.title.secondText.otherProducts': 'Dòng sản phẩm khác',
+            'home.title.header2.otherProducts': 'Bạn có thể sẽ thích của nhà Mộc',
+            'home.title.header3.notebook': 'Sổ <br/> Tay',
+            'home.title.header3.bracelet': 'Vòng Tay',
+            'home.title.header3.calendar': 'Lịch gỗ',
+            'home.title.header3.woodenPen': 'Bút <br/> Gỗ',
+
+            'home.title.firstText.story': 'Câu chuyện',
+            'home.title.secondText.story': 'Nhà Mộc',
+            'home.title.header2.story': 'Hành trình lưu giữ những <br/> kỉ niệm tại Mộc Decor',
+            'home.title.header3.itemStory1': 'CÁCH CHÚNG TÔI TẠO <br/> NÊN NHỮNG BỘ KHUNG <br/> ẢNH THẬT ĐẸP ?',
+            'home.title.p.itemStory2': 'Lễ tốt nghiệp sắp đến rồi, gửi ngay món quà này đến đứa bạn thân thôi',
+            'home.title.p.itemStory3': 'Bạn đã có kế hoạch gì cho việc kỉ niệm những ngày đặc biệt chưa?',
+
+            'home.title.header2.gift1': 'TẶNG BẠN',
+            'home.title.header2.gift2': 'QUÀ KHỦNG',
+
+            'home.title.firstText.feedback': 'Cảm nhận',
+            'home.title.secondText.feedback': 'Nhà Mộc',
+            'home.title.header2.feedback': 'Khách hàng nghĩ gì về <br/> Mộc Decor?',
+            'home.title.p.roleCustomer': 'Khách hàng',
+
+            'home.title.firstText.service': 'Cảm nhận',
+            'home.title.secondText.service': 'Nhà Mộc',
+            'home.title.header2.service': 'Nhà Mộc cam kết mang đến trải <br/> nghiệm tốt nhất cho khách hàng',
+            'home.title.textContentHieu.service': 'Mộc Decor mang đến những dịch vụ khung ảnh thủ công đầy cảm hứng và tinh tế. Chúng tôi thiết kế khung ảnh theo yêu cầu, tạo ra những tác phẩm độc đáo phản ánh phong cách riêng của từng khách hàng. <br/> Ngoài ra, Mộc Decor còn tư vấn trang trí, giúp bạn tạo nên không gian sống ấm cúng và nghệ thuật.',
+            'home.title.header4Hieu.service': 'HIẾU NGUYỄN - Mộc Founder',
+
+            'home.title.header2Phu.service': 'Nhà Mộc cam kết mang đến trải <br/> nghiệm tốt nhất cho khách hàng',
+            'home.title.textContentPhu.service': 'Hiểu được mong muốn lưu giữ kỉ niệm và tình yêu thương vào những món đồ handmade, Mộc Decor luôn cố gắng tỉ mỉ và đặt trọn trái tim của mình vào từng sản phẩm, để khách hàng có thể hài lòng nhất. <br/> “Yêu thương đong đầy, nghĩa tình trao tận tay” luôn là phương châm hoạt động của nhà Mộc.',
+            'home.title.header4Phu.service': 'PHƯỚC PHÚ - Mộc Founder',
+
+            'home.title.firstText.coopClient': 'Khách hàng',
+            'home.title.secondText.coopClient': 'Nhà Mộc',
+            'home.title.header2.coopClient': 'Thật hân hạnh khi là nơi đặt trọn yêu <br/> thương của những khách hàng này',
+
+            'home.delivery': 'GIAO HÀNG TOÀN QUỐC',
+            'home.delivery.description': 'Phí ship sẽ được hỗ trợ tùy theo đơn hàng',
+            'home.quality': 'CHẤT LƯỢNG ĐẢM BẢO',
+            'home.quality.description': 'Chất lượng sản phẩm luôn được đảm bảo',
+            'home.complete': 'HOÀN THIỆN CHỈNH CHU',
+            'home.complete.description': 'Sản phẩm được hoàn thiện chỉnh chu, tỉ mỉ',
+            'home.consultant': 'HỖ TRỢ TƯ VẤN',
+            'home.consultant.description': 'Hotline: 037 866 3309',
+
 
             //button
             'button.viewMore': 'xem thêm',
+            'button.discover': 'Khám Phá Ngay',
+            'button.readMore': 'Đọc thêm',
         }
     }
 
