@@ -22,11 +22,12 @@ import Line from "@/components/shape/Lines";
 import ServiceCard from "@/components/card/ServiceCard";
 import CoopClientCard from "@/components/card/CoopClientCard";
 import languages from "@/configs/languages";
-import {ARROW_RIGHT, REPEAT_INTERVAL, SCROLL_AMOUNT} from "@/utils/constants";
+import {REPEAT_INTERVAL, SCROLL_AMOUNT} from "@/utils/constants";
 import TabFrame from "@/components/tab/TabFrame";
 import TabPrint from "@/components/tab/TabPrint";
 import Heading3 from "@/components/texts/Heading3";
 import {shuffleArray} from "@/utils/shuffle";
+import CategoryCard from "@/components/card/CategoryCard";
 
 const CategorySection = () => (
     <section id='category' className="py-8 text-center md:container md:mx-auto">
@@ -38,28 +39,10 @@ const CategorySection = () => (
         </h2>
         <div className="flex flex-col md:flex-row justify-between">
             {categories.map((category) => (
-                <div
+                <CategoryCard
                     key={category.id}
-                    className="relative mb-6 md:mb-0 group cursor-pointer"
-                    onClick={category.onClick}
-                >
-                    <Image
-                        src={category.src}
-                        alt={category.alt}
-                        width={400}
-                        height={300}
-                        className="w-full max-w-xs md:max-w-sm lg:max-w-md mx-auto rounded-lg"
-                    />
-                    <div className='absolute flex flex-col justify-center items-center bottom-4 left-0 w-full'>
-                        <h3 className="text-3xl font-bold mb-4 text-center text-white uppercase font-playfairBold">
-                            {category.title}
-                        </h3>
-                        <div
-                            className="hidden group-hover:flex flex-col bg-white w-14 items-center rounded transition duration-700 ease-in-out">
-                            <span className="text-primary text-2xl">{ARROW_RIGHT}</span>
-                        </div>
-                    </div>
-                </div>
+                    category={category}
+                />
             ))}
         </div>
     </section>
