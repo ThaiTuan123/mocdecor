@@ -46,10 +46,10 @@ class Languages {
             "policy.footer.title": "KHÁM PHÁ GIAN HÀNG NHÀ MỘC",
             "policy.footer.button.text": "KHÁM PHÁ NGAY",
             "policy.footer.or.text": "Hoặc truy cập",
-          
+
             // sub nav
             "navbar.sub.view.title": "Các loại",
-          
+
             //contact
             'contact.subTitle.description': 'Nếu bạn có bất kì thắc mắc về sản phẩm của chúng tôi, cần trợ giúp đặt hàng hay muốn cung cấp phản hồi về trải nghiệm của bạn, đội ngũ của Mộc luôn sẵn sàng hỗ trợ bạn từng bước.',
             'contact.title.name': 'Liên hệ với Mộc Decor',
@@ -84,6 +84,17 @@ class Languages {
             'galley.empty.desc': "Đơn hàng bạn đang tìm kiếm hiện không khả dụng, có lẽ bạn đã nhập sai thông tin nào đó. Hãy thử tìm kiếm lại nhé.",
             'galley.not.found.title': "Bạn chưa có đơn hàng nào...",
             'galley.not.found.desc': "Hãy tìm kiếm mã đơn hàng của bạn trên thanh tìm kiếm để tiến hành upload ảnh. Nếu chưa có đơn hàng, hãy đặt hàng trên website của Mộc nhé.",
+
+            // homepage
+            'home.title.category': 'NHÀ MỘC decor',
+            'home.subTitle.category': 'Các dòng sản phẩm',
+            'home.title.firstText.about': 'Về',
+            'home.title.secondText.about': 'Nhà mộc',
+            'home.title.header2.about': 'MỘC DECOR - Nơi lưu giữ <br/> yêu thương và kỉ niệm của bạn',
+            'home.title.textContent.about': 'Với Mộc, đem lại cho bạn những món quà được làm bằng sự tỉ mỉ,<br/> chỉnh chu và tâm huyết nhất.Đó là kim chỉ nam để Mộc không<br/>ngừng nỗ lực, hoàn thiện chất lượng sản phẩm, dịch vụ.',
+
+            //button
+            'button.viewMore': 'xem thêm',
         }
     }
 

@@ -25,6 +25,11 @@ const images = {
         contactMail: "/assets/imgs/icons/ic-mail.png",
         contactSend: "/assets/imgs/icons/ic-send.png",
 
+        //home
+        homeInstagram:'/assets/imgs/icons/ic-home-insta.png',
+        homeTiktok:'/assets/imgs/icons/ic-home-tiktok.png',
+        //customer home
+        homeQuoteCustomer:'/assets/imgs/icons/ic-quote.png',
 
     },
     logo: "/assets/imgs/pictures/logo.png",
@@ -33,12 +38,31 @@ const images = {
 
     // sub nav
     heroSubNav: "/assets/imgs/pictures/hero_sub_nav.png",
-  
+
+    // contact
     contactMap: "/assets/imgs/pictures/map-contact.png",
+
+    // home
+    homeCategory1: "/assets/imgs/pictures/category-home-1.png",
+    homeCategory2: "/assets/imgs/pictures/category-home-2.png",
+    homeCategory3: "/assets/imgs/pictures/category-home-3.png",
+    homeAbout1 : "/assets/imgs/pictures/home-about-1.png",
+    homeAbout2 : "/assets/imgs/pictures/home-about-2.png",
+    braceletHome: "/assets/imgs/pictures/bracelet-home.png",
+    calenderHome: "/assets/imgs/pictures/calender-home.png",
+    notebookHome: "/assets/imgs/pictures/notebook-home.png",
+    woodenPenHome: "/assets/imgs/pictures/wooden-pen-home.png",
+    homeStory2: "/assets/imgs/pictures/story-home-2.png",
+    homeStory3: "/assets/imgs/pictures/story-home-3.png",
+    logoMocHome: "/assets/imgs/pictures/logo-moc-home.png",
 
     // gallery
     emptyGallery: "/assets/imgs/pictures/empty-gallery.png",
-    notFoundGallery: "/assets/imgs/pictures/not-found-gallery.png"
+    notFoundGallery: "/assets/imgs/pictures/not-found-gallery.png",
+
+    //service
+    hieuServiceHome:'/assets/imgs/pictures/hieu-service-home.png',
+    phuServiceHome:'/assets/imgs/pictures/phu-service-home.png',
 };
 
 export default images;
