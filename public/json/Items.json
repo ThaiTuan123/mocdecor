@@ -1,0 +1,41 @@
+{
+  "items": {
+    "bootstrap": [
+      {
+        "id": 1,
+        "title": "Photography",
+        "body": "Bootstrap Carousel Example",
+        "imageUrl": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29",
+        "docs": "https://getbootstrap.com/docs/4.0/components/carousel/"
+      },
+      {
+        "id": 2,
+        "title": "City Views",
+        "body": "Bootstrap Carousel Example",
+        "imageUrl": "https://images.unsplash.com/photo-1495433324511-bf8e92934d90",
+        "docs": "https://getbootstrap.com/docs/4.0/components/carousel/"
+      },
+      {
+        "id": 3,
+        "title": "Wild Life",
+        "body": "Bootstrap Carousel Example",
+        "imageUrl": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7",
+        "docs": "https://getbootstrap.com/docs/4.0/components/carousel/"
+      },
+      {
+        "id": 4,
+        "title": "Foods and Culture",
+        "body": "Bootstrap Carousel Example",
+        "imageUrl": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
+        "docs": "https://getbootstrap.com/docs/4.0/components/carousel/"
+      },
+      {
+        "id": 5,
+        "title": "Foods and Culture 5",
+        "body": "Bootstrap Carousel Example",
+        "imageUrl": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
+        "docs": "https://getbootstrap.com/docs/4.0/components/carousel/"
+      }
+    ]
+  }
+}

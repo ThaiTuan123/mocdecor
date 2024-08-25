@@ -1,8 +1,11 @@
+// src/app/layout.tsx or src/app/RootLayout.tsx
+
 import metadata from '@/configs/metadata';
 import "./app.css";
 import React from "react";
-import { Footer, Header } from '@/components';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import {Footer, Header} from '@/components';
+import {SpeedInsights} from '@vercel/speed-insights/next';
+import DisableAnimations from "@/components/disableAnimationMobile/DisableAnimations";
 
 // Export metadata for use in Next.js
 export {metadata};
@@ -14,14 +17,16 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="vn">
-            <body className='w-full'>
-                <Header />
-                <div className='w-full mt-navbar'>
-                    {children}
-                    <SpeedInsights />
-                </div>
-                <Footer />
-            </body>
+        <body className='w-full !scroll-smooth'>
+        <DisableAnimations>
+            <Header/>
+            <div className='w-full mt-navbar'>
+                {children}
+                <SpeedInsights/>
+            </div>
+            <Footer/>
+        </DisableAnimations>
+        </body>
         </html>
     );
 }

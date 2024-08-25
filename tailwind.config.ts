@@ -15,13 +15,35 @@ const config: Config = {
                 'image-hero-contact': "url('/assets/imgs/backgrounds/hero-contact.png')",
                 'image-left-error': "url('/assets/imgs/backgrounds/left-404.png')",
                 'image-hero-gallery': "url('/assets/imgs/backgrounds/hero-gallery-bg.png')",
+
+                // Home Page
+                'image-home-background-print': "url('/assets/imgs/backgrounds/bg-print-home.png')",
+                'image-home-background-frame': "url('/assets/imgs/backgrounds/bg-frame-home.png')",
+                'image-home-background-album': "url('/assets/imgs/backgrounds/bg-album-home.png')",
+                'image-bracelet-home': "url('/assets/imgs/backgrounds/bracelet-home.png')",
+                'image-calendar-home': "url('/assets/imgs/backgrounds/calendar-home.png')",
+                'image-notebook-home': "url('/assets/imgs/backgrounds/notebook-home.png')",
+                'image-wooden-pen-home': "url('/assets/imgs/backgrounds/wooden-pen-home.png')",
+                'image-product-story': "url('/assets/imgs/backgrounds/bg-product-story.png')",
+                'image-story-home-1': "url('/assets/imgs/backgrounds/story-home-1.png')",
+                'image-gift-home': "url('/assets/imgs/backgrounds/bg-gift-home.png')",
+                //// frame
+                'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.png')",
+                //// customer
+                'image-customer-1': "url('/assets/imgs/backgrounds/customer-1-builevy.png')",
+                'image-customer-2': "url('/assets/imgs/backgrounds/customer-2-buitrongnghia.png')",
+                'image-customer-3': "url('/assets/imgs/backgrounds/customer-3-lehaminhtrang.png')",
+                //// service
+                'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.png')",
+
             },
             colors: {
                 'primary': '#523B18',
-                'sambuca': '#3A2A11',
                 'punga': '#4B3616',
+                'akaroa': '#D3C1A4',
                 'santaFe': '#AC744C',
                 'hotCinnamon': '#D2691E',
+                'category': '#AC744C',
                 'calico': '#E0B894',
                 'white': '#ffffff',
                 'alto': '#D4D4D4',
@@ -32,8 +54,34 @@ const config: Config = {
                 'stroke': '#D9D9D9',
                 'black-50': '#E6E6E6',
                 'layout': '#5A5A5A99',
-                'gray': '#B0B0B0',
                 'caption': '#FF7F37',
+                'rating': '#FFC329',
+                'notRating': '#B0B0B0',
+                'bright-main': '#EEEBE8',
+                'just-right':'#EACFB7',
+                'brown': {
+                    50: '#EEEBE8',
+                    100: '#C9C2B7',
+                    200: '#AFA595',
+                    300: '#8B7C64',
+                    400: '#756246',
+                    500: '#523B18',
+                    600: '#4B3616',
+                    700: '#3A2A11',
+                    800: '#2D200D',
+                    900: '#22190A',
+                },
+                'gray': {
+                    100: '#6D6D6D',
+                    200: '#edf2f7',
+                    300: '#e2e8f0',
+                    400: '#cbd5e0',
+                    500: '#a0aec0',
+                    600: '#718096',
+                    700: '#4a5568',
+                    800: '#2d3748',
+                    900: '#1a202c',
+                },
             },
             fontFamily: {
                 raleway: ['Raleway', 'sans-serif'],
@@ -46,6 +94,7 @@ const config: Config = {
                 '1.25lg': ['18px', '25,16px'],
                 '2lg': ['20px', '30px'],
                 '2.25lg': ['24px', '36px'],
+                '5lg': ['32px', '42.66px'],
                 '4lg': ['40px', '53.32px'],
                 '6lg': ['60px', '90px']
             },
@@ -54,16 +103,35 @@ const config: Config = {
                     '0%, 100%': {transform: 'translateY(0)'},
                     '50%': {transform: 'translateY(-20px)'},
                 },
+                fallIn: {
+                    '0%': {transform: 'translateY(-50px)', opacity: '0'},
+                    '100%': {transform: 'translateY(0)', opacity: '1'},
+                },
             },
             animation: {
                 upDown: 'upDown 2s infinite ease-in-out',
+                fallIn: 'fallIn 0.8s ease-out forwards',
+            },
+            height: {
+                'background-height': '50rem', // or '932px'
+                '327':'20.5rem',
+                '552': '34.5rem',
+                '946': '59.125rem',
+                '525': '525px'
+
+            },
+            width: {
+                '412':'25.75rem',
+                '232.77': '14.55rem',
+                '7/10': '70%', // Custom width class for 70%
+                '3/10': '30%', // Custom width class for 30%
             },
             margin: {
                 navbar: '72px'
             },
-            height: {
-                '525': '525px'
-            }
+            padding: {
+                '16px-plus-2px': 'calc(16px + 2px)', // Custom padding value
+            },
         },
     },
     plugins: [],

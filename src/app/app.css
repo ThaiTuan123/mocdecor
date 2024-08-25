@@ -2,59 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-/* styles/globals.css */
-@font-face {
-    font-family: 'Raleway';
-    src: url('/public/assets/fonts/raleway/raleway-regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
+/* Base styles */
+@layer base {
+    @font-face {
+        font-family: 'Raleway';
+        src: url('/public/assets/fonts/raleway/raleway-regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Playfair Display Regular';
+        src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Playfair Display Medium';
+        src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Medium.ttf') format('truetype');
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Playfair Display Bold';
+        src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    body {
+        font-family: 'Raleway', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, span {
+        user-select: none;
+    }
 }
 
-@font-face {
-    font-family: 'Playfair Display Regular';
-    src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
+/* Component styles */
+@layer components {
+    .ant-collapse-item {
+        @apply bg-white;
+    }
+
+    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header {
+        @apply flex items-center h-[87px] pl-[144px] pr-[144px];
+    }
+
+    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        @apply pl-[128px] pr-[128px];
+    }
+
+    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div {
+        position: static;
+    }
 }
 
-@font-face {
-    font-family: 'Playfair Display Medium';
-    src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Playfair Display Bold';
-    src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-}
-
-body {
-    font-family: 'Raleway', sans-serif;
-}
-
-.ant-collapse-item {
-    background-color: white;
-}
-
-body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header {
-    align-items: center;
-    height: 87px;
-    padding-left: 144px;
-    padding-right: 144px;
-}
-
-body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
-    padding-left: 128px;
-    padding-right: 128px;
-}
-
-body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div {
-    position: static;
-}
-
-h1, h2, h3, h4, h5, span {
-    user-select: none;
+/* Utility styles */
+@layer utilities {
+    /* Custom utility classes can be added here if needed */
 }

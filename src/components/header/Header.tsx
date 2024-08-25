@@ -18,7 +18,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0">
+    <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-50">
       <div className="container mx-auto flex justify-between items-center px-4">
         <div className="flex items-center md:hidden">
           <button onClick={toggleMenu} className="text-black">
@@ -56,7 +56,7 @@ const Header = () => {
                   <div className="w-full h-[451px] bg-pampas flex flex-row pl-36 pt-9 gap-6">
                     {subNavData.map((item, index) => (
                       <div key={index} className="flex flex-col min-w-44">
-                        <span className="text-gray text-1.25lg">{languages.get("navbar.sub.view.title")}</span>
+                        <span className="text-gray-100 text-1.25lg">{languages.get("navbar.sub.view.title")}</span>
                         <h2 className="text-2.25lg text-primary mb-8 mt-1">
                           {item.title}
                         </h2>
