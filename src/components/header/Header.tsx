@@ -47,37 +47,46 @@ const Header = () => {
               {hoveredLabelKey == "products" && labelKey == "products" && (
                 <div className="w-40 h-10 bg-transparent absolute "></div>
               )}
-              {hoveredLabelKey == "products" && labelKey == "products" && (
-                <div
-                  className="bg-layout fixed top-[72px] left-0 right-0 bottom-0"
-                  onMouseEnter={() => setHoveredLabelKey("products")}
-                  onMouseLeave={() => setHoveredLabelKey("")}
-                >
-                  <div className="w-full h-[451px] bg-pampas flex flex-row pl-36 pt-9 gap-6">
-                    {subNavData.map((item, index) => (
-                      <div key={index} className="flex flex-col min-w-44">
-                        <span className="text-gray-100 text-1.25lg">{languages.get("navbar.sub.view.title")}</span>
-                        <h2 className="text-2.25lg text-primary mb-8 mt-1">
-                          {item.title}
-                        </h2>
-                        <div className="flex flex-col gap-4 cursor-pointer">
-                          {item.menu.map((subItem, subIndex) => 
-                            {
-                              return (
-                                // TODO add line when hover
-                                <div key={subIndex} className={`relative text-doveGray text-lg md:hover:text-karaka`}>
-                                  {subItem}
-                                </div>
-                              )
-                            }
-                          )}
-                        </div>
+              <div
+                className={`bg-layout fixed top-[72px] left-0 right-0 bottom-0 transition-opacity duration-600 ease-linear ${
+                  (hoveredLabelKey === "products" && labelKey == "products")
+                    ? "opacity-100 visible"
+                    : "opacity-0 invisible"
+                }`}
+                onMouseEnter={() => setHoveredLabelKey("products")}
+                onMouseLeave={() => setHoveredLabelKey("")}
+              >
+                <div className="w-full h-[451px] bg-pampas flex flex-row pl-36 pt-9 gap-6">
+                  {subNavData.map((item, index) => (
+                    <div key={index} className="flex flex-col min-w-44">
+                      <span className="text-gray-100 text-1.25lg">
+                        {languages.get("navbar.sub.view.title")}
+                      </span>
+                      <h2 className="text-2.25lg text-primary mb-8 mt-1">
+                        {item.title}
+                      </h2>
+                      <div className="flex flex-col gap-4 cursor-pointer">
+                        {item.menu.map((subItem, subIndex) => {
+                          return (
+                            // TODO add line when hover
+                            <div
+                              key={subIndex}
+                              className={`relative text-doveGray text-lg md:hover:text-karaka`}
+                            >
+                              {subItem}
+                            </div>
+                          )
+                        })}
                       </div>
-                    ))}
-                    <img src={images.heroSubNav} alt="" className="absolute right-0 top-0 h-[451px]" />
-                  </div>
+                    </div>
+                  ))}
+                  <img
+                    src={images.heroSubNav}
+                    alt=""
+                    className="absolute right-0 top-0 h-[451px]"
+                  />
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>

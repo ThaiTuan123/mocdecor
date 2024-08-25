@@ -76,6 +76,10 @@ const images = {
     client9: "/assets/imgs/pictures/client-9.png",
     client10: "/assets/imgs/pictures/client-10.png",
     client11: "/assets/imgs/pictures/client-11.png",
+
+    // payment
+    paymentType1: "/assets/imgs/pictures/payment-type-1.png",
+    paymentType2: "/assets/imgs/pictures/payment-type-2.png",
 };
 
 export default images;

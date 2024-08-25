@@ -59,6 +59,7 @@ const config: Config = {
                 'notRating': '#B0B0B0',
                 'bright-main': '#EEEBE8',
                 'just-right':'#EACFB7',
+                '#FBFBFB': "#FBFBFB",
                 'brown': {
                     50: '#EEEBE8',
                     100: '#C9C2B7',
@@ -90,6 +91,8 @@ const config: Config = {
                 playfairBold: ['Playfair Display Bold', 'serif'],
             },
             fontSize: {
+                'sm': ['12px', '18px'],
+                '1.25sm': ['14px', '21px'],
                 'lg': ['16px', '18.78px'],
                 '1.25lg': ['18px', '25,16px'],
                 '2lg': ['20px', '30px'],
