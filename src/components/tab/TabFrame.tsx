@@ -1,34 +1,56 @@
 import Tab from "@/components/tab/Tab";
 import React from "react";
 import ProductGridFrame from "@/components/gridView/ProductGridFrame";
+import languages from "@/configs/languages";
 
 const TabFrame = () => {
     const tabsFrame = [
-        {label: 'Khung dẹp', value: 'Khung dẹp'},
-        {label: 'Khung nổi', value: 'Khung nổi'},
-        {label: 'Khung 3D', value: 'Khung 3D'},
-        {label: 'Khung nhựa', value: 'Khung nhựa'},
-        {label: 'Khung gỗ', value: 'Khung gỗ'},
-        {label: 'Khung mica', value: 'Khung mica'},
-        {label: 'Khung trong suốt', value: 'Khung trong suốt'},
+        {
+            label: languages.get('tab.label.flatFrame'),
+            value: languages.get('tab.label.flatFrame')
+        },
+        {
+            label: languages.get('tab.label.floatingFrame'),
+            value: languages.get('tab.label.floatingFrame')
+        },
+        {
+            label: languages.get('tab.label.3DFrame'),
+            value: languages.get('tab.label.3DFrame')
+        },
+        {
+            label: languages.get('tab.label.plasticFrame'),
+            value: languages.get('tab.label.plasticFrame')
+        },
+        {
+            label: languages.get('tab.label.woodFrame'),
+            value: languages.get('tab.label.woodFrame')
+        },
+        {
+            label: languages.get('tab.label.micaFrame'),
+            value: languages.get('tab.label.micaFrame')
+        },
+        {
+            label: languages.get('tab.label.transparentFrame'),
+            value: languages.get('tab.label.transparentFrame')
+        },
     ];
 
     const renderFrameContent = (activeTab: string) => {
         switch (activeTab) {
-            case 'Khung dẹp':
+            case languages.get('tab.label.flatFrame'):
                 return <div><ProductGridFrame/></div>;
-            case 'Khung nổi':
-                return <div>Content for Khung nổi</div>;
-            case 'Khung 3D':
-                return <div>Content for Khung 3D</div>;
-            case 'Khung nhựa':
-                return <div>Content for Khung nhựa</div>;
-            case 'Khung gỗ':
-                return <div>Content for Khung gỗ</div>;
-            case 'Khung mica':
-                return <div>Content for Khung mica</div>;
-            case 'Khung trong suốt':
-                return <div>Content for Khung trong suốt</div>;
+            case languages.get('tab.label.floatingFrame'):
+                return <div>{languages.get('tab.content.floatingFrame')}</div>;
+            case languages.get('tab.label.3DFrame'):
+                return <div>{languages.get('tab.content.3DFrame')}</div>;
+            case languages.get('tab.label.plasticFrame'):
+                return <div>{languages.get('tab.content.plasticFrame')}</div>;
+            case languages.get('tab.label.woodFrame'):
+                return <div>{languages.get('tab.content.woodFrame')}</div>;
+            case languages.get('tab.label.micaFrame'):
+                return <div>{languages.get('tab.content.micaFrame')}</div>;
+            case languages.get('tab.label.transparentFrame'):
+                return <div>{languages.get('tab.content.transparentFrame')}</div>;
             default:
                 return null;
         }
@@ -37,7 +59,7 @@ const TabFrame = () => {
     return (
         <Tab
             tabs={tabsFrame}
-            defaultActiveTab="Khung dẹp"
+            defaultActiveTab={languages.get('tab.label.flatFrame')}
             renderContent={renderFrameContent}
             background={"bg-image-gradient-frame bg-cover"}
             textColor="text-white"

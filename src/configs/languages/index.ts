@@ -153,6 +153,23 @@ class Languages {
             'button.viewMore': 'xem thêm',
             'button.discover': 'Khám Phá Ngay',
             'button.readMore': 'Đọc thêm',
+
+            //tab
+            'tab.label.flatFrame': 'Khung dẹp',
+            'tab.label.floatingFrame': 'Khung nổi',
+            'tab.label.3DFrame': 'Khung 3D',
+            'tab.label.plasticFrame': 'Khung nhựa',
+            'tab.label.woodFrame': 'Khung gỗ',
+            'tab.label.micaFrame': 'Khung mica',
+            'tab.label.transparentFrame': 'Khung trong suốt',
+
+            'tab.label.6x9': 'Ảnh in 6x9',
+            'tab.label.9x12': 'Ảnh in 9x12',
+            'tab.label.photostrip': 'Ảnh Photostrip',
+            'tab.label.instagram': 'Ảnh in Instagram',
+            'tab.content.9x12': 'Content for Ảnh in 9x12',
+            'tab.content.photostrip': 'Content for Ảnh Photostrip',
+            'tab.content.instagram': 'Content for Ảnh in Instagram',
         }
     }
 
