@@ -56,7 +56,7 @@ const Header = () => {
                 onMouseEnter={() => setHoveredLabelKey("products")}
                 onMouseLeave={() => setHoveredLabelKey("")}
               >
-                <div className="w-full h-[451px] bg-pampas flex flex-row pl-36 pt-9 gap-6">
+                <div className="w-full h-451 bg-pampas flex flex-row pl-36 pt-9 gap-6">
                   {subNavData.map((item, index) => (
                     <div key={index} className="flex flex-col min-w-44">
                       <span className="text-gray-100 text-1.25lg">
@@ -83,7 +83,7 @@ const Header = () => {
                   <img
                     src={images.heroSubNav}
                     alt=""
-                    className="absolute right-0 top-0 h-[451px]"
+                    className="absolute right-0 top-0 h-451"
                   />
                 </div>
               </div>
