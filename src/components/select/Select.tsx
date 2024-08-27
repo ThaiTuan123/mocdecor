@@ -7,7 +7,7 @@ interface SelectCustomProps {
   handleChange: (value: string) => void
   option: any[]
   placeholder: string
-  value: string
+  value: string | null
   disable: boolean
 }
 
