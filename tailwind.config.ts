@@ -135,6 +135,9 @@ const config: Config = {
             padding: {
                 '16px-plus-2px': 'calc(16px + 2px)', // Custom padding value
             },
+            inset: {
+                '72px': '72px'
+            }
         },
     },
     plugins: [],

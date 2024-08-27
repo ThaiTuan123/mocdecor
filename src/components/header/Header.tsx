@@ -48,7 +48,7 @@ const Header = () => {
                 <div className="w-40 h-10 bg-transparent absolute "></div>
               )}
               <div
-                className={`bg-layout fixed top-[72px] left-0 right-0 bottom-0 transition-opacity duration-600 ease-linear ${
+                className={`bg-layout fixed top-72px left-0 right-0 bottom-0 transition-opacity duration-600 ease-linear ${
                   (hoveredLabelKey === "products" && labelKey == "products")
                     ? "opacity-100 visible"
                     : "opacity-0 invisible"
