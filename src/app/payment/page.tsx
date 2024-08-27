@@ -74,7 +74,7 @@ export default function Payment() {
 
   const renderHero = () => {
     return (
-      <div className="min-h-80 bg-image-hero-policy bg-no-repeat bg-cover flex justify-center pt-16 pb-16 text-white">
+      <div className="min-h-80 bg-hero-payment bg-no-repeat bg-cover flex justify-center pt-16 pb-16 text-white">
         <div className="w-1/2 flex flex-col items-center gap-2">
           <div className="flex flex-row gap-1">
             <span className="text-black-50">
