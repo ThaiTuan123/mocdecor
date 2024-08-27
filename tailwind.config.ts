@@ -36,9 +36,6 @@ const config: Config = {
                 //// service
                 'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.png')",
 
-                // payment
-                'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.png')",
-
             },
             colors: {
                 'primary': '#523B18',
@@ -61,8 +58,7 @@ const config: Config = {
                 'rating': '#FFC329',
                 'notRating': '#B0B0B0',
                 'bright-main': '#EEEBE8',
-                'just-right':'#EACFB7',
-                '#FBFBFB': "#FBFBFB",
+                'just-right': '#EACFB7',
                 'brown': {
                     50: '#EEEBE8',
                     100: '#C9C2B7',
@@ -94,8 +90,6 @@ const config: Config = {
                 playfairBold: ['Playfair Display Bold', 'serif'],
             },
             fontSize: {
-                'sm': ['12px', '18px'],
-                '1.25sm': ['14px', '21px'],
                 'lg': ['16px', '18.78px'],
                 '1.25lg': ['18px', '25,16px'],
                 '2lg': ['20px', '30px'],
@@ -120,14 +114,14 @@ const config: Config = {
             },
             height: {
                 'background-height': '50rem', // or '932px'
-                '327':'20.5rem',
+                '327': '20.5rem',
                 '552': '34.5rem',
                 '946': '59.125rem',
-                '525': '525px',
-                '451': '451px'
+                '525': '525px'
+
             },
             width: {
-                '412':'25.75rem',
+                '412': '25.75rem',
                 '232.77': '14.55rem',
                 '7/10': '70%', // Custom width class for 70%
                 '3/10': '30%', // Custom width class for 30%
@@ -138,9 +132,6 @@ const config: Config = {
             padding: {
                 '16px-plus-2px': 'calc(16px + 2px)', // Custom padding value
             },
-            inset: {
-                '72px': '72px'
-            }
         },
     },
     plugins: [],

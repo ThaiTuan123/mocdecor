@@ -1,12 +1,10 @@
-// src/components/ProductCard.tsx
-
 import React from 'react';
 import Image from 'next/image';
-import { Product } from '@/types/product';
-import { CURRENCY_SYMBOL } from "@/configs/constants/constants";
+import {Product} from '@/types/product';
+import {CURRENCY_SYMBOL} from "@/configs/constants/constants";
 
 // Functional component for rendering a product card
-const ProductCard: React.FC<Product> = ({ title, price, rating, reviewCount, image }) => {
+const ProductCard: React.FC<Product> = ({title, price, rating, reviewCount, image}) => {
     // Helper function to render star icons
     const renderStars = () => (
         [...Array(5)].map((_, i) => (
@@ -25,7 +23,7 @@ const ProductCard: React.FC<Product> = ({ title, price, rating, reviewCount, ima
     );
 
     return (
-        <div className="p-4 transition-transform transform hover:scale-110 cursor-pointer">
+        <div className="p-4 transition-transform duration-300 ease-in-out transform hover:scale-110 cursor-pointer">
             <Image
                 src={image}
                 alt={title}

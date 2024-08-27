@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 import React from "react";
 
 interface MotionImageCardProps {
@@ -7,15 +7,13 @@ interface MotionImageCardProps {
     text: string;
 }
 
-const MotionImageCard: React.FC<MotionImageCardProps> = ({ src, alt, text }) => (
+const MotionImageCard: React.FC<MotionImageCardProps> = ({src, alt, text}) => (
     <motion.div
         className="flex flex-col"
         whileHover={{
-            scale: 1.05,
-            rotateX: 15,
-            rotateY: -15,
+            scale: 1.025,
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        transition={{type: 'spring', stiffness: 300, damping: 20}}
     >
         <img
             src={src}
