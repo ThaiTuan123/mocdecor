@@ -133,7 +133,7 @@ class Languages {
 
             'home.title.header2Phu.service': 'Nhà Mộc cam kết mang đến trải <br/> nghiệm tốt nhất cho khách hàng',
             'home.title.textContentPhu.service': 'Hiểu được mong muốn lưu giữ kỉ niệm và tình yêu thương vào những món đồ handmade, Mộc Decor luôn cố gắng tỉ mỉ và đặt trọn trái tim của mình vào từng sản phẩm, để khách hàng có thể hài lòng nhất. <br/> “Yêu thương đong đầy, nghĩa tình trao tận tay” luôn là phương châm hoạt động của nhà Mộc.',
-            'home.title.header4Phu.service': 'PHƯỚC PHÚ - Mộc Founder',
+            'home.title.header4Phu.service': 'PHƯỚC PHÚ - Mộc Co-Founder',
 
             'home.title.firstText.coopClient': 'Khách hàng',
             'home.title.secondText.coopClient': 'Nhà Mộc',
