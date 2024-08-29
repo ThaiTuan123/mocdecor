@@ -199,6 +199,9 @@ class Languages {
             'payment.order.price': 'Tổng thu',
             'payment.order.ship.fee': 'Phí vận chuyển',
             'payment.order.total': 'TỔNG CỘNG',
+            'payment.success.title': 'TIẾN TRÌNH THANH TOÁN HOÀN TẤT!',
+            'payment.success.desc': 'Cảm ơn bạn đã tin tưởng đặt hàng tại Mộc Decor. Bạn sẽ được chuyển đến trang Tải Ảnh trong ',
+            'payment.success.desc.second':'giây.',
         }
     }
 
