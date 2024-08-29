@@ -38,6 +38,7 @@ const config: Config = {
 
                 // payment
                 'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.png')",
+                
 
             },
             colors: {
