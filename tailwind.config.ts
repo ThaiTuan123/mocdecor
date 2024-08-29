@@ -36,6 +36,10 @@ const config: Config = {
                 //// service
                 'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.png')",
 
+                // payment
+                'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.png')",
+                
+
             },
             colors: {
                 'primary': '#523B18',
