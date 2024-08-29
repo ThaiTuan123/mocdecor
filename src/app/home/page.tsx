@@ -86,8 +86,6 @@ const ImageContentAbout = () => (
         className="mt-4 rounded-lg cursor-grab"
         whileHover={{
             scale: 1.05,
-            rotateX: 15,
-            rotateY: -15,
         }}
         transition={{type: 'spring', stiffness: 300, damping: 20}}
     >
@@ -103,13 +101,14 @@ const ImageContentAbout = () => (
 
 const AboutSection = () => (
     <section id="about" className="py-8 text-center md:container md:mx-auto flex mb-4">
+        {/*Image left*/}
         <div id="contentLeft" className="w-1/2">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
                 width={1024}
                 height={768}
-                className="w-full max-w-lg mx-auto h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:rotate-3 hover:translate-z-4 cursor-grab"
+                className="w-full max-w-lg mx-auto h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
             />
         </div>
 
