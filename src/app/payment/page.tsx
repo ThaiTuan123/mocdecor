@@ -4,7 +4,7 @@ import TextInput from "@/components/inputs/TextInput"
 import CustomButton from "@/components/button/CustomButton"
 import languages from "@/configs/languages"
 import SelectCustom from "@/components/select/Select"
-import { useEffect, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import {
   fetchCities,
   fetchDistricts,
@@ -15,6 +15,8 @@ import images from "@/configs/images"
 import { Radio, RadioChangeEvent } from "antd"
 import { formatVietnameseCurrency } from "@/utils"
 import { radioData } from "./constants"
+import { LayoutOpacity } from "@/components"
+import { redirect } from "next/navigation"
 
 const product = [
   {
@@ -60,10 +62,27 @@ export default function Payment() {
     ward: null,
     paymentType: 1,
   })
+  const [isShowModalSuccess, setIsShowModalSuccess] = useState(false)
+  const [countdown, setCountdown] = useState(5)
 
   useEffect(() => {
     getDataCities()
   }, [])
+
+  useEffect(() => {
+    if (isShowModalSuccess) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
+
+      if (countdown === 0) {
+        setIsShowModalSuccess(false)
+        redirect("/")
+      }
+
+      return () => clearInterval(timer)
+    }
+  }, [countdown, isShowModalSuccess])
 
   const getDataCities = async () => {
     const resCountries = await fetchCities()
@@ -174,13 +193,42 @@ export default function Payment() {
     )
   }
 
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault()
+
+    setCountdown(5)
+    setIsShowModalSuccess(true)
+  }
+
+  const renderModalSuccess = () => {
+    return (
+      <div className="flex flex-col items-center bg-white py-10 px-20 rounded w-1/3">
+        <Image
+          src={images.paymentSuccess}
+          width={184}
+          height={184}
+          alt=""
+          className="pb-4"
+        />
+        <h3 className="text-2lg text-primary pb-2">
+          {languages.get("payment.success.title")}
+        </h3>
+        <span className="text-center text-karaka text-lg">
+          {languages.get("payment.success.desc")}{" "}
+          <span className="text-caption">{countdown}</span>{" "}
+          {languages.get("payment.success.desc.second")}
+        </span>
+      </div>
+    )
+  }
+
   const renderInfoPayment = () => {
     return (
       <div className="flex-1 flex flex-col pt-12 pb-16 pl-36 pr-6">
         <h2 className="text-2lg text-primary">
           {languages.get("payment.info.title")}
         </h2>
-        <form className="space-y-6 mt-8">
+        <form className="space-y-6 mt-8" onSubmit={handleSubmit}>
           <div className="flex gap-6">
             <TextInput
               label={languages.get("payment.info.input.name.label")}
@@ -329,6 +377,9 @@ export default function Payment() {
     <div className="">
       {renderHero()}
       {renderContainerPayment()}
+      <LayoutOpacity isVisible={isShowModalSuccess}>
+        {renderModalSuccess()}
+      </LayoutOpacity>
     </div>
   )
 }

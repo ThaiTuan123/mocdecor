@@ -80,6 +80,7 @@ const images = {
     // payment
     paymentType1: "/assets/imgs/pictures/payment-type-1.png",
     paymentType2: "/assets/imgs/pictures/payment-type-2.png",
+    paymentSuccess: "/assets/imgs/pictures/image-payment-success.png",
 };
 
 export default images;
