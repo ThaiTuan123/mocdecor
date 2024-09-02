@@ -111,10 +111,15 @@ const config: Config = {
                     '0%': {transform: 'translateY(-50px)', opacity: '0'},
                     '100%': {transform: 'translateY(0)', opacity: '1'},
                 },
+                leftToRight: {
+                    '0%': {transform: 'translateX(700px)', opacity: '0'},
+                    '100%': {transform: 'translateX(0)', opacity: '1'},
+                }
             },
             animation: {
                 upDown: 'upDown 2s infinite ease-in-out',
                 fallIn: 'fallIn 0.8s ease-out forwards',
+                leftToRight: 'leftToRight 0.5s ease-in-out'
             },
             height: {
                 'background-height': '50rem', // or '932px'
