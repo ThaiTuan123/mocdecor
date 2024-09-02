@@ -25,6 +25,7 @@ const images = {
         contactMail: "/assets/imgs/icons/ic-mail.png",
         contactSend: "/assets/imgs/icons/ic-send.png",
         ic_toTop: "/assets/imgs/icons/ic-prime-sort-up-fill.png",
+        ic_trash: "/assets/imgs/icons/ic-delete.png",
 
         //home
         homeInstagram:'/assets/imgs/icons/ic-home-insta.png',

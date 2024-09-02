@@ -211,6 +211,17 @@ class Languages {
             'popup.button.size24': '24x34 cm',
             'popup.text.size': 'Kích thước',
             'popup.text.quantity': 'Số lượng',
+
+            // cart
+            'cart.title': 'GIỎ HÀNG',
+            'cart.total': 'TỔNG CỘNG',
+            'cart.payment': 'THANH TOÁN',
+            'cart.empty.title': 'GIỎ HÀNG CỦA BẠN ĐANG TRỐNG',
+            'cart.empty.desc': 'Xem qua các sản phẩm của Mộc để lấp đầy giỏ hàng nha',
+            'cart.empty.button.frame': 'KHUNG ẢNH',
+            'cart.empty.button.print': 'ẢNH IN',
+            'cart.empty.button.album': 'ALBUM ẢNH',
+
         }
     }
 
