@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, {useEffect, useState} from "react";
 import Icon from "@/components/icons/Icon";
 import Line from "@/components/shape/Lines";
 import CustomButton from "@/components/button/CustomButton";
@@ -10,25 +12,39 @@ import {contactItems, socialIcons} from "@/app/contact/constant";
 import images from "@/configs/images";
 import {ContactItemType, IconType} from "@/app/contact/types";
 
-const HeroSection = () => (
-    <div className="min-h-80 bg-image-hero-contact bg-no-repeat bg-cover flex justify-center pt-16 pb-16 text-white">
-        <div className="w-1/2 flex flex-col items-center gap-2">
-            <div className="flex flex-row gap-1">
-                <span className="text-black-50">
-                    {languages.get("about")}
+const HeroSection = () => {
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+    useEffect(() => {
+        const img = new Image();
+        img.src = "/assets/imgs/backgrounds/hero-contact.png";
+        img.onload = () => setIsImageLoaded(true);
+    }, []);
+
+    return (
+        <div
+            className={`min-h-80 bg-no-repeat bg-cover flex justify-center pt-16 pb-16 text-white transition-all duration-500 ${
+                isImageLoaded ? 'bg-image-hero-contact blur-0' : 'bg-gray-200 blur-lg'
+            }`}
+        >
+            <div className="w-1/2 flex flex-col items-center gap-2">
+                <div className="flex flex-row gap-1">
+                    <span className="text-black-50">
+                        {languages.get("about")}
+                    </span>
+                    <span>/</span>
+                    <span>{languages.get("contact")}</span>
+                </div>
+                <h1 className="uppercase font-playfairBold text-6lg text-center">
+                    {languages.get("contact.title.banner")}
+                </h1>
+                <span className="font-playfairRegular text-2lg text-center">
+                    {languages.get("contact.subTitle.banner")}
                 </span>
-                <span>/</span>
-                <span>{languages.get("contact")}</span>
             </div>
-            <h1 className="uppercase font-playfairBold text-6lg text-center">
-                {languages.get("contact.title.banner")}
-            </h1>
-            <span className="font-playfairRegular text-2lg text-center">
-                {languages.get("contact.subTitle.banner")}
-            </span>
         </div>
-    </div>
-);
+    );
+};
 
 const SocialIcons = ({icons}: { icons: IconType[] }) => (
     <div className="flex justify-around space-x-6 pt-1 pl-4">
@@ -100,9 +116,8 @@ const ContactForm = () => (
             <CustomButton
                 type="submit"
                 className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-            >
-                {languages.get('contact.button.send')}
-            </CustomButton>
+                text={languages.get('contact.button.send')}
+            />
         </form>
     </div>
 );

@@ -59,6 +59,7 @@ const config: Config = {
                 'black-50': '#E6E6E6',
                 'layout': '#5A5A5A99',
                 'caption': '#FF7F37',
+                'captionHover': '#FF6F2C',
                 'rating': '#FFC329',
                 'notRating': '#B0B0B0',
                 'bright-main': '#EEEBE8',
@@ -118,10 +119,13 @@ const config: Config = {
             },
             height: {
                 'background-height': '50rem', // or '932px'
+                '269': '16.8125rem',
                 '327': '20.5rem',
+                '451': '451px',
                 '552': '34.5rem',
                 '946': '59.125rem',
-                '525': '525px'
+                '525': '525px',
+
 
             },
             width: {
@@ -129,12 +133,19 @@ const config: Config = {
                 '232.77': '14.55rem',
                 '7/10': '70%', // Custom width class for 70%
                 '3/10': '30%', // Custom width class for 30%
+                '767':'47.9375rem'
             },
             margin: {
                 navbar: '72px'
             },
             padding: {
                 '16px-plus-2px': 'calc(16px + 2px)', // Custom padding value
+            },
+            inset:{
+                '72px': '72px'
+            },
+            zIndex: {
+                '50': '50',
             },
         },
     },

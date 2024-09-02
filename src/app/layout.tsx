@@ -1,14 +1,12 @@
 // src/app/layout.tsx or src/app/RootLayout.tsx
-
-import metadata from '@/configs/metadata';
+"use client";
 import "./app.css";
 import React from "react";
 import {Footer, Header} from '@/components';
 import {SpeedInsights} from '@vercel/speed-insights/next';
 import DisableAnimations from "@/components/disableAnimationMobile/DisableAnimations";
-
-// Export metadata for use in Next.js
-export {metadata};
+import FloatingButtons from "@/components/floating/FloatingButton";
+import {RecoilRoot} from 'recoil'; // Import RecoilRoot
 
 export default function RootLayout({
                                        children,
@@ -19,12 +17,15 @@ export default function RootLayout({
         <html lang="vn">
         <body className='w-full !scroll-smooth'>
         <DisableAnimations>
-            <Header/>
-            <div className='w-full mt-navbar'>
-                {children}
-                <SpeedInsights/>
-            </div>
-            <Footer/>
+            <RecoilRoot>
+                <Header/>
+                <div className='w-full mt-navbar'>
+                    {children}
+                    <SpeedInsights/>
+                </div>
+                <Footer/>
+                <FloatingButtons/>
+            </RecoilRoot>
         </DisableAnimations>
         </body>
         </html>

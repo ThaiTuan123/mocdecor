@@ -86,6 +86,7 @@ class Languages {
             'galley.not.found.desc': "Hãy tìm kiếm mã đơn hàng của bạn trên thanh tìm kiếm để tiến hành upload ảnh. Nếu chưa có đơn hàng, hãy đặt hàng trên website của Mộc nhé.",
 
             // homepage
+            'home.button.carousel': 'TÌM HIỂU NGAY',
             'home.title.category': 'NHÀ MỘC decor',
             'home.subTitle.category': 'Các dòng sản phẩm',
 
@@ -202,6 +203,14 @@ class Languages {
             'payment.success.title': 'TIẾN TRÌNH THANH TOÁN HOÀN TẤT!',
             'payment.success.desc': 'Cảm ơn bạn đã tin tưởng đặt hàng tại Mộc Decor. Bạn sẽ được chuyển đến trang Tải Ảnh trong ',
             'payment.success.desc.second':'giây.',
+
+            //popup buy
+            'popup.button.return': 'TRỞ LẠI',
+            'popup.button.addCard': 'THÊM VÀO GIỎ HÀNG',
+            'popup.button.size19': '19x24 cm',
+            'popup.button.size24': '24x34 cm',
+            'popup.text.size': 'Kích thước',
+            'popup.text.quantity': 'Số lượng',
         }
     }
 
