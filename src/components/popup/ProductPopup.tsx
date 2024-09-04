@@ -16,10 +16,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     const [quantity, setQuantity] = useState<number>(1);
     const [imageLoading, setImageLoading] = useState<boolean>(true);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+    const [activeAccordion, setActiveAccordion] = useState<string | null>(null); // State for accordion
 
     useEffect(() => {
         document.body.style.overflow = "hidden"; // Disable scrolling on mount
-
         return () => {
             document.body.style.overflow = ""; // Re-enable scrolling on unmount
         };
@@ -37,57 +37,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
 
     const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
 
-    const renderSizeButtons = () => (
-        <div className="flex gap-4 mt-2">
-            {["19x24 cm", "24x34 cm"].map((size) => (
-                <button
-                    key={size}
-                    onClick={() => handleSizeChange(size)}
-                    className={`px-4 py-2 rounded transition-transform duration-300 ${
-                        selectedSize === size
-                            ? "bg-primary text-white scale-100"
-                            : "bg-white text-black hover:scale-100 hover:bg-gray-200"
-                    }`}
-                >
-                    {size === "19x24 cm"
-                        ? languages.get("popup.button.size19")
-                        : languages.get("popup.button.size24")}
-                </button>
-            ))}
-        </div>
-    );
-
-    const renderQuantityControls = () => (
-        <div className="flex items-center mt-2">
-            <button
-                onClick={decrementQuantity}
-                className={`px-4 py-2 border rounded-l transition-transform duration-300 ${
-                    quantity === 1
-                        ? "bg-gray-50 text-stroke cursor-not-allowed scale-100"
-                        : "bg-white text-black hover:scale-100"
-                }`}
-                disabled={quantity === 1}
-            >
-                -
-            </button>
-            <input
-                value={quantity}
-                onChange={(e) => {
-                    const value = parseInt(e.target.value, 10);
-                    if (!isNaN(value) && value >= 1 && value <= 999) {
-                        setQuantity(value);
-                    }
-                }}
-                className="w-12 text-center py-2 font-raleway"
-            />
-            <button
-                onClick={incrementQuantity}
-                className="px-4 py-2 border rounded-r text-black bg-white transition-transform duration-300 hover:scale-100"
-            >
-                +
-            </button>
-        </div>
-    );
+    const toggleAccordion = (section: string) => {
+        setActiveAccordion(activeAccordion === section ? null : section);
+    };
 
     const renderFullScreenImage = () => (
         isFullScreen && (
@@ -107,6 +59,52 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
         )
     );
 
+    const renderSizeButtons = () => (
+        <div className="grid grid-cols-3 gap-4 mt-2">
+            {["19x24 cm", "24x34 cm", "30x40 cm", "20x40 cm"].map((size) => (
+                <button
+                    key={size}
+                    onClick={() => handleSizeChange(size)}
+                    className={`px-4 py-2 rounded transition-transform duration-300 ${
+                        selectedSize === size
+                            ? "bg-primary text-white scale-100"
+                            : "bg-white text-black hover:scale-100 hover:bg-gray-200"
+                    }`}
+                >
+                    {size === "19x24 cm"
+                        ? languages.get("popup.button.size19")
+                        : languages.get("popup.button.size24")}
+                </button>
+            ))}
+        </div>
+    );
+
+    const renderAccordionSection = (title: string, content: string) => (
+        <motion.div
+            className="border-b border-gray-200"
+            whileHover={{scale: 1.01}}
+            transition={{duration: 0.3}}
+        >
+            <button
+                onClick={() => toggleAccordion(title)}
+                className="flex justify-between w-full py-4 text-lg font-raleway text-left text-black"
+            >
+                <span>{title}</span>
+                <span>{activeAccordion === title ? "−" : "+"}</span>
+            </button>
+            {activeAccordion === title && (
+                <motion.div
+                    className="py-2 text-gray-600"
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{duration: 0.3}}
+                >
+                    {content}
+                </motion.div>
+            )}
+        </motion.div>
+    );
+
     const renderProductDetails = () => (
         <div className="ml-4 flex flex-col justify-between flex-grow">
             <div>
@@ -116,16 +114,52 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 </p>
                 <div className="flex flex-col mt-4 gap-4 bg-brown-50 py-4 px-6 rounded">
                     <div className="flex flex-row gap-10">
-                        <h3 className="text-lg font-raleway font-medium">{languages.get("popup.text.size")}</h3>
+                        <h3 className="text-lg font-raleway font-medium content-center">{languages.get("popup.text.size")}</h3>
                         {renderSizeButtons()}
                     </div>
                     <div className="flex flex-row center gap-10">
-                        <h3 className="text-lg font-raleway font-medium">{languages.get("popup.text.quantity")}</h3>
-                        {renderQuantityControls()}
+                        <h3 className="text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
+                        <div className="flex items-center mt-2">
+                            <button
+                                onClick={decrementQuantity}
+                                className={`px-4 py-2 border rounded-l ${
+                                    quantity === 1
+                                        ? "bg-gray-50 text-stroke cursor-not-allowed"
+                                        : "bg-white text-black hover:scale-100"
+                                }`}
+                                disabled={quantity === 1}
+                            >
+                                -
+                            </button>
+                            <input
+                                value={quantity}
+                                onChange={(e) => {
+                                    const value = parseInt(e.target.value, 10);
+                                    if (!isNaN(value) && value >= 1 && value <= 999) {
+                                        setQuantity(value);
+                                    }
+                                }}
+                                className="w-12 text-center py-2 font-raleway"
+                            />
+                            <button
+                                onClick={incrementQuantity}
+                                className="px-4 py-2 border rounded-r text-black bg-white hover:scale-100"
+                            >
+                                +
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <p className="mt-2 text-lg text-gray-700 font-raleway">{product.description}</p>
+
+                {/* TODO API Accordion Section */}
+                <div className="mt-4">
+                    {renderAccordionSection(languages.get('popup.text.orderNotes'), languages.get('popup.description.noOrderNotes'))}
+                    {renderAccordionSection(languages.get('popup.text.setOfIngredients'), languages.get('popup.description.noSetOfIngredients'))}
+                    {renderAccordionSection(languages.get('popup.text.shipping'), languages.get('popup.description.shipping'))}
+                    {renderAccordionSection(languages.get('popup.text.productInfo'), product.description || languages.get('popup.description.noProductInfo'))}
+                </div>
             </div>
+
             <div className="flex gap-5 mt-4">
                 <button
                     onClick={onClose}
@@ -151,14 +185,14 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
             exit={{opacity: 0, scale: 0.8}}
             transition={{duration: 0.3}}
         >
+            {renderFullScreenImage()}
             <motion.div
-                className="bg-white p-6 rounded-lg w-767 relative flex flex-col"
+                className="bg-white p-6 rounded-lg w-[920px] relative flex flex-col"
                 initial={{opacity: 0, y: -50}}
                 animate={{opacity: 1, y: 0}}
                 exit={{opacity: 0, y: -50}}
                 transition={{duration: 0.3}}
             >
-                {renderFullScreenImage()}
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-red-600 text-2xl hover:text-red-500 z-10"

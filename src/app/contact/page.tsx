@@ -17,7 +17,7 @@ const HeroSection = () => {
 
     useEffect(() => {
         const img = new Image();
-        img.src = "/assets/imgs/backgrounds/hero-contact.png";
+        img.src = images.backgrounds.heroContact;  // Use the imported image URL
         img.onload = () => setIsImageLoaded(true);
     }, []);
 

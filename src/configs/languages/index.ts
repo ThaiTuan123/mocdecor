@@ -211,6 +211,16 @@ class Languages {
             'popup.button.size24': '24x34 cm',
             'popup.text.size': 'Kích thước',
             'popup.text.quantity': 'Số lượng',
+            'popup.text.orderNotes': 'Lưu ý đặt hàng',
+            'popup.description.noOrderNotes': 'Chi tiết về ghi chú đơn hàng...',
+            'popup.text.setOfIngredients': 'Set nguyên liệu',
+            'popup.description.noSetOfIngredients': 'Thông tin vận chuyển và giao hàng...',
+            'popup.text.shipping': 'Thông tin sản phẩm',
+            'popup.description.shipping': 'Thông tin vận chuyển và giao hàng...',
+            'popup.text.productInfo': 'Thông tin sản phẩm',
+            'popup.description.noProductInfo': 'Hiện tại Không có mô tả sản phẩm...',
+
+
 
             // cart
             'cart.title': 'GIỎ HÀNG',
