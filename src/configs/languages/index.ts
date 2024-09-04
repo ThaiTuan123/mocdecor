@@ -215,7 +215,7 @@ class Languages {
             'popup.description.noOrderNotes': 'Chi tiết về ghi chú đơn hàng...',
             'popup.text.setOfIngredients': 'Set nguyên liệu',
             'popup.description.noSetOfIngredients': 'Thông tin vận chuyển và giao hàng...',
-            'popup.text.shipping': 'Thông tin sản phẩm',
+            'popup.text.shipping': 'Vận chuyển và giao hàng',
             'popup.description.shipping': 'Thông tin vận chuyển và giao hàng...',
             'popup.text.productInfo': 'Thông tin sản phẩm',
             'popup.description.noProductInfo': 'Hiện tại Không có mô tả sản phẩm...',
