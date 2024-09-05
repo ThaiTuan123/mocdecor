@@ -232,6 +232,9 @@ class Languages {
             'cart.empty.button.print': 'ẢNH IN',
             'cart.empty.button.album': 'ALBUM ẢNH',
 
+            //error response
+            'error.response.title.network': 'UI!!! Đã có lỗi gì đó...',
+
         }
     }
 

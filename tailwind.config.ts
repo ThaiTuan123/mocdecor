@@ -138,7 +138,8 @@ const config: Config = {
                 '232.77': '14.55rem',
                 '7/10': '70%', // Custom width class for 70%
                 '3/10': '30%', // Custom width class for 30%
-                '767':'47.9375rem'
+                '767':'47.9375rem',
+                '920': '57.5rem',
             },
             margin: {
                 navbar: '72px'

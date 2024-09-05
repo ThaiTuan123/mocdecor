@@ -2,6 +2,7 @@
 
 import {Product} from "@/types/product";
 import {API_PRODUCT} from "@/utils/constants";
+import languages from "@/configs/languages";
 
 export const fetchProducts = async (params: { limit?: number; page?: number } = {}): Promise<Product[]> => {
     const {limit = 6, page = 1} = params; // Default limit is 6 and page is 1
@@ -12,7 +13,7 @@ export const fetchProducts = async (params: { limit?: number; page?: number } = 
 
         const response = await fetch(url.toString());
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(languages.get('error.response.title.network'));
         }
         const data = await response.json();
         console.log('Fetched Data:', data);

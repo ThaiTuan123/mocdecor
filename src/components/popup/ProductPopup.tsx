@@ -187,7 +187,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
         >
             {renderFullScreenImage()}
             <motion.div
-                className="bg-white p-6 rounded-lg w-[920px] relative flex flex-col"
+                className="bg-white p-6 rounded-lg w-920 relative flex flex-col"
                 initial={{opacity: 0, y: -50}}
                 animate={{opacity: 1, y: 0}}
                 exit={{opacity: 0, y: -50}}
