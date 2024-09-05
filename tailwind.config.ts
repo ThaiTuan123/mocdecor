@@ -95,13 +95,15 @@ const config: Config = {
                 playfairBold: ['Playfair Display Bold', 'serif'],
             },
             fontSize: {
-                'lg': ['16px', '18.78px'],
-                '1.25lg': ['18px', '25,16px'],
-                '2lg': ['20px', '30px'],
-                '2.25lg': ['24px', '36px'],
-                '5lg': ['32px', '42.66px'],
-                '4lg': ['40px', '53.32px'],
-                '6lg': ['60px', '90px']
+                'xs': ['0.75rem', '0.875rem'],       // 12px, 14px
+                'sm': ['0.875rem', '1.0275rem'],    // 14px, 16,44px
+                'lg': ['1rem', '1.17375rem'],       // 16px, 18.78px
+                '1.25lg': ['1.125rem', '1.5725rem'], // 18px, 25.16px
+                '2lg': ['1.25rem', '1.875rem'],      // 20px, 30px
+                '2.25lg': ['1.5rem', '2.25rem'],     // 24px, 36px
+                '5lg': ['2rem', '2.66625rem'],       // 32px, 42.66px
+                '4lg': ['2.5rem', '3.3325rem'],      // 40px, 53.32px
+                '6lg': ['3.75rem', '5.625rem'],      // 60px, 90px
             },
             keyframes: {
                 upDown: {
@@ -124,12 +126,14 @@ const config: Config = {
             },
             height: {
                 'background-height': '50rem', // or '932px'
+                '252': '15.75rem',
                 '269': '16.8125rem',
                 '327': '20.5rem',
                 '451': '451px',
                 '552': '34.5rem',
                 '946': '59.125rem',
                 '525': '525px',
+                '584': '36.5rem',
 
 
             },
@@ -138,7 +142,7 @@ const config: Config = {
                 '232.77': '14.55rem',
                 '7/10': '70%', // Custom width class for 70%
                 '3/10': '30%', // Custom width class for 30%
-                '767':'47.9375rem',
+                '767': '47.9375rem',
                 '920': '57.5rem',
             },
             margin: {
@@ -147,7 +151,7 @@ const config: Config = {
             padding: {
                 '16px-plus-2px': 'calc(16px + 2px)', // Custom padding value
             },
-            inset:{
+            inset: {
                 '72px': '72px'
             },
             zIndex: {

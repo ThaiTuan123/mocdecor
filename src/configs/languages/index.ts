@@ -99,9 +99,9 @@ class Languages {
             'home.title.background.print': 'ẢNH IN',
             'home.title.background.frame': 'KHUNG ẢNH',
             'home.title.background.album': 'ALBUM ẢNH',
-            'home.subTitle.background.print': 'Hãy để những khoảnh khắc, những kỉ niệm được sắp<br/>xếp theo phong cách của riêng bạn.',
-            'home.subTitle.background.frame': 'Một khung ảnh được thiết kế riêng theo yêu cầu, liệu có đủ<br/>thể hiện tình cảm của bạn? Hãy cùng Mộc khám phá nhé.',
-            'home.subTitle.background.album': 'Hãy để những khoảnh khắc, những kỉ niệm được sắp<br/>xếp theo phong cách của riêng bạn.',
+            'home.subTitle.background.print': 'Hãy để những khoảnh khắc, những kỉ niệm được sắp xếp theo phong cách của riêng bạn.',
+            'home.subTitle.background.frame': 'Một khung ảnh được thiết kế riêng theo yêu cầu, liệu có đủ thể hiện tình cảm của bạn? Hãy cùng Mộc khám phá nhé.',
+            'home.subTitle.background.album': 'Hãy để những khoảnh khắc, những kỉ niệm được sắp xếp theo phong cách của riêng bạn.',
 
             'home.title.firstText.otherProducts': 'Những',
             'home.title.secondText.otherProducts': 'Dòng sản phẩm khác',

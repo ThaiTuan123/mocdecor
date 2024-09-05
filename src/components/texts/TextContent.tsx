@@ -8,7 +8,7 @@ interface TextContentProps {
 
 const TextContent: React.FC<TextContentProps> = ({text, textColor = 'text-brown-900', marginBottom = 'mb-6'}) => (
     <p
-        className={`text-1.25lg font-raleway ${textColor} ${marginBottom} font-normal text-start`}
+        className={`text-sm md:text-1.25lg font-raleway ${textColor} ${marginBottom} font-normal text-start`}
         dangerouslySetInnerHTML={{__html: text}}
     />
 );

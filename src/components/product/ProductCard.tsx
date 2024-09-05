@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({title, price, rating, reviewCo
 
     return (
         <div
-            className="p-4 transition-transform duration-300 ease-in-out transform hover:scale-110 cursor-pointer"
+            className="p-1 md:p-4 transition-transform duration-300 ease-in-out transform hover:scale-110 cursor-pointer"
             onClick={onClick} // Attach onClick handler
         >
             <div className="relative w-full h-269">
@@ -55,14 +55,14 @@ const ProductCard: React.FC<ProductCardProps> = ({title, price, rating, reviewCo
                 />
             </div>
             <div className="mt-4 text-start">
-                <h2 className="text-xl font-raleway font-bold text-brown-900 truncate">{title}</h2>
+                <h2 className="text-sm md:text-xl font-raleway font-bold text-brown-900 truncate">{title}</h2>
                 <div className="flex items-center justify-start mt-2">
                     <div className="flex items-start">
                         {renderStars()}
                     </div>
                     <span className="ml-2 text-sm text-gray-100 font-medium font-raleway">({rating.count})</span>
                 </div>
-                <p className="mt-2 text-xl font-normal text-orange-600 font-raleway">
+                <p className="mt-2 text-sm md:text-xl font-normal text-orange-600 font-raleway">
                     {price} {CURRENCY_SYMBOL}
                 </p>
             </div>

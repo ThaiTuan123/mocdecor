@@ -31,10 +31,10 @@ import CategoryCard from "@/components/card/CategoryCard";
 
 const CategorySection = () => (
     <section id='category' className="py-8 text-center md:container md:mx-auto">
-        <h2 className="text-4xl font-raleway font-normal mb-8 text-brown-500 text-opacity-50">
+        <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
             {languages.get('home.subTitle.category')}
         </h2>
-        <h2 className="text-7xl font-playfairBold font-bold mb-8 uppercase text-brown-500 text-opacity-70">
+        <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
             {languages.get('home.title.category')}
         </h2>
         <div className="flex flex-col md:flex-row justify-between">
@@ -49,7 +49,7 @@ const CategorySection = () => (
 );
 
 const HeaderSectionAbout = () => (
-    <div className="text-left">
+    <div className="text-left order-99">
         <TitleText
             firstText={languages.get('home.title.firstText.about')}
             secondText={languages.get('home.title.secondText.about')}
@@ -72,7 +72,7 @@ const TextContentAbout = () => (
 
 const SocialLinksAbout = () => (
     <div className="flex items-center mt-4">
-        <h4 className="text-1.25lg font-normal font-raleway text-caption mr-5">{languages.get('home.header4.socialLinks.about')}</h4>
+        <h4 className=" text-sm md:text-1.25lg font-normal font-raleway text-caption mr-5">{languages.get('home.header4.socialLinks.about')}</h4>
         <div className="flex space-x-4">
             {socialLinks.map((link, index) => (
                 <IconSocialLink key={index} src={link.src} alt={link.alt}/>
@@ -100,19 +100,19 @@ const ImageContentAbout = () => (
 );
 
 const AboutSection = () => (
-    <section id="about" className="py-8 text-center md:container md:mx-auto flex mb-4">
+    <section id="about" className=" px-6 md:px-0 py-8 text-center md:container md:mx-auto flex flex-col md:flex-row mb-4">
         {/*Image left*/}
-        <div id="contentLeft" className="w-1/2">
+        <div id="contentLeft" className="md:w-1/2 md:order-20">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
                 width={1024}
                 height={768}
-                className="w-full max-w-lg mx-auto h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
+                className="w-full max-w-lg mx-auto object-cover h-[250px] md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
             />
         </div>
 
-        <div id="contentRight" className="w-1/2 flex flex-col items-start">
+        <div id="contentRight" className="md:w-1/2 flex flex-col items-start">
             <HeaderSectionAbout/>
             <TextContentAbout/>
             <SeparatorAbout/>

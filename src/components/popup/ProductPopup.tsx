@@ -60,12 +60,12 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     );
 
     const renderSizeButtons = () => (
-        <div className="grid grid-cols-3 gap-4 mt-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
             {["19x24 cm", "24x34 cm", "30x40 cm", "20x40 cm"].map((size) => (
                 <button
                     key={size}
                     onClick={() => handleSizeChange(size)}
-                    className={`px-4 py-2 rounded transition-transform duration-300 ${
+                    className={`px-2 py-1 md:px-4 md:py-2 rounded transition-transform duration-300 ${
                         selectedSize === size
                             ? "bg-primary text-white scale-100"
                             : "bg-white text-black hover:scale-100 hover:bg-gray-200"
@@ -106,23 +106,23 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     );
 
     const renderProductDetails = () => (
-        <div className="ml-4 flex flex-col justify-between flex-grow">
+        <div className="ml-0 md:ml-4 flex flex-col justify-between flex-grow">
             <div>
-                <h2 className="text-4xl font-playfairBold font-bold text-primary">{product.title}</h2>
-                <p className="mt-3 text-2xl font-raleway text-orange-600">
+                <h2 className=" text-2xl md:text-4xl font-playfairBold font-bold text-primary pt-6 md:pt-0">{product.title}</h2>
+                <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
                     {product.price} {CURRENCY_SYMBOL}
                 </p>
-                <div className="flex flex-col mt-4 gap-4 bg-brown-50 py-4 px-6 rounded">
-                    <div className="flex flex-row gap-10">
-                        <h3 className="text-lg font-raleway font-medium content-center">{languages.get("popup.text.size")}</h3>
+                <div className="flex flex-col mt-4 gap-1 md:gap-4 bg-brown-50 py-4 px-6 rounded">
+                    <div className="flex flex-row gap-6 md:gap-10">
+                        <h3 className="text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.size")}</h3>
                         {renderSizeButtons()}
                     </div>
-                    <div className="flex flex-row center gap-10">
-                        <h3 className="text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
+                    <div className="flex flex-row center gap-8 md:gap-10">
+                        <h3 className="text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
                         <div className="flex items-center mt-2">
                             <button
                                 onClick={decrementQuantity}
-                                className={`px-4 py-2 border rounded-l ${
+                                className={`px-2 py-1 md:px-4 md:py-2 border rounded-l ${
                                     quantity === 1
                                         ? "bg-gray-50 text-stroke cursor-not-allowed"
                                         : "bg-white text-black hover:scale-100"
@@ -139,11 +139,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                                         setQuantity(value);
                                     }
                                 }}
-                                className="w-12 text-center py-2 font-raleway"
+                                className="w-12 text-center py-1 md:py-2 font-raleway"
                             />
                             <button
                                 onClick={incrementQuantity}
-                                className="px-4 py-2 border rounded-r text-black bg-white hover:scale-100"
+                                className="px-2 py-1 md:px-4 md:py-2 border rounded-r text-black bg-white hover:scale-100"
                             >
                                 +
                             </button>
@@ -152,7 +152,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 </div>
 
                 {/* TODO API Accordion Section */}
-                <div className="mt-4">
+                <div className="mt-4 px-1 md:px-4">
                     {renderAccordionSection(languages.get('popup.text.orderNotes'), languages.get('popup.description.noOrderNotes'))}
                     {renderAccordionSection(languages.get('popup.text.setOfIngredients'), languages.get('popup.description.noSetOfIngredients'))}
                     {renderAccordionSection(languages.get('popup.text.shipping'), languages.get('popup.description.shipping'))}
@@ -160,16 +160,16 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 </div>
             </div>
 
-            <div className="flex gap-5 mt-4">
+            <div className="flex gap-3 md:gap-5 p-2 mt-4">
                 <button
                     onClick={onClose}
-                    className="text-lg px-4 py-4 w-1/2 border border-brown-700 text-brown-700 bg-white rounded transform hover:scale-105 transition-all duration-300"
+                    className="text-sm md:text-lg px-4 py-4 w-1/2 border border-brown-700 text-brown-700 bg-white rounded transform hover:scale-105 transition-all duration-300"
                 >
                     {languages.get("popup.button.return")}
                 </button>
                 <button
                     onClick={onAddToCart}
-                    className="text-lg px-2 py-4 w-1/2 bg-brown-700 text-white rounded hover:bg-brown-800 transform hover:scale-105 transition-all duration-300"
+                    className="text-sm md:text-lg px-2 py-4 w-1/2 bg-brown-700 text-white rounded hover:bg-brown-800 transform hover:scale-105 transition-all duration-300"
                 >
                     {languages.get("popup.button.addCard")}
                 </button>
@@ -187,7 +187,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
         >
             {renderFullScreenImage()}
             <motion.div
-                className="bg-white p-6 rounded-lg w-920 relative flex flex-col"
+                className="bg-white p-2 md:p-6 rounded-lg w-96 md:w-920 relative flex flex-col"
                 initial={{opacity: 0, y: -50}}
                 animate={{opacity: 1, y: 0}}
                 exit={{opacity: 0, y: -50}}
@@ -195,18 +195,18 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-red-600 text-2xl hover:text-red-500 z-10"
+                    className="absolute top-4 right-4 text-black text-xl hover:text-red-500 z-10 rounded border-2 px-3 pb-1 flex items-center justify-center border-black"
                 >
                     ×
                 </button>
-                <div className="flex">
+                <div className="flex flex-col md:flex-row max-h-[710px] overflow-y-auto">
                     <div className="flex-shrink-0 relative" onClick={toggleFullScreen}>
                         <Image
                             src={product.image}
                             alt={product.title}
                             width={300}
                             height={300}
-                            className={`object-cover cursor-zoom-in ${imageLoading ? "blur-md" : "blur-0"}`}
+                            className={`w-full object-cover cursor-zoom-in ${imageLoading ? "blur-md" : "blur-0"}`}
                             onLoadingComplete={handleImageLoad}
                         />
                     </div>
