@@ -1,6 +1,8 @@
 import images from "@/configs/images";
 import Image from 'next/image';
 import languages from "@/configs/languages";
+import CommonButton from "@/components/button/CustomButton";
+import React from "react";
 
 export default function NotFound() {
     return (
@@ -11,6 +13,7 @@ export default function NotFound() {
                     <div className='content-center px-40 py-72 bg-image-left-error bg-contain bg-fixed bg-no-repeat'>
                         <h1 className="text-4xl font-bold mb-4 text-primary font-playfairBold">{languages.get('404.error.Title')}</h1>
                         <p className="text-lg mb-8">{languages.get('404.error.Message')}</p>
+                        <CommonButton text={languages.get('404.button.returnHome')} href="/"/>
                     </div>
                 </div>
                 <div className="flex justify-center flex-1 animate-upDown">

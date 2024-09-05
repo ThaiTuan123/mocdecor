@@ -17,6 +17,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-simple-typewriter": "^5.0.1",
+    "recoil": "^0.7.7",
     "swiper": "^11.1.10"
   },
   "devDependencies": {

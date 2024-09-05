@@ -3,6 +3,7 @@ import Image from 'next/image';
 import {CarouselItem} from "@/components/carousel/types";
 import CommonButton from "@/components/button/CustomButton";
 import CarouselButton from "@/components/button/CarouselButton";
+import languages from "@/configs/languages";
 
 const Carousel = () => {
     const [items, setItems] = useState<CarouselItem[]>([]);
@@ -47,27 +48,39 @@ const Carousel = () => {
     );
 };
 
-const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIndex: number }) => (
+const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIndex: number }) => {
+    const [loaded, setLoaded] = useState<boolean[]>(Array(items.length).fill(false));
 
-    <div className="relative h-56 overflow-hidden md:h-background-height">
-        {items.map((item, index) => (
-            <div
-                key={item.id}
-                className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${index === activeIndex ? 'translate-x-0' : 'translate-x-full'}`}
-                style={{transform: `translateX(${(index - activeIndex) * 100}%)`}}
-                data-carousel-item={index === activeIndex ? "active" : ""}
-            >
-                <Image
-                    src={item.imageUrl}
-                    alt={item.title}
-                    layout="fill"
-                    objectFit="cover"
-                    className="block w-full h-full"
-                />
-            </div>
-        ))}
-    </div>
-);
+    const handleImageLoad = (index: number) => {
+        setLoaded(prev => {
+            const newLoaded = [...prev];
+            newLoaded[index] = true;
+            return newLoaded;
+        });
+    };
+
+    return (
+        <div className="relative h-56 overflow-hidden md:h-background-height">
+            {items.map((item, index) => (
+                <div
+                    key={item.id}
+                    className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${index === activeIndex ? 'translate-x-0' : 'translate-x-full'}`}
+                    style={{transform: `translateX(${(index - activeIndex) * 100}%)`}}
+                    data-carousel-item={index === activeIndex ? "active" : ""}
+                >
+                    <Image
+                        src={item.imageUrl}
+                        alt={item.title}
+                        layout="fill"
+                        objectFit="cover"
+                        className={`block w-full h-full transition-all duration-500 ${loaded[index] ? 'blur-0' : 'blur-lg'}`}
+                        onLoadingComplete={() => handleImageLoad(index)}
+                    />
+                </div>
+            ))}
+        </div>
+    );
+};
 
 const CarouselIndicators = ({items, activeIndex, setActiveIndex}: {
     items: CarouselItem[],
@@ -76,9 +89,7 @@ const CarouselIndicators = ({items, activeIndex, setActiveIndex}: {
 }) => (
     <div className="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-24 left-1/2">
         <div className='flex flex-col space-y-10'>
-            <CommonButton>
-                TÌM HIỂU NGAY
-            </CommonButton>
+            <CommonButton text={languages.get('home.button.carousel')}/>
             <div id='indicatorsSlider' className='flex space-x-3 justify-center'>
                 {items.map((_, index) => (
                     <button
@@ -96,10 +107,10 @@ const CarouselIndicators = ({items, activeIndex, setActiveIndex}: {
     </div>
 );
 
-const CarouselControls = ({ handlePrevious, handleNext }: { handlePrevious: () => void, handleNext: () => void }) => (
+const CarouselControls = ({handlePrevious, handleNext}: { handlePrevious: () => void, handleNext: () => void }) => (
     <>
-        <CarouselButton type="prev" handleClick={handlePrevious} />
-        <CarouselButton type="next" handleClick={handleNext} />
+        <CarouselButton type="prev" handleClick={handlePrevious}/>
+        <CarouselButton type="next" handleClick={handleNext}/>
     </>
 );
 export default Carousel;

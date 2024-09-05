@@ -86,6 +86,7 @@ class Languages {
             'galley.not.found.desc': "Hãy tìm kiếm mã đơn hàng của bạn trên thanh tìm kiếm để tiến hành upload ảnh. Nếu chưa có đơn hàng, hãy đặt hàng trên website của Mộc nhé.",
 
             // homepage
+            'home.button.carousel': 'TÌM HIỂU NGAY',
             'home.title.category': 'NHÀ MỘC decor',
             'home.subTitle.category': 'Các dòng sản phẩm',
 
@@ -203,6 +204,24 @@ class Languages {
             'payment.success.desc': 'Cảm ơn bạn đã tin tưởng đặt hàng tại Mộc Decor. Bạn sẽ được chuyển đến trang Tải Ảnh trong ',
             'payment.success.desc.second':'giây.',
 
+            //popup buy
+            'popup.button.return': 'TRỞ LẠI',
+            'popup.button.addCard': 'THÊM VÀO GIỎ HÀNG',
+            'popup.button.size19': '19x24 cm',
+            'popup.button.size24': '24x34 cm',
+            'popup.text.size': 'Kích thước',
+            'popup.text.quantity': 'Số lượng',
+            'popup.text.orderNotes': 'Lưu ý đặt hàng',
+            'popup.description.noOrderNotes': 'Chi tiết về ghi chú đơn hàng...',
+            'popup.text.setOfIngredients': 'Set nguyên liệu',
+            'popup.description.noSetOfIngredients': 'Thông tin vận chuyển và giao hàng...',
+            'popup.text.shipping': 'Vận chuyển và giao hàng',
+            'popup.description.shipping': 'Thông tin vận chuyển và giao hàng...',
+            'popup.text.productInfo': 'Thông tin sản phẩm',
+            'popup.description.noProductInfo': 'Hiện tại Không có mô tả sản phẩm...',
+
+
+
             // cart
             'cart.title': 'GIỎ HÀNG',
             'cart.total': 'TỔNG CỘNG',
@@ -212,6 +231,10 @@ class Languages {
             'cart.empty.button.frame': 'KHUNG ẢNH',
             'cart.empty.button.print': 'ẢNH IN',
             'cart.empty.button.album': 'ALBUM ẢNH',
+
+            //error response
+            'error.response.title.network': 'UI!!! Đã có lỗi gì đó...',
+
         }
     }
 
