@@ -4,19 +4,15 @@ import TextInput from "@/components/inputs/TextInput"
 import CustomButton from "@/components/button/CustomButton"
 import languages from "@/configs/languages"
 import SelectCustom from "@/components/select/Select"
-import { FormEvent, useEffect, useState } from "react"
-import {
-  fetchCities,
-  fetchDistricts,
-  fetchWards,
-} from "@/services/fetchCountries"
+import {FormEvent, useEffect, useState} from "react"
+import {fetchCities, fetchDistricts, fetchWards,} from "@/services/fetchCountries"
 import Image from "next/image"
 import images from "@/configs/images"
-import { Radio, RadioChangeEvent } from "antd"
-import { formatVietnameseCurrency } from "@/utils"
-import { radioData } from "./constants"
-import { LayoutOpacity } from "@/components"
-import { redirect } from "next/navigation"
+import {Radio, RadioChangeEvent} from "antd"
+import {formatVietnameseCurrency} from "@/utils"
+import {radioData} from "./constants"
+import {LayoutOpacity} from "@/components"
+import {redirect} from "next/navigation"
 
 const product = [
   {
@@ -288,11 +284,9 @@ export default function Payment() {
             type="tel"
           />
           <CustomButton
-            type="submit"
             className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          >
-            {languages.get("payment.info.form.button")}
-          </CustomButton>
+            text={languages.get("payment.info.form.button")}
+          />
           <h2 className="text-2lg text-primary">
             {languages.get("payment.type.title")}
           </h2>
