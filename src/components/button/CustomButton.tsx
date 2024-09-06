@@ -11,13 +11,14 @@ interface CommonButtonProps {
     onClick?: () => void;
 }
 
-const CommonButton: React.FC<CommonButtonProps> = ({
-                                                       type = "button",
-                                                       text,
-                                                       className = "",
-                                                       href,
-                                                       onClick,
-                                                   }) => {
+const CommonButton: React.FC<CommonButtonProps> = (
+    {
+        type = "button",
+        text,
+        className = "",
+        href,
+        onClick,
+    }) => {
     const [isHovered, setIsHovered] = useState(false);
     const isMobile = useIsMobile();
 

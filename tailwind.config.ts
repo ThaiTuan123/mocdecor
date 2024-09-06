@@ -138,8 +138,10 @@ const config: Config = {
 
             },
             width: {
-                '412': '25.75rem',
                 '232.77': '14.55rem',
+                '272': '17rem',
+                '412': '25.75rem',
+                '500': '31.25rem',
                 '7/10': '70%', // Custom width class for 70%
                 '3/10': '30%', // Custom width class for 30%
                 '767': '47.9375rem',
