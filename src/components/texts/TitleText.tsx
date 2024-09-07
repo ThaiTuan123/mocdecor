@@ -26,13 +26,13 @@ const TitleText: React.FC<TitleTextProps> = ({
             <motion.div
                 className={`w-8 h-px ${bgColor} mr-2`}
                 initial={{ width: 0 }}
-                animate={{ width: '2.5rem' }}
+                animate={{ width: '2rem' }}
                 transition={{ duration: 1, ease: 'easeInOut' }}
             ></motion.div>
-            <h3 className={`text-lg font-raleway font-normal mr-1 uppercase ${textColor}`}>
+            <h3 className={`text-sm md:text-lg font-raleway font-normal mr-1 uppercase ${textColor}`}>
                 {firstText}
             </h3>
-            <h3 className={`text-lg font-raleway font-bold uppercase ${textColor}`}>
+            <h3 className={`text-sm md:text-lg font-raleway font-bold uppercase ${textColor}`}>
                 <Typewriter
                     words={[secondText]}
                     loop={false}

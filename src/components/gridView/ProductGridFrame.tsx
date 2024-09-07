@@ -4,27 +4,58 @@ import {fetchProducts} from "@/services/fetchProducts";
 import ProductCardWhite from "@/components/product/ProductCardWhite";
 import SolidButton from "@/components/button/SolidButton";
 import languages from "@/configs/languages";
+import ProductPopup from "@/components/popup/ProductPopup";
 
 const ProductGridFrame: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // State for the selected product
+
     useEffect(() => {
         const loadProducts = async () => {
             const productsData = await fetchProducts();
             setProducts(productsData);
         };
         loadProducts();
-    }, []);
+    }, [setProducts]);
+
+    const handleProductClick = (product: Product) => {
+        setSelectedProduct(product);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedProduct(null);
+    };
+
+    const handleAddToCart = () => {
+        if (selectedProduct) {
+            console.log("Added to cart:", selectedProduct);
+            handleClosePopup();
+        }
+    };
+
     return (
         <div>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6">
                 {products.map((product) => (
-                    <ProductCardWhite key={product.id} {...product} />
+                    <ProductCardWhite key={product.id}
+                                      {...product}
+                                        onClick={() => handleProductClick(product)} // Handle product click
+
+                    />
                 ))}
 
             </div>
             <div className="flex justify-center my-10">
                 <SolidButton text={languages.get('button.viewMore')} href="/your-target-page"/>
             </div>
+
+            {/* Show the popup if a product is selected */}
+            {selectedProduct && (
+                <ProductPopup
+                    product={selectedProduct}
+                    onClose={handleClosePopup}
+                    onAddToCart={handleAddToCart}/>
+            )}
         </div>
     );
 };

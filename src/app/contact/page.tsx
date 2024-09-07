@@ -23,22 +23,22 @@ const HeroSection = () => {
 
     return (
         <div
-            className={`min-h-80 bg-no-repeat bg-cover flex justify-center pt-16 pb-16 text-white transition-all duration-500 ${
+            className={`h-252 md:h-80 bg-no-repeat bg-cover flex justify-center py-8 md:py-12 text-white transition-all duration-500 ${
                 isImageLoaded ? 'bg-image-hero-contact blur-0' : 'bg-gray-200 blur-lg'
             }`}
         >
-            <div className="w-1/2 flex flex-col items-center gap-2">
-                <div className="flex flex-row gap-1">
+            <div className=" w-3/5 md:w-1/2 flex flex-col items-center gap-2 justify-center">
+                <div className="flex flex-row gap-1 text-sm">
                     <span className="text-black-50">
                         {languages.get("about")}
                     </span>
                     <span>/</span>
                     <span>{languages.get("contact")}</span>
                 </div>
-                <h1 className="uppercase font-playfairBold text-6lg text-center">
+                <h1 className="uppercase font-playfairBold text-2.25lg md:text-6lg text-center">
                     {languages.get("contact.title.banner")}
                 </h1>
-                <span className="font-playfairRegular text-2lg text-center">
+                <span className="font-playfairRegular text-sm sm:text-lg md:text-2lg text-center">
                     {languages.get("contact.subTitle.banner")}
                 </span>
             </div>
@@ -68,11 +68,11 @@ const ContactItemList = ({items}: { items: ContactItemType[] }) => (
 );
 
 const ContactDetails = () => (
-    <div className="px-16">
-        <h3 className="text-4xl font-playfairBold text-primary mb-4">
+    <div className="px-4 md:px-16 md:text-start">
+        <h3 className="text-2xl text-center md:text-start md:text-4xl font-playfairBold text-primary mb-4">
             {languages.get('contact.subtitle.findUs')}
         </h3>
-        <p className="mb-8 text-karaka font-normal">
+        <p className="mb-8 text-center md:text-start text-karaka font-normal text-sm md:text-lg">
             {languages.get('contact.subTitle.description')}
         </p>
         <Line/>
@@ -91,8 +91,8 @@ const ContactDetails = () => (
 );
 
 const ContactForm = () => (
-    <div className="bg-white p-8 rounded-lg max-w-lg outline outline-1 outline-stroke">
-        <h1 className="text-4xl font-playfairBold text-primary mb-6">{languages.get('contact.title.name')}</h1>
+    <div className="bg-white p-6 md:p-8 rounded-lg max-w-lg outline outline-1 outline-stroke">
+        <h1 className="text-center md:text-start text-2.25lg md:text-4xl font-bold font-playfairBold text-primary mb-6">{languages.get('contact.title.name')}</h1>
         <form className="space-y-6">
             <TextInput
                 label={languages.get('contact.title.username') || ''}
@@ -123,7 +123,7 @@ const ContactForm = () => (
 );
 
 const ContactBody = () => (
-    <div className="container mx-auto px-4 py-20">
+    <div className="container mx-auto px-6 md:px-4 py-8 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <ContactDetails/>
             <ContactForm/>

@@ -60,7 +60,7 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
     };
 
     return (
-        <div className="relative h-56 overflow-hidden md:h-background-height">
+        <div className="relative h-584 overflow-hidden md:h-background-height">
             {items.map((item, index) => (
                 <div
                     key={item.id}

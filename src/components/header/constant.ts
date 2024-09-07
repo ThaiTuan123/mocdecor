@@ -42,7 +42,6 @@ const menuLinks = [
 ]
 
 const icons = [
-  { src: images.icons.search, alt: "Search", value: "search" },
   { src: images.icons.cart, alt: "Shopping Cart", value: "cart" },
 ]
 
