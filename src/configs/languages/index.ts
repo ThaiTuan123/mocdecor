@@ -235,6 +235,14 @@ class Languages {
             //error response
             'error.response.title.network': 'UI!!! Đã có lỗi gì đó...',
 
+            // products
+            'product.hero.intro': "Giới thiệu",
+            'product.hero.product': "Dòng sản phẩm",
+            'product.hero.desc': "Cùng khám phá và lựa chọn cho mình một sản phẩm khung ảnh thật ưng ý để làm nơi lưu giữ yêu thương và kỉ niệm bạn nhé",
+            'product.hero.title.frame': "KHUNG ẢNH",
+            'product.hero.title.print': "ẢNH IN",
+            'product.hero.title.album': "ALBUM ẢNH",
+            'product.hero.title.other': "SẢN PHẨM KHÁC",
         }
     }
 

@@ -227,12 +227,13 @@ const Header = () => {
                                                 {item.menu.map((subItem, subIndex) => {
                                                     return (
                                                         // TODO add line when hover
-                                                        <div
+                                                        <Link
                                                             key={subIndex}
                                                             className={`relative text-doveGray text-lg md:hover:text-karaka`}
+                                                            href={`/products/${subItem.href}`}
                                                         >
-                                                            {subItem}
-                                                        </div>
+                                                            {subItem.title}
+                                                        </Link>
                                                     )
                                                 })}
                                             </div>

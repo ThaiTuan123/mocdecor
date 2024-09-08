@@ -1,0 +1,7 @@
+.ant-radio-wrapper span.ant-radio+* {
+    color: #6D6D6D;
+}
+
+.ant-checkbox+span {
+    color: #6D6D6D;
+}
