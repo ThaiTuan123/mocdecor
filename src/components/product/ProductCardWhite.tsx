@@ -35,7 +35,7 @@ const ProductCardWhite: React.FC<ProductCardProps> = ({title, price, rating, rev
 
     return (
         <div
-            className="p-1 md:p-4 transition-transform duration-300 ease-in-out transform hover:scale-110 cursor-pointer"
+            className="transition-transform duration-300 ease-in-out transform cursor-pointer rounded ring-1 ring-stroke hover:ring-caption"
             onClick={onClick} // Attach onClick handler
         >
             <div className="relative w-full h-269">
@@ -54,11 +54,11 @@ const ProductCardWhite: React.FC<ProductCardProps> = ({title, price, rating, rev
                     alt={title}
                     width={368}
                     height={269}
-                    className={`w-full h-full object-fill ${isLoading ? 'blur-sm' : 'blur-0'} transition-all duration-300`}
+                    className={`w-full h-full object-fill rounded-t ${isLoading ? 'blur-sm' : 'blur-0'} transition-all duration-300`}
                     onLoadingComplete={() => setIsLoading(false)}
                 />
             </div>
-            <div className="mt-4 text-start">
+            <div className="px-1 md:px-4 md:pb-4 mt-4 text-start">
                 <h2 className="text-sm md:text-xl font-raleway font-bold text-white truncate">{title}</h2>
                 <div className="flex items-center justify-start mt-2">
                     <div className="flex items-start">

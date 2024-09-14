@@ -7,7 +7,6 @@ import categories, {cardServiceData, clientData, customerData, socialLinks} from
 import images from "@/configs/images";
 import {motion} from 'framer-motion';
 import BackgroundSection from "@/components/banners/BackgroundSection";
-import SolidButton from "@/components/button/SolidButton";
 import IconSocialLink from "@/components/icons/IconSocialLink";
 import RightArrowButton from "@/components/button/RightArrowButton";
 import DiscoverButton from "@/components/button/DiscoverButton";
@@ -22,7 +21,6 @@ import Line from "@/components/shape/Lines";
 import ServiceCard from "@/components/card/ServiceCard";
 import CoopClientCard from "@/components/card/CoopClientCard";
 import languages from "@/configs/languages";
-import {REPEAT_INTERVAL, SCROLL_AMOUNT} from "@/utils/constants";
 import TabFrame from "@/components/tab/TabFrame";
 import TabPrint from "@/components/tab/TabPrint";
 import Heading3 from "@/components/texts/Heading3";
@@ -37,7 +35,7 @@ const CategorySection = () => (
         <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
             {languages.get('home.title.category')}
         </h2>
-        <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col md:flex-row gap-2 content-center items-center justify-center">
             {categories.map((category) => (
                 <CategoryCard
                     key={category.id}
@@ -100,9 +98,10 @@ const ImageContentAbout = () => (
 );
 
 const AboutSection = () => (
-    <section id="about" className=" px-6 md:px-0 py-8 text-center md:container md:mx-auto flex flex-col md:flex-row mb-4">
+    <section id="about"
+             className=" px-6 md:px-0 py-8 text-center 2xl:container 2xl:mx-auto flex flex-col md:flex-row mb-4">
         {/*Image left*/}
-        <div id="contentLeft" className="md:w-1/2 md:order-20">
+        <div id="contentLeft" className="w-1/2 md:order-20 md:pl-20 2xl:pl-40">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
@@ -112,7 +111,7 @@ const AboutSection = () => (
             />
         </div>
 
-        <div id="contentRight" className="md:w-1/2 flex flex-col items-start">
+        <div id="contentRight" className="md:w-1/2 flex flex-col items-start px-2">
             <HeaderSectionAbout/>
             <TextContentAbout/>
             <SeparatorAbout/>
@@ -202,7 +201,7 @@ const OtherProductsSection: React.FC = () => {
 
 const StorySection: React.FC = () => {
     return (
-        <section className='h-946'>
+        <section className='2xl:mx-auto 2xl:container h-946'>
             <div className='relative'>
                 <div className='bg-image-product-story md:h-80 relative z-10'>
                     <div className='w-full flex flex-col pt-16'>
@@ -223,7 +222,8 @@ const StorySection: React.FC = () => {
                             className="w-3/5 bg-image-story-home-1 bg-cover flex items-end justify-between px-8 py-8 rounded">
                             <Heading3 size={'text-2xl'}
                                       text={languages.get('home.title.header3.itemStory1')}/>
-                            <SolidButton text={languages.get('button.readMore')} href="/your-target-page"/>
+                            {/*TODO add this button when have blogs*/}
+                            {/*<SolidButton text={languages.get('button.readMore')} href="/your-target-page"/>*/}
                         </div>
                         <div className='w-2/5 flex flex-col gap-4 pl-4'>
                             <MotionImageCard
@@ -250,7 +250,7 @@ const GiftSection: React.FC = () => {
     };
     return (
         <section
-            className={`bg-image-gift-home bg-cover bg-center max-h-96 h-96 flex`}>
+            className={`2xl:mx-auto 2xl:container bg-image-gift-home bg-cover bg-center max-h-96 h-96 flex`}>
             <div className='max-w-6xl ml-20'>
                 <div className='flex flex-row items-center'>
                     <Image src={images.logoMocHome} alt="Logo" width={290} height={290}/>
@@ -270,44 +270,58 @@ const GiftSection: React.FC = () => {
     );
 }
 
-const FeedbackScrollableSection: React.FC<{ scrollInterval: number }> = ({scrollInterval = REPEAT_INTERVAL}) => {
-    const scrollRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (scrollRef.current) {
-                const container = scrollRef.current;
-                const maxScrollLeft = container.scrollWidth - container.clientWidth;
+const FeedbackScrollableSection: React.FC<{ scrollInterval: number; direction?: string; speed?: string }> =
+    ({
+         scrollInterval = 5000, // Default duration for animation
+         direction = 'left', // Default direction
+         speed = '' // Speed can be 'fast', 'slow', or 'normal'
+     }) => {
+        useEffect(() => {
+            const scrollers = document.querySelectorAll<HTMLDivElement>(".feedback-scroller");
 
-                container.scrollBy({
-                    left: container.scrollLeft + 300 > maxScrollLeft ? -maxScrollLeft : 300,
-                    behavior: 'smooth',
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                scrollers.forEach((scroller) => {
+                    scroller.setAttribute("data-animated", "true");
+
+                    const scrollerInner = scroller.querySelector(".feedback-scroller__inner");
+                    if (scrollerInner) {
+                        const scrollerContent = Array.from(scrollerInner.children);
+
+                        scrollerContent.forEach((item) => {
+                            const duplicatedItem = item.cloneNode(true) as HTMLElement;
+                            duplicatedItem.setAttribute("aria-hidden", "true");
+                            scrollerInner.appendChild(duplicatedItem);
+                        });
+                    }
                 });
             }
-        }, scrollInterval);
+        }, []);
 
-        return () => clearInterval(intervalId);
-    }, [scrollInterval]);
-
-    return (
-        <div className="overflow-x-auto scroll-smooth pb-10" ref={scrollRef}>
-            <div className="inline-flex space-x-4">
-                {customerData.concat(customerData).map((data, index) => (
-                    <CustomerCard
-                        key={index}
-                        imageCustomerUrl={data.imageCustomerUrl}
-                        textDescription={data.textDescription}
-                        nameCustomer={data.nameCustomer}
-                    />
-                ))}
+        return (
+            <div
+                className="feedback-scroller"
+                data-speed={speed}
+                data-direction={direction}
+                style={{'--_animation-duration': `${scrollInterval}ms`} as React.CSSProperties}
+            >
+                <div className="feedback-scroller__inner">
+                    {customerData.concat(customerData).map((data, index) => (
+                        <CustomerCard
+                            key={index}
+                            imageCustomerUrl={data.imageCustomerUrl}
+                            textDescription={data.textDescription}
+                            nameCustomer={data.nameCustomer}
+                        />
+                    ))}
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    };
 
 const FeedbackSection: React.FC = () => {
     return (
-        <section className='pb-20'>
+        <section className='2xl:mx-auto 2xl:container pb-20'>
             <div id='content' className='flex flex-col pt-28'>
                 <div className='flex flex-col items-center pb-16'>
                     <TitleText
@@ -318,7 +332,7 @@ const FeedbackSection: React.FC = () => {
                 </div>
 
                 <div className='flex flex-col'>
-                    <FeedbackScrollableSection scrollInterval={3000}/>
+                    <FeedbackScrollableSection scrollInterval={10000} direction="left"/>
                 </div>
             </div>
         </section>
@@ -329,7 +343,7 @@ const ServiceSection: React.FC = () => {
     return (
         <section className='bg-image-service-home bg-cover h-full bg-no-repeat max-w-full'>
             {/* Main content */}
-            <div className='pt-28 px-36 pb-20 flex flex-col'>
+            <div className='pt-28 px-36 pb-20 flex flex-col 2xl:mx-auto 2xl:container'>
                 <div className='gap-y-12 flex flex-col'>
                     {/* Content for Hiếu */}
                     <div className='flex flex-row gap-16 justify-center items-center'>
@@ -390,7 +404,7 @@ const ServiceSection: React.FC = () => {
                 </div>
             </div>
             {/* Services offered */}
-            <div className='flex flex-row justify-between h-60 opacity-80'>
+            <div className='flex flex-row justify-between h-60 opacity-80 2xl:mx-auto 2xl:container'>
                 {cardServiceData.map((card, index) => (
                     <ServiceCard key={index} icon={card.icon} title={card.title} description={card.description}/>
                 ))}
@@ -399,45 +413,92 @@ const ServiceSection: React.FC = () => {
     );
 }
 
-const ScrollableSection: React.FC<{ scrollInterval: number }> = ({scrollInterval = REPEAT_INTERVAL}) => {
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const shuffledClientData = shuffleArray([...clientData]);
+const ScrollableSection: React.FC<{ scrollInterval: number, direction: 'left' | 'right' }> =
+    ({
+         scrollInterval = 5000,
+         direction = 'left'
+     }) => {
+        const shuffledClientData = shuffleArray([...clientData]);
+        const scrollerRef = useRef<HTMLDivElement>(null);
+        const scrollerInnerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (scrollRef.current) {
-                const container = scrollRef.current;
-                const maxScrollLeft = container.scrollWidth - container.clientWidth;
+        const addInfiniteScroll = () => {
+            const scroller = scrollerRef.current;
+            const scrollerInner = scrollerInnerRef.current;
 
-                container.scrollBy({
-                    left: container.scrollLeft + SCROLL_AMOUNT > maxScrollLeft ? -maxScrollLeft : SCROLL_AMOUNT,
-                    behavior: 'smooth',
+            if (scroller && scrollerInner && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                scroller.setAttribute("data-animated", "true");
+
+                const scrollerContent = Array.from(scrollerInner.children);
+
+                // Duplicate the client items for seamless scroll
+                scrollerContent.forEach((item) => {
+                    const duplicatedItem = item.cloneNode(true) as HTMLElement;
+                    duplicatedItem.setAttribute('aria-hidden', 'true');
+                    scrollerInner.appendChild(duplicatedItem);
                 });
+
+                // Start scrolling from the middle for the right-scrolling section
+                if (direction === 'right') {
+                    const scrollAmount = scrollerInner.scrollWidth / 2;
+                    scroller.scrollLeft = scrollAmount; // Set scroll position to the middle
+                }
             }
-        }, scrollInterval); // Dynamic interval based on prop
+        };
 
-        return () => clearInterval(intervalId);
-    }, [scrollInterval]);
+        const handleScroll = () => {
+            const scroller = scrollerRef.current;
+            const scrollerInner = scrollerInnerRef.current;
 
-    return (
-        <div className="overflow-x-auto whitespace-nowrap scroll-smooth pb-10" ref={scrollRef}>
-            <div className="inline-flex space-x-4">
-                {shuffledClientData.map((client, index) => (
-                    <CoopClientCard
-                        key={index}
-                        src={client.src}
-                        alt={client.alt}
-                    />
-                ))}
+            if (scroller && scrollerInner) {
+                const scrollLimit = scrollerInner.scrollWidth / 2;
+
+                // If the scroll reaches the duplicated content, reset to original
+                if (scroller.scrollLeft >= scrollLimit) {
+                    scroller.scrollLeft = 0; // Reset back to the start
+                }
+            }
+        };
+
+        useEffect(() => {
+            addInfiniteScroll(); // Apply the scroll animation once the component is mounted
+
+            const scroller = scrollerRef.current;
+            if (scroller) {
+                scroller.addEventListener('scroll', handleScroll);
+            }
+
+            return () => {
+                if (scroller) {
+                    scroller.removeEventListener('scroll', handleScroll);
+                }
+            };
+        }, []);
+
+        return (
+            <div
+                ref={scrollerRef}
+                className="scroller overflow-x-auto whitespace-nowrap scroll-smooth pb-10"
+                data-direction={direction} // Direction passed via props
+                data-speed={scrollInterval <= 3000 ? "fast" : "slow"} // Control speed based on interval
+            >
+                <div ref={scrollerInnerRef} className="scroller__inner inline-flex space-x-4">
+                    {shuffledClientData.map((client, index) => (
+                        <CoopClientCard
+                            key={index}
+                            src={client.src}
+                            alt={client.alt}
+                        />
+                    ))}
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    };
 
 const CoopClientsSection: React.FC = () => {
     return (
-        <section className="bg-gradient-to-b from-white to-just-right to-60% ">
-            <div id='content' className='flex flex-col py-28 gap-y-12'>
+        <section className="bg-gradient-to-b from-white to-just-right to-60%">
+            <div id='content' className='flex flex-col py-28 gap-y-12 2xl:container 2xl:mx-auto'>
                 <div className='flex flex-col items-center'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.coopClient')}
@@ -447,16 +508,16 @@ const CoopClientsSection: React.FC = () => {
                 </div>
 
                 <div className='gap-y-8 flex flex-col'>
-                    {/* Slider to first */}
-                    <ScrollableSection scrollInterval={5000}/>
+                    {/* First scroller: scrolls to the left */}
+                    <ScrollableSection scrollInterval={10000} direction="left"/>
 
-                    {/* Slider to second */}
-                    <ScrollableSection scrollInterval={3000}/>
+                    {/* Second scroller: scrolls to the right */}
+                    <ScrollableSection scrollInterval={10000} direction="right"/>
                 </div>
             </div>
         </section>
     );
-}
+};
 
 const HomePage = () => (
     <>

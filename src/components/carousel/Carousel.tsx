@@ -40,7 +40,7 @@ const Carousel = () => {
     };
 
     return (
-        <div id="indicators-carousel" className="relative w-full" data-carousel="static">
+        <div id="indicators-carousel" className="2xl:mx-auto 2xl:container relative w-full" data-carousel="static">
             <CarouselWrapper items={items} activeIndex={activeIndex}/>
             <CarouselControls handlePrevious={handlePrevious} handleNext={handleNext}/>
             <CarouselIndicators items={items} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>

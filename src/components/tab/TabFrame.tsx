@@ -61,7 +61,7 @@ const TabFrame = () => {
             tabs={tabsFrame}
             defaultActiveTab={languages.get('tab.label.flatFrame')}
             renderContent={renderFrameContent}
-            background={"bg-image-gradient-frame bg-cover"}
+            background={"bg-image-gradient-frame bg-cover 2xl:mx-auto 2xl:container"}
             textColor="text-white"
             borderActive='border-white'
             hoverButton='hover:text-white'
