@@ -43,6 +43,73 @@
 
 /* Component styles */
 @layer components {
+    .scroller {
+        overflow: hidden;
+        -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+        mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+        display: flex;
+    }
+
+    .scroller[data-animated="true"] .scroller__inner {
+        display: flex;
+        width: max-content;
+        -webkit-animation: scroll var(--_animation-duration, 40s) linear infinite;
+        animation: scroll var(--_animation-duration, 40s) linear infinite;
+    }
+
+    .scroller[data-direction="right"] .scroller__inner {
+        -webkit-animation-direction: reverse;
+        animation-direction: reverse;
+    }
+
+    .scroller[data-direction="left"] .scroller__inner {
+        -webkit-animation-direction: forwards;
+        animation-direction: forwards;
+    }
+
+    .scroller[data-speed="fast"] {
+        --_animation-duration: 20s;
+    }
+
+    .scroller[data-speed="slow"] {
+        --_animation-duration: 60s;
+    }
+
+    @keyframes scroll {
+        to {
+            transform: translateX(calc(-100%));
+        }
+    }
+
+    .feedback-scroller {
+        overflow: hidden;
+        position: relative; /* Ensure positioning for mask */
+    }
+
+    .feedback-scroller[data-animated="true"] .feedback-scroller__inner {
+        display: flex;
+        gap: 1rem;
+        animation: scroll var(--_animation-duration, 5000ms) linear infinite;
+    }
+
+    .feedback-scroller[data-direction="right"] .feedback-scroller__inner {
+        animation-direction: reverse;
+    }
+
+    .feedback-scroller[data-speed="fast"] .feedback-scroller__inner {
+        --_animation-duration: 20000ms;
+    }
+
+    .feedback-scroller[data-speed="slow"] .feedback-scroller__inner {
+        --_animation-duration: 60000ms;
+    }
+
+    @keyframes scroll {
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
     .ant-collapse-item {
         @apply bg-white;
     }
@@ -81,6 +148,7 @@
 span.ant-select-selection-placeholder {
     font-size: 16px;
 }
+
 /* Utility styles */
 @layer utilities {
     /* Custom utility classes can be added here if needed */

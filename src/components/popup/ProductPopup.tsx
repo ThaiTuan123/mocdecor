@@ -195,9 +195,22 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-black text-xl hover:text-red-500 z-10 rounded border-2 px-3 pb-1 flex items-center justify-center border-black"
+                    className="absolute top-4 right-4 text-black hover:text-red-500 z-10  flex items-center justify-center "
                 >
-                    ×
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-8 h-8"
+                        fill="none"
+                        viewBox="0 0 28 28"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                        />
+                    </svg>
                 </button>
                 <div className="flex flex-col md:flex-row max-h-[710px] overflow-y-auto">
                     <div className="flex-shrink-0 relative" onClick={toggleFullScreen}>

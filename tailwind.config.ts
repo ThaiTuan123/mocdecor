@@ -126,6 +126,7 @@ const config: Config = {
             },
             height: {
                 'background-height': '50rem', // or '932px'
+                '430': '26.875rem',
                 '252': '15.75rem',
                 '269': '16.8125rem',
                 '327': '20.5rem',
@@ -134,8 +135,10 @@ const config: Config = {
                 '946': '59.125rem',
                 '525': '525px',
                 '584': '36.5rem',
-
-
+            },
+            maxHeight: {
+                '430': '26.875rem',
+                '710px': '44.375rem', // custom max height
             },
             width: {
                 '232.77': '14.55rem',

@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({title, price, rating, reviewCo
 
     return (
         <div
-            className="p-1 md:p-4 transition-transform duration-300 ease-in-out transform hover:scale-110 cursor-pointer"
+            className="p-1 md:p-4 transition-transform duration-300 ease-in-out transform hover:outline-4 cursor-pointer rounded ring-1 ring-stroke hover:ring-caption  "
             onClick={onClick} // Attach onClick handler
         >
             <div className="relative w-full h-269">
@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({title, price, rating, reviewCo
                     alt={title}
                     width={368}
                     height={269}
-                    className={`w-full h-full object-fill ${isLoading ? 'blur-sm' : 'blur-0'} transition-all duration-300`}
+                    className={`w-full h-full rounded-t object-fill ${isLoading ? 'blur-sm' : 'blur-0'} transition-all duration-300`}
                     onLoadingComplete={() => setIsLoading(false)}
                 />
             </div>
