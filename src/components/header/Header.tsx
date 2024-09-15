@@ -14,6 +14,7 @@ import Image from "next/image"
 import {formatVietnameseCurrency} from "@/utils"
 import CancelButton from "@/components/button/CancelButton";
 import {getOrCreateBrowserId} from "@/utils/browserId";
+import QuantitySelector from "@/components/inputs/QuantitySelectorInput";
 
 const product = [
     {
@@ -71,6 +72,7 @@ const Header = () => {
     const [hoveredLabelKey, setHoveredLabelKey] = useState<string>("")
     const [isShowCart, setIsShowCart] = useState(false)
     const [browserId, setBrowserId] = useState<string | null>(null);
+    const [quantity, setQuantity] = useState<number>(1);
 
     useEffect(() => {
         const id = getOrCreateBrowserId();
@@ -140,23 +142,10 @@ const Header = () => {
                                     </div>
                                     <span className="text-sm text-doveGray">{item.desc}</span>
                                     <div className="flex justify-between items-end">
-                                        <div className="flex justify-center gap-6 border px-3 py-2">
-                                            <Image
-                                                src={images.icons.ic_minus}
-                                                width={24}
-                                                height={24}
-                                                alt=""
-                                                className="cursor-pointer"
-                                            />
-                                            <span>1</span>
-                                            <Image
-                                                src={images.icons.ic_plus}
-                                                width={24}
-                                                height={24}
-                                                alt=""
-                                                className="cursor-pointer"
-                                            />
-                                        </div>
+                                        <QuantitySelector
+                                            quantity={quantity}
+                                            setQuantity={setQuantity}
+                                        />
                                         <span className="text-2lg text-caption">
                       {formatVietnameseCurrency(item.price)}
                     </span>
@@ -168,7 +157,7 @@ const Header = () => {
                     ))}
                 </div>
                 <div className="border-t pt-6 px-8">
-                    <div className="flex justify-between mb-8">
+                    <div className="flex justify-between mb-4">
                         <h3 className="text-doveGray text-2lg">
                             {languages.get("cart.total")}
                         </h3>
@@ -287,7 +276,7 @@ const Header = () => {
                 onClick={() => setIsShowCart(false)}
             >
                 <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight">
-                    <div className="py-9 px-11 flex justify-between border-b">
+                    <div className="py-7 px-11 flex justify-between border-b">
                         <div className="flex flex-col ">
                             <div className='flex flex-row gap-4 items-center'>
                                 <h2 className="text-4lg text-primary">
@@ -298,7 +287,7 @@ const Header = () => {
                             {browserId ? (
                                 <p className='text-gray-100'>Mã khách hàng: {browserId}</p>
                             ) : (
-                                <p>Đang tải...</p>
+                                <p className='text-gray-100'>Đang tải...</p>
                             )}
                         </div>
                         <CancelButton onClick={() => setIsShowCart(false)} absolute={false}/>

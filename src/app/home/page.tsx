@@ -27,6 +27,9 @@ import Heading3 from "@/components/texts/Heading3";
 import {shuffleArray} from "@/utils/shuffle";
 import CategoryCard from "@/components/card/CategoryCard";
 import VideoYoutube from "@/components/video/VideoYoutube";
+import {useRecoilValue} from "recoil";
+import {directionState, scrollIntervalState, speedState} from "@/recoil/atoms/feedbackScrollableAtom";
+import {useFeedbackScrollerAnimation} from "@/recoil/hooks/useFeedbackScrollerAnim";
 
 const CategorySection = () => (
     <section id='category' className="py-8 text-center md:container md:mx-auto">
@@ -277,53 +280,33 @@ const GiftSection: React.FC = () => {
 }
 
 
-const FeedbackScrollableSection: React.FC<{ scrollInterval: number; direction?: string; speed?: string }> =
-    ({
-         scrollInterval = 5000, // Default duration for animation
-         direction = 'left', // Default direction
-         speed = 'slow' // Speed can be 'fast', 'slow', or 'normal'
-     }) => {
-        useEffect(() => {
-            const scrollers = document.querySelectorAll<HTMLDivElement>(".feedback-scroller");
+const FeedbackScrollableSection: React.FC = () => {
+    const scrollInterval = useRecoilValue(scrollIntervalState);
+    const direction = useRecoilValue(directionState);
+    const speed = useRecoilValue(speedState);
 
-            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                scrollers.forEach((scroller) => {
-                    scroller.setAttribute("data-animated", "true");
+    useFeedbackScrollerAnimation(scrollInterval);
 
-                    const scrollerInner = scroller.querySelector(".feedback-scroller__inner");
-                    if (scrollerInner) {
-                        const scrollerContent = Array.from(scrollerInner.children);
-
-                        scrollerContent.forEach((item) => {
-                            const duplicatedItem = item.cloneNode(true) as HTMLElement;
-                            duplicatedItem.setAttribute("aria-hidden", "true");
-                            scrollerInner.appendChild(duplicatedItem);
-                        });
-                    }
-                });
-            }
-        }, []);
-
-        return (
-            <div
-                className="feedback-scroller"
-                data-speed={speed}
-                data-direction={direction}
-                style={{'--_animation-duration': `${scrollInterval}ms`} as React.CSSProperties}
-            >
-                <div className="feedback-scroller__inner">
-                    {customerData.concat(customerData).map((data, index) => (
-                        <CustomerCard
-                            key={index}
-                            imageCustomerUrl={data.imageCustomerUrl}
-                            textDescription={data.textDescription}
-                            nameCustomer={data.nameCustomer}
-                        />
-                    ))}
-                </div>
+    return (
+        <div
+            className="feedback-scroller"
+            data-speed={speed}
+            data-direction={direction}
+            style={{'--_animation-duration': `${scrollInterval}ms`} as React.CSSProperties}
+        >
+            <div className="feedback-scroller__inner">
+                {customerData.concat(customerData).map((data, index) => (
+                    <CustomerCard
+                        key={index}
+                        imageCustomerUrl={data.imageCustomerUrl}
+                        textDescription={data.textDescription}
+                        nameCustomer={data.nameCustomer}
+                    />
+                ))}
             </div>
-        );
-    };
+        </div>
+    );
+};
 
 const FeedbackSection: React.FC = () => {
     return (
@@ -338,7 +321,7 @@ const FeedbackSection: React.FC = () => {
                 </div>
 
                 <div className='flex flex-col'>
-                    <FeedbackScrollableSection scrollInterval={10000} direction="left"/>
+                    <FeedbackScrollableSection/>
                 </div>
             </div>
         </section>
@@ -375,7 +358,6 @@ const ServiceSection: React.FC = () => {
                         <div className='w-2/5 items-center justify-center flex'>
                             <div className="relative w-full ">
                                 <VideoYoutube videoId="t-QhaFw-zy8"/>
-
                             </div>
                         </div>
                     </div>

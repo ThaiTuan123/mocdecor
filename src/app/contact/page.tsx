@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Icon from "@/components/icons/Icon";
 import Line from "@/components/shape/Lines";
 import CustomButton from "@/components/button/CustomButton";
@@ -11,15 +11,10 @@ import languages from "@/configs/languages";
 import {contactItems, socialIcons} from "@/app/contact/constant";
 import images from "@/configs/images";
 import {ContactItemType, IconType} from "@/app/contact/types";
+import {useImageLoad} from "@/recoil/hooks/useImageLoad";
 
 const HeroSection = () => {
-    const [isImageLoaded, setIsImageLoaded] = useState(false);
-
-    useEffect(() => {
-        const img = new Image();
-        img.src = images.backgrounds.heroContact;  // Use the imported image URL
-        img.onload = () => setIsImageLoaded(true);
-    }, []);
+    const isImageLoaded = useImageLoad();
 
     return (
         <div
