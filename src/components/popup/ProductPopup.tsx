@@ -4,6 +4,7 @@ import {motion} from "framer-motion";
 import {Product} from "@/types/product";
 import {CURRENCY_SYMBOL} from "@/configs/constants/constants";
 import languages from "@/configs/languages";
+import CancelButton from "@/components/button/CancelButton";
 
 interface ProductPopupProps {
     product: Product;
@@ -65,7 +66,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 <button
                     key={size}
                     onClick={() => handleSizeChange(size)}
-                    className={`px-2 py-1 md:px-4 md:py-2 rounded transition-transform duration-300 ${
+                    className={`px-2 py-1 2xl:px-4 2xl:py-2 rounded transition-transform duration-300 text-lg ${
                         selectedSize === size
                             ? "bg-primary text-white scale-100"
                             : "bg-white text-black hover:scale-100 hover:bg-gray-200"
@@ -193,25 +194,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 exit={{opacity: 0, y: -50}}
                 transition={{duration: 0.3}}
             >
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-black hover:text-red-500 z-10  flex items-center justify-center "
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-8 h-8"
-                        fill="none"
-                        viewBox="0 0 28 28"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </button>
+                <CancelButton onClick={onClose}/>
                 <div className="flex flex-col md:flex-row max-h-[710px] overflow-y-auto">
                     <div className="flex-shrink-0 relative" onClick={toggleFullScreen}>
                         <Image

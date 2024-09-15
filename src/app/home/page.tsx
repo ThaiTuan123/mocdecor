@@ -26,6 +26,7 @@ import TabPrint from "@/components/tab/TabPrint";
 import Heading3 from "@/components/texts/Heading3";
 import {shuffleArray} from "@/utils/shuffle";
 import CategoryCard from "@/components/card/CategoryCard";
+import VideoYoutube from "@/components/video/VideoYoutube";
 
 const CategorySection = () => (
     <section id='category' className="py-8 text-center md:container md:mx-auto">
@@ -73,7 +74,12 @@ const SocialLinksAbout = () => (
         <h4 className=" text-sm md:text-1.25lg font-normal font-raleway text-caption mr-5">{languages.get('home.header4.socialLinks.about')}</h4>
         <div className="flex space-x-4">
             {socialLinks.map((link, index) => (
-                <IconSocialLink key={index} src={link.src} alt={link.alt}/>
+                <IconSocialLink
+                    key={index}
+                    src={link.src}
+                    alt={link.alt}
+                    link={link.link}
+                />
             ))}
         </div>
     </div>
@@ -275,7 +281,7 @@ const FeedbackScrollableSection: React.FC<{ scrollInterval: number; direction?: 
     ({
          scrollInterval = 5000, // Default duration for animation
          direction = 'left', // Default direction
-         speed = '' // Speed can be 'fast', 'slow', or 'normal'
+         speed = 'slow' // Speed can be 'fast', 'slow', or 'normal'
      }) => {
         useEffect(() => {
             const scrollers = document.querySelectorAll<HTMLDivElement>(".feedback-scroller");
@@ -367,26 +373,19 @@ const ServiceSection: React.FC = () => {
                             <h4 className='text-white font-semibold font-raleway'> {languages.get('home.title.header4Hieu.service')} </h4>
                         </div>
                         <div className='w-2/5 items-center justify-center flex'>
-                            <Image
-                                src={images.hieuServiceHome}
-                                alt='HIẾU NGUYỄN - Mộc Founder'
-                                width={463}
-                                height={833}
-                                className="transform transition-transform duration-1000 ease-in-out hover:scale-110 overflow-hidden"
-                            />
+                            <div className="relative w-full ">
+                                <VideoYoutube videoId="t-QhaFw-zy8"/>
+
+                            </div>
                         </div>
                     </div>
                     <Line height={"h-px"}/>
                     {/* Content for Phú */}
                     <div className='flex flex-row gap-16 justify-center items-start'>
                         <div className='w-2/5 items-center justify-center flex'>
-                            <Image
-                                src={images.phuServiceHome}
-                                alt='PHƯỚC PHÚ - Mộc Founder'
-                                width={463}
-                                height={833}
-                                className="transform transition-transform duration-1000 ease-in-out hover:scale-110 overflow-hidden"
-                            />
+                            <div className="relative w-full">
+                                <VideoYoutube videoId="tSmyaP5QfeM"/>
+                            </div>
                         </div>
                         <div className='flex-col flex justify-start items-start w-3/5'>
                             <Heading2

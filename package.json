@@ -18,12 +18,14 @@
     "react-dom": "^18",
     "react-simple-typewriter": "^5.0.1",
     "recoil": "^0.7.7",
-    "swiper": "^11.1.10"
+    "swiper": "^11.1.10",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.45",
     "postcss-cli": "^11.0.0",

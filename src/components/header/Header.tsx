@@ -1,7 +1,7 @@
 "use client" // Add this directive at the top
 
 import Link from "next/link"
-import {useState} from "react"
+import React, {useEffect, useState} from "react"
 import MenuLink from "../menu/MenuLink"
 import Icon from "../icons/Icon"
 import languages from "@/configs/languages"
@@ -12,6 +12,8 @@ import LayoutOpacity from "../layoutOpacity"
 import CustomButton from "../button/CustomButton"
 import Image from "next/image"
 import {formatVietnameseCurrency} from "@/utils"
+import CancelButton from "@/components/button/CancelButton";
+import {getOrCreateBrowserId} from "@/utils/browserId";
 
 const product = [
     {
@@ -68,6 +70,13 @@ const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false)
     const [hoveredLabelKey, setHoveredLabelKey] = useState<string>("")
     const [isShowCart, setIsShowCart] = useState(false)
+    const [browserId, setBrowserId] = useState<string | null>(null);
+
+    useEffect(() => {
+        const id = getOrCreateBrowserId();
+        setBrowserId(id);
+        console.log('Current Browser ID:', id);
+    }, []);
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen)
@@ -187,8 +196,8 @@ const Header = () => {
                     </button>
                 </div>
                 <Link href="/" legacyBehavior>
-                    <a className="text-2xl font-bold flex items-center md:order-2 order-1 mx-auto md:mx-0 ">
-                        <img src={images.logo} alt="MOC DECOR" className="h-12 w-auto"/>
+                    <a className="text-2xl font-bold flex items-center md:order-2 order-1 mx-auto md:mx-0">
+                        <img src={images.logo} alt="MOC DECOR" className="h-12 w-auto hover:scale-110"/>
                     </a>
                 </Link>
                 <div className="hidden md:flex md:order-1 space-x-28 items-center">
@@ -279,17 +288,20 @@ const Header = () => {
             >
                 <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight">
                     <div className="py-9 px-11 flex justify-between border-b">
-                        <div className="flex gap-4 items-center">
-                            <h2 className="text-4lg text-primary">
-                                {languages.get("cart.title")}
-                            </h2>
-                            <span className="text-2lg">({0})</span>
+                        <div className="flex flex-col ">
+                            <div className='flex flex-row gap-4 items-center'>
+                                <h2 className="text-4lg text-primary">
+                                    {languages.get("cart.title")}
+                                </h2>
+                                <span className="text-2lg">({0})</span>
+                            </div>
+                            {browserId ? (
+                                <p className='text-gray-100'>Mã khách hàng: {browserId}</p>
+                            ) : (
+                                <p>Đang tải...</p>
+                            )}
                         </div>
-                        <img
-                            src={images.icons.xLight}
-                            className="w-6 h-6 cursor-pointer"
-                            onClick={() => setIsShowCart(false)}
-                        />
+                        <CancelButton onClick={() => setIsShowCart(false)} absolute={false}/>
                     </div>
                     {product.length > 0 ? renderCartHaveProduct() : renderCartEmpty()}
                 </div>

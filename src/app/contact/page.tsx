@@ -50,7 +50,13 @@ const SocialIcons = ({icons}: { icons: IconType[] }) => (
     <div className="flex justify-around space-x-6 pt-1 pl-4">
         {icons.map(icon => (
             <div key={icon.key} className="group">
-                <Icon src={icon.src} alt={icon.alt} size="small"/>
+                <a
+                    href={icon.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <Icon src={icon.src} alt={icon.alt} size="small"/>
+                </a>
             </div>
         ))}
     </div>
