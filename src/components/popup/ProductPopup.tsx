@@ -4,6 +4,8 @@ import {motion} from "framer-motion";
 import {Product} from "@/types/product";
 import {CURRENCY_SYMBOL} from "@/configs/constants/constants";
 import languages from "@/configs/languages";
+import CancelButton from "@/components/button/CancelButton";
+import QuantitySelector from "@/components/inputs/QuantitySelectorInput";
 
 interface ProductPopupProps {
     product: Product;
@@ -26,12 +28,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     }, []);
 
     const handleSizeChange = (size: string) => setSelectedSize(size);
-
-    const incrementQuantity = () =>
-        setQuantity((prevQuantity) => (prevQuantity < 999 ? prevQuantity + 1 : 999));
-
-    const decrementQuantity = () =>
-        setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
 
     const handleImageLoad = () => setImageLoading(false);
 
@@ -65,7 +61,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 <button
                     key={size}
                     onClick={() => handleSizeChange(size)}
-                    className={`px-2 py-1 md:px-4 md:py-2 rounded transition-transform duration-300 ${
+                    className={`px-2 py-1 2xl:px-4 2xl:py-2 rounded transition-transform duration-300 text-lg ${
                         selectedSize === size
                             ? "bg-primary text-white scale-100"
                             : "bg-white text-black hover:scale-100 hover:bg-gray-200"
@@ -108,7 +104,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     const renderProductDetails = () => (
         <div className="ml-0 md:ml-4 flex flex-col justify-between flex-grow">
             <div>
-                <h2 className=" text-2xl md:text-4xl font-playfairBold font-bold text-primary pt-6 md:pt-0">{product.title}</h2>
+                <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary pt-6 md:pt-0">{product.title}</h2>
                 <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
                     {product.price} {CURRENCY_SYMBOL}
                 </p>
@@ -119,35 +115,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                     </div>
                     <div className="flex flex-row center gap-8 md:gap-10">
                         <h3 className="text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
-                        <div className="flex items-center mt-2">
-                            <button
-                                onClick={decrementQuantity}
-                                className={`px-2 py-1 md:px-4 md:py-2 border rounded-l ${
-                                    quantity === 1
-                                        ? "bg-gray-50 text-stroke cursor-not-allowed"
-                                        : "bg-white text-black hover:scale-100"
-                                }`}
-                                disabled={quantity === 1}
-                            >
-                                -
-                            </button>
-                            <input
-                                value={quantity}
-                                onChange={(e) => {
-                                    const value = parseInt(e.target.value, 10);
-                                    if (!isNaN(value) && value >= 1 && value <= 999) {
-                                        setQuantity(value);
-                                    }
-                                }}
-                                className="w-12 text-center py-1 md:py-2 font-raleway"
-                            />
-                            <button
-                                onClick={incrementQuantity}
-                                className="px-2 py-1 md:px-4 md:py-2 border rounded-r text-black bg-white hover:scale-100"
-                            >
-                                +
-                            </button>
-                        </div>
+                        <QuantitySelector
+                            quantity={quantity}
+                            setQuantity={setQuantity}
+                        />
                     </div>
                 </div>
 
@@ -193,25 +164,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 exit={{opacity: 0, y: -50}}
                 transition={{duration: 0.3}}
             >
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-black hover:text-red-500 z-10  flex items-center justify-center "
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-8 h-8"
-                        fill="none"
-                        viewBox="0 0 28 28"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </button>
+                <CancelButton onClick={onClose}/>
                 <div className="flex flex-col md:flex-row max-h-[710px] overflow-y-auto">
                     <div className="flex-shrink-0 relative" onClick={toggleFullScreen}>
                         <Image

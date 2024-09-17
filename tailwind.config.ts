@@ -155,6 +155,7 @@ const config: Config = {
             },
             padding: {
                 '16px-plus-2px': 'calc(16px + 2px)', // Custom padding value
+                '56-25': '56.25%',
             },
             inset: {
                 '72px': '72px',
@@ -162,6 +163,10 @@ const config: Config = {
             },
             zIndex: {
                 '50': '50',
+            },
+            screens: {
+                '3xl': '1920px',  // Adjust as needed
+                '4xl': '2560px',  // Adjust as needed
             },
         },
     },

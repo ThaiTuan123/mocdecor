@@ -47,10 +47,12 @@ export const socialLinks = [
     {
         src: images.icons.homeTiktok,
         alt: "Mộc Decor",
+        link: "https://www.tiktok.com/@_mocdecor99_?lang=vi-VN",
     },
     {
         src: images.icons.homeInstagram,
         alt: "Mộc Decor",
+        link: "https://www.instagram.com/mocdecor99/",
     },
 ];
 
@@ -129,14 +131,14 @@ export const customerData: CustomerCardData[] = [
 ];
 
 export const clientData = [
-    { src: images.client1, alt: 'Client 1' },
-    { src: images.client2, alt: 'Client 2' },
-    { src: images.client3, alt: 'Client 3' },
-    { src: images.client4, alt: 'Client 4' },
-    { src: images.client5, alt: 'Client 5' },
-    { src: images.client6, alt: 'Client 6' },
-    { src: images.client7, alt: 'Client 7' },
-    { src: images.client8, alt: 'Client 8' },
-    { src: images.client9, alt: 'Client 9' },
-    { src: images.client10, alt: 'Client 10' },
+    {src: images.client1, alt: 'Client 1'},
+    {src: images.client2, alt: 'Client 2'},
+    {src: images.client3, alt: 'Client 3'},
+    {src: images.client4, alt: 'Client 4'},
+    {src: images.client5, alt: 'Client 5'},
+    {src: images.client6, alt: 'Client 6'},
+    {src: images.client7, alt: 'Client 7'},
+    {src: images.client8, alt: 'Client 8'},
+    {src: images.client9, alt: 'Client 9'},
+    {src: images.client10, alt: 'Client 10'},
 ];

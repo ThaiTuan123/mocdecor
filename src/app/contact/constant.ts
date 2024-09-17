@@ -9,18 +9,21 @@ export const socialIcons = [
         alt: 'Facebook',
         key: 'facebook',
         tooltip: languages.get('contact.tooltip.facebook'),
+        link: 'https://www.facebook.com/profile.php?id=100090974733002',
     },
     {
         src: images.icons.instagramDark,
         alt: 'Instagram',
         key: 'instagram',
         tooltip: languages.get('contact.tooltip.instagram'),
+        link: 'https://www.instagram.com/mocdecor99/',
     },
     {
         src: images.icons.tiktokDark,
         alt: 'Tiktok',
         key: 'tiktok',
         tooltip: languages.get('contact.tooltip.tiktok'),
+        link: 'https://www.tiktok.com/@_mocdecor99_?lang=vi-VN',
     },
 ];
 

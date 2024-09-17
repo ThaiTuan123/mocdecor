@@ -5,6 +5,7 @@ export interface IconType {
     src: string;
     alt: string;
     tooltip: string;
+    link: string;
 }
 
 export interface ContactItemType {
