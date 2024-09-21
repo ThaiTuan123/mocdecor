@@ -29,6 +29,7 @@ const images = {
         ic_down: "/assets/imgs/icons/ic-dropdown.png",
         ic_star: "/assets/imgs/icons/ic-star.png",
         ic_star_active: "/assets/imgs/icons/ic-star-active.png",
+        ic_arrow_right: "/assets/imgs/icons/ic-arrow-right.png",
 
         //home
         homeInstagram:'/assets/imgs/icons/ic-home-insta.png',

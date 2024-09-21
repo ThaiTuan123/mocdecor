@@ -153,3 +153,52 @@ span.ant-select-selection-placeholder {
 @layer utilities {
     /* Custom utility classes can be added here if needed */
 }
+
+
+@media (min-width: 1536px) {
+    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        width: 100%;
+    }
+}
+@media (min-width: 1536px) {
+    @media (min-width: 640px) {
+        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+            max-width: 640px;
+        }
+    }
+}
+@media (min-width: 1536px) {
+    @media (min-width: 768px) {
+        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+            max-width: 768px;
+        }
+    }
+}
+@media (min-width: 1536px) {
+    @media (min-width: 1024px) {
+        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+            max-width: 1024px;
+        }
+    }
+}
+@media (min-width: 1536px) {
+    @media (min-width: 1280px) {
+        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+            max-width: 1280px;
+        }
+    }
+}
+@media (min-width: 1536px) {
+    @media (min-width: 1536px) {
+        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+            max-width: 1536px;
+        }
+    }
+}
+
+@media (min-width: 1536px) {
+    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

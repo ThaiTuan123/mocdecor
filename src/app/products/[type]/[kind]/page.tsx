@@ -71,18 +71,18 @@ export default function Products() {
     const value = pathname.split("/")[2]
     let title = ""
     switch (value) {
-      case "frame":
+      case "Khung%20anh":
         title = languages.get("product.hero.title.frame")
         break
-      case "print":
+      case "ANH%20IN":
         title = languages.get("product.hero.title.print")
         break
-      case "album":
+      case "ALBUM%20ANH":
         title = languages.get("product.hero.title.album")
         break
-      case "other":
-        title = languages.get("product.hero.title.other")
-        break
+      // case "other":
+      //   title = languages.get("product.hero.title.other")
+      //   break
       default:
         title = languages.get("product.hero.title.frame")
         break
@@ -298,7 +298,7 @@ export default function Products() {
   const renderPagination = () => {
     return (
       <div className="flex gap-4 items-center justify-center mt-5">
-        <span className="font-raleway text-lg text-doveGray">TRANG</span>
+        <span className="font-raleway text-lg text-doveGray">{languages.get("product.pagination.text")}</span>
         <div className="border w-12 border-doveGray"></div>
         {paginationArray.map((item, index) => (
           <span
