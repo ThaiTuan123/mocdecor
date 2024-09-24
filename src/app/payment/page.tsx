@@ -111,7 +111,7 @@ export default function Payment() {
 
   const renderContainerPayment = () => {
     return (
-      <div className="flex flex-row">
+      <div className="flex flex-row 2xl:mx-auto 2xl:container">
         {renderInfoPayment()}
         <div className="border"></div>
         {renderInfoOrder()}
