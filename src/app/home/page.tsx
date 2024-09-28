@@ -357,7 +357,7 @@ const ServiceSection: React.FC = () => {
                         </div>
                         <div className='w-2/5 items-center justify-center flex'>
                             <div className="relative w-full ">
-                                <VideoYoutube videoId="t-QhaFw-zy8"/>
+                                <VideoYoutube videoId="t-QhaFw-zy8" height="0px"/>
                             </div>
                         </div>
                     </div>
