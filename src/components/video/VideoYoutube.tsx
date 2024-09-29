@@ -22,7 +22,7 @@ const VideoYoutube: React.FC<VideoProps> = ({
     const iframeSrc = getIframeSrc(videoId, autoplay, mute, controls, loop);
 
     return (
-        <div className="relative w-full" style={{height}}>
+        <div className="relative w-full" style={{height, position: 'relative', paddingBottom: '56.25%'}}>
             <iframe
                 src={iframeSrc}
                 title="YouTube video player"

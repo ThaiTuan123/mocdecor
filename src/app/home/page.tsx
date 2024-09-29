@@ -357,7 +357,7 @@ const ServiceSection: React.FC = () => {
                         </div>
                         <div className='w-2/5 items-center justify-center flex'>
                             <div className="relative w-full ">
-                                <VideoYoutube videoId="t-QhaFw-zy8"/>
+                                <VideoYoutube videoId="t-QhaFw-zy8" height="0px"/>
                             </div>
                         </div>
                     </div>
@@ -366,7 +366,7 @@ const ServiceSection: React.FC = () => {
                     <div className='flex flex-row gap-16 justify-center items-start'>
                         <div className='w-2/5 items-center justify-center flex'>
                             <div className="relative w-full">
-                                <VideoYoutube videoId="tSmyaP5QfeM"/>
+                                <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
                             </div>
                         </div>
                         <div className='flex-col flex justify-start items-start w-3/5'>
