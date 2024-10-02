@@ -203,7 +203,7 @@ export default function Products() {
 
   const renderProduct = () => {
     return (
-      <div className="grid grid-cols-3 gap-6 mt-8">
+      <div className="grid grid-cols-4 gap-6 mt-8">
         {productData.map((item, index) => (
           <div className="flex flex-col border rounded-lg" key={index}>
             <img
