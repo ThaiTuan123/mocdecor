@@ -282,6 +282,7 @@ export default function Payment() {
               "payment.info.input.address.placeholder"
             )}
             type="tel"
+            required
           />
           <CustomButton
             className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"

@@ -203,7 +203,7 @@ class Languages {
             'payment.order.total': 'TỔNG CỘNG',
             'payment.success.title': 'TIẾN TRÌNH THANH TOÁN HOÀN TẤT!',
             'payment.success.desc': 'Cảm ơn bạn đã tin tưởng đặt hàng tại Mộc Decor. Bạn sẽ được chuyển đến trang Tải Ảnh trong ',
-            'payment.success.desc.second':'giây.',
+            'payment.success.desc.second': 'giây.',
 
             //popup buy
             'popup.button.return': 'TRỞ LẠI',
@@ -222,7 +222,6 @@ class Languages {
             'popup.description.noProductInfo': 'Hiện tại Không có mô tả sản phẩm...',
 
 
-
             // cart
             'cart.title': 'GIỎ HÀNG',
             'cart.total': 'TỔNG CỘNG',
@@ -233,8 +232,15 @@ class Languages {
             'cart.empty.button.print': 'ẢNH IN',
             'cart.empty.button.album': 'ALBUM ẢNH',
 
+            //loading response send
+            'loading.response.title': 'Đang gửi phản hồi...',
+
+            //success response send
+            'success.response.title': 'Cảm ơn bạn đã gửi phản hồi tới Mộc. Mộc sẽ phản hồi lại bạn sớm nhất có thể!',
+
             //error response
             'error.response.title.network': 'UI!!! Đã có lỗi gì đó...',
+            'error.response.title': 'UI!!! Đã có lỗi gì đó không thể gửi được, bạn vui lòng thử lại giúp Mộc nhé!',
 
             // products
             'product.hero.intro': "Giới thiệu",

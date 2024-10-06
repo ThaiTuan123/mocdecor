@@ -9,16 +9,17 @@ interface CommonButtonProps {
     className?: string;
     href?: string;
     onClick?: () => void;
+    disabled?: boolean; // Add the disabled prop
 }
 
-const CommonButton: React.FC<CommonButtonProps> = (
-    {
-        type = "button",
-        text,
-        className = "",
-        href,
-        onClick,
-    }) => {
+const CommonButton: React.FC<CommonButtonProps> = ({
+                                                       type = "button",
+                                                       text,
+                                                       className = "",
+                                                       href,
+                                                       onClick,
+                                                       disabled = false, // Add default value for disabled
+                                                   }) => {
     const [isHovered, setIsHovered] = useState(false);
     const isMobile = useIsMobile();
 
@@ -58,6 +59,7 @@ const CommonButton: React.FC<CommonButtonProps> = (
             onMouseEnter={() => !isMobile && setIsHovered(true)}
             onMouseLeave={() => !isMobile && setIsHovered(false)}
             onClick={onClick}
+            disabled={disabled}
         >
             {text}
         </button>
