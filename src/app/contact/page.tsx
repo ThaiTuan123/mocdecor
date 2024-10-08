@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useState} from "react";
 import Icon from "@/components/icons/Icon";
 import Line from "@/components/shape/Lines";
 import CustomButton from "@/components/button/CustomButton";
@@ -12,6 +12,9 @@ import {contactItems, socialIcons} from "@/app/contact/constant";
 import images from "@/configs/images";
 import {ContactItemType, IconType} from "@/app/contact/types";
 import {useImageLoad} from "@/recoil/hooks/useImageLoad";
+import {useRecoilState} from "recoil";
+import {contactFormState} from "@/recoil/atoms/contactFormAtom";
+import {submitContactForm} from "@/services/api";
 
 const HeroSection = () => {
     const isImageLoaded = useImageLoad();
@@ -91,37 +94,88 @@ const ContactDetails = () => (
     </div>
 );
 
-const ContactForm = () => (
-    <div className="bg-white p-6 md:p-8 rounded-lg max-w-lg outline outline-1 outline-stroke">
-        <h1 className="text-center md:text-start text-2.25lg md:text-4xl font-bold font-playfairBold text-primary mb-6">{languages.get('contact.title.name')}</h1>
-        <form className="space-y-6">
-            <TextInput
-                label={languages.get('contact.title.username') || ''}
-                placeholder={languages.get('contact.placeholder.username') || ''}
-                type="text"
-            />
-            <TextInput
-                label={languages.get('contact.title.email') || ''}
-                placeholder={languages.get('contact.placeholder.email') || ''}
-                type="email"
-            />
-            <TextInput
-                label={languages.get('contact.title.phone') || ''}
-                placeholder={languages.get('contact.placeholder.phone') || ''}
-                type="tel"
-            />
-            <TextareaInput
-                label={languages.get('contact.title.message') || ''}
-                placeholder={languages.get('contact.placeholder.message') || ''}
-            />
-            <CustomButton
-                type="submit"
-                className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-                text={languages.get('contact.button.send')}
-            />
-        </form>
-    </div>
-);
+const ContactForm = () => {
+    const [formData, setFormData] = useRecoilState(contactFormState);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<boolean>(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const {name, value} = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+
+        try {
+            await submitContactForm(formData);
+            setSuccess(true);
+        } catch (err) {
+            setError(languages.get('error.response.title'));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="bg-white p-6 md:p-8 rounded-lg max-w-lg outline outline-1 outline-stroke">
+            <h1 className="text-center md:text-start text-2.25lg md:text-4xl font-bold font-playfairBold text-primary mb-6">
+                {languages.get('contact.title.name')}
+            </h1>
+            <form className="space-y-6" onSubmit={handleSubmit}>
+                <TextInput
+                    label={languages.get('contact.title.username') || ''}
+                    placeholder={languages.get('contact.placeholder.username') || ''}
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    required={true}
+                />
+                <TextInput
+                    label={languages.get('contact.title.email') || ''}
+                    placeholder={languages.get('contact.placeholder.email') || ''}
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required={true}
+                />
+                <TextInput
+                    label={languages.get('contact.title.phone') || ''}
+                    placeholder={languages.get('contact.placeholder.phone') || ''}
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required={true}
+                />
+                <TextareaInput
+                    label={languages.get('contact.title.message') || ''}
+                    placeholder={languages.get('contact.placeholder.message') || ''}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                />
+                <CustomButton
+                    type="submit"
+                    className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+                    text={loading ? languages.get('loading.response.title') : languages.get('contact.button.send')}
+                    disabled={loading}
+                />
+                {success && <p className="text-green-600">{languages.get('success.response.title')}</p>}
+                {error && <p className="text-red-600">{error}</p>}
+            </form>
+        </div>
+    );
+};
+
 
 const ContactBody = () => (
     <div className="container mx-auto px-6 md:px-4 py-8 md:py-20">
