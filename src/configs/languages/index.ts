@@ -127,7 +127,7 @@ class Languages {
             'home.title.header2.feedback': 'Khách hàng nghĩ gì về <br/> Mộc Decor?',
             'home.title.p.roleCustomer': 'Khách hàng',
 
-            'home.title.firstText.service': 'Cảm nhận',
+            'home.title.firstText.service': 'Dịch Vụ',
             'home.title.secondText.service': 'Nhà Mộc',
             'home.title.header2.service': 'Nhà Mộc cam kết mang đến trải <br/> nghiệm tốt nhất cho khách hàng',
             'home.title.textContentHieu.service': 'Mộc Decor mang đến những dịch vụ khung ảnh thủ công đầy cảm hứng và tinh tế. Chúng tôi thiết kế khung ảnh theo yêu cầu, tạo ra những tác phẩm độc đáo phản ánh phong cách riêng của từng khách hàng. <br/> Ngoài ra, Mộc Decor còn tư vấn trang trí, giúp bạn tạo nên không gian sống ấm cúng và nghệ thuật.',

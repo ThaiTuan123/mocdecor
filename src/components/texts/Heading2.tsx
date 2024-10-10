@@ -18,7 +18,7 @@ const Heading2: React.FC<HeadingProps> = ({
                                           }) => (
     <div className={`flex flex-col ${className}`}>
         <h2
-            className={`text-${align} text-4xl font-bold ${marginBottom} ${textColor} font-playfairBold`}
+            className={`text-${align} text-2xl md:text-4xl font-bold ${marginBottom} ${textColor} font-playfairBold`}
             dangerouslySetInnerHTML={{__html: text}}
         />
     </div>

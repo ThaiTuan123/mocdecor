@@ -7,10 +7,10 @@ interface IconWithTextProps {
     text: string;
 }
 
-const IconWithText = ({src, alt, size, text}: IconWithTextProps) => (
-    <div className="flex items-center">
-        <Icon src={src} alt={alt} size={size}/>
-        <span className="font-raleway ml-4">{text}</span>
+const IconWithText = ({ src, alt, size, text }: IconWithTextProps) => (
+    <div className="flex flex-col items-center md:flex-row">
+        <Icon src={src} alt={alt} size={size} />
+        <span className="font-raleway mt-2 md:mt-0 md:ml-4">{text}</span>
     </div>
 );
 
