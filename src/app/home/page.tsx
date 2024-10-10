@@ -388,7 +388,7 @@ const ServiceSection: React.FC = () => {
             </div>
             {/* Services offered */}
             <div
-                className='pb-16 md:pb-0 flex-row md:flex-row justify-between md:h-60 h-584 opacity-80 2xl:mx-auto 2xl:container grid grid-cols-2 md:flex'>
+                className='pb-16 pt-6 md:pb-0 flex-row md:flex-row justify-between md:h-64 h-584 opacity-80 2xl:mx-auto 2xl:container grid grid-cols-2 md:flex'>
                 {cardServiceData.map((card, index) => (
                     <ServiceCard key={index} icon={card.icon} title={card.title} description={card.description}/>
                 ))}
