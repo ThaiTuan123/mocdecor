@@ -193,7 +193,7 @@ const Header = () => {
 
     return (
         <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
-            <div className="md:container md:mx-auto flex justify-between items-center px-0 2xl:px-16">
+            <div className="md:container md:mx-auto flex justify-between items-center px-6 2xl:px-16">
                 <div className="flex items-center md:hidden">
                     <button onClick={toggleMenu} className="text-black">
                         <Icon
@@ -300,7 +300,7 @@ const Header = () => {
             </div>
             {menuOpen && (
                 // TODO mobile menu
-                <div className="md:hidden flex flex-col items-center bg-white shadow-md py-4 space-y-4">
+                <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4">
                     {menuLinks.map(({href, labelKey}) => (
                         <MenuLink key={href} href={href} label={languages.get(labelKey)}/>
                     ))}
