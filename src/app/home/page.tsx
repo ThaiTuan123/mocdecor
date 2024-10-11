@@ -110,7 +110,7 @@ const AboutSection = () => (
     <section id="about"
              className=" px-6 md:px-0 py-8 text-center 2xl:container 2xl:mx-auto flex flex-col md:flex-row mb-4">
         {/*Image left*/}
-        <div id="contentLeft" className="w-1/2 md:order-20 md:pl-20 2xl:pl-40">
+        <div id="contentLeft" className="w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
@@ -120,7 +120,7 @@ const AboutSection = () => (
             />
         </div>
 
-        <div id="contentRight" className="md:w-1/2 flex flex-col items-start px-2">
+        <div id="contentRight" className="md:w-1/2 flex flex-col items-start w-full">
             <HeaderSectionAbout/>
             <TextContentAbout/>
             <SeparatorAbout/>

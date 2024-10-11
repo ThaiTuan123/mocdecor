@@ -89,7 +89,7 @@ const CarouselIndicators = ({items, activeIndex, setActiveIndex}: {
 }) => (
     <div className="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-24 left-1/2">
         <div className='flex flex-col space-y-10'>
-            <CommonButton text={languages.get('home.button.carousel')}/>
+            <CommonButton className='text-xl' text={languages.get('home.button.carousel')}/>
             <div id='indicatorsSlider' className='flex space-x-3 justify-center'>
                 {items.map((_, index) => (
                     <button
