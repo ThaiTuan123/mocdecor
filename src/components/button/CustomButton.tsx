@@ -28,11 +28,11 @@ const CommonButton: React.FC<CommonButtonProps> = ({
 
     // Styles for desktop hover effect
     const desktopHoverStyles = `transition-all duration-300 ease-in-out transform ${
-        isHovered ? "bg-white text-primary scale-105" : "bg-primary text-white scale-100"
+        isHovered ? "bg-white text-base text-primary scale-105" : "bg-primary text-base text-white scale-100"
     }`;
 
     // Styles for mobile (no hover effect)
-    const mobileStyles = `bg-primary text-white px-12 py-2`;
+    const mobileStyles = `bg-primary text-base text-white px-6 py-2`;
 
     // Conditionally apply styles based on the device type
     const buttonClassNames = `${baseStyles} ${isMobile ? mobileStyles : desktopHoverStyles}`;
