@@ -108,7 +108,7 @@ const ImageContentAbout = () => (
 
 const AboutSection = () => (
     <section id="about"
-             className=" px-6 md:px-0 py-8 text-center 2xl:container 2xl:mx-auto flex flex-col md:flex-row mb-4">
+             className="px-6 md:px-0 py-8 text-center flex flex-col md:flex-row mb-4 2xl:container 2xl:mx-auto">
         {/*Image left*/}
         <div id="contentLeft" className="w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
             <Image
@@ -116,7 +116,7 @@ const AboutSection = () => (
                 alt="Mộc Decor"
                 width={1024}
                 height={768}
-                className="w-full max-w-lg mx-auto object-cover h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
+                className="w-full max-w-lg mx-auto md:object-cover h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
             />
         </div>
 
@@ -166,8 +166,8 @@ const OtherProductsSection: React.FC = () => {
                     />
                 </div>
                 <Heading2 text={languages.get('home.title.header2.otherProducts')}/>
-                <div className="grid gap-6 max-w-7xl w-full ">
-                    <div className="flex col-span-2 h-80">
+                <div className="grid md:gap-6  max-w-7xl w-full ">
+                    <div className="flex flex-col md:flex-row md:col-span-2">
                         {/* Sổ tay */}
                         <div
                             className="bg-image-notebook-home bg-cover text-white px-10 py-8 rounded-lg relative flex flex-col justify-center items-start w-7/12">
@@ -259,21 +259,23 @@ const GiftSection: React.FC = () => {
     };
     return (
         <section
-            className={`2xl:mx-auto 2xl:container bg-image-gift-home bg-cover bg-center h-[648px] md:max-h-96 md:h-96 flex`}>
-            <div className='md:max-w-6xl ml-0 md:ml-20'>
-                <div className='flex flex-col md:flex-row items-center'>
+            className={`2xl:mx-auto 2xl:container bg-image-gift-home bg-cover bg-center h-648 md:max-h-96 md:h-96 flex`}>
+            <div className='w-full md:max-w-6xl mx-0 md:mx-20'>
+                <div className='flex flex-col md:flex-row items-center pt-12 pb-8 md:pb-0 md:pt-0'>
                     <Image src={images.logoMocHome} alt="Logo" width={290} height={290}/>
                     <div className="h-24 w-1 bg-white mx-4 hidden md:block"></div>
                     <div id='title'>
-                        <div className="flex-n1 flex flex-col items-start">
+                        <div className="flex-n1 flex flex-col md:items-start items-center">
                             <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">{languages.get('home.title.header2.gift1')}</h2>
                             <h2 className="text-4xl font-extrabold text-white font-raleway">{languages.get('home.title.header2.gift2')}</h2>
                         </div>
                     </div>
                 </div>
-                <DiscoverButton className='ml-8' onClick={handleClick}>
-                    {languages.get('button.discover')}
-                </DiscoverButton>
+                <div className='flex flex-row w-full justify-center md:justify-start px-0 md:px-8'>
+                    <DiscoverButton className='items-center justify-center ' onClick={handleClick}>
+                        {languages.get('button.discover')}
+                    </DiscoverButton>
+                </div>
             </div>
         </section>
     );
@@ -310,9 +312,9 @@ const FeedbackScrollableSection: React.FC = () => {
 
 const FeedbackSection: React.FC = () => {
     return (
-        <section className='2xl:mx-auto 2xl:container pb-20'>
-            <div id='content' className='flex flex-col pt-28'>
-                <div className='flex flex-col items-center pb-16'>
+        <section className='2xl:mx-auto 2xl:container pb-8 md:pb-20'>
+            <div id='content' className='flex flex-col pt-8 md:pt-28'>
+                <div className='flex flex-col items-center pb-6 md:pb-16'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.feedback')}
                         secondText={languages.get('home.title.secondText.feedback')}
@@ -336,7 +338,7 @@ const ServiceSection: React.FC = () => {
             <div className='pt-8 md:pt-28 px-5 md:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
                 <div className='gap-y-12 flex flex-col'>
                     {/* Content for Hiếu */}
-                    <div className='flex flex-col md:flex-row gap-6 md:gap-16 justify-center items-center'>
+                    <div className='flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-16 justify-center items-center'>
                         <div className='flex-col flex justify-start items-start w-full md:w-3/5'>
                             <TitleText
                                 firstText={languages.get('home.title.firstText.service')}
@@ -462,7 +464,7 @@ const ScrollableSection: React.FC<{ scrollInterval: number, direction: 'left' | 
         return (
             <div
                 ref={scrollerRef}
-                className="scroller overflow-x-auto whitespace-nowrap scroll-smooth pb-10"
+                className="scroller overflow-x-auto whitespace-nowrap scroll-smooth pb-5 md:pb-10"
                 data-direction={direction} // Direction passed via props
                 data-speed={scrollInterval <= 3000 ? "fast" : "slow"} // Control speed based on interval
             >
@@ -482,7 +484,8 @@ const ScrollableSection: React.FC<{ scrollInterval: number, direction: 'left' | 
 const CoopClientsSection: React.FC = () => {
     return (
         <section className="bg-gradient-to-b from-white to-just-right to-60% mt-0">
-            <div id='content' className='flex flex-col py-28 gap-y-12 2xl:container 2xl:mx-auto'>
+            <div id='content'
+                 className='flex flex-col pt-16 pb-14 md:pt-32 md:pb-10  gap-y-12 2xl:container 2xl:mx-auto'>
                 <div className='flex flex-col items-center'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.coopClient')}
@@ -491,7 +494,7 @@ const CoopClientsSection: React.FC = () => {
                     <Heading2 text={languages.get('home.title.header2.coopClient')}/>
                 </div>
 
-                <div className='gap-y-8 flex flex-col'>
+                <div className='gap-y-4 md:gap-y-8 flex flex-col'>
                     {/* First scroller: scrolls to the left */}
                     <ScrollableSection scrollInterval={10000} direction="left"/>
 

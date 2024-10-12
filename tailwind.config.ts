@@ -135,6 +135,7 @@ const config: Config = {
                 '946': '59.125rem',
                 '525': '525px',
                 '584': '36.5rem',
+                '648': '40.5rem',
             },
             maxHeight: {
                 '430': '26.875rem',
@@ -149,6 +150,7 @@ const config: Config = {
                 '3/10': '30%', // Custom width class for 30%
                 '767': '47.9375rem',
                 '920': '57.5rem',
+                '327': '20.5rem',
             },
             margin: {
                 navbar: '72px'

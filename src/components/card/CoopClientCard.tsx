@@ -8,9 +8,9 @@ interface CoopClientCardProps {
     height?: number;
 }
 
-const CoopClientCard: React.FC<CoopClientCardProps> = ({ src, alt, width = 232.77, height = 142.9 }) => {
+const CoopClientCard: React.FC<CoopClientCardProps> = ({src, alt, width = 232.77, height = 142.9}) => {
     return (
-        <div className="w-232.77 bg-white shadow-lg rounded py-4 px-14">
+        <div className="w-36 md:w-232.77 bg-white shadow-lg rounded py-2 md:py-4 px-7 md:px-14">
             <div className="flex justify-center">
                 <Image
                     src={src}

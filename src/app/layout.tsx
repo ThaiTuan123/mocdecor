@@ -19,7 +19,7 @@ export default function RootLayout({
         <DisableAnimations>
             <RecoilRoot>
                 <Header/>
-                <div className='w-full mt-navbar'>
+                <div className='w-full overflow-hidden mt-navbar'>
                     {children}
                     <SpeedInsights/>
                 </div>
