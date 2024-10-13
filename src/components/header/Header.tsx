@@ -18,55 +18,104 @@ import QuantitySelector from "@/components/inputs/QuantitySelectorInput"
 import useListCategory from "@/recoil/hooks/useListCategory"
 
 const product = [
-  {
-    title:
-      "Khung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang trí",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
+    {
+        title:
+            "Khung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang trí",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title:
+            "Khung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang trí",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
 ]
 
 const Header = () => {
