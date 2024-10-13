@@ -47,6 +47,10 @@ class Languages {
             "policy.footer.button.text": "KHÁM PHÁ NGAY",
             "policy.footer.or.text": "Hoặc truy cập",
 
+            // header
+            "header.id.customer": "Mã khách hàng: ",
+            "header.loading": "Đang tải...",
+
             // sub nav
             "navbar.sub.view.title": "Các loại",
             "navbar.sub.view.read.more": "Xem thêm",
