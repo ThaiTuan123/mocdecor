@@ -27,6 +27,7 @@ const config: Config = {
                 'image-product-story': "url('/assets/imgs/backgrounds/bg-product-story.png')",
                 'image-story-home-1': "url('/assets/imgs/backgrounds/story-home-1.png')",
                 'image-gift-home': "url('/assets/imgs/backgrounds/bg-gift-home.png')",
+                'image-gift-home-mobile': "url('/assets/imgs/backgrounds/bg-gift-home-mobile.png')",
                 //// frame
                 'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.png')",
                 //// customer
@@ -38,7 +39,7 @@ const config: Config = {
 
                 // payment
                 'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.png')",
-                
+
 
             },
             colors: {
@@ -136,6 +137,8 @@ const config: Config = {
                 '525': '525px',
                 '584': '36.5rem',
                 '648': '40.5rem',
+                '896': '56rem',
+                '218': '13.625rem',
             },
             maxHeight: {
                 '430': '26.875rem',

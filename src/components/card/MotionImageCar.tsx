@@ -5,11 +5,12 @@ interface MotionImageCardProps {
     src: string;
     alt: string;
     text: string;
+    className?: string;
 }
 
-const MotionImageCard: React.FC<MotionImageCardProps> = ({src, alt, text}) => (
+const MotionImageCard: React.FC<MotionImageCardProps> = ({src, alt, text, className}) => (
     <motion.div
-        className="flex flex-col"
+        className={`flex flex-col ${className}`}
         whileHover={{
             scale: 1.025,
         }}
@@ -18,9 +19,9 @@ const MotionImageCard: React.FC<MotionImageCardProps> = ({src, alt, text}) => (
         <img
             src={src}
             alt={alt}
-            className="w-full h-full object-cover rounded-lg"
+            className="w-full md:h-full h-44 object-cover rounded-lg"
         />
-        <p className="bottom-0 left-0 text-1.25lg font-raleway font-normal mt-4">
+        <p className="bottom-0 left-0 text-lg md:text-1.25lg font-raleway font-semibold  md:font-normal mt-4">
             {text}
         </p>
     </motion.div>

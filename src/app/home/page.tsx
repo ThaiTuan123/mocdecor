@@ -210,31 +210,37 @@ const OtherProductsSection: React.FC = () => {
 
 const StorySection: React.FC = () => {
     return (
-        <section className='2xl:mx-auto 2xl:container h-946'>
+        <section className='2xl:mx-auto 2xl:container h-896 md:h-946'>
             <div className='relative'>
-                <div className='bg-image-product-story md:h-80 relative z-10'>
+                <div className='bg-image-product-story h-218 md:h-80 relative z-10'>
                     <div className='w-full flex flex-col pt-16'>
                         <TitleText
                             firstText={languages.get('home.title.firstText.story')}
                             secondText={languages.get('home.title.secondText.story')}
                         />
-                        <Heading2 text={languages.get('home.title.header2.story')}/>
+                        <Heading2 className='mb-6 md:mb-8' text={languages.get('home.title.header2.story')}/>
                     </div>
                 </div>
 
                 <div
                     id='content'
-                    className='absolute max-w-6xl mx-auto inset-0 z-20 mt-52'
+                    className='absolute max-w-6xl mx-auto inset-0 z-20 mt-44 md:mt-52'
                 >
-                    <div className='flex h-[600] '>
+                    <div className='flex md:h-[600] '>
                         <div
-                            className="w-3/5 bg-image-story-home-1 bg-cover flex items-end justify-between px-8 py-8 rounded">
+                            className=" hidden md:visible w-full md:w-3/5 bg-image-story-home-1 bg-cover md:flex items-end justify-between px-8 py-8 rounded">
                             <Heading3 size={'text-2xl'}
                                       text={languages.get('home.title.header3.itemStory1')}/>
                             {/*TODO add this button when have blogs*/}
                             {/*<SolidButton text={languages.get('button.readMore')} href="/your-target-page"/>*/}
                         </div>
-                        <div className='w-2/5 flex flex-col gap-4 pl-4'>
+                        <div className='w-full md:w-2/5 flex flex-col gap-4 px-6 md:px-0 md:pl-4'>
+                            <MotionImageCard
+                                src={images.homeStory1}
+                                alt="Other Image 1"
+                                text={languages.get('home.title.p.itemStory1')}
+                                className={"visible md:hidden"}
+                            />
                             <MotionImageCard
                                 src={images.homeStory2}
                                 alt="Other Image 2"
@@ -259,10 +265,12 @@ const GiftSection: React.FC = () => {
     };
     return (
         <section
-            className={`2xl:mx-auto 2xl:container bg-image-gift-home bg-cover bg-center h-648 md:max-h-96 md:h-96 flex`}>
+            className={`2xl:mx-auto 2xl:container bg-image-gift-home-mobile md:bg-image-gift-home bg-cover bg-center h-648 md:max-h-96 md:h-96 flex mt-8 md:mt-0`}>
             <div className='w-full md:max-w-6xl mx-0 md:mx-20'>
-                <div className='flex flex-col md:flex-row items-center pt-12 pb-8 md:pb-0 md:pt-0'>
-                    <Image src={images.logoMocHome} alt="Logo" width={290} height={290}/>
+                <div className='flex flex-col md:flex-row items-center pt-40 pb-8 md:pb-0 md:pt-0'>
+                    <Image className='hidden md:block' src={images.logoMocHome} alt="Logo" width={290} height={290}/>
+                    <Image className='block md:hidden' src={images.logoMocHomeMobile} alt="Logo mobile" width={187}
+                           height={187}/>
                     <div className="h-24 w-1 bg-white mx-4 hidden md:block"></div>
                     <div id='title'>
                         <div className="flex-n1 flex flex-col md:items-start items-center">
@@ -314,7 +322,7 @@ const FeedbackSection: React.FC = () => {
     return (
         <section className='2xl:mx-auto 2xl:container pb-8 md:pb-20'>
             <div id='content' className='flex flex-col pt-8 md:pt-28'>
-                <div className='flex flex-col items-center pb-6 md:pb-16'>
+                <div className='flex flex-col items-center pb-0 md:pb-16'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.feedback')}
                         secondText={languages.get('home.title.secondText.feedback')}
@@ -335,7 +343,7 @@ const ServiceSection: React.FC = () => {
         /*bg-image-service-home*/
         <section className='bg-image-service-home bg-fixed bg-no-repeat '>
             {/* Main content */}
-            <div className='pt-8 md:pt-28 px-5 md:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
+            <div className='pt-8 md:pt-28 px-6 md:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
                 <div className='gap-y-12 flex flex-col'>
                     {/* Content for Hiếu */}
                     <div className='flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-16 justify-center items-center'>
@@ -485,13 +493,13 @@ const CoopClientsSection: React.FC = () => {
     return (
         <section className="bg-gradient-to-b from-white to-just-right to-60% mt-0">
             <div id='content'
-                 className='flex flex-col pt-16 pb-14 md:pt-32 md:pb-10  gap-y-12 2xl:container 2xl:mx-auto'>
+                 className='flex flex-col pt-16 pb-14 md:pt-32 md:pb-10 gap-y-6 md:gap-y-12 2xl:container 2xl:mx-auto'>
                 <div className='flex flex-col items-center'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.coopClient')}
                         secondText={languages.get('home.title.secondText.coopClient')}
                     />
-                    <Heading2 text={languages.get('home.title.header2.coopClient')}/>
+                    <Heading2 className='mb-0 md:mb-8' text={languages.get('home.title.header2.coopClient')}/>
                 </div>
 
                 <div className='gap-y-4 md:gap-y-8 flex flex-col'>

@@ -29,7 +29,7 @@ const Tab: React.FC<TabProps> = ({
         <div className={background}>
             <div className="overflow-x-auto">
                 <div
-                    className="2xl:mx-auto 2xl:container flex border-b border-stroke ml-6 md:px-36 pt-7 whitespace-nowrap">
+                    className="2xl:mx-auto 2xl:container flex border-b border-stroke ml-6 md:px-36 pt-3 md:pt-7 whitespace-nowrap">
                     {tabs.map((tab, index) => (
                         <button
                             key={tab.value}
