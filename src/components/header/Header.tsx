@@ -83,15 +83,15 @@ const Header = () => {
     console.log("Current Browser ID:", id)
   }, [])
 
-    const toggleMenu = () => {
-      setMenuOpen(!menuOpen)
-    }
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
+  }
 
-    const handleClickIcon = (value: string) => {
-        if (value === "cart") {
-            setIsShowCart(true)
-        }
+  const handleClickIcon = (value: string) => {
+    if (value === "cart") {
+      setIsShowCart(true)
     }
+  }
 
   const renderCartEmpty = () => {
     return (
@@ -319,48 +319,64 @@ const Header = () => {
                 <span className="text-2lg">({0})</span>
               </div>
               {browserId ? (
-                <p className="text-gray-100">{languages.get('header.id.customer')}{browserId}</p>
+                <p className="text-gray-100">
+                  {languages.get("header.id.customer")}
+                  {browserId}
+                </p>
               ) : (
-                <p className="text-gray-100">{languages.get('header.loading')}</p>
+                <p className="text-gray-100">
+                  {languages.get("header.loading")}
+                </p>
               )}
             </div>
             {menuOpen && (
-                // TODO mobile menu
-                <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4">
-                    {menuLinks.map(({href, labelKey}) => (
-                        <MenuLink key={href} href={href} label={languages.get(labelKey)}/>
-                    ))}
-                </div>
+              // TODO mobile menu
+              <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4">
+                {menuLinks.map(({ href, labelKey }) => (
+                  <MenuLink
+                    key={href}
+                    href={href}
+                    label={languages.get(labelKey)}
+                  />
+                ))}
+              </div>
             )}
             <LayoutOpacity
-                isVisible={isShowCart}
-                onClick={() => setIsShowCart(false)}
+              isVisible={isShowCart}
+              onClick={() => setIsShowCart(false)}
             >
-                <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight">
-                    <div className="py-7 px-11 flex justify-between border-b">
-                        <div className="flex flex-col ">
-                            <div className="flex flex-row gap-4 items-center">
-                                <h2 className="text-4lg text-primary">
-                                    {languages.get("cart.title")}
-                                </h2>
-                                <span className="text-2lg">({0})</span>
-                            </div>
-                            {browserId ? (
-                                <p className="text-gray-100">Mã khách hàng: {browserId}</p>
-                            ) : (
-                                <p className="text-gray-100">Đang tải...</p>
-                            )}
-                        </div>
-                        <CancelButton
-                            onClick={() => setIsShowCart(false)}
-                            absolute={false}
-                        />
+              <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight">
+                <div className="py-7 px-11 flex justify-between border-b">
+                  <div className="flex flex-col ">
+                    <div className="flex flex-row gap-4 items-center">
+                      <h2 className="text-4lg text-primary">
+                        {languages.get("cart.title")}
+                      </h2>
+                      <span className="text-2lg">({0})</span>
                     </div>
-                    {product.length > 0 ? renderCartHaveProduct() : renderCartEmpty()}
+                    {browserId ? (
+                      <p className="text-gray-100">
+                        Mã khách hàng: {browserId}
+                      </p>
+                    ) : (
+                      <p className="text-gray-100">Đang tải...</p>
+                    )}
+                  </div>
+                  <CancelButton
+                    onClick={() => setIsShowCart(false)}
+                    absolute={false}
+                  />
                 </div>
+                {product.length > 0
+                  ? renderCartHaveProduct()
+                  : renderCartEmpty()}
+              </div>
             </LayoutOpacity>
-        </header>
-    )
+          </div>
+        </div>
+      </LayoutOpacity>
+    </header>
+  )
 }
 
 export default Header
