@@ -83,12 +83,6 @@ const Header = () => {
     console.log("Current Browser ID:", id)
   }, [])
 
-  useEffect(() => {
-    if(listCategory) {
-      console.log(listCategory)
-    }
-  }, [listCategory])
-
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
@@ -191,6 +185,64 @@ const Header = () => {
     )
   }
 
+  const renderSubNav = (labelKey: string) => {
+    return (
+      <div
+        className={`fixed top-72px left-0 right-0 bottom-0 w-full h-451 bg-pampas pl-36 pt-9 transition-opacity duration-600 ease-linear ${
+          hoveredLabelKey === "products" && labelKey == "products"
+            ? "opacity-100 visible"
+            : "opacity-0 invisible"
+        }`}
+        onMouseEnter={() => setHoveredLabelKey("products")}
+        onMouseLeave={() => setHoveredLabelKey("")}
+      >
+        <div className="flex flex-row gap-6">
+          {listCategory.length > 0 &&
+            listCategory.map((item, index) => (
+              <div key={index} className="flex flex-col min-w-44">
+                <span className="text-gray-100 text-1.25lg">
+                  {languages.get("navbar.sub.view.title")}
+                </span>
+                <h2 className="text-2.25lg text-primary mb-8 mt-1">
+                  {item.name}
+                </h2>
+                <div className="flex flex-col gap-4 cursor-pointer">
+                  {item.types.map((subItem, subIndex) => {
+                    return (
+                      // TODO add line when hover
+                      <Link
+                        key={subIndex}
+                        className={`relative text-doveGray text-lg md:hover:text-karaka`}
+                        href={`/products/${item.enName}/${subItem.slug}`}
+                        onClick={() => setHoveredLabelKey("")}
+                      >
+                        {subItem.name}
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+        </div>
+        <div className="flex gap-3 items-center mt-4 cursor-pointer">
+          <span className="text-karaka text-lg">
+            {languages.get("navbar.sub.view.read.more")}
+          </span>
+          <img
+            src={images.icons.ic_arrow_right}
+            alt=""
+            className="w-4 object-contain"
+          />
+        </div>
+        <img
+          src={images.heroSubNav}
+          alt=""
+          className="absolute right-0 top-0 h-451"
+        />
+      </div>
+    )
+  }
+
   return (
     <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
       <div className="md:container md:mx-auto flex justify-between items-center px-4 2xl:px-16">
@@ -225,60 +277,7 @@ const Header = () => {
               {hoveredLabelKey == "products" && labelKey == "products" && (
                 <div className="w-40 h-10 bg-transparent absolute "></div>
               )}
-              <div
-                className={`bg-layout fixed top-72px left-0 right-0 bottom-0 transition-opacity duration-600 ease-linear ${
-                  hoveredLabelKey === "products" && labelKey == "products"
-                    ? "opacity-100 visible"
-                    : "opacity-0 invisible"
-                }`}
-                onMouseEnter={() => setHoveredLabelKey("products")}
-                onMouseLeave={() => setHoveredLabelKey("")}
-              >
-                <div className="w-full h-451 bg-pampas pl-36 pt-9">
-                  <div className="flex flex-row gap-6">
-                    {listCategory.length > 0 && listCategory.map((item, index) => (
-                      <div key={index} className="flex flex-col min-w-44">
-                        <span className="text-gray-100 text-1.25lg">
-                          {languages.get("navbar.sub.view.title")}
-                        </span>
-                        <h2 className="text-2.25lg text-primary mb-8 mt-1">
-                          {item.name}
-                        </h2>
-                        <div className="flex flex-col gap-4 cursor-pointer">
-                          {item.types.map((subItem, subIndex) => {
-                            return (
-                              // TODO add line when hover
-                              <Link
-                                key={subIndex}
-                                className={`relative text-doveGray text-lg md:hover:text-karaka`}
-                                href={`/products/${item.enName}/${subItem.name}`}
-                                onClick={() => setHoveredLabelKey("")}
-                              >
-                                {subItem.name}
-                              </Link>
-                            )
-                          })}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex gap-3 items-center mt-4 cursor-pointer">
-                    <span className="text-karaka text-lg">
-                      {languages.get("navbar.sub.view.read.more")}
-                    </span>
-                    <img
-                      src={images.icons.ic_arrow_right}
-                      alt=""
-                      className="w-4 object-contain"
-                    />
-                  </div>
-                  <img
-                    src={images.heroSubNav}
-                    alt=""
-                    className="absolute right-0 top-0 h-451"
-                  />
-                </div>
-              </div>
+              {renderSubNav(labelKey)}
             </div>
           ))}
         </div>

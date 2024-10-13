@@ -11,6 +11,7 @@ export interface CategoryType {
         name: string;
         description: string;
         image: string;
+        slug: string;
     }[];
     createdAt: string;
     updatedAt: string;

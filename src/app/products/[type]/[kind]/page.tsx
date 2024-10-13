@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import { Checkbox, Radio, RadioChangeEvent } from "antd"
 import { usePathname } from "next/navigation"
 import './style.css'
+import useProductCategories from "@/recoil/hooks/useProductCategories"
 
 const productData = [
   {
@@ -66,6 +67,19 @@ export default function Products() {
   const [filterRadio, setFilterRadio] = useState("")
   const [hoverFilter, setHoverFilter] = useState("")
   const pathname = usePathname()
+  const { productCategories } = useProductCategories(pathname.split("/")[2])
+
+  useEffect(() => {
+    if(productCategories) {
+      const newArr = productCategories[0]?.types.map(item => {
+        return {
+          label: item.name,
+          value: item.slug
+        }
+      })
+      filterData[2].menu = newArr
+    }
+  }, [productCategories])
 
   const title = () => {
     const value = pathname.split("/")[2]

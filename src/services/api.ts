@@ -55,3 +55,8 @@ export const submitContactForm = async (formData: ContactFormModel) => {
         body: formData,
     });
 };
+
+export const fetchProductCategories = async (name: string, limit: number = 20, page: number = 1) => {
+    const url = `${API.PRODUCT_CATEGORIES}?limit=${limit}&page=${page}&name=${name}`;
+    return apiRequest(url);
+}
