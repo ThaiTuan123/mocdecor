@@ -110,7 +110,7 @@ const AboutSection = () => (
     <section id="about"
              className=" px-6 md:px-0 py-8 text-center 2xl:container 2xl:mx-auto flex flex-col md:flex-row mb-4">
         {/*Image left*/}
-        <div id="contentLeft" className="w-1/2 md:order-20 md:pl-20 2xl:pl-40">
+        <div id="contentLeft" className="w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
@@ -120,7 +120,7 @@ const AboutSection = () => (
             />
         </div>
 
-        <div id="contentRight" className="md:w-1/2 flex flex-col items-start px-2">
+        <div id="contentRight" className="md:w-1/2 flex flex-col items-start w-full">
             <HeaderSectionAbout/>
             <TextContentAbout/>
             <SeparatorAbout/>
@@ -259,11 +259,11 @@ const GiftSection: React.FC = () => {
     };
     return (
         <section
-            className={`2xl:mx-auto 2xl:container bg-image-gift-home bg-cover bg-center max-h-96 h-96 flex`}>
-            <div className='max-w-6xl ml-20'>
-                <div className='flex flex-row items-center'>
+            className={`2xl:mx-auto 2xl:container bg-image-gift-home bg-cover bg-center h-[648px] md:max-h-96 md:h-96 flex`}>
+            <div className='md:max-w-6xl ml-0 md:ml-20'>
+                <div className='flex flex-col md:flex-row items-center'>
                     <Image src={images.logoMocHome} alt="Logo" width={290} height={290}/>
-                    <div className="h-24 w-1 bg-white mx-4"></div>
+                    <div className="h-24 w-1 bg-white mx-4 hidden md:block"></div>
                     <div id='title'>
                         <div className="flex-n1 flex flex-col items-start">
                             <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">{languages.get('home.title.header2.gift1')}</h2>
@@ -330,18 +330,20 @@ const FeedbackSection: React.FC = () => {
 
 const ServiceSection: React.FC = () => {
     return (
-        <section className='bg-image-service-home bg-cover h-full bg-no-repeat max-w-full'>
+        /*bg-image-service-home*/
+        <section className='bg-image-service-home bg-fixed bg-no-repeat '>
             {/* Main content */}
-            <div className='pt-28 px-36 pb-20 flex flex-col 2xl:mx-auto 2xl:container'>
+            <div className='pt-8 md:pt-28 px-5 md:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
                 <div className='gap-y-12 flex flex-col'>
                     {/* Content for Hiếu */}
-                    <div className='flex flex-row gap-16 justify-center items-center'>
-                        <div className='flex-col flex justify-start items-start w-3/5'>
+                    <div className='flex flex-col md:flex-row gap-6 md:gap-16 justify-center items-center'>
+                        <div className='flex-col flex justify-start items-start w-full md:w-3/5'>
                             <TitleText
                                 firstText={languages.get('home.title.firstText.service')}
                                 secondText={languages.get('home.title.secondText.service')}
                                 textColor='text-white'
                                 bgColor='bg-white'
+                                itemsCenter={true}
                             />
                             <Heading2
                                 className='mt-8'
@@ -355,7 +357,7 @@ const ServiceSection: React.FC = () => {
                             />
                             <h4 className='text-white font-semibold font-raleway'> {languages.get('home.title.header4Hieu.service')} </h4>
                         </div>
-                        <div className='w-2/5 items-center justify-center flex'>
+                        <div className='w-full md:w-2/5 items-center justify-center flex'>
                             <div className="relative w-full ">
                                 <VideoYoutube videoId="t-QhaFw-zy8" height="0px"/>
                             </div>
@@ -363,13 +365,13 @@ const ServiceSection: React.FC = () => {
                     </div>
                     <Line height={"h-px"}/>
                     {/* Content for Phú */}
-                    <div className='flex flex-row gap-16 justify-center items-start'>
-                        <div className='w-2/5 items-center justify-center flex'>
+                    <div className='flex flex-col md:flex-row gap-6 md:gap-16 justify-center items-start'>
+                        <div className='w-full md:w-2/5 items-center justify-center order-2 md:order-1 flex'>
                             <div className="relative w-full">
                                 <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
                             </div>
                         </div>
-                        <div className='flex-col flex justify-start items-start w-3/5'>
+                        <div className='flex-col flex justify-start items-start w-full order-1 md:order-2 md:w-3/5'>
                             <Heading2
                                 text={languages.get('home.title.header2Phu.service')}
                                 textColor={"text-white"}
@@ -385,7 +387,8 @@ const ServiceSection: React.FC = () => {
                 </div>
             </div>
             {/* Services offered */}
-            <div className='flex flex-row justify-between h-60 opacity-80 2xl:mx-auto 2xl:container'>
+            <div
+                className='pb-16 pt-6 md:pb-0 flex-row md:flex-row justify-between md:h-64 h-584 opacity-80 2xl:mx-auto 2xl:container grid grid-cols-2 md:flex'>
                 {cardServiceData.map((card, index) => (
                     <ServiceCard key={index} icon={card.icon} title={card.title} description={card.description}/>
                 ))}
@@ -478,7 +481,7 @@ const ScrollableSection: React.FC<{ scrollInterval: number, direction: 'left' | 
 
 const CoopClientsSection: React.FC = () => {
     return (
-        <section className="bg-gradient-to-b from-white to-just-right to-60%">
+        <section className="bg-gradient-to-b from-white to-just-right to-60% mt-0">
             <div id='content' className='flex flex-col py-28 gap-y-12 2xl:container 2xl:mx-auto'>
                 <div className='flex flex-col items-center'>
                     <TitleText

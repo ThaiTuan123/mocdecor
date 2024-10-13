@@ -47,6 +47,12 @@ export const fetchListCategory = async (limit: number = 20, page: number = 1) =>
     return apiRequest(url);
 };
 
+// Fetch banner items
+export const fetchBannerItems = async () => {
+    const url = 'https://api.mocdecor.org/public/settings/banner';
+    return apiRequest(url);
+};
+
 // Submit contact form
 export const submitContactForm = async (formData: ContactFormModel) => {
     const url = 'https://api.mocdecor.org/public/contact/submit';
