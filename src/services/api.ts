@@ -47,12 +47,6 @@ export const fetchListCategory = async (limit: number = 20, page: number = 1) =>
     return apiRequest(url);
 };
 
-// Fetch banner items
-export const fetchBannerItems = async () => {
-    const url = 'https://api.mocdecor.org/public/settings/banner';
-    return apiRequest(url);
-};
-
 // Submit contact form
 export const submitContactForm = async (formData: ContactFormModel) => {
     const url = 'https://api.mocdecor.org/public/contact/submit';
@@ -61,3 +55,8 @@ export const submitContactForm = async (formData: ContactFormModel) => {
         body: formData,
     });
 };
+
+export const fetchProductCategories = async (name: string, limit: number = 20, page: number = 1) => {
+    const url = `${API.PRODUCT_CATEGORIES}?limit=${limit}&page=${page}&name=${name}`;
+    return apiRequest(url);
+}

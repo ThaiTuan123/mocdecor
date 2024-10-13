@@ -4,7 +4,6 @@ import {CarouselItem} from "@/components/carousel/types";
 import CommonButton from "@/components/button/CustomButton";
 import CarouselButton from "@/components/button/CarouselButton";
 import languages from "@/configs/languages";
-import {fetchBannerItems} from "@/services/api";
 
 const Carousel = () => {
     const [items, setItems] = useState<CarouselItem[]>([]);
@@ -13,15 +12,12 @@ const Carousel = () => {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const data = await fetchBannerItems(); // Fetch banner items using the API
-                const formattedItems = data.map((item: any) => ({
-                    id: item._id,
-                    title: item.name,
-                    imageUrl: item.image,
-                }));
-                setItems(formattedItems); // Set the fetched items to state
+                const response = await fetch('/json/Items.json');
+                const data = await response.json();
+                console.log('Fetched Data:', data);
+                setItems(data.items.bootstrap);
             } catch (error) {
-                console.error('Error fetching banner data:', error);
+                console.error('Error fetching data:', error);
             }
         };
         fetchItems();
@@ -93,7 +89,7 @@ const CarouselIndicators = ({items, activeIndex, setActiveIndex}: {
 }) => (
     <div className="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-24 left-1/2">
         <div className='flex flex-col space-y-10'>
-            <CommonButton className='text-xl' text={languages.get('home.button.carousel')}/>
+            <CommonButton text={languages.get('home.button.carousel')}/>
             <div id='indicatorsSlider' className='flex space-x-3 justify-center'>
                 {items.map((_, index) => (
                     <button
