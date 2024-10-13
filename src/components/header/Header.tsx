@@ -319,9 +319,9 @@ const Header = () => {
                 <span className="text-2lg">({0})</span>
               </div>
               {browserId ? (
-                <p className="text-gray-100">Mã khách hàng: {browserId}</p>
+                <p className="text-gray-100">{languages.get('header.id.customer')}{browserId}</p>
               ) : (
-                <p className="text-gray-100">Đang tải...</p>
+                <p className="text-gray-100">{languages.get('header.loading')}</p>
               )}
             </div>
             {menuOpen && (
