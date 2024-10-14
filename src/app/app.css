@@ -202,3 +202,19 @@ span.ant-select-selection-placeholder {
         margin-right: auto;
     }
 }
+
+@media (max-width: 640px) {
+    body > div.w-full.mt-navbar > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div.ant-collapse-header {
+        padding-left: 10px;
+        padding-right: 20px;
+        height: 30px;
+    }
+    body > div.w-full.mt-navbar > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div.ant-collapse-header > div > img {
+        width: 10px;
+        height: 10px;
+    }
+    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        padding-left: 10px;
+        padding-right: 20px;
+    }
+}
