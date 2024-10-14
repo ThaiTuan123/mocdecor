@@ -83,14 +83,20 @@ const Header = () => {
     console.log("Current Browser ID:", id)
   }, [])
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen)
-  }
+  useEffect(() => {
+    if (listCategory) {
+      console.log(listCategory)
+    }
+  }, [listCategory])
 
   const handleClickIcon = (value: string) => {
     if (value === "cart") {
       setIsShowCart(true)
     }
+  }
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
   }
 
   const renderCartEmpty = () => {

@@ -2,9 +2,9 @@
 
 import images from "@/configs/images"
 import languages from "@/configs/languages"
-import { Collapse } from "antd"
-import { useState } from "react"
-import { collapseData } from "./constant"
+import {Collapse} from "antd"
+import {useState} from "react"
+import {collapseData} from "./constant"
 
 const { Panel } = Collapse
 
@@ -13,19 +13,20 @@ export default function Policy() {
 
   const renderHero = () => {
     return (
-      <div className="min-h-80 bg-image-hero-policy bg-no-repeat bg-cover flex justify-center pt-16 pb-16 text-white">
-        <div className="w-1/2 flex flex-col items-center gap-2">
-          <div className="flex flex-row gap-1">
+        <div
+            className="min-h-44 md:min-h-80 bg-image-hero-policy bg-no-repeat bg-cover flex justify-center py-8 md:py-16 text-white">
+          <div className="w-full md:w-1/2 flex flex-col items-center gap-2 px-10 md:px-0">
+            <div className="flex flex-row gap-1">
             <span className="text-black-50">
               {languages.get("policy.hero.intro.text")}
             </span>
             <span>/</span>
             <span>{languages.get("policy.hero.policy.text")}</span>
           </div>
-          <h1 className="uppercase font-playfairBold text-6lg text-center">
-            {languages.get("policy.title")}
-          </h1>
-          <span className="font-playfairRegular text-2lg text-center">
+              <h1 className="uppercase font-playfairBold text-2xl md:text-6lg text-center">
+                  {languages.get("policy.title")}
+              </h1>
+              <span className="font-playfairRegular text-sm md:text-2lg text-center">
             {languages.get("policy.desc")}
           </span>
         </div>
@@ -36,17 +37,18 @@ export default function Policy() {
   const renderFooterPolicy = () => {
     return (
       <div className="bg-image-footer-policy bg-no-repeat bg-cover flex items-center flex-col pb-14 pt-24 text-white">
-        <h2 className="font-playfairBold text-4lg mb-6">
-          {languages.get("policy.footer.title")}
-        </h2>
-        <div className="w-52 h-12 flex items-center justify-center border-primary border-solid border-2 cursor-pointer mb-8 bg-white rounded">
+          <h2 className="font-playfairBold text-2xl md:text-4lg mb-6 text-center">
+              {languages.get("policy.footer.title")}
+          </h2>
+          <div
+              className="w-52 h-12 flex items-center justify-center border-primary border-solid border-2 cursor-pointer mb-6 md:mb-8 bg-white rounded">
           <span className="font-raleway text-primary font-bold text-lg">
             {languages.get("policy.footer.button.text")}
           </span>
-        </div>
-        <div className="flex items-center gap-3.5 mb-6">
-          <div className="h-px w-11 bg-white"></div>
-          <span>{languages.get("policy.footer.or.text")}</span>
+          </div>
+          <div className="flex items-center gap-3.5 mb-6">
+              <div className="h-px w-11 bg-white"></div>
+              <span>{languages.get("policy.footer.or.text")}</span>
           <div className="h-px w-11 bg-white"></div>
         </div>
         <div className="flex items-center gap-5 ">
