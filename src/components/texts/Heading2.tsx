@@ -17,22 +17,33 @@ const Heading2: React.FC<HeadingProps> = ({
                                           }) => {
     const [formattedText, setFormattedText] = useState(text);
 
-    useEffect(() => {
+    const handleResize = () => {
         // Check if it's mobile
         const isMobile = window.innerWidth < 768;
 
-        // If it's mobile, remove <br> tags from the text
+        // Remove <br> tags if it's mobile
         if (isMobile) {
-            setFormattedText(text.replace(/<br\s*\/?>/gi, '').replace(/\s+/g, '')); // replace extra spaces with a single space
+            setFormattedText(text.replace(/<br\s*\/?>/gi, ' ').replace(/\s+/g, ' ')); // Replace extra spaces with a single space
         } else {
-            setFormattedText(text); // Keep original text for larger screens
+            setFormattedText(text); // Keep original text with <br> for larger screens
         }
-    }, [text]);
+    };
+
+    useEffect(() => {
+        // Initial check
+        handleResize();
+
+        // Add event listener for window resize
+        window.addEventListener('resize', handleResize);
+
+        // Clean up event listener on component unmount
+        return () => window.removeEventListener('resize', handleResize);
+    }, [text]); // Dependency on text
 
     return (
         <div className={`flex flex-col ${className} ${marginBottom}`}>
             <h2
-                className={`text-${align} text-2xl md:text-4xl font-bold ${textColor} font-playfairBold whitespace-pre-line`}
+                className={`text-${align} text-2xl md:text-4xl font-bold ${textColor} font-playfairBold`}
                 dangerouslySetInnerHTML={{__html: formattedText}}
             />
         </div>

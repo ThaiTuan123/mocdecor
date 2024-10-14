@@ -32,14 +32,14 @@ import {directionState, scrollIntervalState, speedState} from "@/recoil/atoms/fe
 import {useFeedbackScrollerAnimation} from "@/recoil/hooks/useFeedbackScrollerAnim";
 
 const CategorySection = () => (
-    <section id='category' className="py-8 text-center md:container md:mx-auto">
+    <section id='category' className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto">
         <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
             {languages.get('home.subTitle.category')}
         </h2>
         <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
             {languages.get('home.title.category')}
         </h2>
-        <div className="flex flex-col md:flex-row gap-2 content-center items-center justify-center">
+        <div className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center">
             {categories.map((category) => (
                 <CategoryCard
                     key={category.id}
@@ -108,7 +108,7 @@ const ImageContentAbout = () => (
 
 const AboutSection = () => (
     <section id="about"
-             className="px-6 md:px-0 py-8 text-center flex flex-col md:flex-row mb-4 2xl:container 2xl:mx-auto">
+             className="px-6 md:px-0 pt-0 pb-8 md:py-8 text-center flex flex-col md:flex-row mb-4 2xl:container 2xl:mx-auto">
         {/*Image left*/}
         <div id="contentLeft" className="w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
             <Image
@@ -166,11 +166,11 @@ const OtherProductsSection: React.FC = () => {
                     />
                 </div>
                 <Heading2 text={languages.get('home.title.header2.otherProducts')}/>
-                <div className="grid md:gap-6  max-w-7xl w-full ">
+                <div className="flex flex-col md:grid md:gap-6 max-w-7xl w-full ">
                     <div className="flex flex-col md:flex-row md:col-span-2">
                         {/* Sổ tay */}
                         <div
-                            className="bg-image-notebook-home bg-cover text-white px-10 py-8 rounded-lg relative flex flex-col justify-center items-start w-7/12">
+                            className="bg-image-notebook-home bg-cover text-white px-10 py-8 rounded-lg relative flex flex-col justify-center items-start w-full md:w-7/12">
                             <Heading3 text={languages.get('home.title.header3.notebook')}/>
                             <DiscoverButton onClick={handleClick}>
                                 {languages.get('button.discover')}
@@ -179,7 +179,7 @@ const OtherProductsSection: React.FC = () => {
 
                         {/* Vòng Tay */}
                         <div
-                            className="bg-image-bracelet-home bg-cover text-white p-4 rounded-lg flex justify-between items-end w-5/12 ml-4 h-80">
+                            className="bg-image-bracelet-home bg-cover text-white p-4 rounded-lg flex justify-between items-end w-full md:w-5/12 ml-0 md:ml-4 h-80">
                             <h3 className="text-4xl font-bold uppercase font-playfairBold ">{languages.get('home.title.header3.bracelet')}</h3>
                             <RightArrowButton onClick={handleClick}/>
                         </div>
