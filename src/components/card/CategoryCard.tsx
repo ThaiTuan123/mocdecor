@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Image from "next/image";
 import {ARROW_RIGHT} from "@/utils/constants";
 import {CategoryCardProps} from "@/types/categoryCardProps";
+import MobileArrowButton from "@/components/button/MobileArrowButton";
 
 const CategoryCard: React.FC<CategoryCardProps> = ({category}) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -32,12 +33,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({category}) => {
                 </h3>
 
                 {/* Show on mobile */}
-                <div
-                    className="flex md:hidden flex-col bg-white w-11 md:w-14 items-center rounded transition duration-700 ease-in-out"
-                    onClick={handleArrowClick} // Add onClick for mobile
-                >
-                    <span className="text-primary text-1.25lg md:text-2xl">{ARROW_RIGHT}</span>
-                </div>
+                <MobileArrowButton onClick={handleArrowClick}/>
 
                 {/* Show on desktop */}
                 <div

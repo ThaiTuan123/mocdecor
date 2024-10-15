@@ -109,7 +109,9 @@ class Languages {
             'home.title.header2.otherProducts': 'Bạn có thể sẽ thích của nhà Mộc',
             'home.title.header3.notebook': 'Sổ <br/> Tay',
             'home.title.header3.bracelet': 'Vòng Tay',
+            'home.title.header3.bracelet.mobile': 'Vòng <br/> Tay',
             'home.title.header3.calendar': 'Lịch gỗ',
+            'home.title.header3.calendar.mobile': 'Lịch <br/> gỗ',
             'home.title.header3.woodenPen': 'Bút <br/> Gỗ',
 
             'home.title.firstText.story': 'Câu chuyện',

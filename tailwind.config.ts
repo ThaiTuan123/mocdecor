@@ -28,6 +28,8 @@ const config: Config = {
                 'image-story-home-1': "url('/assets/imgs/backgrounds/story-home-1.png')",
                 'image-gift-home': "url('/assets/imgs/backgrounds/bg-gift-home.png')",
                 'image-gift-home-mobile': "url('/assets/imgs/backgrounds/bg-gift-home-mobile.png')",
+                'image-vong-tay-home-mobile': "url('/assets/imgs/backgrounds/bg-vong-tay-mobile.png')",
+                'image-lich-go-mobile': "url('/assets/imgs/backgrounds/bg-lich-go-mobile.png')",
                 //// frame
                 'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.png')",
                 //// customer

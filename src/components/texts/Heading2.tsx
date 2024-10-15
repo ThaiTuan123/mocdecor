@@ -6,6 +6,7 @@ interface HeadingProps {
     textColor?: 'text-primary' | 'text-white';
     className?: string;
     marginBottom?: 'mb-8' | 'mb-6' | 'mb-4' | 'mb-2' | 'mb-1';
+    classNameText?: string;
 }
 
 const Heading2: React.FC<HeadingProps> = ({
@@ -14,6 +15,7 @@ const Heading2: React.FC<HeadingProps> = ({
                                               textColor = 'text-primary',
                                               className = '',
                                               marginBottom = 'mb-8',
+                                              classNameText = '',
                                           }) => {
     const [formattedText, setFormattedText] = useState(text);
 
@@ -43,7 +45,7 @@ const Heading2: React.FC<HeadingProps> = ({
     return (
         <div className={`flex flex-col ${className} ${marginBottom}`}>
             <h2
-                className={`text-${align} text-2xl md:text-4xl font-bold ${textColor} font-playfairBold`}
+                className={`text-${align} ${classNameText} text-2xl md:text-4xl font-bold ${textColor} font-playfairBold`}
                 dangerouslySetInnerHTML={{__html: formattedText}}
             />
         </div>
