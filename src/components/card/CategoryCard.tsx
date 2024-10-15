@@ -19,13 +19,17 @@ const CategoryCard: React.FC<CategoryCardProps> = ({category}) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <Image
-                src={category.src}
-                alt={category.alt}
-                width={474}
-                height={382}
-                className="mx-auto rounded h-160 md:h-379 "
-            />
+            <div className="relative">
+                <Image
+                    src={category.src}
+                    alt={category.alt}
+                    width={474}
+                    height={382}
+                    className="mx-auto rounded h-160 md:h-379 object-cover md:object-fill"
+                />
+                <div
+                    className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(82,59,24,0.9)] rounded"></div>
+            </div>
             <div
                 className="absolute flex flex-row md:flex-col justify-around md:justify-center items-center bottom-4 left-0 w-full">
                 <h3 className="text-2xl md:text-5lg font-bold my-4 text-center text-white uppercase font-playfairBold">

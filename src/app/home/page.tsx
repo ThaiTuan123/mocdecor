@@ -130,7 +130,7 @@ const AboutSection = () => (
                     alt="Mộc Decor"
                     width={1024}
                     height={768}
-                    className="w-full max-w-lg mx-auto md:object-cover h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
+                    className="object-cover md:object-fill w-full max-w-lg mx-auto h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
                 />
             </div>
             <TextContentAbout/>
@@ -364,7 +364,7 @@ const FeedbackSection: React.FC = () => {
 const ServiceSection: React.FC = () => {
     return (
         /*bg-image-service-home*/
-        <section className='bg-image-service-home bg-fixed bg-no-repeat '>
+        <section className='bg-image-service-home bg-cover md:bg-fixed bg-no-repeat '>
             {/* Main content */}
             <div className='pt-8 md:pt-28 px-6 md:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
                 <div className='gap-y-12 flex flex-col'>
@@ -398,8 +398,8 @@ const ServiceSection: React.FC = () => {
                     </div>
                     <Line height={"h-px"}/>
                     {/* Content for Phú */}
-                    <div className='flex flex-row gap-16 justify-center items-start'>
-                    <div className='w-2/5 items-center justify-center flex'>
+                    <div className='flex flex-col md:flex-row gap-6 md:gap-16 justify-center items-start'>
+                    <div className='w-full md:w-2/5 items-center justify-center flex order-2 md:order-none'>
                             <div className="relative w-full">
                                 <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
                             </div>
@@ -517,7 +517,7 @@ const CoopClientsSection: React.FC = () => {
         <section className="bg-gradient-to-b from-white to-just-right to-60% mt-0">
             <div id='content'
                  className='flex flex-col pt-16 pb-14 md:pt-32 md:pb-10 gap-y-6 md:gap-y-12 2xl:container 2xl:mx-auto'>
-                <div className='flex flex-col items-center'>
+                <div className='flex flex-col items-center px-6 md:px-0'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.coopClient')}
                         secondText={languages.get('home.title.secondText.coopClient')}
