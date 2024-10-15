@@ -50,7 +50,7 @@ const ProductGrid: React.FC = () => {
                     />
                 ))}
             </div>
-            <div className="flex justify-center my-10">
+            <div className="flex justify-center my-6 md:my-10">
                 <OutlineButton text={languages.get('button.viewMore')} href="/your-target-page"/>
             </div>
 

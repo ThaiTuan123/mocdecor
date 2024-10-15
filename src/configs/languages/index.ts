@@ -113,13 +113,16 @@ class Languages {
             'home.title.header2.otherProducts': 'Bạn có thể sẽ thích của nhà Mộc',
             'home.title.header3.notebook': 'Sổ <br/> Tay',
             'home.title.header3.bracelet': 'Vòng Tay',
+            'home.title.header3.bracelet.mobile': 'Vòng <br/> Tay',
             'home.title.header3.calendar': 'Lịch gỗ',
+            'home.title.header3.calendar.mobile': 'Lịch <br/> gỗ',
             'home.title.header3.woodenPen': 'Bút <br/> Gỗ',
 
             'home.title.firstText.story': 'Câu chuyện',
             'home.title.secondText.story': 'Nhà Mộc',
             'home.title.header2.story': 'Hành trình lưu giữ những <br/> kỉ niệm tại Mộc Decor',
             'home.title.header3.itemStory1': 'CÁCH CHÚNG TÔI TẠO <br/> NÊN NHỮNG BỘ KHUNG <br/> ẢNH THẬT ĐẸP ?',
+            'home.title.p.itemStory1': 'Cách Chúng Tôi Tạo Nên Những Bộ Khung Ảnh Thật Đẹp?',
             'home.title.p.itemStory2': 'Lễ tốt nghiệp sắp đến rồi, gửi ngay món quà này đến đứa bạn thân thôi',
             'home.title.p.itemStory3': 'Bạn đã có kế hoạch gì cho việc kỉ niệm những ngày đặc biệt chưa?',
 

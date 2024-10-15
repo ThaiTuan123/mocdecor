@@ -1,7 +1,7 @@
 "use client" // Add this directive at the top
 
 import Link from "next/link"
-import React, { useEffect, useState } from "react"
+import React, {useEffect, useState} from "react"
 import MenuLink from "../menu/MenuLink"
 import Icon from "../icons/Icon"
 import languages from "@/configs/languages"
@@ -11,185 +11,185 @@ import { icons, menuLinks, subNavData } from "./constant"
 import LayoutOpacity from "../layoutOpacity"
 import CustomButton from "../button/CustomButton"
 import Image from "next/image"
-import { formatVietnameseCurrency } from "@/utils"
+import {formatVietnameseCurrency} from "@/utils"
 import CancelButton from "@/components/button/CancelButton"
-import { getOrCreateBrowserId } from "@/utils/browserId"
+import {getOrCreateBrowserId} from "@/utils/browserId"
 import QuantitySelector from "@/components/inputs/QuantitySelectorInput"
 import useListCategory from "@/recoil/hooks/useListCategory"
 
 const product = [
-  {
-    title:
-      "Khung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang trí",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
-  {
-    title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
-    desc: "Xanh dương, set nguyên liệu, tự trang trí",
-    price: 175000,
-    quantity: 1,
-  },
+    {
+        title:
+            "Khung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang tríKhung Handmade 3D, Set Nguyên liệu, Trang trí",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
+    {
+        title: "Khung Handmade 3D, Set Nguyên liệu, Trang trí...",
+        desc: "Xanh dương, set nguyên liệu, tự trang trí",
+        price: 175000,
+        quantity: 1,
+    },
 ]
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [hoveredLabelKey, setHoveredLabelKey] = useState<string>("")
-  const [isShowCart, setIsShowCart] = useState(false)
-  const [browserId, setBrowserId] = useState<string | null>(null)
-  const [quantity, setQuantity] = useState<number>(1)
-  const { listCategory } = useListCategory()
+    const [menuOpen, setMenuOpen] = useState(false)
+    const [hoveredLabelKey, setHoveredLabelKey] = useState<string>("")
+    const [isShowCart, setIsShowCart] = useState(false)
+    const [browserId, setBrowserId] = useState<string | null>(null)
+    const [quantity, setQuantity] = useState<number>(1)
+    const {listCategory} = useListCategory()
 
-  useEffect(() => {
-    const id = getOrCreateBrowserId()
-    setBrowserId(id)
-    console.log("Current Browser ID:", id)
-  }, [])
+    useEffect(() => {
+        const id = getOrCreateBrowserId()
+        setBrowserId(id)
+        console.log("Current Browser ID:", id)
+    }, [])
 
-  useEffect(() => {
-    if (listCategory) {
-      console.log(listCategory)
+    useEffect(() => {
+        if (listCategory) {
+            console.log(listCategory)
+        }
+    }, [listCategory])
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen)
     }
-  }, [listCategory])
 
-  const handleClickIcon = (value: string) => {
-    if (value === "cart") {
-      setIsShowCart(true)
+    const handleClickIcon = (value: string) => {
+        if (value === "cart") {
+            setIsShowCart(true)
+        }
     }
-  }
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen)
-  }
-
-  const renderCartEmpty = () => {
-    return (
-      <div className="w-full flex flex-col items-center px-8 pt-44">
-        <h3 className="text-2lg text-primary">
-          {languages.get("cart.empty.title")}
-        </h3>
-        <span className="block mt-2 mb-9 text-doveGray text-lg">
+    const renderCartEmpty = () => {
+        return (
+            <div className="w-full flex flex-col items-center px-8 pt-44">
+                <h3 className="text-2lg text-primary">
+                    {languages.get("cart.empty.title")}
+                </h3>
+                <span className="block mt-2 mb-9 text-doveGray text-lg">
           {languages.get("cart.empty.desc")}
         </span>
-        <div className="flex flex-col gap-6 w-full">
-          <CustomButton
-            text={languages.get("cart.empty.button.frame")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          />
-          <CustomButton
-            text={languages.get("cart.empty.button.print")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          />
-          <CustomButton
-            text={languages.get("cart.empty.button.album")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          />
-        </div>
-      </div>
-    )
-  }
-
-  const renderCartHaveProduct = () => {
-    return (
-      <div className="h-full">
-        <div className="overflow-y-scroll h-2/3">
-          {product.map((item, index) => (
-            <>
-              <div
-                className="flex items-center gap-4 py-5 px-7 w-full overflow-hidden"
-                key={index}
-              >
-                <div className="p-3">
-                  <Image
-                    src={images.paymentType2}
-                    alt=""
-                    width={70}
-                    height={70}
-                  />
+                <div className="flex flex-col gap-6 w-full">
+                    <CustomButton
+                        text={languages.get("cart.empty.button.frame")}
+                        className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+                    />
+                    <CustomButton
+                        text={languages.get("cart.empty.button.print")}
+                        className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+                    />
+                    <CustomButton
+                        text={languages.get("cart.empty.button.album")}
+                        className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+                    />
                 </div>
-                <div className="flex flex-col gap-3 flex-1">
-                  <div className="flex justify-between">
-                    <h3 className="inline-block overflow-hidden text-ellipsis whitespace-nowrap flex-1 w-1">
-                      {item.title}
-                    </h3>
-                    <Image
-                      src={images.icons.ic_trash}
-                      width={24}
-                      height={24}
-                      alt=""
-                      className="cursor-pointer"
-                    />
-                  </div>
-                  <span className="text-sm text-doveGray">{item.desc}</span>
-                  <div className="flex justify-between items-end">
-                    <QuantitySelector
-                      quantity={quantity}
-                      setQuantity={setQuantity}
-                    />
-                    <span className="text-2lg text-caption">
+            </div>
+        )
+    }
+
+    const renderCartHaveProduct = () => {
+        return (
+            <div className="h-full">
+                <div className="overflow-y-scroll h-2/3">
+                    {product.map((item, index) => (
+                        <>
+                            <div
+                                className="flex items-center gap-4 py-5 px-7 w-full overflow-hidden"
+                                key={index}
+                            >
+                                <div className="p-3">
+                                    <Image
+                                        src={images.paymentType2}
+                                        alt=""
+                                        width={70}
+                                        height={70}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-3 flex-1">
+                                    <div className="flex justify-between">
+                                        <h3 className="inline-block overflow-hidden text-ellipsis whitespace-nowrap flex-1 w-1">
+                                            {item.title}
+                                        </h3>
+                                        <Image
+                                            src={images.icons.ic_trash}
+                                            width={24}
+                                            height={24}
+                                            alt=""
+                                            className="cursor-pointer"
+                                        />
+                                    </div>
+                                    <span className="text-sm text-doveGray">{item.desc}</span>
+                                    <div className="flex justify-between items-end">
+                                        <QuantitySelector
+                                            quantity={quantity}
+                                            setQuantity={setQuantity}
+                                        />
+                                        <span className="text-2lg text-caption">
                       {formatVietnameseCurrency(item.price)}
                     </span>
-                  </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="border"></div>
+                        </>
+                    ))}
                 </div>
-              </div>
-              <div className="border"></div>
-            </>
-          ))}
-        </div>
-        <div className="border-t pt-6 px-8">
-          <div className="flex justify-between mb-4">
-            <h3 className="text-doveGray text-2lg">
-              {languages.get("cart.total")}
-            </h3>
-            <span className="text-2.25lg text-caption">
+                <div className="border-t pt-6 px-8">
+                    <div className="flex justify-between mb-4">
+                        <h3 className="text-doveGray text-2lg">
+                            {languages.get("cart.total")}
+                        </h3>
+                        <span className="text-2.25lg text-caption">
               {formatVietnameseCurrency(175000)}
             </span>
-          </div>
-          <CustomButton
-            text={languages.get("cart.payment")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          />
-        </div>
-      </div>
-    )
-  }
+                    </div>
+                    <CustomButton
+                        text={languages.get("cart.payment")}
+                        className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+                    />
+                </div>
+            </div>
+        )
+    }
 
   const renderSubNav = (labelKey: string) => {
     return (

@@ -27,6 +27,9 @@ const config: Config = {
                 'image-product-story': "url('/assets/imgs/backgrounds/bg-product-story.png')",
                 'image-story-home-1': "url('/assets/imgs/backgrounds/story-home-1.png')",
                 'image-gift-home': "url('/assets/imgs/backgrounds/bg-gift-home.png')",
+                'image-gift-home-mobile': "url('/assets/imgs/backgrounds/bg-gift-home-mobile.png')",
+                'image-vong-tay-home-mobile': "url('/assets/imgs/backgrounds/bg-vong-tay-mobile.png')",
+                'image-lich-go-mobile': "url('/assets/imgs/backgrounds/bg-lich-go-mobile.png')",
                 //// frame
                 'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.png')",
                 //// customer
@@ -38,7 +41,7 @@ const config: Config = {
 
                 // payment
                 'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.png')",
-                
+
 
             },
             colors: {
@@ -126,6 +129,7 @@ const config: Config = {
             },
             height: {
                 'background-height': '50rem', // or '932px'
+                '160': '10rem',
                 '430': '26.875rem',
                 '252': '15.75rem',
                 '269': '16.8125rem',
@@ -135,6 +139,10 @@ const config: Config = {
                 '946': '59.125rem',
                 '525': '525px',
                 '584': '36.5rem',
+                '648': '40.5rem',
+                '896': '56rem',
+                '218': '13.625rem',
+                '379': '23.6875rem',
             },
             maxHeight: {
                 '430': '26.875rem',
@@ -149,6 +157,7 @@ const config: Config = {
                 '3/10': '30%', // Custom width class for 30%
                 '767': '47.9375rem',
                 '920': '57.5rem',
+                '327': '20.5rem',
             },
             margin: {
                 navbar: '72px'

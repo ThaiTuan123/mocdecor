@@ -63,9 +63,11 @@ const images = {
     calenderHome: "/assets/imgs/pictures/calender-home.png",
     notebookHome: "/assets/imgs/pictures/notebook-home.png",
     woodenPenHome: "/assets/imgs/pictures/wooden-pen-home.png",
+    homeStory1: "/assets/imgs/pictures/story-home-1.png",
     homeStory2: "/assets/imgs/pictures/story-home-2.png",
     homeStory3: "/assets/imgs/pictures/story-home-3.png",
     logoMocHome: "/assets/imgs/pictures/logo-moc-home.png",
+    logoMocHomeMobile: "/assets/imgs/pictures/logo-moc-home-mobile.png",
 
     // gallery
     emptyGallery: "/assets/imgs/pictures/empty-gallery.png",

@@ -38,7 +38,7 @@ const FloatingButtons: React.FC = () => {
 
     return (
         <div
-            className={`fixed right-4 bottom-4 flex flex-col gap-4 transition-opacity duration-300 ${showButtons ? 'opacity-100' : 'opacity-0'} z-50`}
+            className={`overflow-hidden fixed right-4 bottom-4 flex flex-col gap-4 transition-opacity duration-300 ${showButtons ? 'opacity-100' : 'opacity-0'} z-50`}
         >
             {floatingButtonConfigs.map((buttonConfig, index) => (
                 <FloatingButton

@@ -30,16 +30,17 @@ import VideoYoutube from "@/components/video/VideoYoutube";
 import {useRecoilValue} from "recoil";
 import {directionState, scrollIntervalState, speedState} from "@/recoil/atoms/feedbackScrollableAtom";
 import {useFeedbackScrollerAnimation} from "@/recoil/hooks/useFeedbackScrollerAnim";
+import MobileArrowButton from "@/components/button/MobileArrowButton";
 
 const CategorySection = () => (
-    <section id='category' className="py-8 text-center md:container md:mx-auto">
+    <section id='category' className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto">
         <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
             {languages.get('home.subTitle.category')}
         </h2>
         <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
             {languages.get('home.title.category')}
         </h2>
-        <div className="flex flex-col md:flex-row gap-2 content-center items-center justify-center">
+        <div className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center">
             {categories.map((category) => (
                 <CategoryCard
                     key={category.id}
@@ -51,16 +52,16 @@ const CategorySection = () => (
 );
 
 const HeaderSectionAbout = () => (
-    <div className="text-left order-99">
+    <div className="text-left order-99 flex flex-col items-center md:items-start">
         <TitleText
             firstText={languages.get('home.title.firstText.about')}
             secondText={languages.get('home.title.secondText.about')}
             justifyCenter={false}  // Optional, defaults to true
         />
         <Heading2
-            align='left'
             marginBottom='mb-6'
             text={languages.get('home.title.header2.about')}
+            classNameText='text-center md:text-left'
         />
     </div>
 );
@@ -69,11 +70,12 @@ const TextContentAbout = () => (
     <TextContent
         text={languages.get('home.title.textContent.about')}
         marginBottom={"mb-4"}
+        className='order-2 md:order-none !mb-3 md:mb-4'
     />
 );
 
 const SocialLinksAbout = () => (
-    <div className="flex items-center mt-4">
+    <div className="order-3 md:order-none flex items-center mt-4">
         <h4 className=" text-sm md:text-1.25lg font-normal font-raleway text-caption mr-5">{languages.get('home.header4.socialLinks.about')}</h4>
         <div className="flex space-x-4">
             {socialLinks.map((link, index) => (
@@ -90,7 +92,7 @@ const SocialLinksAbout = () => (
 
 const ImageContentAbout = () => (
     <motion.div
-        className="mt-4 rounded-lg cursor-grab"
+        className="order-1 md:order-none mt-4 rounded-lg cursor-grab mb-3 md:mb-0"
         whileHover={{
             scale: 1.05,
         }}
@@ -108,20 +110,29 @@ const ImageContentAbout = () => (
 
 const AboutSection = () => (
     <section id="about"
-             className=" px-6 md:px-0 py-8 text-center 2xl:container 2xl:mx-auto flex flex-col md:flex-row mb-4">
+             className="px-6 md:px-0 pt-0 pb-4 md:pb-8 md:py-8 text-center flex flex-col md:flex-row mb-4 2xl:container 2xl:mx-auto">
         {/*Image left*/}
-        <div id="contentLeft" className="w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
+        <div id="contentLeft" className="hidden md:block w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
                 width={1024}
                 height={768}
-                className="w-full max-w-lg mx-auto object-cover h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
+                className="w-full max-w-lg mx-auto md:object-cover h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
             />
         </div>
 
         <div id="contentRight" className="md:w-1/2 flex flex-col items-start px-2">
             <HeaderSectionAbout/>
+            <div id="contentLeft" className="block md:hidden w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
+                <Image
+                    src={images.homeAbout1}
+                    alt="Mộc Decor"
+                    width={1024}
+                    height={768}
+                    className="w-full max-w-lg mx-auto md:object-cover h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
+                />
+            </div>
             <TextContentAbout/>
             <SeparatorAbout/>
             <SocialLinksAbout/>
@@ -157,7 +168,7 @@ const OtherProductsSection: React.FC = () => {
     };
 
     return (
-        <section className="bg-white pb-8 px-4">
+        <section className="bg-white pb-8 px-7 md:px-4">
             <div className="container mx-auto flex flex-col items-center">
                 <div className="flex items-center mb-2">
                     <TitleText
@@ -166,40 +177,52 @@ const OtherProductsSection: React.FC = () => {
                     />
                 </div>
                 <Heading2 text={languages.get('home.title.header2.otherProducts')}/>
-                <div className="grid gap-6 max-w-7xl w-full ">
-                    <div className="flex col-span-2 h-80">
+                <div className="flex flex-col md:grid gap-4 md:gap-6 max-w-7xl w-full ">
+                    <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:col-span-2">
                         {/* Sổ tay */}
                         <div
-                            className="bg-image-notebook-home bg-cover text-white px-10 py-8 rounded-lg relative flex flex-col justify-center items-start w-7/12">
+                            className="h-40 md:h-80 bg-image-notebook-home bg-cover text-white  gap-1 md:gap-0 px-4 md:px-10 py-8 rounded-lg relative flex flex-col justify-center items-start w-full md:w-7/12">
                             <Heading3 text={languages.get('home.title.header3.notebook')}/>
-                            <DiscoverButton onClick={handleClick}>
+                            <DiscoverButton className="hidden md:block" onClick={handleClick}>
                                 {languages.get('button.discover')}
                             </DiscoverButton>
+                            <MobileArrowButton onClick={handleClick}/>
                         </div>
 
                         {/* Vòng Tay */}
                         <div
-                            className="bg-image-bracelet-home bg-cover text-white p-4 rounded-lg flex justify-between items-end w-5/12 ml-4 h-80">
-                            <h3 className="text-4xl font-bold uppercase font-playfairBold ">{languages.get('home.title.header3.bracelet')}</h3>
+                            className="gap-1 md:0 bg-image-vong-tay-home-mobile md:bg-image-bracelet-home bg-cover text-white p-4 rounded-lg flex flex-col md:flex-row md:justify-between justify-center items-start md:items-end w-full md:w-5/12 ml-0 md:ml-4 h-40 md:h-80">
+                            <h3 className="hidden md:block text-4xl font-bold uppercase font-playfairBold ">{languages.get('home.title.header3.bracelet')}</h3>
                             <RightArrowButton onClick={handleClick}/>
+                            {/*Mobile custom*/}
+                            <Heading3 classNameAll="md:hidden"
+                                      text={languages.get('home.title.header3.bracelet.mobile')}/>
+                            <MobileArrowButton onClick={handleClick}/>
                         </div>
                     </div>
-                    <div className="flex col-span-2 h-80">
+                    <div className="flex flex-col md:flex-row col-span-2 h-80 gap-4 md:gap-0">
                         {/* Lịch gỗ */}
                         <div
-                            className="bg-image-calendar-home bg-cover text-white px-10 py-8 rounded-lg relative flex flex-col justify-end w-5/12">
-                            <div className="flex items-center justify-between w-full">
-                                <h3 className="text-4xl font-bold uppercase font-playfairBold">{languages.get('home.title.header3.calendar')}</h3>
+                            className="h-40 md:h-80 bg-image-lich-go-mobile md:bg-image-calendar-home bg-cover text-white px-4 md:px-10 py-8 rounded-lg relative flex flex-col justify-start md:justify-end w-full md:w-5/12">
+                            <div
+                                className="gap-1 md:gap-0 flex flex-col md:flex-row md:items-center md:justify-between w-full">
+                                <h3 className="hidden md:block text-4xl font-bold uppercase font-playfairBold">{languages.get('home.title.header3.calendar')}</h3>
                                 <RightArrowButton onClick={handleClick}/>
+                                {/*Mobile custom*/}
+                                <Heading3 classNameAll="md:hidden"
+                                          text={languages.get('home.title.header3.calendar.mobile')}/>
+                                <MobileArrowButton onClick={handleClick}/>
                             </div>
                         </div>
-                        {/* Vòng Tay */}
+                        {/* Bút gỗ */}
                         <div
-                            className="bg-image-wooden-pen-home bg-cover text-white p-4 rounded-lg flex flex-col justify-center items-start w-7/12 ml-4 h-80">
+                            className="py-8 gap-1 md:gap-0 bg-image-wooden-pen-home bg-cover text-white p-4 rounded-lg flex flex-col justify-center items-start w-full md:w-7/12 ml-0 md:ml-4 h-40 md:h-80">
                             <Heading3 text={languages.get('home.title.header3.woodenPen')}/> <DiscoverButton
+                            className="hidden md:block"
                             onClick={handleClick}>
                             {languages.get('button.discover')}
                         </DiscoverButton>
+                            <MobileArrowButton onClick={handleClick}/>
                         </div>
                     </div>
                 </div>
@@ -210,31 +233,37 @@ const OtherProductsSection: React.FC = () => {
 
 const StorySection: React.FC = () => {
     return (
-        <section className='2xl:mx-auto 2xl:container h-946'>
+        <section className='2xl:mx-auto 2xl:container h-896 md:h-946'>
             <div className='relative'>
-                <div className='bg-image-product-story md:h-80 relative z-10'>
-                    <div className='w-full flex flex-col pt-16'>
+                <div className='bg-image-product-story h-218 md:h-80 relative z-10'>
+                    <div className='w-full flex flex-col pt-16 px-7 md:px-0'>
                         <TitleText
                             firstText={languages.get('home.title.firstText.story')}
                             secondText={languages.get('home.title.secondText.story')}
                         />
-                        <Heading2 text={languages.get('home.title.header2.story')}/>
+                        <Heading2 className='mb-6 md:mb-8' text={languages.get('home.title.header2.story')}/>
                     </div>
                 </div>
 
                 <div
                     id='content'
-                    className='absolute max-w-6xl mx-auto inset-0 z-20 mt-52'
+                    className='absolute max-w-6xl mx-auto inset-0 z-20 mt-44 md:mt-52'
                 >
-                    <div className='flex h-[600] '>
+                    <div className='flex md:h-[600] '>
                         <div
-                            className="w-3/5 bg-image-story-home-1 bg-cover flex items-end justify-between px-8 py-8 rounded">
+                            className=" hidden md:visible w-full md:w-3/5 bg-image-story-home-1 bg-cover md:flex items-end justify-between px-8 py-8 rounded">
                             <Heading3 size={'text-2xl'}
                                       text={languages.get('home.title.header3.itemStory1')}/>
                             {/*TODO add this button when have blogs*/}
                             {/*<SolidButton text={languages.get('button.readMore')} href="/your-target-page"/>*/}
                         </div>
-                        <div className='w-2/5 flex flex-col gap-4 pl-4'>
+                        <div className='w-full md:w-2/5 flex flex-col gap-4 px-6 md:px-0 md:pl-4'>
+                            <MotionImageCard
+                                src={images.homeStory1}
+                                alt="Other Image 1"
+                                text={languages.get('home.title.p.itemStory1')}
+                                className={"visible md:hidden"}
+                            />
                             <MotionImageCard
                                 src={images.homeStory2}
                                 alt="Other Image 2"
@@ -259,21 +288,25 @@ const GiftSection: React.FC = () => {
     };
     return (
         <section
-            className={`2xl:mx-auto 2xl:container bg-image-gift-home bg-cover bg-center h-[648px] md:max-h-96 md:h-96 flex`}>
-            <div className='md:max-w-6xl ml-0 md:ml-20'>
-                <div className='flex flex-col md:flex-row items-center'>
-                    <Image src={images.logoMocHome} alt="Logo" width={290} height={290}/>
+            className={`2xl:mx-auto 2xl:container bg-image-gift-home-mobile md:bg-image-gift-home bg-cover bg-center h-648 md:max-h-96 md:h-96 flex mt-8 md:mt-0`}>
+            <div className='w-full md:max-w-6xl mx-0 md:mx-20'>
+                <div className='flex flex-col md:flex-row items-center pt-40 pb-8 md:pb-0 md:pt-0'>
+                    <Image className='hidden md:block' src={images.logoMocHome} alt="Logo" width={290} height={290}/>
+                    <Image className='block md:hidden' src={images.logoMocHomeMobile} alt="Logo mobile" width={187}
+                           height={187}/>
                     <div className="h-24 w-1 bg-white mx-4 hidden md:block"></div>
                     <div id='title'>
-                        <div className="flex-n1 flex flex-col items-start">
+                        <div className="flex-n1 flex flex-col md:items-start items-center">
                             <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">{languages.get('home.title.header2.gift1')}</h2>
                             <h2 className="text-4xl font-extrabold text-white font-raleway">{languages.get('home.title.header2.gift2')}</h2>
                         </div>
                     </div>
                 </div>
-                <DiscoverButton className='ml-8' onClick={handleClick}>
-                    {languages.get('button.discover')}
-                </DiscoverButton>
+                <div className='flex flex-row w-full justify-center md:justify-start px-0 md:px-8'>
+                    <DiscoverButton className='items-center justify-center ' onClick={handleClick}>
+                        {languages.get('button.discover')}
+                    </DiscoverButton>
+                </div>
             </div>
         </section>
     );
@@ -310,9 +343,9 @@ const FeedbackScrollableSection: React.FC = () => {
 
 const FeedbackSection: React.FC = () => {
     return (
-        <section className='2xl:mx-auto 2xl:container pb-20'>
-            <div id='content' className='flex flex-col pt-28'>
-                <div className='flex flex-col items-center pb-16'>
+        <section className='2xl:mx-auto 2xl:container pb-8 md:pb-20'>
+            <div id='content' className='flex flex-col pt-8 md:pt-28'>
+                <div className='flex flex-col items-center pb-0 md:pb-16'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.feedback')}
                         secondText={languages.get('home.title.secondText.feedback')}
@@ -333,10 +366,10 @@ const ServiceSection: React.FC = () => {
         /*bg-image-service-home*/
         <section className='bg-image-service-home bg-fixed bg-no-repeat '>
             {/* Main content */}
-            <div className='pt-8 md:pt-28 px-5 md:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
+            <div className='pt-8 md:pt-28 px-6 md:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
                 <div className='gap-y-12 flex flex-col'>
                     {/* Content for Hiếu */}
-                    <div className='flex flex-col md:flex-row gap-6 md:gap-16 justify-center items-center'>
+                    <div className='flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-16 justify-center items-center'>
                         <div className='flex-col flex justify-start items-start w-full md:w-3/5'>
                             <TitleText
                                 firstText={languages.get('home.title.firstText.service')}
@@ -462,7 +495,7 @@ const ScrollableSection: React.FC<{ scrollInterval: number, direction: 'left' | 
         return (
             <div
                 ref={scrollerRef}
-                className="scroller overflow-x-auto whitespace-nowrap scroll-smooth pb-10"
+                className="scroller overflow-x-auto whitespace-nowrap scroll-smooth pb-5 md:pb-10"
                 data-direction={direction} // Direction passed via props
                 data-speed={scrollInterval <= 3000 ? "fast" : "slow"} // Control speed based on interval
             >
@@ -482,16 +515,17 @@ const ScrollableSection: React.FC<{ scrollInterval: number, direction: 'left' | 
 const CoopClientsSection: React.FC = () => {
     return (
         <section className="bg-gradient-to-b from-white to-just-right to-60% mt-0">
-            <div id='content' className='flex flex-col py-28 gap-y-12 2xl:container 2xl:mx-auto'>
+            <div id='content'
+                 className='flex flex-col pt-16 pb-14 md:pt-32 md:pb-10 gap-y-6 md:gap-y-12 2xl:container 2xl:mx-auto'>
                 <div className='flex flex-col items-center'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.coopClient')}
                         secondText={languages.get('home.title.secondText.coopClient')}
                     />
-                    <Heading2 text={languages.get('home.title.header2.coopClient')}/>
+                    <Heading2 className='mb-0 md:mb-8' text={languages.get('home.title.header2.coopClient')}/>
                 </div>
 
-                <div className='gap-y-8 flex flex-col'>
+                <div className='gap-y-4 md:gap-y-8 flex flex-col'>
                     {/* First scroller: scrolls to the left */}
                     <ScrollableSection scrollInterval={10000} direction="left"/>
 
