@@ -100,7 +100,7 @@ const FooterBottom = () => (
     <>
         <Line/>
         <div className="bg-primary text-white 2xl:px-96">
-            <div className="container mx-auto flex justify-between">
+            <div className="container mx-auto flex justify-between px-6 md:px-0">
                 <FooterPolicies/>
                 <FooterRights/>
             </div>
