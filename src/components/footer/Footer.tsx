@@ -62,7 +62,6 @@ const FooterLogo = ({className}: FooterLogoProps) => (
     </div>
 );
 
-
 interface FooterLinksProps {
     className?: string;
 }

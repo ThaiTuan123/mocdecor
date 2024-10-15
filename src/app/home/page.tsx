@@ -122,7 +122,7 @@ const AboutSection = () => (
             />
         </div>
 
-        <div id="contentRight" className="md:w-1/2 flex flex-col items-start w-full">
+        <div id="contentRight" className="md:w-1/2 flex flex-col items-start px-2">
             <HeaderSectionAbout/>
             <div id="contentLeft" className="block md:hidden w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
                 <Image
@@ -398,8 +398,8 @@ const ServiceSection: React.FC = () => {
                     </div>
                     <Line height={"h-px"}/>
                     {/* Content for Phú */}
-                    <div className='flex flex-col md:flex-row gap-6 md:gap-16 justify-center items-start'>
-                        <div className='w-full md:w-2/5 items-center justify-center order-2 md:order-1 flex'>
+                    <div className='flex flex-row gap-16 justify-center items-start'>
+                    <div className='w-2/5 items-center justify-center flex'>
                             <div className="relative w-full">
                                 <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
                             </div>
