@@ -70,11 +70,11 @@ export default function Policy() {
   const renderCollapsePolicy = () => {
     const renderHeaderCollapse = (index: number, title: string) => {
       return (
-        <div className="flex gap-20">
-          <span className="font-raleway text-2lg text-doveGray">
+        <div className="flex sm:gap-20 gap-2 items-center">
+          <span className="font-raleway sm:text-2lg text-doveGray text-xs">
             0{index + 1}
           </span>
-          <span className="font-raleway text-2lg text-karaka">{title}</span>
+          <span className="font-raleway sm:text-2lg text-karaka text-sm">{title}</span>
         </div>
       )
     }
@@ -94,11 +94,11 @@ export default function Policy() {
         <div className="flex flex-col gap-7">
           {item.map((item, index) => (
             <div className="flex flex-col gap-4" key={index}>
-              <h3 className="text-karaka text-1.25lg font-raleway font-bold">
+              <h3 className="text-karaka sm:text-1.25lg text-xs font-raleway font-bold">
                 {item?.title}
               </h3>
               <span
-                className="whitespace-pre-line text-karaka text-1.25lg font-raleway"
+                className="whitespace-pre-line text-karaka sm:text-1.25lg text-sm font-raleway"
                 dangerouslySetInnerHTML={{
                   __html: highlightPhoneNumbers(item?.desc),
                 }}
