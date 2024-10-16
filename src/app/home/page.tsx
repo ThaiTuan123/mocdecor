@@ -92,7 +92,7 @@ const SocialLinksAbout = () => (
 
 const ImageContentAbout = () => (
     <motion.div
-        className="order-1 md:order-none mt-4 rounded-lg cursor-grab mb-3 md:mb-0"
+        className="order-1 lg:order-none mt-4 rounded-lg cursor-grab mb-3 md:mb-0"
         whileHover={{
             scale: 1.05,
         }}
@@ -103,7 +103,7 @@ const ImageContentAbout = () => (
             alt="Mộc Decor"
             width={564}
             height={312}
-            className="rounded-lg"
+            className="rounded-lg w-full"
         />
     </motion.div>
 );
@@ -112,7 +112,7 @@ const AboutSection = () => (
     <section id="about"
              className="px-6 md:px-0 pt-0 pb-4 md:pb-8 md:py-8 text-center flex flex-col md:flex-row mb-4 2xl:container 2xl:mx-auto">
         {/*Image left*/}
-        <div id="contentLeft" className="hidden md:block w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
+        <div id="contentLeft" className="hidden lg:block w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
@@ -122,15 +122,15 @@ const AboutSection = () => (
             />
         </div>
 
-        <div id="contentRight" className="md:w-1/2 flex flex-col items-start px-2">
+        <div id="contentRight" className="w-full lg:w-1/2 flex flex-col items-start px-2 md:px-6">
             <HeaderSectionAbout/>
-            <div id="contentLeft" className="block md:hidden w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
+            <div id="contentLeft" className="block md:hidden w-full lg:w-1/2 lg:order-20 lg:pl-20 2xl:pl-40">
                 <Image
                     src={images.homeAbout1}
                     alt="Mộc Decor"
                     width={1024}
                     height={768}
-                    className="object-cover md:object-fill w-full max-w-lg mx-auto h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
+                    className="object-cover md:object-fill w-full max-w-lg mx-auto h-252 lg:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
                 />
             </div>
             <TextContentAbout/>
@@ -233,7 +233,7 @@ const OtherProductsSection: React.FC = () => {
 
 const StorySection: React.FC = () => {
     return (
-        <section className='2xl:mx-auto 2xl:container h-896 md:h-946'>
+        <section className='2xl:mx-auto 2xl:container h-896 lg:h-946'>
             <div className='relative'>
                 <div className='bg-image-product-story h-218 md:h-80 relative z-10'>
                     <div className='w-full flex flex-col pt-16 px-7 md:px-0'>
@@ -344,7 +344,7 @@ const FeedbackScrollableSection: React.FC = () => {
 const FeedbackSection: React.FC = () => {
     return (
         <section className='2xl:mx-auto 2xl:container pb-8 md:pb-20'>
-            <div id='content' className='flex flex-col pt-8 md:pt-28'>
+            <div id='content' className='flex flex-col pt-8 md:pt-16 lg:pt-28'>
                 <div className='flex flex-col items-center pb-0 md:pb-16'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.feedback')}
@@ -366,11 +366,11 @@ const ServiceSection: React.FC = () => {
         /*bg-image-service-home*/
         <section className='bg-image-service-home bg-cover md:bg-fixed bg-no-repeat '>
             {/* Main content */}
-            <div className='pt-8 md:pt-28 px-6 md:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
+            <div className='pt-8 md:pt-28 px-6 md:px-6 lg:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
                 <div className='gap-y-12 flex flex-col'>
                     {/* Content for Hiếu */}
-                    <div className='flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-16 justify-center items-center'>
-                        <div className='flex-col flex justify-start items-start w-full md:w-3/5'>
+                    <div className='flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-center'>
+                        <div className='flex-col flex justify-start items-start w-full lg:w-3/5'>
                             <TitleText
                                 firstText={languages.get('home.title.firstText.service')}
                                 secondText={languages.get('home.title.secondText.service')}
@@ -379,18 +379,19 @@ const ServiceSection: React.FC = () => {
                                 itemsCenter={true}
                             />
                             <Heading2
-                                className='mt-8'
+                                className='mt-3 !mb-0'
                                 text={languages.get('home.title.header2.service')}
                                 textColor={"text-white"}
                                 align={"left"}
                             />
                             <TextContent
+                                className='!mb-2 !mt-6 md:mt-8 md:mb-8'
                                 textColor={'text-white'}
                                 text={languages.get('home.title.textContentHieu.service')}
                             />
                             <h4 className='text-white font-semibold font-raleway'> {languages.get('home.title.header4Hieu.service')} </h4>
                         </div>
-                        <div className='w-full md:w-2/5 items-center justify-center flex'>
+                        <div className='w-full lg:w-2/5 items-center justify-center flex'>
                             <div className="relative w-full ">
                                 <VideoYoutube videoId="t-QhaFw-zy8" height="0px"/>
                             </div>
@@ -398,17 +399,18 @@ const ServiceSection: React.FC = () => {
                     </div>
                     <Line height={"h-px"}/>
                     {/* Content for Phú */}
-                    <div className='flex flex-col md:flex-row gap-6 md:gap-16 justify-center items-start'>
-                    <div className='w-full md:w-2/5 items-center justify-center flex order-2 md:order-none'>
+                    <div className='flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-start'>
+                    <div className='w-full lg:w-2/5 items-center justify-center flex order-2 lg:order-none'>
                             <div className="relative w-full">
                                 <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
                             </div>
                         </div>
-                        <div className='flex-col flex justify-start items-start w-full order-1 md:order-2 md:w-3/5'>
+                        <div className='flex-col flex justify-start items-start w-full order-1 md:order-2 lg:w-3/5'>
                             <Heading2
                                 text={languages.get('home.title.header2Phu.service')}
                                 textColor={"text-white"}
                                 align={"left"}
+                                className='!mb-3 md:mb-8'
                             />
                             <TextContent
                                 textColor={'text-white'}

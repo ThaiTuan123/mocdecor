@@ -33,7 +33,7 @@ const HeroSection = () => {
                     <span>/</span>
                     <span>{languages.get("contact")}</span>
                 </div>
-                <h1 className="uppercase font-playfairBold text-2.25lg md:text-6lg text-center">
+                <h1 className="uppercase font-playfairBold text-2.25lg md:text-3xl lg:text-6lg text-center">
                     {languages.get("contact.title.banner")}
                 </h1>
                 <span className="font-playfairRegular text-sm sm:text-lg md:text-2lg text-center">
@@ -63,8 +63,8 @@ const SocialIcons = ({icons}: { icons: IconType[] }) => (
 const ContactItemList = ({items}: { items: ContactItemType[] }) => (
     <ul className="mb-4 mt-8 bg-pampas rounded-lg px-8 py-6 space-y-5">
         {items.map(item => (
-            <li key={item.key} className="flex items-center text-karaka">
-                <img src={item.icon} alt={item.alt} className="mr-4" width={24} height={24}/>
+            <li key={item.key} className="flex items-start text-karaka">
+                <img src={item.icon} alt={item.alt} className="mr-4 items-start" width={24} height={24}/>
                 {languages.get(item.key)}
             </li>
         ))}
@@ -72,11 +72,11 @@ const ContactItemList = ({items}: { items: ContactItemType[] }) => (
 );
 
 const ContactDetails = () => (
-    <div className="px-4 md:px-16 md:text-start">
+    <div className="px-4 md:px-0 lg:px-16 md:text-start">
         <h3 className="text-2xl text-center md:text-start md:text-4xl font-playfairBold text-primary mb-4">
             {languages.get('contact.subtitle.findUs')}
         </h3>
-        <p className="mb-8 text-center md:text-start text-karaka font-normal text-sm md:text-lg">
+        <p className="mb-5 md:mb-8 text-center md:text-start text-karaka font-normal text-sm md:text-lg">
             {languages.get('contact.subTitle.description')}
         </p>
         <Line/>
@@ -124,7 +124,7 @@ const ContactForm = () => {
     };
 
     return (
-        <div className="bg-white p-6 md:p-8 rounded-lg max-w-lg outline outline-1 outline-stroke">
+        <div className="bg-white p-6 md:p-8 rounded-lg w-full lg:max-w-lg outline outline-1 outline-stroke">
             <h1 className="text-center md:text-start text-2.25lg md:text-4xl font-bold font-playfairBold text-primary mb-6">
                 {languages.get('contact.title.name')}
             </h1>
@@ -178,8 +178,8 @@ const ContactForm = () => {
 
 
 const ContactBody = () => (
-    <div className="container mx-auto px-6 md:px-4 py-8 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="container mx-auto px-6 lg:px-4 py-8 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <ContactDetails/>
             <ContactForm/>
         </div>

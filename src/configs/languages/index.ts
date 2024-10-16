@@ -84,6 +84,7 @@ class Languages {
             'galley.hero.title': "Tìm kiếm mã đơn hàng",
             'galley.hero.desc': "Để tiến hành tải ảnh cho đơn hàng, trước tiên bạn cần nhập mã đơn hàng vào khung tìm kiếm",
             'galley.hero.input.place.holder': "Nhập mã đơn hàng của bạn (Mã đơn hàng được lấy từ đơn hàng trên Tiktok)",
+            'galley.hero.input.place.holder.mobile': "Nhập mã đơn hàng của bạn",
             'galley.hero.button.text': "TÌM KIẾM",
             'galley.empty.title': "Không tìm thấy đơn hàng",
             'galley.empty.desc': "Đơn hàng bạn đang tìm kiếm hiện không khả dụng, có lẽ bạn đã nhập sai thông tin nào đó. Hãy thử tìm kiếm lại nhé.",

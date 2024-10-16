@@ -32,7 +32,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
     }`;
 
     // Styles for mobile (no hover effect)
-    const mobileStyles = `bg-primary text-base text-white px-6 py-2`;
+    const mobileStyles = `bg-primary text-base text-white px-8 py-3`;
 
     // Conditionally apply styles based on the device type
     const buttonClassNames = `${baseStyles} ${isMobile ? mobileStyles : desktopHoverStyles}`;
@@ -55,7 +55,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
     return (
         <button
             type={type}
-            className={buttonClassNames}
+className={`!text-lg ${buttonClassNames}`}
             onMouseEnter={() => !isMobile && setIsHovered(true)}
             onMouseLeave={() => !isMobile && setIsHovered(false)}
             onClick={onClick}

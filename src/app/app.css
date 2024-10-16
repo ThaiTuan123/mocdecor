@@ -84,6 +84,11 @@
     .feedback-scroller {
         overflow: hidden;
         position: relative; /* Ensure positioning for mask */
+        animation: scroll linear infinite;
+        -webkit-animation: scroll linear infinite; /* For Safari/Chrome */
+        -moz-animation: scroll linear infinite; /* For Firefox */
+        -ms-animation: scroll linear infinite; /* For IE/Edge */
+        -o-animation: scroll linear infinite; /* For Opera */
     }
 
     .feedback-scroller[data-animated="true"] .feedback-scroller__inner {
@@ -205,9 +210,8 @@ span.ant-select-selection-placeholder {
 
 @media (max-width: 640px) {
     body > div.w-full.mt-navbar > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div.ant-collapse-header {
-        padding-left: 10px;
-        padding-right: 20px;
-        height: 30px;
+        padding-left: 24px;
+        padding-right: 24px;
     }
     body > div.w-full.mt-navbar > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div.ant-collapse-header > div > img {
         width: 10px;

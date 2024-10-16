@@ -251,7 +251,7 @@ const Header = () => {
 
   return (
     <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
-      <div className="md:container md:mx-auto flex justify-between items-center px-6 2xl:px-16">
+      <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16">
         <div className="flex items-center md:hidden">
           <button onClick={toggleMenu} className="text-black">
             <Icon
@@ -269,7 +269,7 @@ const Header = () => {
             />
           </a>
         </Link>
-        <div className="hidden md:flex md:order-1 space-x-0 md:space-x-20  items-center">
+        <div className="hidden md:flex md:order-1 space-x-0  md:space-x-6 lg:space-x-20  items-center">
           {menuLinks.slice(0, 3).map(({ href, labelKey }) => (
             <div
               onMouseEnter={() => setHoveredLabelKey(labelKey)}
@@ -287,7 +287,7 @@ const Header = () => {
             </div>
           ))}
         </div>
-        <div className="hidden md:flex md:order-3 space-x-0 md:space-x-20 items-center">
+        <div className="hidden md:flex md:order-3 space-x-0 md:space-x-6 lg:space-x-20 items-center">
           {menuLinks.slice(3).map(({ href, labelKey }) => (
             <MenuLink key={href} href={href} label={languages.get(labelKey)} />
           ))}
