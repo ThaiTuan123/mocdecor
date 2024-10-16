@@ -67,7 +67,7 @@ interface FooterLinksProps {
 }
 
 const FooterLinks = ({className}: FooterLinksProps) => (
-    <div className={`w-1/3 py-0 md:py-6 ml-0 px-6 md:px-16 ${className}`}>
+    <div className={`w-1/3 py-0 md:py-6 ml-0 px-6 container mx-auto flex flex-col  justify-between md:px-2 lg:px-16 ${className}`}>
         <h3 className="text-2xl font-playfairBold font-bold">{languages.get('whatMocHas')}</h3>
         <p className="pt-4 text-l font-normal font-raleway">{languages.get('flowerFrame')}</p>
         <p className="text-l font-normal font-raleway">{languages.get('handmadeFrame')}</p>
@@ -88,7 +88,7 @@ const FooterLinks = ({className}: FooterLinksProps) => (
 
 const FooterMiddle = () => (
     <div className="bg-primary text-white 2xl:px-96">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between md:px-6">
             <FooterContactInfo className="order-2 w-full md:order-none md:w-1/3"/>
             <FooterLogo className="order-1 w-full md:order-none md:w-1/3"/>
             <FooterLinks className="order-3 w-full md:order-none md:w-1/3"/>
@@ -100,7 +100,7 @@ const FooterBottom = () => (
     <>
         <Line/>
         <div className="bg-primary text-white 2xl:px-96">
-            <div className="container mx-auto flex justify-between px-6 md:px-0">
+            <div className="container mx-auto flex justify-between px-6 lg:px-0">
                 <FooterPolicies/>
                 <FooterRights/>
             </div>
@@ -110,7 +110,7 @@ const FooterBottom = () => (
 
 const FooterPolicies = () => (
     <div className="w-1/2 py-6 md:p-2 flex items-center">
-        <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-32">
+        <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4 lg:space-x-32">
             <p className="text-l font-normal font-raleway">{languages.get('policy')}</p>
             <p className="text-l font-normal font-raleway">{languages.get('terms')}</p>
         </div>
@@ -118,7 +118,7 @@ const FooterPolicies = () => (
 );
 
 const FooterRights = () => (
-    <div className="w-1/2 text-start md:text-end mx-0 md:mx-32 py-6">
+    <div className="w-1/2 text-start md:text-end mx-0 lg:mx-32 py-6">
         <p className="text-l font-normal font-raleway">{languages.get('allRightsReserved')}</p>
     </div>
 );

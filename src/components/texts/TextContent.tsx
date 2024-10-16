@@ -29,7 +29,7 @@ const TextContent: React.FC<TextContentProps> = ({
 
     return (
         <p
-            className={`text-sm md:text-1.25lg font-raleway ${textColor} ${marginBottom} ${className} font-normal text-start`}
+            className={`text-sm md:text-lg lg:text-1.25lg font-raleway ${textColor} ${marginBottom} ${className} font-normal text-start`}
             dangerouslySetInnerHTML={{__html: cleanText}}
         />
     );
