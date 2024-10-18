@@ -60,11 +60,13 @@
     .scroller[data-direction="right"] .scroller__inner {
         -webkit-animation-direction: reverse;
         animation-direction: reverse;
+        will-change: transform;
     }
 
     .scroller[data-direction="left"] .scroller__inner {
         -webkit-animation-direction: forwards;
         animation-direction: forwards;
+        will-change: transform;
     }
 
     .scroller[data-speed="fast"] {
