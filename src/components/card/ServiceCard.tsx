@@ -8,10 +8,10 @@ interface CardProps {
     description: string;
 }
 
-const ServiceCard: React.FC<CardProps> = ({ icon, title, description }) => {
+const ServiceCard: React.FC<CardProps> = ({icon, title, description}) => {
     return (
         <div
-            className=' md:py-5 lg:py-12 flex-1 flex flex-col justify-start lg:justify-center items-center text-center text-white border border-white'>
+            className='py-0 md:py-5 lg:py-12 flex-1 flex flex-col justify-center md:justify-start lg:justify-center items-center text-center text-white border border-white'>
             <Image
                 src={icon}
                 alt={title}

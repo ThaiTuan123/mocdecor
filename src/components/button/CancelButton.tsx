@@ -11,7 +11,7 @@ const CancelButton: React.FC<CancelButtonProps> = ({onClick, absolute = true, cl
     return (
         <button
             onClick={onClick}
-            className={`${absolute ? 'absolute top-4 right-4' : ''} ${className || ''} text-black hover:text-red-500 flex items-center justify-center`}
+            className={`${absolute ? 'absolute top-4 right-4' : ''} ${className || ''} text-black hover:text-red-500 flex items-center justify-center z-10`}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
