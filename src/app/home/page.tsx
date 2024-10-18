@@ -345,7 +345,7 @@ const FeedbackSection: React.FC = () => {
     return (
         <section className='2xl:mx-auto 2xl:container pb-8 md:pb-20'>
             <div id='content' className='flex flex-col pt-8 md:pt-16 lg:pt-28'>
-                <div className='flex flex-col items-center pb-0 md:pb-16'>
+                <div className='flex flex-col items-center pb-0 px-6 md:pb-16'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.feedback')}
                         secondText={languages.get('home.title.secondText.feedback')}
