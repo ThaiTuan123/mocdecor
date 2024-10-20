@@ -259,6 +259,25 @@ class Languages {
             'product.hero.title.album': "ALBUM ẢNH",
             'product.hero.title.other': "SẢN PHẨM KHÁC",
             'product.pagination.text': "TRANG",
+
+            // product detail fond gallery
+            'product.detail.title': 'THÔNG TIN ĐƠN HÀNG',
+            'product.detail.orderId': 'Mã đơn hàng',
+            'product.detail.orderDate': 'Ngày đặt',
+            'product.detail.status': 'Trạng thái',
+            'product.detail.status.confirmed': 'Đã xác nhận',
+            'product.detail.status.shipping': 'Đang giao hàng',
+            'product.detail.status.classify': 'Phân loại',
+            'product.detail.status.color': 'Tone màu',
+            'product.detail.status.size': 'Kích cỡ',
+            'product.detail.status.quantity': 'Số lượng',
+            'product.detail.status.upload': 'Upload ảnh',
+            'product.detail.status.detail': 'Upload tối đa (40) ảnh (kích thước tối đa 60mb/ảnh)',
+            'product.detail.status.note': 'Lưu ý:',
+            'product.detail.status.noteDetail': 'Để ảnh trở nên ấn tượng hơn, hãy chắc chắn rằng tất cả các chi tiết của bạn xuất hiện đầy đủ trong khung hình.',
+            'product.detail.status.message': 'Ghi Chú',
+            'product.detail.status.messageDetail': 'Nhập ghi chú',
+            'product.detail.status.buttonDone': 'HOÀN THÀNH TẢI ẢNH ĐƠN HÀNG',
         }
     }
 

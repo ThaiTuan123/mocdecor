@@ -60,6 +60,7 @@ const config: Config = {
                 'karaka': '#22190A',
                 'stroke': '#D9D9D9',
                 'black-50': '#E6E6E6',
+                'black-300': '#545454',
                 'layout': '#5A5A5A99',
                 'caption': '#FF7F37',
                 'captionHover': '#FF6F2C',
@@ -67,6 +68,11 @@ const config: Config = {
                 'notRating': '#B0B0B0',
                 'bright-main': '#EEEBE8',
                 'just-right': '#EACFB7',
+                'done-text': '#005FEE',
+                'update': '#819FE4',
+                'done-background': '#F0F6FF',
+                'loading-text': '#FF7F37',
+                'loading-background': '#FFF3E5',
                 'brown': {
                     50: '#EEEBE8',
                     100: '#C9C2B7',
@@ -98,6 +104,7 @@ const config: Config = {
                 playfairBold: ['Playfair Display Bold', 'serif'],
             },
             fontSize: {
+                'x':  ['0.625rem', '0.75rem'],       // 10px, 12px
                 'xs': ['0.75rem', '0.875rem'],       // 12px, 14px
                 'sm': ['0.875rem', '1.0275rem'],    // 14px, 16,44px
                 'lg': ['1rem', '1.17375rem'],       // 16px, 18.78px
@@ -120,16 +127,23 @@ const config: Config = {
                 leftToRight: {
                     '0%': {transform: 'translateX(700px)', opacity: '0'},
                     '100%': {transform: 'translateX(0)', opacity: '1'},
-                }
+                },
+                moveUpDown: {
+                    '0%, 100%': {transform: 'translateY(0)'},
+                    '50%': {transform: 'translateY(-10px)'},
+                },
             },
             animation: {
                 upDown: 'upDown 2s infinite ease-in-out',
                 fallIn: 'fallIn 0.8s ease-out forwards',
-                leftToRight: 'leftToRight 0.5s ease-in-out'
+                leftToRight: 'leftToRight 0.5s ease-in-out',
+                moveUpDown: 'moveUpDown 2s ease-in-out infinite',
             },
             height: {
                 'background-height': '50rem', // or '932px'
+                '100': '6.25rem',
                 '160': '10rem',
+                '150': '9.375rem',
                 '430': '26.875rem',
                 '252': '15.75rem',
                 '269': '16.8125rem',
@@ -146,9 +160,11 @@ const config: Config = {
             },
             maxHeight: {
                 '430': '26.875rem',
+                '540': '33.75rem',
                 '710px': '44.375rem', // custom max height
             },
             width: {
+                '150': '9.375rem',
                 '232.77': '14.55rem',
                 '272': '17rem',
                 '412': '25.75rem',
@@ -176,6 +192,9 @@ const config: Config = {
             screens: {
                 '3xl': '1920px',  // Adjust as needed
                 '4xl': '2560px',  // Adjust as needed
+            },
+            borderRadius: {
+               '2.5xl': '1.25rem',
             },
         },
     },
