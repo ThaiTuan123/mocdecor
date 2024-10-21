@@ -42,7 +42,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
                         setQuantity(value);
                     }
                 }}
-                className="w-12 text-center py-1 md:py-2 font-raleway"
+                className="w-6 md:w-12 text-center py-1 md:py-2 font-raleway"
             />
             <button
                 onClick={incrementQuantity}
