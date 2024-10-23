@@ -1,3 +1,5 @@
+//ProductPopup.tsx
+
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import {Product} from "@/types/product";
@@ -158,7 +160,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                             onClick={toggleFullScreen}
                         />
                         <div className='h-32 w-full overflow-hidden pt-4 lg:pt-0'>
-                            <ProductCarousel images={product.images} onImageSelect={setSelectedImage}/>
+                            <ProductCarousel images={product.images} onImageSelect={setSelectedImage} onImageHover={setSelectedImage}/>
                         </div>
                     </div>
                     {renderProductDetails()}

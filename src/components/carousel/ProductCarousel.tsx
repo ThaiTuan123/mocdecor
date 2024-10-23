@@ -1,12 +1,16 @@
-import React, { useRef } from "react";
+//ProductCarousel.tsx
+
+import React, {useRef} from "react";
 import Image from "next/image";
+import {MdOutlineNavigateBefore, MdOutlineNavigateNext} from "react-icons/md";
 
 interface ProductCarouselProps {
     images?: string[];
     onImageSelect: (image: string) => void;
+    onImageHover: (image: string) => void;
 }
 
-const ProductCarousel: React.FC<ProductCarouselProps> = ({ images = [], onImageSelect }) => {
+const ProductCarousel: React.FC<ProductCarouselProps> = ({images = [], onImageSelect, onImageHover}) => {
     const carouselRef = useRef<HTMLDivElement>(null); // Ref to the scrollable container
 
     const defaultImages = [
@@ -22,26 +26,26 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ images = [], onImageS
     // Scroll left
     const scrollLeft = () => {
         if (carouselRef.current) {
-            carouselRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+            carouselRef.current.scrollBy({left: -200, behavior: 'smooth'});
         }
     };
 
     // Scroll right
     const scrollRight = () => {
         if (carouselRef.current) {
-            carouselRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+            carouselRef.current.scrollBy({left: 200, behavior: 'smooth'});
         }
     };
 
     return (
         <div className="relative">
-            {/*/!* Scroll buttons *!/*/}
-            {/*<button*/}
-            {/*    className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2"*/}
-            {/*    onClick={scrollLeft}*/}
-            {/*>*/}
-            {/*    Prev*/}
-            {/*</button>*/}
+            {/* Scroll buttons */}
+            <button
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 p-2"
+                onClick={scrollLeft}
+            >
+                <MdOutlineNavigateBefore size={24} color="white"/>
+            </button>
 
             <div className="flex overflow-x-auto whitespace-nowrap" ref={carouselRef}>
                 {/* Display images with horizontal scroll */}
@@ -50,6 +54,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ images = [], onImageS
                         key={index}
                         className="flex-shrink-0 w-1/4 p-1 cursor-pointer"
                         onClick={() => onImageSelect(image)}
+                        onMouseEnter={() => onImageHover(image)}
                     >
                         <Image
                             src={image}
@@ -62,12 +67,12 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ images = [], onImageS
                 ))}
             </div>
 
-            {/*<button*/}
-            {/*    className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2"*/}
-            {/*    onClick={scrollRight}*/}
-            {/*>*/}
-            {/*    Next*/}
-            {/*</button>*/}
+            <button
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 -opacity-50 p-2"
+                onClick={scrollRight}
+            >
+                <MdOutlineNavigateNext size={24} color="white"/>
+            </button>
         </div>
     );
 };

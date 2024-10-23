@@ -36,16 +36,17 @@
         font-family: 'Raleway', sans-serif;
     }
 
-    h1, h2, h3, h4, h5, span {
-        user-select: none;
-    }
+    /*TODO when project done then open this code*/
+    /*h1, h2, h3, h4, h5, span {*/
+    /*    user-select: none;*/
+    /*}*/
 }
 
 /* Component styles */
 @layer components {
     .scroller {
         overflow: hidden;
-        -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+        -webkit-mask: -webkit-linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
         mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
         display: flex;
     }
@@ -64,9 +65,17 @@
     }
 
     .scroller[data-direction="left"] .scroller__inner {
-        -webkit-animation-direction: forwards;
-        animation-direction: forwards;
+        -webkit-animation-direction: reverse; /* Fallback for unsupported browsers */
+        animation-direction: reverse; /* Fallback for unsupported browsers */
         will-change: transform;
+    }
+
+    @media (max-width: 640px) {
+        .scroller[data-direction="right"] .scroller__inner,
+        .scroller[data-direction="left"] .scroller__inner {
+            -webkit-animation-direction: normal; /* Adjust for mobile */
+            animation-direction: normal; /* Adjust for mobile */
+        }
     }
 
     .scroller[data-speed="fast"] {
@@ -167,6 +176,7 @@ span.ant-select-selection-placeholder {
         width: 100%;
     }
 }
+
 @media (min-width: 1536px) {
     @media (min-width: 640px) {
         body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
@@ -174,6 +184,7 @@ span.ant-select-selection-placeholder {
         }
     }
 }
+
 @media (min-width: 1536px) {
     @media (min-width: 768px) {
         body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
@@ -181,6 +192,7 @@ span.ant-select-selection-placeholder {
         }
     }
 }
+
 @media (min-width: 1536px) {
     @media (min-width: 1024px) {
         body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
@@ -188,6 +200,7 @@ span.ant-select-selection-placeholder {
         }
     }
 }
+
 @media (min-width: 1536px) {
     @media (min-width: 1280px) {
         body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
@@ -195,6 +208,7 @@ span.ant-select-selection-placeholder {
         }
     }
 }
+
 @media (min-width: 1536px) {
     @media (min-width: 1536px) {
         body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
@@ -215,10 +229,12 @@ span.ant-select-selection-placeholder {
         padding-left: 24px;
         padding-right: 24px;
     }
+
     body > div.w-full.mt-navbar > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div.ant-collapse-header > div > img {
         width: 10px;
         height: 10px;
     }
+
     body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
         padding-left: 10px;
         padding-right: 20px;
