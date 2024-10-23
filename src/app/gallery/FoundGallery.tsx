@@ -20,7 +20,7 @@ export default function FoundGallery() {
     };
 
     return (
-        <div className="flex flex-col lg:flex-row lg:py-9 lg:px-36">
+        <div className="flex flex-col lg:flex-row  px-6 lg:py-9 lg:px-20 2xl:px-36 ">
             {/* Left Section - Thông tin đơn hàng */}
             <div className="w-full lg:w-1/3 border border-stroke bg-white rounded ">
                 <div className='pt-5 px-7'>
