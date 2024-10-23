@@ -1,3 +1,5 @@
+//useGallery.ts
+
 import { useEffect, useState } from "react";
 import languages from "@/configs/languages";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React from "react";
 import Icon from "@/components/icons/Icon";
 import Line from "@/components/shape/Lines";
 import CustomButton from "@/components/button/CustomButton";
@@ -12,9 +12,7 @@ import {contactItems, socialIcons} from "@/app/contact/constant";
 import images from "@/configs/images";
 import {ContactItemType, IconType} from "@/app/contact/types";
 import {useImageLoad} from "@/recoil/hooks/useImageLoad";
-import {useRecoilState} from "recoil";
-import {contactFormState} from "@/recoil/atoms/contactFormAtom";
-import {submitContactForm} from "@/services/api";
+import {useContactForm} from "@/recoil/hooks/useContactForm";
 
 const HeroSection = () => {
     const isImageLoaded = useImageLoad();
@@ -95,33 +93,7 @@ const ContactDetails = () => (
 );
 
 const ContactForm = () => {
-    const [formData, setFormData] = useRecoilState(contactFormState);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState<boolean>(false);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const {name, value} = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
-
-        try {
-            await submitContactForm(formData);
-            setSuccess(true);
-        } catch (err) {
-            setError(languages.get('error.response.title'));
-        } finally {
-            setLoading(false);
-        }
-    };
+    const {formData, loading, error, success, handleChange, handleSubmit} = useContactForm();
 
     return (
         <div className="bg-white p-6 md:p-8 rounded-lg w-full lg:max-w-lg outline outline-1 outline-stroke">
@@ -178,7 +150,7 @@ const ContactForm = () => {
 
 
 const ContactBody = () => (
-    <div className="container mx-auto px-6 lg:px-4 py-8 lg:py-20">
+    <div className="container max-w-screen-xl mx-auto px-6 lg:px-4 py-8 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <ContactDetails/>
             <ContactForm/>

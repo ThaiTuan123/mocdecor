@@ -39,7 +39,7 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({imageSrc, title, selectedC
                 className="size-24 object-cover rounded"
             />
             <div className="ml-3 h-24 w-full flex flex-col justify-between">
-                <p className="font-raleway text-lg font-semibold">{title}</p>
+                <p className="font-raleway text-sm font-semibold">{title}</p>
                 <div className="flex items-center">
                     <p className="text-xs text-gray-600">
                         Ảnh đã chọn: <strong className='text-black'>{selectedCount}/{totalCount}</strong>
