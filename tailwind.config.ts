@@ -104,6 +104,7 @@ const config: Config = {
                 playfairBold: ['Playfair Display Bold', 'serif'],
             },
             fontSize: {
+                '0.8x': ['0.5rem', '0.5rem'],       // 8px, 8px
                 'x':  ['0.625rem', '0.75rem'],       // 10px, 12px
                 'xs': ['0.75rem', '0.875rem'],       // 12px, 14px
                 'sm': ['0.875rem', '1.0275rem'],    // 14px, 16,44px

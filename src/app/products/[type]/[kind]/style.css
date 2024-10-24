@@ -5,3 +5,7 @@
 .ant-checkbox+span {
     color: #6D6D6D;
 }
+
+body > div.w-full.overflow-hidden.mt-navbar > div > div.fixed.top-0.left-0.right-0.bottom-0.md\:hidden.flex.flex-col.items-start.bg-white.z-50 > div.flex.flex-col.w-full > div:nth-child(n) > div {
+    background-color: white;
+}
