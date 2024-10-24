@@ -6,6 +6,7 @@ import {Collapse} from "antd"
 import {useState} from "react"
 import {collapseData} from "./constant"
 import FooterDiscover from "@/components/footer/FooterDiscover";
+import './style.css'
 
 const { Panel } = Collapse
 

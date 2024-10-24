@@ -10,6 +10,7 @@ interface CommonButtonProps {
     href?: string;
     onClick?: () => void;
     disabled?: boolean; // Add the disabled prop
+    cancelButton?: boolean
 }
 
 const CommonButton: React.FC<CommonButtonProps> = ({
@@ -19,6 +20,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
                                                        href,
                                                        onClick,
                                                        disabled = false, // Add default value for disabled
+                                                       cancelButton = false
                                                    }) => {
     const [isHovered, setIsHovered] = useState(false);
     const isMobile = useIsMobile();
@@ -28,11 +30,11 @@ const CommonButton: React.FC<CommonButtonProps> = ({
 
     // Styles for desktop hover effect
     const desktopHoverStyles = `transition-all duration-300 ease-in-out transform ${
-        isHovered ? "bg-white text-base text-primary scale-105" : "bg-primary text-base text-white scale-100"
+        isHovered ? "bg-white text-base text-primary scale-105" : `bg-primary text-base text-white scale-100`
     }`;
 
     // Styles for mobile (no hover effect)
-    const mobileStyles = `bg-primary text-base text-white px-8 py-3`;
+    const mobileStyles = ` text-base ${cancelButton ? 'text-primary bg-white' : 'bg-primary text-white'} px-8 py-3`;
 
     // Conditionally apply styles based on the device type
     const buttonClassNames = `${baseStyles} ${isMobile ? mobileStyles : desktopHoverStyles}`;

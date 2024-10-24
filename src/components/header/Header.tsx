@@ -17,7 +17,7 @@ import { getOrCreateBrowserId } from "@/utils/browserId"
 import QuantitySelector from "@/components/inputs/QuantitySelectorInput"
 import useListCategory from "@/recoil/hooks/useListCategory"
 import { useRecoilState } from "recoil"
-import { cartState } from "@/recoil/atoms/cartAtom";
+import { cartState } from "@/recoil/atoms/cartAtom"
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -27,7 +27,7 @@ const Header = () => {
   const [browserId, setBrowserId] = useState<string | null>(null)
   const [quantity, setQuantity] = useState<number>(1)
   const { listCategory } = useListCategory()
-  const [cart, setCart] = useRecoilState(cartState);
+  const [cart, setCart] = useRecoilState(cartState)
 
   useEffect(() => {
     const id = getOrCreateBrowserId()
@@ -53,7 +53,7 @@ const Header = () => {
 
   const handleDeleteCart = (item: any) => {
     console.log(item.id)
-    const newCart = cart.filter(it => it.id != item.id)
+    const newCart = cart.filter((it) => it.id != item.id)
     setCart(newCart)
   }
 
@@ -208,30 +208,91 @@ const Header = () => {
     )
   }
 
+  const renderCart = () => {
+    return (
+      <LayoutOpacity
+        isVisible={isShowCart}
+        onClick={() => setIsShowCart(false)}
+      >
+        <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight">
+          <div className="py-7 px-11 flex justify-between border-b">
+            <div className="flex flex-col ">
+              <div className="flex flex-row gap-4 items-center">
+                <h2 className="text-4lg text-primary">
+                  {languages.get("cart.title")}
+                </h2>
+                <span className="text-2lg">({cart.length})</span>
+              </div>
+              {browserId ? (
+                <p className="text-gray-100">
+                  {languages.get("header.id.customer")}
+                  {browserId}
+                </p>
+              ) : (
+                <p className="text-gray-100">
+                  {languages.get("header.loading")}
+                </p>
+              )}
+            </div>
+            <CancelButton
+              onClick={() => setIsShowCart(false)}
+              absolute={false}
+            />
+          </div>
+          {cart.length > 0 ? renderCartHaveProduct() : renderCartEmpty()}
+        </div>
+      </LayoutOpacity>
+    )
+  }
+
+  const renderCartMobile = () => {
+    return (
+      <div className="fixed top-0 left-0 right-0 bottom-0 md:hidden flex flex-col items-start bg-white shadow-md space-y-4">
+        <div className="flex justify-between w-full items-center border-b px-6 py-6">
+          <div className="flex flex-row gap-2 items-center">
+            <h2 className="text-2.25lg text-primary">
+              {languages.get("cart.title")}
+            </h2>
+            <span className="text-sm">({0})</span>
+          </div>
+          <img
+            src={images.icons.menuClose}
+            className="w-6 h-6"
+            onClick={() => setCartOpen(false)}
+          />
+        </div>
+        {cart.length > 0 ? renderCartHaveProduct() : renderCartEmpty()}
+      </div>
+    )
+  }
+
   return (
     <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
-      <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16">
-        <div className="flex items-center md:hidden gap-3">
+      <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative">
+        <Link href="/" legacyBehavior>
+          <a className="text-2xl font-bold flex items-center md:order-2 order-0 absolute md:static right-1/2 translate-x-1/2 md:mx-0">
+            <img
+              src={images.logo}
+              alt="MOC DECOR"
+              className="h-12 w-auto md:hover:scale-110"
+            />
+          </a>
+        </Link>
+        <div className="flex items-center md:hidden gap-3 ml-auto">
+          <button onClick={() => setCartOpen(true)} className="text-black relative">
+            <Icon src={images.icons.cart} alt="Cart Toggle" />
+            <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
+              <span className="text-white text-0.8x text-center translate-y-[1px]">{cart.length}</span>
+            </div>
+          </button>
           <button onClick={toggleMenu} className="text-black">
             <Icon
               src={menuOpen ? images.icons.menuClose : images.icons.menuOpen}
               alt="Menu Toggle"
             />
           </button>
-          <button onClick={() => setCartOpen(true)} className="text-black">
-            <Icon src={images.icons.cart} alt="Cart Toggle" />
-          </button>
         </div>
-        <Link href="/" legacyBehavior>
-          <a className="text-2xl font-bold flex items-center md:order-2 order-1 mx-auto md:mx-0">
-            <img
-              src={images.logo}
-              alt="MOC DECOR"
-              className="h-12 w-auto hover:scale-110"
-            />
-          </a>
-        </Link>
-        <div className="hidden md:flex md:order-1 space-x-0  md:space-x-6 lg:space-x-20  items-center">
+        <div className="hidden md:flex md:order-1 space-x-0  md:space-x-6 lg:space-x-20 items-center ">
           {menuLinks.slice(0, 3).map(({ href, labelKey }) => (
             <div
               onMouseEnter={() => setHoveredLabelKey(labelKey)}
@@ -273,94 +334,16 @@ const Header = () => {
           ))}
         </div>
       )}
-      {cartOpen && (
-        <div className="fixed top-0 left-0 right-0 bottom-0 md:hidden flex flex-col items-start bg-white shadow-md space-y-4">
-          <div className="flex justify-between w-full items-center border-b px-6 py-6">
-            <div className="flex flex-row gap-2 items-center">
-              <h2 className="text-2.25lg text-primary">
-                {languages.get("cart.title")}
-              </h2>
-              <span className="text-sm">({0})</span>
-            </div>
-            <img
-              src={images.icons.menuClose}
-              className="w-6 h-6"
-              onClick={() => setCartOpen(false)}
-            />
-          </div>
-          {cart.length > 0 ? renderCartHaveProduct() : renderCartEmpty()}
+      {cartOpen && renderCartMobile()}
+      {menuOpen && (
+        // TODO mobile menu
+        <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4">
+          {menuLinks.map(({ href, labelKey }) => (
+            <MenuLink key={href} href={href} label={languages.get(labelKey)} />
+          ))}
         </div>
       )}
-      <LayoutOpacity
-        isVisible={isShowCart}
-        onClick={() => setIsShowCart(false)}
-      >
-        <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight">
-          <div className="py-7 px-11 flex justify-between border-b">
-            <div className="flex flex-col ">
-              <div className="flex flex-row gap-4 items-center">
-                <h2 className="text-4lg text-primary">
-                  {languages.get("cart.title")}
-                </h2>
-                <span className="text-2lg">({0})</span>
-              </div>
-              {browserId ? (
-                <p className="text-gray-100">
-                  {languages.get("header.id.customer")}
-                  {browserId}
-                </p>
-              ) : (
-                <p className="text-gray-100">
-                  {languages.get("header.loading")}
-                </p>
-              )}
-            </div>
-            {menuOpen && (
-              // TODO mobile menu
-              <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4">
-                {menuLinks.map(({ href, labelKey }) => (
-                  <MenuLink
-                    key={href}
-                    href={href}
-                    label={languages.get(labelKey)}
-                  />
-                ))}
-              </div>
-            )}
-            <LayoutOpacity
-              isVisible={isShowCart}
-              onClick={() => setIsShowCart(false)}
-            >
-              <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight">
-                <div className="py-7 px-11 flex justify-between border-b">
-                  <div className="flex flex-col ">
-                    <div className="flex flex-row gap-4 items-center">
-                      <h2 className="text-4lg text-primary">
-                        {languages.get("cart.title")}
-                      </h2>
-                      <span className="text-2lg">({0})</span>
-                    </div>
-                    {browserId ? (
-                      <p className="text-gray-100">
-                        Mã khách hàng: {browserId}
-                      </p>
-                    ) : (
-                      <p className="text-gray-100">Đang tải...</p>
-                    )}
-                  </div>
-                  <CancelButton
-                    onClick={() => setIsShowCart(false)}
-                    absolute={false}
-                  />
-                </div>
-                {cart.length > 0
-                  ? renderCartHaveProduct()
-                  : renderCartEmpty()}
-              </div>
-            </LayoutOpacity>
-          </div>
-        </div>
-      </LayoutOpacity>
+      {renderCart()}
     </header>
   )
 }
