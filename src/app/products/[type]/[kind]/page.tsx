@@ -31,7 +31,9 @@ const productData: Product[] = [
       images.client5,
       images.client5,
       images.client5,
-      images.client5
+      images.client5,
+      images.client5,
+      images.client5,
     ],
   },
   {
@@ -193,8 +195,8 @@ export default function Products() {
 
   const renderHero = () => {
     return (
-      <div className="min-h-80 bg-hero-payment bg-no-repeat bg-cover flex justify-center pt-16 pb-16 text-white">
-        <div className="w-1/2 flex flex-col items-center gap-2">
+      <div className="min-h-44 md:min-h-80 bg-hero-payment bg-no-repeat bg-cover flex justify-center py-8 md:py-16 text-white">
+        <div className="w-full md:w-1/2 flex flex-col items-center gap-2 px-10 md:px-0">
           <div className="flex flex-row gap-1">
             <span className="text-black-50">
               {languages.get("product.hero.intro")}
@@ -202,10 +204,10 @@ export default function Products() {
             <span>/</span>
             <span>{languages.get("product.hero.product")}</span>
           </div>
-          <h1 className="uppercase font-playfairBold text-6lg text-center">
+          <h1 className="uppercase font-playfairBold text-2xl md:text-6lg text-center">
             {title()}
           </h1>
-          <span className="font-playfairRegular text-2lg text-center">
+          <span className="font-playfairRegular text-sm md:text-2lg text-center">
             {languages.get("product.hero.desc")}
           </span>
         </div>
@@ -215,7 +217,7 @@ export default function Products() {
 
   const renderFilter = () => {
     return (
-      <div className="hidden md:flex justify-between py-8 border-b px-36">
+      <div className="hidden md:flex justify-between py-8 border-b px-36 lg:px-36 md:px-10">
         <div className="flex gap-20">
           {filterData.slice(0, 3).map((item, index) => (
             <div
@@ -431,7 +433,7 @@ export default function Products() {
 
   const renderProduct = () => {
     return (
-      <div className="grid md:grid-cols-4 grid-cols-2 gap-6 mt-8">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-6 gap-2 mt-8">
         {productData.map((item, index) => (
           <div className="flex flex-col border rounded-lg" key={index} onClick={() => setSelectedProduct(item)}>
             <img
@@ -445,7 +447,7 @@ export default function Products() {
               </h3>
               <div className="flex items-center gap-2">
                 {renderStar(item.rating.rate)}
-                <span>({item.reviewCount})</span>
+                <span className="text-sm text-doveGray">({item.reviewCount})</span>
               </div>
               <span className="text-2lg text-caption">
                 {formatVietnameseCurrency(Number(item.price))}
@@ -571,7 +573,7 @@ export default function Products() {
           />
         </div>
       </div>
-      <div className="px-6 md:px-36 pb-12">
+      <div className="px-6 lg:px-36 md:px-10 pb-12">
         {renderFilterTag()}
         {renderProduct()}
         {renderPagination()}

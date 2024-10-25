@@ -18,6 +18,7 @@ import QuantitySelector from "@/components/inputs/QuantitySelectorInput"
 import useListCategory from "@/recoil/hooks/useListCategory"
 import { useRecoilState } from "recoil"
 import { cartState } from "@/recoil/atoms/cartAtom"
+import { useRouter } from "next/navigation"
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -28,6 +29,7 @@ const Header = () => {
   const [quantity, setQuantity] = useState<number>(1)
   const { listCategory } = useListCategory()
   const [cart, setCart] = useRecoilState(cartState)
+  const router = useRouter()
 
   useEffect(() => {
     const id = getOrCreateBrowserId()
@@ -85,6 +87,12 @@ const Header = () => {
   }
 
   const renderCartHaveProduct = () => {
+    const handleGotoPayment = () => {
+      setIsShowCart(false)
+      setCartOpen(false)
+      router.push('/payment')
+    }
+
     return (
       <div className="h-full">
         <div className="overflow-y-scroll md:h-2/3 h-3/4">
@@ -142,6 +150,7 @@ const Header = () => {
             </span>
           </div>
           <CustomButton
+            onClick={() => handleGotoPayment()}
             text={languages.get("cart.payment")}
             className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
           />
@@ -268,7 +277,7 @@ const Header = () => {
 
   return (
     <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
-      <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative">
+      <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative h-12">
         <Link href="/" legacyBehavior>
           <a className="text-2xl font-bold flex items-center md:order-2 order-0 absolute md:static right-1/2 translate-x-1/2 md:mx-0">
             <img
@@ -279,7 +288,11 @@ const Header = () => {
           </a>
         </Link>
         <div className="flex items-center md:hidden gap-3 ml-auto">
-          <button onClick={() => setCartOpen(true)} className="text-black relative">
+          <button onClick={() => {
+            setCartOpen(true)
+            setMenuOpen(false)
+          }} 
+          className="text-black relative">
             <Icon src={images.icons.cart} alt="Cart Toggle" />
             <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
               <span className="text-white text-0.8x text-center translate-y-[1px]">{cart.length}</span>
