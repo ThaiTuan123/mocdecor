@@ -89,9 +89,9 @@ const FooterLinks = ({className}: FooterLinksProps) => (
 const FooterMiddle = () => (
     <div className="bg-primary text-white 2xl:px-96">
         <div className="container mx-auto flex flex-col md:flex-row justify-between md:px-6">
-            <FooterContactInfo className="order-2 w-full md:order-none md:w-1/3"/>
-            <FooterLogo className="order-1 w-full md:order-none md:w-1/3"/>
-            <FooterLinks className="order-3 w-full md:order-none md:w-1/3"/>
+            <FooterContactInfo className="order-2 w-full md:order-none md:w-1/3 flex-1"/>
+            <FooterLogo className="order-1 w-full md:order-none md:w-1/3 flex-1"/>
+            <FooterLinks className="order-3 w-full md:order-none md:w-1/3 flex-1"/>
         </div>
     </div>
 );
