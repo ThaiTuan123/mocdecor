@@ -90,11 +90,11 @@ const Header = () => {
     const handleGotoPayment = () => {
       setIsShowCart(false)
       setCartOpen(false)
-      router.push('/payment')
+      router.push("/payment")
     }
 
     return (
-      <div className="h-full">
+      <div className="h-full w-full">
         <div className="overflow-y-scroll md:h-2/3 h-3/4">
           {cart.map((item, index) => (
             <>
@@ -262,7 +262,7 @@ const Header = () => {
             <h2 className="text-2.25lg text-primary">
               {languages.get("cart.title")}
             </h2>
-            <span className="text-sm">({0})</span>
+            <span className="text-sm">({cart.length})</span>
           </div>
           <img
             src={images.icons.menuClose}
@@ -288,14 +288,18 @@ const Header = () => {
           </a>
         </Link>
         <div className="flex items-center md:hidden gap-3 ml-auto">
-          <button onClick={() => {
-            setCartOpen(true)
-            setMenuOpen(false)
-          }} 
-          className="text-black relative">
+          <button
+            onClick={() => {
+              setCartOpen(true)
+              setMenuOpen(false)
+            }}
+            className="text-black relative"
+          >
             <Icon src={images.icons.cart} alt="Cart Toggle" />
             <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
-              <span className="text-white text-0.8x text-center translate-y-[1px]">{cart.length}</span>
+              <span className="text-white text-0.8x text-center translate-y-[1px]">
+                {cart.length}
+              </span>
             </div>
           </button>
           <button onClick={toggleMenu} className="text-black">
@@ -330,12 +334,19 @@ const Header = () => {
         </div>
         <div className="hidden md:flex md:order-4 space-x-4">
           {icons.map(({ src, alt, value }) => (
-            <Icon
-              key={alt}
-              src={src}
-              alt={alt}
-              onClick={() => handleClickIcon(value)}
-            />
+            <div className="relative">
+              <Icon
+                key={alt}
+                src={src}
+                alt={alt}
+                onClick={() => handleClickIcon(value)}
+              />
+              <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
+                <span className="text-white text-0.8x text-center translate-y-[1px]">
+                  {cart.length}
+                </span>
+              </div>
+            </div>
           ))}
         </div>
       </div>
