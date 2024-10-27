@@ -259,6 +259,9 @@ class Languages {
             'product.hero.title.album': "ALBUM ẢNH",
             'product.hero.title.other': "SẢN PHẨM KHÁC",
             'product.pagination.text': "TRANG",
+            'product.filter.mobile.button': "Bộ lọc và sắp xếp",
+            'product.filter.mobile.button.accept.text': "ÁP DỤNG",
+            'product.filter.mobile.button.clear.text': "XÓA BỘ LỌC",
 
             // product detail fond gallery
             'product.detail.title': 'THÔNG TIN ĐƠN HÀNG',
