@@ -59,22 +59,22 @@
     }
 
     .scroller[data-direction="right"] .scroller__inner {
-        -webkit-animation-direction: reverse;
-        animation-direction: reverse;
+        -webkit-animation-direction: alternate-reverse;
+        animation-direction: alternate-reverse;
         will-change: transform;
     }
 
     .scroller[data-direction="left"] .scroller__inner {
-        -webkit-animation-direction: reverse; /* Fallback for unsupported browsers */
-        animation-direction: reverse; /* Fallback for unsupported browsers */
+        -webkit-animation-direction: alternate; /* Fallback for unsupported browsers */
+        animation-direction: alternate; /* Fallback for unsupported browsers */
         will-change: transform;
     }
 
     @media (max-width: 640px) {
         .scroller[data-direction="right"] .scroller__inner,
         .scroller[data-direction="left"] .scroller__inner {
-            -webkit-animation-direction: normal; /* Adjust for mobile */
-            animation-direction: normal; /* Adjust for mobile */
+            -webkit-animation-direction: alternate; /* Adjust for mobile */
+            animation-direction: alternate; /* Adjust for mobile */
         }
     }
 

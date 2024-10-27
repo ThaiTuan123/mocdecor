@@ -3,6 +3,7 @@
 import React, {useEffect, useState} from 'react';
 import Image from 'next/image';
 import images from "@/configs/images";
+import imagesIcons from "@/configs/images";
 
 interface FloatingButtonConfig {
     onClick: () => void;
@@ -14,7 +15,7 @@ const floatingButtonConfigs: FloatingButtonConfig[] = [
     {
         //TODO: change alert to link facebook
         onClick: () => alert('Call button clicked!'),
-        imageSrc: images.icons.ic_call,
+        imageSrc: imagesIcons.svg.icMessage,
         altText: "Call"
     },
     {
