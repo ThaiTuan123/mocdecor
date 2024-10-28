@@ -54,6 +54,7 @@ class Languages {
             // sub nav
             "navbar.sub.view.title": "Các loại",
             "navbar.sub.view.read.more": "Xem thêm",
+            "navbar.sub.mobile.back": "Trở lại",
 
             //contact
             'contact.subTitle.description': 'Nếu bạn có bất kì thắc mắc về sản phẩm của chúng tôi, cần trợ giúp đặt hàng hay muốn cung cấp phản hồi về trải nghiệm của bạn, đội ngũ của Mộc luôn sẵn sàng hỗ trợ bạn từng bước.',
