@@ -223,7 +223,7 @@ const Header = () => {
         isVisible={isShowCart}
         onClick={() => setIsShowCart(false)}
       >
-        <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight">
+        <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight hidden md:block">
           <div className="py-7 px-11 flex justify-between border-b">
             <div className="flex flex-col ">
               <div className="flex flex-row gap-4 items-center">
@@ -351,22 +351,17 @@ const Header = () => {
         </div>
       </div>
       {menuOpen && (
-        // TODO mobile menu
-        <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4">
-          {menuLinks.map(({ href, labelKey }) => (
-            <MenuLink key={href} href={href} label={languages.get(labelKey)} />
-          ))}
-        </div>
+          // TODO mobile menu
+          <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4 h-896">
+            {menuLinks.map(({href, labelKey}) => (
+                <div key={href} className="w-full">
+                  <MenuLink href={href} label={languages.get(labelKey)}/>
+                  <div className="w-full h-px bg-gray-300 mt-2"/>
+                </div>
+            ))}
+          </div>
       )}
       {cartOpen && renderCartMobile()}
-      {menuOpen && (
-        // TODO mobile menu
-        <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4">
-          {menuLinks.map(({ href, labelKey }) => (
-            <MenuLink key={href} href={href} label={languages.get(labelKey)} />
-          ))}
-        </div>
-      )}
       {renderCart()}
     </header>
   )
