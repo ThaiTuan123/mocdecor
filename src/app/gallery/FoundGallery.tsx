@@ -20,9 +20,9 @@ export default function FoundGallery() {
     };
 
     return (
-        <div className="flex flex-col lg:flex-row  px-6 lg:py-9 lg:px-20 2xl:px-36 ">
+        <div className="flex flex-col lg:flex-row lg:py-9 lg:px-20 2xl:px-36 ">
             {/* Left Section - Thông tin đơn hàng */}
-            <div className="w-full lg:w-1/3 border border-stroke bg-white rounded ">
+            <div className="w-full lg:w-1/3 lg:border lg:border-stroke bg-white rounded ">
                 <div className='pt-5 px-7'>
                     <h2 className=" text-xl font-semibold mb-4 text-primary">{languages.get('product.detail.title')}</h2>
                     <div className="mb-4 flex flex-col gap-y-4">
@@ -34,6 +34,12 @@ export default function FoundGallery() {
                             isStatus={true}
                         />
                     </div>
+                </div>
+                {/* Only show on mobile  */}
+                <div className='bg-pampas h-28 px-7 flex items-center lg:hidden'>
+                    <p className="text-left w-full text-gray-100">
+                        {languages.get('product.detail.status.mobileNote')}
+                    </p>
                 </div>
 
                 {/* Order List */}
