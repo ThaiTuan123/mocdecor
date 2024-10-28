@@ -70,14 +70,6 @@
         will-change: transform;
     }
 
-    @media (max-width: 640px) {
-        .scroller[data-direction="right"] .scroller__inner,
-        .scroller[data-direction="left"] .scroller__inner {
-            -webkit-animation-direction: alternate; /* Adjust for mobile */
-            animation-direction: alternate; /* Adjust for mobile */
-        }
-    }
-
     .scroller[data-speed="fast"] {
         --_animation-duration: 20s;
     }

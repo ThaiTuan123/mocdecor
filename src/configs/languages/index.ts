@@ -281,6 +281,7 @@ class Languages {
             'product.detail.status.message': 'Ghi Chú',
             'product.detail.status.messageDetail': 'Nhập ghi chú',
             'product.detail.status.buttonDone': 'HOÀN THÀNH TẢI ẢNH ĐƠN HÀNG',
+            'product.detail.status.mobileNote': 'Bạn cần bấm chọn vào từng sản phẩm đang hiển thị dưới đây để tiến hành tải ảnh cho sản phẩm',
         }
     }
 
