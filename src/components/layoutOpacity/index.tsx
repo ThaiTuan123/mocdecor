@@ -21,7 +21,7 @@ const LayoutOpacity: React.FC<LayoutOpacityProps> = ({
         }
     };
 
-    return isVisible ? <div className={`fixed inset-0 bg-layout z-50 flex justify-center items-center ${className}`} onClick={handleClickLayout}>
+    return isVisible ? <div className={`md:fixed inset-0 bg-layout z-50 flex justify-center items-center ${className}`} onClick={handleClickLayout}>
         {children}
     </div> : null
 }
