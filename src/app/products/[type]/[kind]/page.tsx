@@ -357,12 +357,12 @@ export default function Products() {
         <div className="absolute flex flex-col gap-4 left-0 right-0 bottom-0 py-7 px-6 border-t">
           <CustomButton
             text={languages.get('product.filter.mobile.button.accept.text')}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+            className="w-full py-3 font-semibold md:hover:bg-white md:hover:text-primary"
             onClick={submitFilter}
           />
           <CustomButton
             text={languages.get('product.filter.mobile.button.clear.text')}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+            className="w-full py-3 font-semibold md:hover:bg-white md:hover:text-primary"
             cancelButton
             onClick={clearFilter}
           />
@@ -558,7 +558,7 @@ export default function Products() {
     <div>
       {renderHero()}
       {renderFilter()}
-      <div className="flex justify-end pr-10 py-6 border-b">
+      <div className="md:hidden flex justify-end pr-10 py-6 border-b">
         <div
           className="md:hidden flex justify-center h-10 w-36 bg-pampas items-center gap-2 rounded"
           onClick={() => setOpenFilter(true)}
