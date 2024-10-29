@@ -59,9 +59,9 @@ const SocialIcons = ({icons}: { icons: IconType[] }) => (
 );
 
 const ContactItemList = ({items}: { items: ContactItemType[] }) => (
-    <ul className="mb-4 mt-8 bg-pampas rounded-lg px-8 py-6 space-y-5">
+    <ul className="mb-4 mt-8 bg-pampas rounded-lg px-4 lg:px-8 py-6 space-y-5">
         {items.map(item => (
-            <li key={item.key} className="flex items-start text-karaka">
+            <li key={item.key} className="flex items-center text-karaka text-sm lg:text-lg">
                 <img src={item.icon} alt={item.alt} className="mr-4 items-start" width={24} height={24}/>
                 {languages.get(item.key)}
             </li>
@@ -70,7 +70,7 @@ const ContactItemList = ({items}: { items: ContactItemType[] }) => (
 );
 
 const ContactDetails = () => (
-    <div className="px-4 md:px-0 lg:px-16 md:text-start">
+    <div className="px-0 lg:px-16 md:text-start">
         <h3 className="text-2xl text-center md:text-start md:text-4xl font-playfairBold text-primary mb-4">
             {languages.get('contact.subtitle.findUs')}
         </h3>
