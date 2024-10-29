@@ -147,7 +147,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
             {renderFullScreenImage()}
             <div className="bg-white p-4 lg:p-6 rounded-lg w-full mx-6 py-12 lg:w-920 relative flex flex-col">
                 <CancelButton onClick={onClose}/>
-                <div className="flex flex-col md:flex-row max-h-[710px] overflow-y-auto">
+                <div className="flex flex-col lg:flex-row max-h-[710px] overflow-y-auto">
                     <div className="flex flex-col justify-between relative">
                         <Image
                             //src={product.image}

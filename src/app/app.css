@@ -62,12 +62,14 @@
         -webkit-animation-direction: alternate-reverse;
         animation-direction: alternate-reverse;
         will-change: transform;
+        transition: none !important;
     }
 
     .scroller[data-direction="left"] .scroller__inner {
         -webkit-animation-direction: alternate; /* Fallback for unsupported browsers */
         animation-direction: alternate; /* Fallback for unsupported browsers */
         will-change: transform;
+        transition: none !important;
     }
 
     .scroller[data-speed="fast"] {
