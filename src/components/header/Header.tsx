@@ -64,7 +64,7 @@ const Header = () => {
   const renderCartEmpty = () => {
     return (
       <div className="w-full flex flex-col items-center px-8 pt-44">
-        <h3 className="text-2lg text-primary">
+        <h3 className="text-2lg text-primary text-center">
           {languages.get("cart.empty.title")}
         </h3>
         <span className="block mt-2 mb-9 text-doveGray text-lg text-center">
@@ -277,9 +277,14 @@ const Header = () => {
     )
   }
 
+  const handleScroll = (e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
   const renderSubNavMobile = () => {
     return (
-      <div className="flex flex-col px-6 h-896">
+      <div className="fixed top-72px left-0 bottom-0 right-0 bg-white flex flex-col px-6 z-50 pb-14 border-t pt-4">
         <div className="flex items-center mb-8 gap-2" onClick={() => {
           setSubNavMobile(false)
           setMenuOpen(true)
@@ -287,7 +292,7 @@ const Header = () => {
           <FaChevronLeft className="w-4 h-4" />
           <span className="text-sm text-karaka font-raleway">{languages.get('navbar.sub.mobile.back')}</span>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 overflow-y-auto no-scrollbar" onScroll={handleScroll}>
           {listCategory.length > 0 &&
             listCategory.map((item, index) => (
               <div key={index} className="flex flex-col min-w-44">
@@ -332,6 +337,7 @@ const Header = () => {
   }
 
   return (
+    <>
     <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
       <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative h-12">
         <Link href="/" legacyBehavior>
@@ -423,8 +429,9 @@ const Header = () => {
       )}
       {cartOpen && renderCartMobile()}
       {renderCart()}
-      {subNavMobile && renderSubNavMobile()}
     </header>
+      {subNavMobile && renderSubNavMobile()}
+    </>
   )
 }
 
