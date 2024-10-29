@@ -568,7 +568,7 @@ export default function Products() {
     <div>
       {renderHero()}
       {renderFilter()}
-      <div className="md:hidden flex justify-end pr-10 py-6 border-b">
+      <div className="md:hidden flex justify-end pr-6 py-6 border-b">
         <div
           className="md:hidden flex justify-center h-10 w-36 bg-pampas items-center gap-2 rounded"
           onClick={() => setOpenFilter(true)}
