@@ -19,6 +19,7 @@ import useListCategory from "@/recoil/hooks/useListCategory"
 import { useRecoilState } from "recoil"
 import { cartState } from "@/recoil/atoms/cartAtom"
 import { useRouter } from "next/navigation"
+import { FaChevronLeft } from "react-icons/fa"
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -29,6 +30,7 @@ const Header = () => {
   const [quantity, setQuantity] = useState<number>(1)
   const { listCategory } = useListCategory()
   const [cart, setCart] = useRecoilState(cartState)
+  const [subNavMobile, setSubNavMobile] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -275,6 +277,60 @@ const Header = () => {
     )
   }
 
+  const renderSubNavMobile = () => {
+    return (
+      <div className="flex flex-col px-6 h-896">
+        <div className="flex items-center mb-8 gap-2" onClick={() => {
+          setSubNavMobile(false)
+          setMenuOpen(true)
+        }}>
+          <FaChevronLeft className="w-4 h-4" />
+          <span className="text-sm text-karaka font-raleway">{languages.get('navbar.sub.mobile.back')}</span>
+        </div>
+        <div className="flex flex-col gap-6">
+          {listCategory.length > 0 &&
+            listCategory.map((item, index) => (
+              <div key={index} className="flex flex-col min-w-44">
+                <span className="text-notRating text-sm mb-2">
+                  {languages.get("navbar.sub.view.title")}
+                </span>
+                <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
+                  {item.name}
+                </h2>
+                <div className="flex flex-col gap-4 cursor-pointer">
+                  {item.types.map((subItem, subIndex) => {
+                    return (
+                      // TODO add line when hover
+                      <Link
+                        key={subIndex}
+                        className={`relative text-doveGray text-sm md:hover:text-karaka`}
+                        href={`/products/${item.enName}/${subItem.slug}`}
+                        onClick={() => {
+                          setMenuOpen(false)
+                          setSubNavMobile(false)
+                        }}
+                      >
+                        {subItem.name}
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+    )
+  }
+
+  const handleClickMenuMobile = (labelKey: string) => {
+    if (labelKey !== "products") {
+      setMenuOpen(false)
+    } else {
+      setMenuOpen(false)
+      setSubNavMobile(true)
+    }
+  }
+
   return (
     <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
       <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative h-12">
@@ -351,18 +407,23 @@ const Header = () => {
         </div>
       </div>
       {menuOpen && (
-          // TODO mobile menu
-          <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4 h-896">
-            {menuLinks.map(({href, labelKey}) => (
-                <div key={href} className="w-full">
-                  <MenuLink href={href} label={languages.get(labelKey)}/>
-                  <div className="w-full h-px bg-gray-300 mt-2"/>
-                </div>
-            ))}
-          </div>
+        // TODO mobile menu
+        <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4 h-896">
+          {menuLinks.map(({ href, labelKey }) => (
+            <div
+              key={href}
+              className="w-full"
+              onClick={() => handleClickMenuMobile(labelKey)}
+            >
+              <MenuLink href={href} label={languages.get(labelKey)} />
+              <div className="w-full h-px bg-gray-300 mt-2" />
+            </div>
+          ))}
+        </div>
       )}
       {cartOpen && renderCartMobile()}
       {renderCart()}
+      {subNavMobile && renderSubNavMobile()}
     </header>
   )
 }
