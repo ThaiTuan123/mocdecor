@@ -445,7 +445,7 @@ export default function Products() {
     return (
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-6 gap-2 mt-8">
         {productData.map((item, index) => (
-          <div className="flex flex-col border rounded-lg hover:ring-caption cursor-pointer ring-stroke ring-1" key={index} onClick={() => setSelectedProduct(item)}>
+          <div className="flex flex-col border md:rounded-lg rounded hover:ring-caption cursor-pointer ring-stroke ring-1" key={index} onClick={() => setSelectedProduct(item)}>
             <img
               className="w-full h-28 md:h-64 object-contain"
               src={item.image}
