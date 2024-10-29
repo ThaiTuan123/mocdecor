@@ -300,6 +300,11 @@ export default function Products() {
       )
     }
 
+    const handleScroll = (e: any) => {
+      e.stopPropagation();
+      e.preventDefault();
+    };
+
     return (
       <div className="fixed top-0 left-0 right-0 bottom-0 md:hidden flex flex-col items-start bg-white z-50">
         <div className="flex justify-between w-full items-center px-6 py-3">
@@ -310,6 +315,8 @@ export default function Products() {
             onClick={() => setOpenFilter(false)}
           />
         </div>
+
+        <div className="w-full h-full overflow-y-auto pb-44"  onScroll={handleScroll}>
 
         <Collapse
             onChange={onChangeCollapse}
@@ -354,15 +361,18 @@ export default function Products() {
               </Panel>
             ))}
           </Collapse>
-        <div className="absolute flex flex-col gap-4 left-0 right-0 bottom-0 py-7 px-6 border-t">
+        </div>
+
+        
+        <div className="absolute flex flex-col gap-4 left-0 right-0 bottom-0 py-7 px-6 border-t bg-white">
           <CustomButton
             text={languages.get('product.filter.mobile.button.accept.text')}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+            className="w-full py-3 font-semibold md:hover:bg-white md:hover:text-primary"
             onClick={submitFilter}
           />
           <CustomButton
             text={languages.get('product.filter.mobile.button.clear.text')}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+            className="w-full py-3 font-semibold md:hover:bg-white md:hover:text-primary"
             cancelButton
             onClick={clearFilter}
           />
@@ -558,7 +568,7 @@ export default function Products() {
     <div>
       {renderHero()}
       {renderFilter()}
-      <div className="flex justify-end pr-10 py-6 border-b">
+      <div className="md:hidden flex justify-end pr-6 py-6 border-b">
         <div
           className="md:hidden flex justify-center h-10 w-36 bg-pampas items-center gap-2 rounded"
           onClick={() => setOpenFilter(true)}

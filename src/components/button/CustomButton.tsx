@@ -26,18 +26,15 @@ const CommonButton: React.FC<CommonButtonProps> = ({
     const isMobile = useIsMobile();
 
     // Base styles for all buttons
-    const baseStyles = `md:px-20 md:py-3 rounded border-2 border-primary ${className}`;
+    const baseStyles = `md:px-20 md:py-3 px-8 py-3 text-base rounded border-2 border-primary ${className}`;
 
     // Styles for desktop hover effect
-    const desktopHoverStyles = `transition-all duration-300 ease-in-out transform ${
-        isHovered ? "bg-white text-base text-primary scale-105" : `bg-primary text-base text-white scale-100`
+    const desktopHoverStyles = `transition-all duration-300 ease-in-out transform ${cancelButton ? 'text-primary bg-red' : 'bg-primary text-white'} ${
+        isHovered ? "md:bg-white md:text-primary md:scale-105" : `md:bg-primary md:text-white md:scale-100`
     }`;
 
-    // Styles for mobile (no hover effect)
-    const mobileStyles = ` text-base ${cancelButton ? 'text-primary bg-white' : 'bg-primary text-white'} px-8 py-3`;
-
     // Conditionally apply styles based on the device type
-    const buttonClassNames = `${baseStyles} ${isMobile ? mobileStyles : desktopHoverStyles}`;
+    const buttonClassNames = `${baseStyles} ${desktopHoverStyles}`;
 
     // Render as anchor tag if href is provided
     if (href) {
@@ -45,8 +42,8 @@ const CommonButton: React.FC<CommonButtonProps> = ({
             <a
                 href={href}
                 className={buttonClassNames}
-                onMouseEnter={() => !isMobile && setIsHovered(true)}
-                onMouseLeave={() => !isMobile && setIsHovered(false)}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
             >
                 {text}
             </a>
@@ -58,8 +55,8 @@ const CommonButton: React.FC<CommonButtonProps> = ({
         <button
             type={type}
 className={`!text-lg ${buttonClassNames}`}
-            onMouseEnter={() => !isMobile && setIsHovered(true)}
-            onMouseLeave={() => !isMobile && setIsHovered(false)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             onClick={onClick}
             disabled={disabled}
         >

@@ -64,10 +64,10 @@ const Header = () => {
   const renderCartEmpty = () => {
     return (
       <div className="w-full flex flex-col items-center px-8 pt-44">
-        <h3 className="text-2lg text-primary text-center">
+        <h3 className="md:text-2lg text-lg font-bold text-primary text-center">
           {languages.get("cart.empty.title")}
         </h3>
-        <span className="block mt-2 mb-9 text-doveGray text-lg text-center">
+        <span className="block mt-2 mb-9 text-doveGray md:text-lg text-sm text-center">
           {languages.get("cart.empty.desc")}
         </span>
         <div className="flex flex-col gap-6 w-full">
@@ -101,7 +101,7 @@ const Header = () => {
           {cart.map((item, index) => (
             <>
               <div
-                className="flex items-center gap-4 py-5 px-7 w-full overflow-hidden"
+                className="flex items-center gap-4 py-5 md:px-7 px-6 w-full overflow-hidden"
                 key={index}
               >
                 <div className="p-3">
@@ -284,15 +284,16 @@ const Header = () => {
 
   const renderSubNavMobile = () => {
     return (
-      <div className="fixed top-72px left-0 bottom-0 right-0 bg-white flex flex-col px-6 z-50 pb-14 border-t pt-4">
-        <div className="flex items-center mb-8 gap-2" onClick={() => {
+      <div className="fixed top-72px left-0 bottom-0 right-0 bg-white flex flex-col z-50 border-t pt-4">
+        <div className="flex items-center mb-8 gap-2 px-6" onClick={() => {
           setSubNavMobile(false)
           setMenuOpen(true)
         }}>
           <FaChevronLeft className="w-4 h-4" />
           <span className="text-sm text-karaka font-raleway">{languages.get('navbar.sub.mobile.back')}</span>
         </div>
-        <div className="flex flex-col gap-6 overflow-y-auto no-scrollbar" onScroll={handleScroll}>
+        <div className="flex flex-col overflow-y-auto no-scrollbar" onScroll={handleScroll}>
+          <div className="flex flex-col gap-6 px-6 mb-6">
           {listCategory.length > 0 &&
             listCategory.map((item, index) => (
               <div key={index} className="flex flex-col min-w-44">
@@ -322,6 +323,12 @@ const Header = () => {
                 </div>
               </div>
             ))}
+          </div>
+            <img
+              src={images.heroSubNav}
+              alt=""
+              className="rotate-90"
+        />
         </div>
       </div>
     )
@@ -341,7 +348,10 @@ const Header = () => {
     <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
       <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative h-12">
         <Link href="/" legacyBehavior>
-          <a className="text-2xl font-bold flex items-center md:order-2 order-0 absolute md:static right-1/2 translate-x-1/2 md:mx-0">
+          <a className="text-2xl font-bold flex items-center md:order-2 order-0 absolute md:static right-1/2 translate-x-1/2 md:mx-0" onClick={() => {
+          setMenuOpen(false)
+          setSubNavMobile(false)
+        }}>
             <img
               src={images.logo}
               alt="MOC DECOR"
