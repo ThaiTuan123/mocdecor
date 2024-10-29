@@ -101,7 +101,7 @@ const Header = () => {
           {cart.map((item, index) => (
             <>
               <div
-                className="flex items-center gap-4 py-5 px-7 w-full overflow-hidden"
+                className="flex items-center gap-4 py-5 md:px-7 px-6 w-full overflow-hidden"
                 key={index}
               >
                 <div className="p-3">

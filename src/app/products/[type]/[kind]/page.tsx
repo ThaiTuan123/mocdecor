@@ -300,6 +300,11 @@ export default function Products() {
       )
     }
 
+    const handleScroll = (e: any) => {
+      e.stopPropagation();
+      e.preventDefault();
+    };
+
     return (
       <div className="fixed top-0 left-0 right-0 bottom-0 md:hidden flex flex-col items-start bg-white z-50">
         <div className="flex justify-between w-full items-center px-6 py-3">
@@ -310,6 +315,8 @@ export default function Products() {
             onClick={() => setOpenFilter(false)}
           />
         </div>
+
+        <div className="w-full h-full overflow-y-auto pb-44"  onScroll={handleScroll}>
 
         <Collapse
             onChange={onChangeCollapse}
@@ -354,7 +361,10 @@ export default function Products() {
               </Panel>
             ))}
           </Collapse>
-        <div className="absolute flex flex-col gap-4 left-0 right-0 bottom-0 py-7 px-6 border-t">
+        </div>
+
+        
+        <div className="absolute flex flex-col gap-4 left-0 right-0 bottom-0 py-7 px-6 border-t bg-white">
           <CustomButton
             text={languages.get('product.filter.mobile.button.accept.text')}
             className="w-full py-3 font-semibold md:hover:bg-white md:hover:text-primary"
