@@ -97,7 +97,7 @@ const Header = () => {
 
     return (
       <div className="h-full w-full">
-        <div className="overflow-y-scroll md:h-2/3 h-3/4">
+        <div className="overflow-y-scroll h-4/6 md:h-2/3">
           {cart.map((item, index) => (
             <>
               <div
