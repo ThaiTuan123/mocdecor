@@ -1,4 +1,3 @@
-// Contact Page
 "use client";
 
 import React from "react";
@@ -87,7 +86,7 @@ const ContactDetails = () => (
             <SocialIcons icons={socialIcons}/>
         </div>
         <div className="mt-4">
-            <GoogleMapsEmbed/>
+           <GoogleMapsEmbed/>
         </div>
     </div>
 );

@@ -13,7 +13,7 @@ const TextareaInput: React.FC<TextareaInputProps> = ({ label, placeholder, name,
     <div>
         <label className="block text-sm font-medium text-doveGray">{label}</label>
         <textarea
-            className="mt-1 block w-full p-3 border border-stroke rounded-md"
+            className="mt-1 block w-full p-3 pb-20 border border-stroke rounded-md"
             placeholder={placeholder}
             name={name} // Bind the name prop
             value={value} // Bind the value prop
