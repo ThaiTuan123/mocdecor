@@ -63,7 +63,7 @@ const Header = () => {
 
   const renderCartEmpty = () => {
     return (
-      <div className="w-full flex flex-col items-center px-8 pt-44">
+      <div className="w-full flex flex-col items-center md:px-8 px-6 pt-44">
         <h3 className="md:text-2lg text-lg font-bold text-primary text-center">
           {languages.get("cart.empty.title")}
         </h3>
@@ -142,7 +142,7 @@ const Header = () => {
             </>
           ))}
         </div>
-        <div className="border-t pt-4 md:pt-6 px-8 md:h-1/3 h-1/4">
+        <div className="border-t pt-4 md:pt-6 md:px-8 px-6 md:h-1/3 h-1/4">
           <div className="flex justify-between mb-4">
             <h3 className="text-doveGray text-2lg">
               {languages.get("cart.total")}
