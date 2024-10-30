@@ -7,6 +7,7 @@ import IconWithText from "@/components/icons/IconWithText";
 import Icon from "@/components/icons/Icon";
 import Line from "@/components/shape/Lines";
 import {footerIcons, socialIcons} from "@/components/footer/constant";
+import Link from "next/link";
 
 const FooterTop = () => (
     <div className="text-white md:py-1 bg-punga py-8 px-6 2xl:px-96	">
@@ -67,7 +68,8 @@ interface FooterLinksProps {
 }
 
 const FooterLinks = ({className}: FooterLinksProps) => (
-    <div className={`w-1/3 py-0 md:py-6 ml-0 px-6 container mx-auto flex flex-col  justify-between md:px-2 lg:px-16 ${className}`}>
+    <div
+        className={`w-1/3 py-0 md:py-6 ml-0 px-6 container mx-auto flex flex-col  justify-between md:px-2 lg:px-16 ${className}`}>
         <h3 className="text-2xl font-playfairBold font-bold">{languages.get('whatMocHas')}</h3>
         <p className="pt-4 text-l font-normal font-raleway">{languages.get('flowerFrame')}</p>
         <p className="text-l font-normal font-raleway">{languages.get('handmadeFrame')}</p>
@@ -111,8 +113,11 @@ const FooterBottom = () => (
 const FooterPolicies = () => (
     <div className="w-1/2 py-6 md:p-2 flex items-center">
         <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4 lg:space-x-32">
-            <p className="text-l font-normal font-raleway">{languages.get('policy')}</p>
-            <p className="text-l font-normal font-raleway">{languages.get('terms')}</p>
+            <Link href="/policy">
+                <p className="text-l font-normal font-raleway">{languages.get('policy')}</p>
+            </Link>
+            {/* TODO: HIẾU Enable this line when terms are finalized */}
+            {/* <p className="text-l font-normal font-raleway">{languages.get('terms')}</p> */}
         </div>
     </div>
 );
