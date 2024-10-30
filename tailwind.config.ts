@@ -21,6 +21,12 @@ const config: Config = {
                 'image-home-background-print': "url('/assets/imgs/backgrounds/bg-print-home.png')",
                 'image-home-background-frame': "url('/assets/imgs/backgrounds/bg-frame-home.png')",
                 'image-home-background-album': "url('/assets/imgs/backgrounds/bg-album-home.png')",
+
+                //-- mobile background
+                'image-home-background-print-mobile': "url('/assets/imgs/backgrounds/bg-print-home-mobile.png')",
+                'image-home-background-frame-mobile': "url('/assets/imgs/backgrounds/bg-frame-home-mobile.png')",
+                'image-home-background-album-mobile': "url('/assets/imgs/backgrounds/bg-album-home-mobile.png')",
+
                 'image-bracelet-home': "url('/assets/imgs/backgrounds/bracelet-home.png')",
                 'image-calendar-home': "url('/assets/imgs/backgrounds/calendar-home.png')",
                 'image-notebook-home': "url('/assets/imgs/backgrounds/notebook-home.png')",
