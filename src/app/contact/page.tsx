@@ -1,3 +1,4 @@
+// Contact Page
 "use client";
 
 import React from "react";
@@ -9,10 +10,10 @@ import TextareaInput from "@/components/inputs/TextareaInput";
 
 import languages from "@/configs/languages";
 import {contactItems, socialIcons} from "@/app/contact/constant";
-import images from "@/configs/images";
 import {ContactItemType, IconType} from "@/app/contact/types";
 import {useImageLoad} from "@/recoil/hooks/useImageLoad";
 import {useContactForm} from "@/recoil/hooks/useContactForm";
+import {GoogleMapsEmbed} from "@/utils/helpers/googleMapsEmbedHelper";
 
 const HeroSection = () => {
     const isImageLoaded = useImageLoad();
@@ -86,8 +87,7 @@ const ContactDetails = () => (
             <SocialIcons icons={socialIcons}/>
         </div>
         <div className="mt-4">
-            <img className="transition-transform duration-300 hover:scale-110" src={images.contactMap}
-                 alt="Map"/>
+            <GoogleMapsEmbed/>
         </div>
     </div>
 );
