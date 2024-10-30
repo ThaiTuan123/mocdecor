@@ -146,18 +146,21 @@ const sectionsData = [
         title: languages.get('home.title.background.print'),
         subTitle: languages.get('home.subTitle.background.print'),
         backgroundClass: "bg-image-home-background-print",
+        backgroundMobileClass: "bg-image-home-background-print-mobile",
         tabComponent: <TabPrint/>
     },
     {
         title: languages.get('home.title.background.frame'),
         subTitle: languages.get('home.subTitle.background.frame'),
         backgroundClass: "bg-image-home-background-frame",
+        backgroundMobileClass: "bg-image-home-background-frame-mobile",
         tabComponent: <TabFrame/>
     },
     {
         title: languages.get('home.title.background.album'),
         subTitle: languages.get('home.subTitle.background.album'),
         backgroundClass: "bg-image-home-background-album",
+        backgroundMobileClass: "bg-image-home-background-album-mobile",
         tabComponent: <TabPrint/>
     }
 ];
@@ -556,6 +559,7 @@ const HomePage = () => (
                     title={section.title}
                     subTitle={section.subTitle}
                     backgroundClass={section.backgroundClass}
+                    backgroundMobileClass={section.backgroundMobileClass}
                 />
                 {section.tabComponent}
             </ScrollAnimation>
