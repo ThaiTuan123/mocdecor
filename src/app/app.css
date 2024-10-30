@@ -4,30 +4,38 @@
 
 /* Base styles */
 @layer base {
+    /*Font Raleway*/
     @font-face {
         font-family: 'Raleway';
-        src: url('/public/assets/fonts/raleway/raleway-regular.woff2') format('woff2');
+        src: url('/assets/fonts/raleway/raleway-regular.ttf') format('truetype');
         font-weight: 400;
         font-style: normal;
     }
+    @font-face {
+        font-family: 'Raleway';
+        src: url('/assets/fonts/raleway/raleway-bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+    }
 
+    /*Font Playfair Display*/
     @font-face {
         font-family: 'Playfair Display Regular';
-        src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Regular.ttf') format('truetype');
+        src: url('/assets/fonts/playfairDisplay/playfair-display-regular.ttf') format('truetype');
         font-weight: 400;
         font-style: normal;
     }
 
     @font-face {
         font-family: 'Playfair Display Medium';
-        src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Medium.ttf') format('truetype');
+        src: url('/assets/fonts/playfairDisplay/playfair-display-medium.ttf') format('truetype');
         font-weight: 500;
         font-style: normal;
     }
 
     @font-face {
         font-family: 'Playfair Display Bold';
-        src: url('/public/assets/fonts/playfairDisplay/PlayfairDisplay-Bold.ttf') format('truetype');
+        src: url('/assets/fonts/playfairDisplay/playfair-display-bold.ttf') format('truetype');
         font-weight: 700;
         font-style: normal;
     }

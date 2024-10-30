@@ -29,7 +29,7 @@ const TitleText: React.FC<TitleTextProps> = ({
                 animate={{ width: '2rem' }}
                 transition={{ duration: 1, ease: 'easeInOut' }}
             ></motion.div>
-            <h3 className={`text-sm md:text-lg font-raleway font-normal mr-1 uppercase ${textColor}`}>
+            <h3 className={`text-sm md:text-lg font-raleway mr-1 uppercase ${textColor}`}>
                 {firstText}
             </h3>
             <h3 className={`text-sm md:text-lg font-raleway font-bold uppercase ${textColor}`}>
