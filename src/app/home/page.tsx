@@ -299,7 +299,7 @@ const GiftSection: React.FC = () => {
                            height={187}/>
                     <div className="h-24 w-1 bg-white mx-4 hidden md:block"></div>
                     <div id='title'>
-                        <div className="flex-n1 flex flex-col md:items-start items-center">
+                        <div className="flex-n1 font-raleway flex flex-col md:items-start items-center">
                             <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">{languages.get('home.title.header2.gift1')}</h2>
                             <h2 className="text-4xl font-extrabold text-white font-raleway">{languages.get('home.title.header2.gift2')}</h2>
                         </div>

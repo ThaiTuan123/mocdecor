@@ -73,7 +73,7 @@ const FooterLinks = ({className}: FooterLinksProps) => (
         <h3 className="text-2xl font-playfairBold font-bold">{languages.get('whatMocHas')}</h3>
         <p className="pt-4 text-l font-normal font-raleway">{languages.get('flowerFrame')}</p>
         <p className="text-l font-normal font-raleway">{languages.get('handmadeFrame')}</p>
-        <h3 className="text-lg font-bold mt-4 pt-0 md:pt-7">{languages.get('connectWithMoc')}</h3>
+        <h3 className="text-lg font-bold mt-4 pt-0 md:pt-7 font-raleway">{languages.get('connectWithMoc')}</h3>
         <div className="flex space-x-4 mt-2 mb-8 md:mb-0 ">
             {socialIcons.map(icon => (
                 <Icon
