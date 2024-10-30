@@ -48,7 +48,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({images = [], onImageSe
                 <MdOutlineNavigateBefore size={24} color="white"/>
             </button>
 
-            <div className="flex overflow-x-auto whitespace-nowrap" ref={carouselRef}>
+            <div className="flex overflow-hidden whitespace-nowrap" ref={carouselRef}>
                 {/* Display images with horizontal scroll */}
                 {displayImages.map((image, index) => (
                     <div
