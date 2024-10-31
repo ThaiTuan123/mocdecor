@@ -17,7 +17,7 @@ const Heading3: React.FC<HeadingProps> = ({
                                           }) => (
     <div className={`flex flex-col ${classNameAll}`}>
         <h3
-            className={`font-bold font-playfairBold uppercase text-4xl md:${size} ${color} ${className}`}
+            className={`font-bold font-playfairBold uppercase text-4.2xl md:${size} ${color} ${className}`}
             dangerouslySetInnerHTML={{__html: text}}
         />
     </div>

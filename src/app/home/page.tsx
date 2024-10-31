@@ -204,7 +204,7 @@ const OtherProductsSection: React.FC = () => {
                     <div className="flex flex-col md:flex-row col-span-2 h-80 gap-4 md:gap-0">
                         {/* Lịch gỗ */}
                         <div
-                            className="h-40 md:h-80 bg-image-lich-go-mobile md:bg-image-calendar-home bg-cover text-white px-4 md:px-10 py-8 rounded-lg relative flex flex-col justify-start md:justify-end w-full md:w-5/12">
+                            className="h-40 md:h-80 bg-image-lich-go-mobile md:bg-image-calendar-home bg-cover text-white px-4 md:px-10 py-4 rounded-lg relative flex flex-col justify-start md:justify-end w-full md:w-5/12">
                             <div
                                 className="gap-1 md:gap-0 flex flex-col md:flex-row md:items-center md:justify-between w-full">
                                 <h3 className="hidden md:block text-4xl font-bold uppercase font-playfairBold">{languages.get('home.title.header3.calendar')}</h3>
@@ -315,30 +315,25 @@ const GiftSection: React.FC = () => {
 
 
 const FeedbackScrollableSection: React.FC = () => {
-    const scrollInterval = useRecoilValue(scrollIntervalState);
-    const direction = useRecoilValue(directionState);
-    const speed = useRecoilValue(speedState);
-
-    useFeedbackScrollerAnimation(scrollInterval);
-
     return (
-        <div
-            className="feedback-scroller"
-            data-speed={speed}
-            data-direction={direction}
-            style={{'--_animation-duration': `${scrollInterval}ms`} as React.CSSProperties}
+        <motion.div
+            className='flex flex-row gap-6'
+            animate={{ x: ["0%", "-100%"] }}
+            transition={{
+                duration: 20,
+                ease: "linear",
+                repeat: Infinity,
+            }}
         >
-            <div className="feedback-scroller__inner">
-                {customerData.concat(customerData).map((data, index) => (
-                    <CustomerCard
-                        key={index}
-                        imageCustomerUrl={data.imageCustomerUrl}
-                        textDescription={data.textDescription}
-                        nameCustomer={data.nameCustomer}
-                    />
-                ))}
-            </div>
-        </div>
+            {customerData.concat(customerData).map((data, index) => (
+                <CustomerCard
+                    key={index}
+                    imageCustomerUrl={data.imageCustomerUrl}
+                    textDescription={data.textDescription}
+                    nameCustomer={data.nameCustomer}
+                />
+            ))}
+        </motion.div>
     );
 };
 
@@ -346,7 +341,7 @@ const FeedbackSection: React.FC = () => {
     return (
         <section className='2xl:mx-auto 2xl:container pb-8 md:pb-20'>
             <div id='content' className='flex flex-col pt-8 md:pt-16 lg:pt-28'>
-                <div className='flex flex-col items-center pb-0 px-6 md:pb-16'>
+                <div className='flex flex-col items-center pb-0 px-6 md:pb-14'>
                     <TitleText
                         firstText={languages.get('home.title.firstText.feedback')}
                         secondText={languages.get('home.title.secondText.feedback')}
@@ -354,7 +349,7 @@ const FeedbackSection: React.FC = () => {
                     <Heading2 text={languages.get('home.title.header2.feedback')}/>
                 </div>
 
-                <div className='flex flex-col'>
+                <div className='flex flex-col overflow-hidden'>
                     <FeedbackScrollableSection/>
                 </div>
             </div>

@@ -22,6 +22,9 @@ const config: Config = {
                 'image-home-background-frame': "url('/assets/imgs/backgrounds/bg-frame-home.png')",
                 'image-home-background-album': "url('/assets/imgs/backgrounds/bg-album-home.png')",
 
+                'image-gift-home': "url('/assets/imgs/backgrounds/bg-gift-home.webp')",
+                'image-gift-home-mobile': "url('/assets/imgs/backgrounds/bg-gift-home-mobile.webp')",
+
                 //-- mobile background
                 'image-home-background-print-mobile': "url('/assets/imgs/backgrounds/bg-print-home-mobile.png')",
                 'image-home-background-frame-mobile': "url('/assets/imgs/backgrounds/bg-frame-home-mobile.png')",
@@ -31,20 +34,21 @@ const config: Config = {
                 'image-calendar-home': "url('/assets/imgs/backgrounds/calendar-home.png')",
                 'image-notebook-home': "url('/assets/imgs/backgrounds/notebook-home.png')",
                 'image-wooden-pen-home': "url('/assets/imgs/backgrounds/wooden-pen-home.png')",
-                'image-product-story': "url('/assets/imgs/backgrounds/bg-product-story.png')",
+
+                'image-vong-tay-home-mobile': "url('/assets/imgs/backgrounds/bg-vong-tay-mobile-1.webp')",
+                'image-lich-go-mobile': "url('/assets/imgs/backgrounds/bg-lich-go-mobile-1.webp')",
                 'image-story-home-1': "url('/assets/imgs/backgrounds/story-home-1.png')",
-                'image-gift-home': "url('/assets/imgs/backgrounds/bg-gift-home.png')",
-                'image-gift-home-mobile': "url('/assets/imgs/backgrounds/bg-gift-home-mobile.png')",
-                'image-vong-tay-home-mobile': "url('/assets/imgs/backgrounds/bg-vong-tay-mobile.png')",
-                'image-lich-go-mobile': "url('/assets/imgs/backgrounds/bg-lich-go-mobile.png')",
+                'image-product-story': "url('/assets/imgs/backgrounds/bg-product-story.png')",
+
                 //// frame
                 'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.png')",
                 //// customer
-                'image-customer-1': "url('/assets/imgs/backgrounds/customer-1-builevy.png')",
-                'image-customer-2': "url('/assets/imgs/backgrounds/customer-2-buitrongnghia.png')",
-                'image-customer-3': "url('/assets/imgs/backgrounds/customer-3-lehaminhtrang.png')",
+                'image-customer-1': "url('/assets/imgs/backgrounds/customer-1-builevy.webp')",
+                'image-customer-2': "url('/assets/imgs/backgrounds/customer-2-buitrongnghia.webp')",
+                'image-customer-3': "url('/assets/imgs/backgrounds/customer-3-lehaminhtrang.webp')",
+
                 //// service
-                'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.png')",
+                'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.webp')",
 
                 // payment
                 'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.png')",
@@ -113,6 +117,7 @@ const config: Config = {
                 '0.8x': ['0.5rem', '0.5rem'],       // 8px, 8px
                 'x':  ['0.625rem', '0.75rem'],       // 10px, 12px
                 'xs': ['0.75rem', '0.875rem'],       // 12px, 14px
+                '4.2xl': ['2.5rem', '3.3325rem'],      // 40px, 53.32px
                 'sm': ['0.875rem', '0.875rem'],    // 14px, 16,44px
                 'lg': ['1rem', '1.17375rem'],       // 16px, 18.78px
                 '1.25lg': ['1.125rem', '1.5725rem'], // 18px, 25.16px
