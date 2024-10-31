@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import Carousel from "@/components/carousel/Carousel";
 import Image from 'next/image';
 import categories, {cardServiceData, clientData, customerData, socialLinks} from "@/app/home/constant";
@@ -19,12 +19,10 @@ import CustomerCard from "@/components/card/CustomerCard";
 import TextContent from "@/components/texts/TextContent";
 import Line from "@/components/shape/Lines";
 import ServiceCard from "@/components/card/ServiceCard";
-import CoopClientCard from "@/components/card/CoopClientCard";
 import languages from "@/configs/languages";
 import TabFrame from "@/components/tab/TabFrame";
 import TabPrint from "@/components/tab/TabPrint";
 import Heading3 from "@/components/texts/Heading3";
-import {shuffleArray} from "@/utils/shuffle";
 import CategoryCard from "@/components/card/CategoryCard";
 import VideoYoutube from "@/components/video/VideoYoutube";
 import {useRecoilValue} from "recoil";
@@ -403,7 +401,7 @@ const ServiceSection: React.FC = () => {
                     <Line height={"h-px"}/>
                     {/* Content for Phú */}
                     <div className='flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-start'>
-                    <div className='w-full lg:w-2/5 items-center justify-center flex order-2 lg:order-none'>
+                        <div className='w-full lg:w-2/5 items-center justify-center flex order-2 lg:order-none'>
                             <div className="relative w-full">
                                 <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
                             </div>
@@ -435,88 +433,7 @@ const ServiceSection: React.FC = () => {
     );
 }
 
-const ScrollableSection: React.FC<{ scrollInterval: number, direction: 'left' | 'right' }> =
-    ({
-         scrollInterval = 5000,
-         direction = 'left'
-     }) => {
-        const shuffledClientData = shuffleArray([...clientData]);
-        const scrollerRef = useRef<HTMLDivElement>(null);
-        const scrollerInnerRef = useRef<HTMLDivElement>(null);
-
-        const addInfiniteScroll = () => {
-            const scroller = scrollerRef.current;
-            const scrollerInner = scrollerInnerRef.current;
-
-            if (scroller && scrollerInner && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                scroller.setAttribute("data-animated", "true");
-
-                const scrollerContent = Array.from(scrollerInner.children);
-
-                // Duplicate the client items for seamless scroll
-                scrollerContent.forEach((item) => {
-                    const duplicatedItem = item.cloneNode(true) as HTMLElement;
-                    duplicatedItem.setAttribute('aria-hidden', 'true');
-                    scrollerInner.appendChild(duplicatedItem);
-                });
-
-                // Start scrolling from the middle for the right-scrolling section
-                if (direction === 'right') {
-                    const scrollAmount = scrollerInner.scrollWidth / 2;
-                    scroller.scrollLeft = scrollAmount; // Set scroll position to the middle
-                }
-            }
-        };
-
-        const handleScroll = () => {
-            const scroller = scrollerRef.current;
-            const scrollerInner = scrollerInnerRef.current;
-
-            if (scroller && scrollerInner) {
-                const scrollLimit = scrollerInner.scrollWidth / 2;
-
-                // If the scroll reaches the duplicated content, reset to original
-                if (scroller.scrollLeft >= scrollLimit) {
-                    scroller.scrollLeft = 0; // Reset back to the start
-                }
-            }
-        };
-
-        useEffect(() => {
-            addInfiniteScroll(); // Apply the scroll animation once the component is mounted
-
-            const scroller = scrollerRef.current;
-            if (scroller) {
-                scroller.addEventListener('scroll', handleScroll);
-            }
-
-            return () => {
-                if (scroller) {
-                    scroller.removeEventListener('scroll', handleScroll);
-                }
-            };
-        }, []);
-
-        return (
-            <div
-                ref={scrollerRef}
-                className="scroller overflow-x-auto whitespace-nowrap scroll-smooth pb-5 md:pb-10"
-                data-direction={direction} // Direction passed via props
-                data-speed={scrollInterval <= 3000 ? "fast" : "slow"} // Control speed based on interval
-            >
-                <div ref={scrollerInnerRef} className="scroller__inner inline-flex space-x-4">
-                    {shuffledClientData.map((client, index) => (
-                        <CoopClientCard
-                            key={index}
-                            src={client.src}
-                            alt={client.alt}
-                        />
-                    ))}
-                </div>
-            </div>
-        );
-    };
-
+// Main section containing both scrolling components
 const CoopClientsSection: React.FC = () => {
     return (
         <section className="bg-gradient-to-b from-white to-just-right to-60% mt-0">
@@ -531,11 +448,27 @@ const CoopClientsSection: React.FC = () => {
                 </div>
 
                 <div className='gap-y-4 md:gap-y-8 flex flex-col'>
-                    {/* First scroller: scrolls to the left */}
-                    <ScrollableSection scrollInterval={10000} direction="left"/>
+                    <div style={{overflow: "hidden", whiteSpace: "nowrap"}}>
+                        <motion.div className='flex gap-6'
+                                    animate={{x: ["0%", "-100%"]}}
+                                    transition={{duration: 20, repeat: Infinity, ease: "linear"}}
+                        >
+                            {[...clientData, ...clientData].map((client, index) => (
+                                <Image className='h-16 w-32 gap-3 lg:h-32  lg:w-60 lg:gap-10' width={232.77}
+                                       height={142.9} key={index} src={client.src} alt={client.alt}/>
+                            ))}
+                        </motion.div>
 
-                    {/* Second scroller: scrolls to the right */}
-                    <ScrollableSection scrollInterval={10000} direction="right"/>
+                        <motion.div className='flex gap-6 mt-4 lg:mt-7'
+                                    animate={{x: ["-100%", "0%"]}}
+                                    transition={{duration: 20, repeat: Infinity, ease: "linear"}}
+                        >
+                            {[...clientData, ...clientData].map((client, index) => (
+                                <Image className='h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10' width={232.77}
+                                       height={142.9} key={index} src={client.src} alt={client.alt}/>
+                            ))}
+                        </motion.div>
+                    </div>
                 </div>
             </div>
         </section>
