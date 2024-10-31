@@ -364,6 +364,7 @@ const Header = () => {
             onClick={() => {
               setCartOpen(true)
               setMenuOpen(false)
+              setSubNavMobile(false)
             }}
             className="text-black relative"
           >
