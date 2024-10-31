@@ -52,48 +52,6 @@
 
 /* Component styles */
 @layer components {
-    .scroller {
-        overflow: hidden;
-        -webkit-mask: -webkit-linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
-        mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
-        display: flex;
-    }
-
-    .scroller[data-animated="true"] .scroller__inner {
-        display: flex;
-        width: max-content;
-        -webkit-animation: scroll var(--_animation-duration, 40s) linear infinite;
-        animation: scroll var(--_animation-duration, 40s) linear infinite;
-    }
-
-    .scroller[data-direction="right"] .scroller__inner {
-        -webkit-animation-direction: alternate-reverse;
-        animation-direction: alternate-reverse;
-        will-change: transform;
-        transition: none !important;
-    }
-
-    .scroller[data-direction="left"] .scroller__inner {
-        -webkit-animation-direction: alternate; /* Fallback for unsupported browsers */
-        animation-direction: alternate; /* Fallback for unsupported browsers */
-        will-change: transform;
-        transition: none !important;
-    }
-
-    .scroller[data-speed="fast"] {
-        --_animation-duration: 20s;
-    }
-
-    .scroller[data-speed="slow"] {
-        --_animation-duration: 60s;
-    }
-
-    @keyframes scroll {
-        to {
-            transform: translateX(calc(-100%));
-        }
-    }
-
     .feedback-scroller {
         overflow: hidden;
         position: relative; /* Ensure positioning for mask */
