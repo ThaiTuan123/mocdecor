@@ -85,19 +85,6 @@ const images = {
     phuServiceHome:'/assets/imgs/pictures/phu-service-home.png',
 
     //client
-    // client1: "/assets/imgs/pictures/client-1.png",
-    // client2: "/assets/imgs/pictures/client-2.png",
-    // client3: "/assets/imgs/pictures/client-3.png",
-    // client4: "/assets/imgs/pictures/client-4.png",
-    // client5: "/assets/imgs/pictures/client-5.png",
-    // client6: "/assets/imgs/pictures/client-6.png",
-    // client7: "/assets/imgs/pictures/client-7.png",
-    // client8: "/assets/imgs/pictures/client-8.png",
-    // client9: "/assets/imgs/pictures/client-9.png",
-    // client10: "/assets/imgs/pictures/client-10.png",
-    // client11: "/assets/imgs/pictures/client-11.png",
-
-    //client
     client1: "/assets/imgs/pictures/client1.png",
     client2: "/assets/imgs/pictures/client2.png",
     client3: "/assets/imgs/pictures/client3.png",
