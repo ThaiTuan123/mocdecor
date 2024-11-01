@@ -27,7 +27,6 @@ const Header = () => {
   const [hoveredLabelKey, setHoveredLabelKey] = useState<string>("")
   const [isShowCart, setIsShowCart] = useState(false)
   const [browserId, setBrowserId] = useState<string | null>(null)
-  const [quantity, setQuantity] = useState<number>(1)
   const { listCategory } = useListCategory()
   const [cart, setCart] = useRecoilState(cartState)
   const [subNavMobile, setSubNavMobile] = useState(false)
@@ -44,6 +43,19 @@ const Header = () => {
       console.log(listCategory)
     }
   }, [listCategory])
+
+  const setQuantity = (quantity: number, id: string, operation?: string) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity: operation === "+" ? quantity + 1 : (operation === "-" ? quantity - 1 : quantity),
+            }
+          : item
+      )
+    )
+  }
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
@@ -128,10 +140,39 @@ const Header = () => {
                   </div>
                   <span className="text-sm text-doveGray">{item.desc}</span>
                   <div className="flex justify-between items-end">
-                    <QuantitySelector
-                      quantity={quantity}
-                      setQuantity={setQuantity}
-                    />
+                  <div className="flex items-center">
+                      <button
+                        onClick={() => setQuantity(item.quantity, item.id, '-')}
+                        className={`px-2 py-1 md:px-4 md:py-2 border rounded-l ${
+                          item.quantity === 1
+                            ? "bg-gray-50 text-stroke cursor-not-allowed"
+                            : "bg-white text-black hover:scale-100"
+                        }`}
+                        disabled={item.quantity === 1}
+                      >
+                        -
+                      </button>
+                      <input
+                        value={item.quantity}
+                        onChange={(e) => {
+                          const value = parseInt(e.target.value, 10)
+                          if (
+                            !isNaN(value) &&
+                            value >= 1 &&
+                            value <= 999
+                          ) {
+                            setQuantity(value, item.id)
+                          }
+                        }}
+                        className="w-6 md:w-12 text-center py-1 md:py-2 font-raleway"
+                      />
+                      <button
+                        onClick={() => setQuantity(item.quantity, item.id, '+')}
+                        className="px-2 py-1 md:px-4 md:py-2 border rounded-r text-black bg-white hover:scale-100"
+                      >
+                        +
+                      </button>
+                    </div>
                     <span className="text-2lg text-caption">
                       {formatVietnameseCurrency(item.price)}
                     </span>
@@ -278,57 +319,61 @@ const Header = () => {
   }
 
   const handleScroll = (e: any) => {
-    e.stopPropagation();
-    e.preventDefault();
-  };
+    e.stopPropagation()
+    e.preventDefault()
+  }
 
   const renderSubNavMobile = () => {
     return (
       <div className="fixed top-72px left-0 bottom-0 right-0 bg-white flex flex-col z-50 border-t pt-4">
-        <div className="flex items-center mb-8 gap-2 px-6" onClick={() => {
-          setSubNavMobile(false)
-          setMenuOpen(true)
-        }}>
+        <div
+          className="flex items-center mb-8 gap-2 px-6"
+          onClick={() => {
+            setSubNavMobile(false)
+            setMenuOpen(true)
+          }}
+        >
           <FaChevronLeft className="w-4 h-4" />
-          <span className="text-sm text-karaka font-raleway">{languages.get('navbar.sub.mobile.back')}</span>
+          <span className="text-sm text-karaka font-raleway">
+            {languages.get("navbar.sub.mobile.back")}
+          </span>
         </div>
-        <div className="flex flex-col overflow-y-auto no-scrollbar" onScroll={handleScroll}>
+        <div
+          className="flex flex-col overflow-y-auto no-scrollbar"
+          onScroll={handleScroll}
+        >
           <div className="flex flex-col gap-6 px-6 mb-6">
-          {listCategory.length > 0 &&
-            listCategory.map((item, index) => (
-              <div key={index} className="flex flex-col min-w-44">
-                <span className="text-notRating text-sm mb-2">
-                  {languages.get("navbar.sub.view.title")}
-                </span>
-                <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
-                  {item.name}
-                </h2>
-                <div className="flex flex-col gap-4 cursor-pointer">
-                  {item.types.map((subItem, subIndex) => {
-                    return (
-                      // TODO add line when hover
-                      <Link
-                        key={subIndex}
-                        className={`relative text-doveGray text-sm md:hover:text-karaka`}
-                        href={`/products/${item.enName}/${subItem.slug}`}
-                        onClick={() => {
-                          setMenuOpen(false)
-                          setSubNavMobile(false)
-                        }}
-                      >
-                        {subItem.name}
-                      </Link>
-                    )
-                  })}
+            {listCategory.length > 0 &&
+              listCategory.map((item, index) => (
+                <div key={index} className="flex flex-col min-w-44">
+                  <span className="text-notRating text-sm mb-2">
+                    {languages.get("navbar.sub.view.title")}
+                  </span>
+                  <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
+                    {item.name}
+                  </h2>
+                  <div className="flex flex-col gap-4 cursor-pointer">
+                    {item.types.map((subItem, subIndex) => {
+                      return (
+                        // TODO add line when hover
+                        <Link
+                          key={subIndex}
+                          className={`relative text-doveGray text-sm md:hover:text-karaka`}
+                          href={`/products/${item.enName}/${subItem.slug}`}
+                          onClick={() => {
+                            setMenuOpen(false)
+                            setSubNavMobile(false)
+                          }}
+                        >
+                          {subItem.name}
+                        </Link>
+                      )
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
-            <img
-              src={images.heroSubNav}
-              alt=""
-              className="rotate-90"
-        />
+          <img src={images.heroSubNav} alt="" className="rotate-90" />
         </div>
       </div>
     )
@@ -345,102 +390,109 @@ const Header = () => {
 
   return (
     <>
-    <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
-      <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative h-12">
-        <Link href="/" legacyBehavior>
-          <a className="text-2xl font-bold flex items-center md:order-2 order-0 absolute md:static right-1/2 translate-x-1/2 md:mx-0" onClick={() => {
-          setMenuOpen(false)
-          setSubNavMobile(false)
-        }}>
-            <img
-              src={images.logo}
-              alt="MOC DECOR"
-              className="h-12 w-auto md:hover:scale-110"
-            />
-          </a>
-        </Link>
-        <div className="flex items-center md:hidden gap-3 ml-auto">
-          <button
-            onClick={() => {
-              setCartOpen(true)
-              setMenuOpen(false)
-              setSubNavMobile(false)
-            }}
-            className="text-black relative"
-          >
-            <Icon src={images.icons.cart} alt="Cart Toggle" />
-            <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
-              <span className="text-white text-0.8x text-center translate-y-[1px]">
-                {cart.length}
-              </span>
-            </div>
-          </button>
-          <button onClick={toggleMenu} className="text-black">
-            <Icon
-              src={menuOpen ? images.icons.menuClose : images.icons.menuOpen}
-              alt="Menu Toggle"
-            />
-          </button>
-        </div>
-        <div className="hidden md:flex md:order-1 space-x-0  md:space-x-6 lg:space-x-20 items-center ">
-          {menuLinks.slice(0, 3).map(({ href, labelKey }) => (
-            <div
-              onMouseEnter={() => setHoveredLabelKey(labelKey)}
-              onMouseLeave={() => setHoveredLabelKey("")}
+      <header className="bg-white py-3 shadow-md font-raleway fixed left-0 right-0 top-0 z-40">
+        <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative h-12">
+          <Link href="/" legacyBehavior>
+            <a
+              className="text-2xl font-bold flex items-center md:order-2 order-0 absolute md:static right-1/2 translate-x-1/2 md:mx-0"
+              onClick={() => {
+                setMenuOpen(false)
+                setSubNavMobile(false)
+              }}
             >
-              <MenuLink
-                key={href}
-                href={href}
-                label={languages.get(labelKey)}
+              <img
+                src={images.logo}
+                alt="MOC DECOR"
+                className="h-12 w-auto md:hover:scale-110"
               />
-              {hoveredLabelKey == "products" && labelKey == "products" && (
-                <div className="w-40 h-10 bg-transparent absolute "></div>
-              )}
-              {renderSubNav(labelKey)}
-            </div>
-          ))}
-        </div>
-        <div className="hidden md:flex md:order-3 space-x-0 md:space-x-6 lg:space-x-20 items-center">
-          {menuLinks.slice(3).map(({ href, labelKey }) => (
-            <MenuLink key={href} href={href} label={languages.get(labelKey)} />
-          ))}
-        </div>
-        <div className="hidden md:flex md:order-4 space-x-4">
-          {icons.map(({ src, alt, value }) => (
-            <div className="relative">
-              <Icon
-                key={alt}
-                src={src}
-                alt={alt}
-                onClick={() => handleClickIcon(value)}
-              />
+            </a>
+          </Link>
+          <div className="flex items-center md:hidden gap-3 ml-auto">
+            <button
+              onClick={() => {
+                setCartOpen(true)
+                setMenuOpen(false)
+                setSubNavMobile(false)
+              }}
+              className="text-black relative"
+            >
+              <Icon src={images.icons.cart} alt="Cart Toggle" />
               <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
                 <span className="text-white text-0.8x text-center translate-y-[1px]">
                   {cart.length}
                 </span>
               </div>
-            </div>
-          ))}
+            </button>
+            <button onClick={toggleMenu} className="text-black">
+              <Icon
+                src={menuOpen ? images.icons.menuClose : images.icons.menuOpen}
+                alt="Menu Toggle"
+              />
+            </button>
+          </div>
+          <div className="hidden md:flex md:order-1 space-x-0  md:space-x-6 lg:space-x-20 items-center ">
+            {menuLinks.slice(0, 3).map(({ href, labelKey }) => (
+              <div
+                onMouseEnter={() => setHoveredLabelKey(labelKey)}
+                onMouseLeave={() => setHoveredLabelKey("")}
+              >
+                <MenuLink
+                  key={href}
+                  href={href}
+                  label={languages.get(labelKey)}
+                />
+                {hoveredLabelKey == "products" && labelKey == "products" && (
+                  <div className="w-40 h-10 bg-transparent absolute "></div>
+                )}
+                {renderSubNav(labelKey)}
+              </div>
+            ))}
+          </div>
+          <div className="hidden md:flex md:order-3 space-x-0 md:space-x-6 lg:space-x-20 items-center">
+            {menuLinks.slice(3).map(({ href, labelKey }) => (
+              <MenuLink
+                key={href}
+                href={href}
+                label={languages.get(labelKey)}
+              />
+            ))}
+          </div>
+          <div className="hidden md:flex md:order-4 space-x-4">
+            {icons.map(({ src, alt, value }) => (
+              <div className="relative">
+                <Icon
+                  key={alt}
+                  src={src}
+                  alt={alt}
+                  onClick={() => handleClickIcon(value)}
+                />
+                <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
+                  <span className="text-white text-0.8x text-center translate-y-[1px]">
+                    {cart.length}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      {menuOpen && (
-        // TODO mobile menu
-        <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4 h-896">
-          {menuLinks.map(({ href, labelKey }) => (
-            <div
-              key={href}
-              className="w-full"
-              onClick={() => handleClickMenuMobile(labelKey)}
-            >
-              <MenuLink href={href} label={languages.get(labelKey)} />
-              <div className="w-full h-px bg-gray-300 mt-2" />
-            </div>
-          ))}
-        </div>
-      )}
-      {cartOpen && renderCartMobile()}
-      {renderCart()}
-    </header>
+        {menuOpen && (
+          // TODO mobile menu
+          <div className="md:hidden flex flex-col items-start px-6 bg-white shadow-md py-4 space-y-4 h-896">
+            {menuLinks.map(({ href, labelKey }) => (
+              <div
+                key={href}
+                className="w-full"
+                onClick={() => handleClickMenuMobile(labelKey)}
+              >
+                <MenuLink href={href} label={languages.get(labelKey)} />
+                <div className="w-full h-px bg-gray-300 mt-2" />
+              </div>
+            ))}
+          </div>
+        )}
+        {cartOpen && renderCartMobile()}
+        {renderCart()}
+      </header>
       {subNavMobile && renderSubNavMobile()}
     </>
   )
