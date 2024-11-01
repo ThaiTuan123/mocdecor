@@ -47,6 +47,7 @@ const Header = () => {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
+    setSubNavMobile(false)
   }
 
   const handleClickIcon = (value: string) => {
@@ -338,7 +339,6 @@ const Header = () => {
     if (labelKey !== "products") {
       setMenuOpen(false)
     } else {
-      setMenuOpen(false)
       setSubNavMobile(true)
     }
   }
