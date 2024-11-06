@@ -51,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({title, price, rating, reviewCo
                     width={368}
                     height={269}
                     className={`w-full h-full rounded-t object-fill ${isLoading ? 'blur-sm' : 'blur-0'} transition-all duration-300`}
-                    onLoadingComplete={() => setIsLoading(false)}
+                    onLoad={() => setIsLoading(false)}
                 />
             </div>
             <div className="mt-4 text-start">

@@ -52,7 +52,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                     layout="fill"
                     objectFit="contain"
                     className="cursor-zoom-out"
-                    onLoadingComplete={handleImageLoad}
+                    onLoad={handleImageLoad}
                 />
             </div>
         )
@@ -156,7 +156,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                             width={300}
                             height={300}
                             className={`w-full h-327 lg:h-451 object-fill cursor-zoom-in ${imageLoading ? "blur-md" : "blur-0"}`}
-                            onLoadingComplete={handleImageLoad}
+                            onLoad={handleImageLoad}
                             onClick={toggleFullScreen}
                         />
                         <div className='h-32 w-full overflow-hidden pt-4 lg:pt-0'>
