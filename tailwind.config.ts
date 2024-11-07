@@ -118,7 +118,7 @@ const config: Config = {
                 'x':  ['0.625rem', '0.75rem'],       // 10px, 12px
                 'xs': ['0.75rem', '0.875rem'],       // 12px, 14px
                 '4.2xl': ['2.5rem', '3.3325rem'],      // 40px, 53.32px
-                'sm': ['0.875rem', '0.875rem'],    // 14px, 16,44px
+                'smLh': ['0.875rem', '1.313rem'],    // 14px, 21px
                 'lg': ['1rem', '1.17375rem'],       // 16px, 18.78px
                 '1.25lg': ['1.125rem', '1.5725rem'], // 18px, 25.16px
                 '2lg': ['1.25rem', '1.875rem'],      // 20px, 30px

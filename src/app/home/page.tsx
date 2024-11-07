@@ -79,7 +79,7 @@ const TextContentAbout = () => (
 
 const SocialLinksAbout = () => (
     <div className="order-3 md:order-none flex items-center mt-4">
-        <h4 className=" text-sm md:text-1.25lg font-normal font-raleway text-caption mr-5">{languages.get('home.header4.socialLinks.about')}</h4>
+        <h4 className=" text-smLh md:text-1.25lg font-normal font-raleway text-caption mr-5">{languages.get('home.header4.socialLinks.about')}</h4>
         <div className="flex space-x-4">
             {socialLinks.map((link, index) => (
                 <IconSocialLink
