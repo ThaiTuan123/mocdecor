@@ -394,7 +394,7 @@ const Header = () => {
         <div className=" lg:container lg:mx-auto flex justify-between items-center px-6 2xl:px-16 relative h-12">
           <Link href="/" legacyBehavior>
             <a
-              className="text-2xl font-bold flex items-center md:order-2 order-0 absolute md:static right-1/2 translate-x-1/2 md:mx-0"
+              className="text-2xl font-bold flex items-center md:order-2 md:mx-0"
               onClick={() => {
                 setMenuOpen(false)
                 setSubNavMobile(false)

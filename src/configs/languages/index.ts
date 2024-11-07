@@ -31,7 +31,8 @@ class Languages {
 
             // 404 page
             '404.error.Title': 'UI!!! Đã có lỗi gì đó...',
-            '404.error.Message': 'Trang bạn đang tìm kiếm bị lỗi và hiện không thể truy cập, team Mộc đang cố gắng khắc phục sự cố này. Trong lúc chờ, bạn có thể trở lại trang chủ để khám phá những nội dung thú vị khác từ Mộc nha.',
+            '404.error.Message1': 'Trang bạn đang tìm kiếm bị lỗi và hiện không thể truy cập, team Mộc đang cố gắng khắc phục sự cố này.',
+            '404.error.Message2': 'Trong lúc chờ, bạn có thể trở lại trang chủ để khám phá những nội dung thú vị khác từ Mộc nha.',
             '404.button.returnHome': 'Trở về trang chủ',
 
             // policy page
