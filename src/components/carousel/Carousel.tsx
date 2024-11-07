@@ -75,10 +75,9 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
                     <Image
                         src={item.imageUrl}
                         alt={item.title}
-                        layout="fill"
-                        objectFit="cover"
-                        className={`block w-full h-full transition-all duration-500 ${loaded[index] ? 'blur-0' : 'blur-lg'}`}
-                        onLoadingComplete={() => handleImageLoad(index)}
+                        fill={true}
+                        className={`block object-cover w-full h-full transition-all duration-500 ${loaded[index] ? 'blur-0' : 'blur-lg'}`}
+                        onLoad={() => handleImageLoad(index)}
                     />
                 </div>
             ))}

@@ -55,7 +55,7 @@ const ProductCardWhite: React.FC<ProductCardProps> = ({title, price, rating, rev
                     width={368}
                     height={269}
                     className={`w-full h-full object-fill rounded-t ${isLoading ? 'blur-sm' : 'blur-0'} transition-all duration-300`}
-                    onLoadingComplete={() => setIsLoading(false)}
+                    onLoad={() => setIsLoading(false)}
                 />
             </div>
             <div className="px-1 md:px-4 md:pb-4 mt-4 text-start">

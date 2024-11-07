@@ -3,7 +3,7 @@
 import React from "react";
 import Carousel from "@/components/carousel/Carousel";
 import Image from 'next/image';
-import categories, {cardServiceData, clientData, customerData, socialLinks} from "@/app/home/constant";
+import {cardServiceData, clientData, customerData, socialLinks} from "@/app/home/constant";
 import images from "@/configs/images";
 import {motion} from 'framer-motion';
 import BackgroundSection from "@/components/banners/BackgroundSection";
@@ -23,31 +23,36 @@ import languages from "@/configs/languages";
 import TabFrame from "@/components/tab/TabFrame";
 import TabPrint from "@/components/tab/TabPrint";
 import Heading3 from "@/components/texts/Heading3";
-import CategoryCard from "@/components/card/CategoryCard";
 import VideoYoutube from "@/components/video/VideoYoutube";
-import {useRecoilValue} from "recoil";
-import {directionState, scrollIntervalState, speedState} from "@/recoil/atoms/feedbackScrollableAtom";
-import {useFeedbackScrollerAnimation} from "@/recoil/hooks/useFeedbackScrollerAnim";
 import MobileArrowButton from "@/components/button/MobileArrowButton";
+import CategoryCard from "@/components/card/CategoryCard";
+import useFetchCategories from "@/recoil/hooks/useFetchCategories";
 
-const CategorySection = () => (
-    <section id='category' className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto">
-        <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
-            {languages.get('home.subTitle.category')}
-        </h2>
-        <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
-            {languages.get('home.title.category')}
-        </h2>
-        <div className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center">
-            {categories.map((category) => (
-                <CategoryCard
-                    key={category.id}
-                    category={category}
-                />
-            ))}
-        </div>
-    </section>
-);
+
+const CategorySection = () => {
+    const categoryNames = ["Khung ảnh", "Album ảnh", "Ảnh in"];
+    const {categories, error} = useFetchCategories(categoryNames);
+
+    if (error) {
+        return <div>Error fetching categories: {error.message}</div>;
+    }
+
+    return (
+        <section id='category' className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto">
+            <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
+                {languages.get('home.subTitle.category')}
+            </h2>
+            <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
+                {languages.get('home.title.category')}
+            </h2>
+            <div className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center">
+                {categories.map((category, index) => (
+                    <CategoryCard key={index} category={category} index={index}/>
+                ))}
+            </div>
+        </section>
+    );
+};
 
 const HeaderSectionAbout = () => (
     <div className="text-left order-99 flex flex-col items-center md:items-start">
@@ -318,7 +323,7 @@ const FeedbackScrollableSection: React.FC = () => {
     return (
         <motion.div
             className='flex flex-row gap-6'
-            animate={{ x: ["0%", "-100%"] }}
+            animate={{x: ["0%", "-100%"]}}
             transition={{
                 duration: 20,
                 ease: "linear",

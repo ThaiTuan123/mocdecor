@@ -15,6 +15,7 @@ export interface CategoryType {
     }[];
     createdAt: string;
     updatedAt: string;
+    slug: string;
 }
 
 export interface FetchCategoriesResponse {
