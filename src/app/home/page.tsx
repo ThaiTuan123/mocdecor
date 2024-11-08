@@ -45,7 +45,7 @@ const CategorySection = () => {
             <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
                 {languages.get('home.title.category')}
             </h2>
-            <div className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center">
+            <div className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center lg:justify-between xl:justify-center">
                 {categories.map((category, index) => (
                     <CategoryCard key={index} category={category} index={index}/>
                 ))}
@@ -55,16 +55,15 @@ const CategorySection = () => {
 };
 
 const HeaderSectionAbout = () => (
-    <div className="text-left order-99 flex flex-col items-center md:items-start">
+    <div className="text-left order-99 flex flex-col items-center lg:items-start w-full lg:w-fit">
         <TitleText
             firstText={languages.get('home.title.firstText.about')}
             secondText={languages.get('home.title.secondText.about')}
             justifyCenter={false}  // Optional, defaults to true
         />
         <Heading2
-            marginBottom='mb-6'
             text={languages.get('home.title.header2.about')}
-            classNameText='text-center md:text-left'
+            classNameText='text-center lg:text-left mb-0 lg:mb-6'
         />
     </div>
 );
@@ -73,12 +72,12 @@ const TextContentAbout = () => (
     <TextContent
         text={languages.get('home.title.textContent.about')}
         marginBottom={"mb-4"}
-        className='order-2 md:order-none !mb-3 md:mb-4'
+        className='order-2 lg:order-none !mb-3 md:my-4 2xl:w-[600px]'
     />
 );
 
 const SocialLinksAbout = () => (
-    <div className="order-3 md:order-none flex items-center mt-4">
+    <div className="order-3 lg:order-none flex items-center mt-0 md:mt-4">
         <h4 className=" text-smLh md:text-1.25lg font-normal font-raleway text-caption mr-5">{languages.get('home.header4.socialLinks.about')}</h4>
         <div className="flex space-x-4">
             {socialLinks.map((link, index) => (
@@ -94,46 +93,49 @@ const SocialLinksAbout = () => (
 );
 
 const ImageContentAbout = () => (
-    <motion.div
-        className="order-1 lg:order-none mt-4 rounded-lg cursor-grab mb-3 md:mb-0"
-        whileHover={{
-            scale: 1.05,
-        }}
-        transition={{type: 'spring', stiffness: 300, damping: 20}}
-    >
+    <div
+        className="order-1 lg:order-none mt-4 rounded-lg cursor-grab mb-3 md:mb-0 w-full">
         <Image
             src={images.homeAbout2}
             alt="Mộc Decor"
             width={564}
             height={312}
-            className="rounded-lg w-full"
+            className="rounded-lg w-full lg:w-auto"
         />
-    </motion.div>
+
+        <Image
+            src={images.homeAbout3}
+            alt="Mộc Decor"
+            width={564}
+            height={312}
+            className="lg:hidden mt-4 md:mt-8 rounded-lg w-full"
+        />
+    </div>
 );
 
 const AboutSection = () => (
     <section id="about"
-             className="px-6 md:px-0 pt-0 pb-4 md:pb-8 md:py-8 text-center flex flex-col md:flex-row mb-4 2xl:container 2xl:mx-auto">
+             className="px-6 lg:px-0 pt-0 md:pb-8 md:py-8 text-center flex flex-col md:flex-row mb-4 2xl:container 2xl:mx-auto">
         {/*Image left*/}
-        <div id="contentLeft" className="hidden lg:block w-full md:w-1/2 md:order-20 md:pl-20 2xl:pl-40">
+        <div id="contentLeft" className="hidden lg:block w-full md:w-1/2 md:order-20 pr-8 xl:pr-0 lg:pl-20 2xl:pl-32 3xl:pl-96 lg:max-h-[630px] xl:max-h-[630px]">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
                 width={1024}
                 height={768}
-                className="w-full max-w-lg mx-auto md:object-cover h-252 md:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
+                className=" px-8   3xl:px-10 3xl:pl-6 mx-auto md:object-fill h-252 lg:h-[630px] rounded-lg"
             />
         </div>
 
-        <div id="contentRight" className="w-full lg:w-1/2 flex flex-col items-start px-2 md:px-6">
+        <div id="contentRight" className="w-full lg:w-1/2 flex flex-col items-start lg:pr-20 lg:max-h-[630px] xl:max-h-[630px]">
             <HeaderSectionAbout/>
-            <div id="contentLeft" className="block md:hidden w-full lg:w-1/2 lg:order-20 lg:pl-20 2xl:pl-40">
+            <div id="contentLeft" className="block lg:hidden lg:w-1/2 lg:order-20 lg:pl-20 2xl:pl-40">
                 <Image
                     src={images.homeAbout1}
                     alt="Mộc Decor"
                     width={1024}
                     height={768}
-                    className="object-cover md:object-fill w-full max-w-lg mx-auto h-252 lg:h-auto rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:translate-z-4 cursor-grab"
+                    className="hidden lg:flex object-cover lg:object-fill w-full max-w-lg mx-auto h-252 lg:h-auto rounded-lg"
                 />
             </div>
             <TextContentAbout/>

@@ -48,7 +48,7 @@ const images = {
         mobileSearch:'/assets/imgs/icons/ic-search-white.png',
     },
     backgrounds: {
-        heroContact: "/assets/imgs/backgrounds/hero-contact.png",  // Add this
+        heroContact: "/assets/imgs/backgrounds/hero-contact.webp",  // Add this
     },
     logo: "/assets/imgs/pictures/logo.png",
     logoWhite: "/assets/imgs/pictures/logo-white.png",
@@ -66,6 +66,7 @@ const images = {
     homeCategory3: "/assets/imgs/pictures/category-home-3.png",
     homeAbout1 : "/assets/imgs/pictures/home-about-1.png",
     homeAbout2 : "/assets/imgs/pictures/home-about-2.png",
+    homeAbout3 : "/assets/imgs/pictures/about-3-tablet.webp",
     braceletHome: "/assets/imgs/pictures/bracelet-home.png",
     calenderHome: "/assets/imgs/pictures/calender-home.png",
     notebookHome: "/assets/imgs/pictures/notebook-home.png",

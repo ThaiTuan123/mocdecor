@@ -11,16 +11,16 @@ const config: Config = {
         extend: {
             backgroundImage: {
                 'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
-                'image-footer-policy': "url('/assets/imgs/backgrounds/footer-policy.png')",
-                'image-hero-policy': "url('/assets/imgs/backgrounds/hero-policy.png')",
-                'image-hero-contact': "url('/assets/imgs/backgrounds/hero-contact.png')",
-                'image-left-error': "url('/assets/imgs/backgrounds/left-404.png')",
-                'image-hero-gallery': "url('/assets/imgs/backgrounds/hero-gallery-bg.png')",
+                'image-footer-policy': "url('/assets/imgs/backgrounds/footer-policy.webp')",
+                'image-hero-policy': "url('/assets/imgs/backgrounds/hero-policy.webp')",
+                'image-hero-contact': "url('/assets/imgs/backgrounds/hero-contact.webp')",
+                'image-left-error': "url('/assets/imgs/backgrounds/left-404.webp')",
+                'image-hero-gallery': "url('/assets/imgs/backgrounds/hero-gallery-bg.webp')",
 
                 // Home Page
-                'image-home-background-print': "url('/assets/imgs/backgrounds/bg-print-home.png')",
-                'image-home-background-frame': "url('/assets/imgs/backgrounds/bg-frame-home.png')",
-                'image-home-background-album': "url('/assets/imgs/backgrounds/bg-album-home.png')",
+                'image-home-background-print': "url('/assets/imgs/backgrounds/bg-print-home.webp')",
+                'image-home-background-frame': "url('/assets/imgs/backgrounds/bg-frame-home.webp')",
+                'image-home-background-album': "url('/assets/imgs/backgrounds/bg-album-home.webp')",
 
                 'image-gift-home': "url('/assets/imgs/backgrounds/bg-gift-home.webp')",
                 'image-gift-home-mobile': "url('/assets/imgs/backgrounds/bg-gift-home-mobile.webp')",
@@ -30,18 +30,18 @@ const config: Config = {
                 'image-home-background-frame-mobile': "url('/assets/imgs/backgrounds/bg-frame-home-mobile.png')",
                 'image-home-background-album-mobile': "url('/assets/imgs/backgrounds/bg-album-home-mobile.png')",
 
-                'image-bracelet-home': "url('/assets/imgs/backgrounds/bracelet-home.png')",
-                'image-calendar-home': "url('/assets/imgs/backgrounds/calendar-home.png')",
-                'image-notebook-home': "url('/assets/imgs/backgrounds/notebook-home.png')",
-                'image-wooden-pen-home': "url('/assets/imgs/backgrounds/wooden-pen-home.png')",
+                'image-bracelet-home': "url('/assets/imgs/backgrounds/bracelet-home.webp')",
+                'image-calendar-home': "url('/assets/imgs/backgrounds/calendar-home.webp')",
+                'image-notebook-home': "url('/assets/imgs/backgrounds/notebook-home.webp')",
+                'image-wooden-pen-home': "url('/assets/imgs/backgrounds/wooden-pen-home.webp')",
 
                 'image-vong-tay-home-mobile': "url('/assets/imgs/backgrounds/bg-vong-tay-mobile-1.webp')",
                 'image-lich-go-mobile': "url('/assets/imgs/backgrounds/bg-lich-go-mobile-1.webp')",
                 'image-story-home-1': "url('/assets/imgs/backgrounds/story-home-1.png')",
-                'image-product-story': "url('/assets/imgs/backgrounds/bg-product-story.png')",
+                'image-product-story': "url('/assets/imgs/backgrounds/bg-product-story.webp')",
 
                 //// frame
-                'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.png')",
+                'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.webp')",
                 //// customer
                 'image-customer-1': "url('/assets/imgs/backgrounds/customer-1-builevy.webp')",
                 'image-customer-2': "url('/assets/imgs/backgrounds/customer-2-buitrongnghia.webp')",
@@ -51,7 +51,7 @@ const config: Config = {
                 'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.webp')",
 
                 // payment
-                'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.png')",
+                'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.webp')",
 
             },
             colors: {
@@ -176,6 +176,7 @@ const config: Config = {
             maxHeight: {
                 '430': '26.875rem',
                 '540': '33.75rem',
+                '664': '41.5rem', // custom max height
                 '710px': '44.375rem', // custom max height
             },
             width: {
