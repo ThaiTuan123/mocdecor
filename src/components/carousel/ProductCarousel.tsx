@@ -53,7 +53,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({images = [], onImageSe
                 {displayImages.map((image, index) => (
                     <div
                         key={index}
-                        className="flex-shrink-0 w-1/4 md:w-1/6 lg:w-1/4 p-1 cursor-pointer"
+                        className="flex-shrink-0 w-1/4 md:w-1/5 lg:w-1/4 p-1 cursor-pointer"
                         onClick={() => onImageSelect(image)}
                         onMouseEnter={() => onImageHover(image)}
                     >
