@@ -101,7 +101,7 @@ class Languages {
             'home.title.firstText.about': 'Về',
             'home.title.secondText.about': 'Nhà mộc',
             'home.title.header2.about': 'MỘC DECOR - Nơi lưu giữ <br/> yêu thương và kỉ niệm của bạn',
-            'home.title.textContent.about': 'Với Mộc, đem lại cho bạn những món quà được làm bằng sự tỉ mỉ,<br/> chỉnh chu và tâm huyết nhất.Đó là kim chỉ nam để Mộc không<br/>ngừng nỗ lực, hoàn thiện chất lượng sản phẩm, dịch vụ.',
+            'home.title.textContent.about': 'Với Mộc, đem lại cho bạn những món quà được làm bằng sự tỉ mỉ, chỉnh chu và tâm huyết nhất. Đó là kim chỉ nam để Mộc không ngừng nỗ lực, hoàn thiện chất lượng sản phẩm, dịch vụ.',
             'home.header4.socialLinks.about': 'HIỂU HƠN VỀ MỘC:',
 
             'home.title.background.print': 'ẢNH IN',

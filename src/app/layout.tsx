@@ -2,6 +2,7 @@
 "use client";
 import "./app.css";
 import React from "react";
+import {Analytics} from "@vercel/analytics/react"
 import {Footer, Header} from '@/components';
 import {SpeedInsights} from '@vercel/speed-insights/next';
 import DisableAnimations from "@/components/disableAnimationMobile/DisableAnimations";
@@ -22,6 +23,7 @@ export default function RootLayout({
                 <div className='w-full overflow-hidden mt-navbar'>
                     {children}
                     <SpeedInsights/>
+                    <Analytics/>
                 </div>
                 <Footer/>
                 <FloatingButtons/>
