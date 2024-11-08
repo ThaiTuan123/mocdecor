@@ -12,7 +12,7 @@ interface TextInputProps {
 
 const TextInput: React.FC<TextInputProps> = ({ label, placeholder, type = 'text', name, value, onChange, required = false }) => (
     <div className='w-full'>
-        <label className="block text-sm font-medium text-doveGray">{label}</label>
+        <label className="block text-smLh font-medium text-doveGray">{label}</label>
         <input
             type={type}
             name={name} // Bind name prop

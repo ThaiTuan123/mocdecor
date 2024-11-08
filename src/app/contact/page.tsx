@@ -24,7 +24,7 @@ const HeroSection = () => {
             }`}
         >
             <div className=" w-3/5 md:w-1/2 flex flex-col items-center gap-2 justify-center">
-                <div className="flex flex-row gap-1 text-sm">
+                <div className="flex flex-row gap-1 text-smLh">
                     <span className="text-black-50">
                         {languages.get("about")}
                     </span>
