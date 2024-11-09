@@ -4,28 +4,13 @@ import {CarouselItem} from "@/components/carousel/types";
 import CommonButton from "@/components/button/CustomButton";
 import CarouselButton from "@/components/button/CarouselButton";
 import languages from "@/configs/languages";
-import {fetchBannerItems} from "@/services/api";
+import {activeIndexState} from "@/recoil/atoms/activeIndexStateAtom";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {carouselItemsState} from "@/recoil/hooks/useCarouselItems";
 
 const Carousel = () => {
-    const [items, setItems] = useState<CarouselItem[]>([]);
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                const data = await fetchBannerItems(); // Fetch banner items using the API
-                const formattedItems = data.map((item: any) => ({
-                    id: item._id,
-                    title: item.name,
-                    imageUrl: item.image,
-                }));
-                setItems(formattedItems); // Set the fetched items to state
-            } catch (error) {
-                console.error('Error fetching banner data:', error);
-            }
-        };
-        fetchItems();
-    }, []);
+    const items = useRecoilValue(carouselItemsState);
+    const [activeIndex, setActiveIndex] = useRecoilState(activeIndexState);
 
     useEffect(() => {
         const interval = setInterval(() => {
