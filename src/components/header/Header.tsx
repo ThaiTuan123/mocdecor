@@ -411,9 +411,11 @@ const Header = () => {
                 setSubNavMobile(false)
               }}
             >
-              <img
+              <Image
                 src={images.logo}
-                alt="MOC DECOR"
+                width={80}
+                height={48}
+                alt="MOC DECOR LOGO"
                 className="h-12 w-auto md:hover:scale-110"
               />
             </a>
