@@ -8,6 +8,7 @@ import languages from "@/configs/languages";
 import CancelButton from "@/components/button/CancelButton";
 import QuantitySelector from "@/components/inputs/QuantitySelectorInput";
 import ProductCarousel from "@/components/carousel/ProductCarousel";
+import {TITLE_MAX_LENGTH} from "@/utils/constants";
 
 interface ProductPopupProps {
     product: Product;
@@ -59,7 +60,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     );
 
     const renderSizeButtons = () => (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
             {["19x24 cm", "24x34 cm", "30x40 cm", "20x40 cm"].map((size) => (
                 <button
                     key={size}
@@ -82,7 +83,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
         <div className="border-b border-gray-200">
             <button
                 onClick={() => toggleAccordion(title)}
-                className="flex justify-between w-full py-4 text-lg font-raleway text-left text-black"
+                className="flex justify-between w-full py-4 text-lg font-raleway text-left text-black hover:text-gray-100"
             >
                 <span>{title}</span>
                 <span>{activeAccordion === title ? "−" : "+"}</span>
@@ -96,19 +97,23 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     );
 
     const renderProductDetails = () => (
-        <div className="ml-0 lg:ml-5 flex flex-col justify-between flex-grow">
+        <div className="ml-0 lg:ml-5 flex flex-col flex-grow lg:w-full">
             <div>
-                <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary pt-6 md:pt-0">{product.title}</h2>
+                <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary pt-6 md:pt-0 min-h-20">
+                    {product.title.length > TITLE_MAX_LENGTH
+                        ? `${product.title.substring(0, TITLE_MAX_LENGTH)}...`
+                        : product.title}
+                </h2>
                 <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
                     {product.price} {CURRENCY_SYMBOL}
                 </p>
-                <div className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 lg:py-4 px-4 lg:px-4 rounded">
+                <div className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 md:py-3 lg:py-4 px-4 lg:px-4 rounded">
                     <div className="flex flex-row gap-6">
-                        <h3 className="text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.size")}</h3>
+                        <h3 className="w-20 text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.size")}</h3>
                         {renderSizeButtons()}
                     </div>
                     <div className="flex flex-row center gap-6">
-                        <h3 className="text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
+                        <h3 className="w-20 text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
                         <QuantitySelector
                             quantity={quantity}
                             setQuantity={setQuantity}
@@ -124,7 +129,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 {renderAccordionSection(languages.get('popup.text.productInfo'), product.description || languages.get('popup.description.noProductInfo'))}
             </div>
 
-            <div className="order-1 lg:order-none flex gap-3 md:gap-5 p-0 mt-4">
+            <div className="order-1 lg:order-none flex gap-3 md:gap-5 p-0 mt-4 lg:pt-16">
                 <button
                     onClick={onClose}
                     className="hidden lg:block text-sm md:text-lg px-4 py-4 w-1/2 border border-brown-700 text-brown-700 bg-white rounded transform hover:scale-105 transition-all duration-300"
@@ -145,21 +150,21 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             {renderFullScreenImage()}
-            <div className="bg-white p-4 lg:p-6 rounded-lg w-full mx-6 py-12 lg:w-920 relative flex flex-col">
+            <div className="bg-white p-4 lg:p-6 rounded-lg w-412 mx-6 py-12 md:w-[580px] lg:w-[1024px] relative flex flex-col">
                 <CancelButton onClick={onClose}/>
-                <div className="flex flex-col lg:flex-row max-h-[710px] overflow-y-auto">
-                    <div className="flex flex-col justify-between relative">
+                <div className="flex flex-col lg:flex-row max-h-[710px] overflow-y-auto p-0 lg:p-3">
+                    <div className="flex flex-col justify-between relative w-full lg:w-412">
                         <Image
                             //src={product.image}
                             src={selectedImage}
                             alt={product.title}
                             width={300}
                             height={300}
-                            className={`w-full h-327 lg:h-451 object-fill cursor-zoom-in ${imageLoading ? "blur-md" : "blur-0"}`}
+                            className={`w-full lg:w-412 h-327 lg:h-[550px] object-fill cursor-zoom-in ${imageLoading ? "blur-md" : "blur-0"}`}
                             onLoad={handleImageLoad}
                             onClick={toggleFullScreen}
                         />
-                        <div className='h-32 w-full overflow-hidden pt-4 lg:pt-0'>
+                        <div className='h-32 w-full lg:w-412 overflow-hidden pt-4 lg:pt-6'>
                             <ProductCarousel images={product.images} onImageSelect={setSelectedImage} onImageHover={setSelectedImage}/>
                         </div>
                     </div>
