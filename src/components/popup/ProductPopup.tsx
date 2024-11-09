@@ -70,7 +70,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 <button
                     key={size}
                     onClick={() => handleSizeChange(size)}
-                    className={`px-4 py-2 rounded transition-transform duration-300 text-sm ${
+                    className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
                         selectedSize === size
                             ? "bg-primary text-white scale-100"
                             : "bg-white text-black hover:scale-100 hover:bg-gray-200"
@@ -104,7 +104,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     const renderProductDetails = () => (
         <div className="ml-0 lg:ml-5 flex flex-col flex-grow lg:w-full">
             <div>
-                <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary pt-6 md:pt-0 min-h-20">
+                <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary lg:pt-6 md:pt-0 lg:min-h-20">
                     {product.title.length > TITLE_MAX_LENGTH
                         ? `${product.title.substring(0, TITLE_MAX_LENGTH)}...`
                         : product.title}
@@ -112,13 +112,14 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                 <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
                     {getTotalPrice()} {CURRENCY_SYMBOL}
                 </p>
-                <div className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 md:py-3 lg:py-4 px-4 lg:px-4 rounded">
-                    <div className="flex flex-row gap-6">
-                        <h3 className="w-20 text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.size")}</h3>
+                <div
+                    className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 md:py-3 lg:py-4 px-4 lg:px-4 rounded">
+                    <div className="flex flex-row gap-4 md:gap-6">
+                        <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.size")}</h3>
                         {renderSizeButtons()}
                     </div>
-                    <div className="flex flex-row center gap-6">
-                        <h3 className="w-20 text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
+                    <div className="flex flex-row center gap-4 md:gap-6">
+                        <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
                         <QuantitySelector
                             quantity={quantity}
                             setQuantity={setQuantity}
@@ -155,7 +156,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             {renderFullScreenImage()}
-            <div className="bg-white p-4 lg:p-6 rounded-lg w-412 mx-6 py-12 md:w-[580px] lg:w-[1024px] relative flex flex-col">
+            <div className="w-375 md:w-580 lg:w-1024 bg-white rounded-lg p-4 lg:p-6 mx-6 py-12 relative flex flex-col">
                 <CancelButton onClick={onClose}/>
                 <div className="flex flex-col lg:flex-row max-h-[710px] overflow-y-auto p-0 lg:p-3">
                     <div className="flex flex-col justify-between relative w-full lg:w-412">
@@ -170,7 +171,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                             onClick={toggleFullScreen}
                         />
                         <div className='h-32 w-full lg:w-412 overflow-hidden pt-4 lg:pt-6'>
-                            <ProductCarousel images={product.images} onImageSelect={setSelectedImage} onImageHover={setSelectedImage}/>
+                            <ProductCarousel images={product.images} onImageSelect={setSelectedImage}
+                                             onImageHover={setSelectedImage}/>
                         </div>
                     </div>
                     {renderProductDetails()}

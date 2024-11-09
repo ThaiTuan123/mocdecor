@@ -181,6 +181,8 @@ const config: Config = {
                 '710px': '44.375rem', // custom max height
             },
             width: {
+                '17': '4.25rem',
+                '18': '4.5rem',
                 '150': '9.375rem',
                 '232.77': '14.55rem',
                 '272': '17rem',
@@ -192,6 +194,9 @@ const config: Config = {
                 '767': '47.9375rem',
                 '920': '57.5rem',
                 '327': '20.5rem',
+                '375': '23.4375rem',
+                '580': '36.25rem',
+                '1024': '64rem',
             },
             margin: {
                 navbar: '72px'
