@@ -26,15 +26,42 @@ import Heading3 from "@/components/texts/Heading3";
 import VideoYoutube from "@/components/video/VideoYoutube";
 import MobileArrowButton from "@/components/button/MobileArrowButton";
 import CategoryCard from "@/components/card/CategoryCard";
-import useFetchCategories from "@/recoil/hooks/useFetchCategories";
-
+import useCategories from "@/recoil/hooks/useFetchCategories";
+import {useRecoilValue} from "recoil";
+import {categoryErrorState} from "@/recoil/atoms/categoryErrorAtom";
 
 const CategorySection = () => {
     const categoryNames = ["Khung ảnh", "Album ảnh", "Ảnh in"];
-    const {categories, error} = useFetchCategories(categoryNames);
+    const {categories} = useCategories(categoryNames);
+    const error = useRecoilValue(categoryErrorState);
 
     if (error) {
-        return <div>Error fetching categories: {error.message}</div>;
+        console.error('Error fetching categories:', error);
+        return <section id='category' className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto">
+            <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
+                {languages.get('home.subTitle.category')}
+            </h2>
+            <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
+                {languages.get('home.title.category')}
+            </h2>
+
+            {/*TODO CategoryCard error*/}
+            <div
+                className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center lg:justify-between xl:justify-center">
+                <div className="text-center w-full px-6">
+                    <Image
+                        src={images.image404} // Show fallback image for error
+                        alt="Error loading categories"
+                        width={474}
+                        height={382}
+                        className="mx-auto rounded h-150 md:h-252 lg:h-379 object-cover lg:object-fill"
+                    />
+                    <p className="text-lg text-red-600 mt-4">
+                        Rất tiếc! Có lỗi xảy ra khi tải danh mục. Vui lòng thử lại sau.
+                    </p>
+                </div>
+            </div>
+        </section>;
     }
 
     return (
@@ -45,7 +72,8 @@ const CategorySection = () => {
             <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
                 {languages.get('home.title.category')}
             </h2>
-            <div className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center lg:justify-between xl:justify-center">
+            <div
+                className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center lg:justify-between xl:justify-center">
                 {categories.map((category, index) => (
                     <CategoryCard key={index} category={category} index={index}/>
                 ))}
@@ -117,7 +145,8 @@ const AboutSection = () => (
     <section id="about"
              className="px-6 lg:px-0 pt-0 md:pb-8 md:py-8 text-center flex flex-col md:flex-row mb-4 2xl:container 2xl:mx-auto">
         {/*Image left*/}
-        <div id="contentLeft" className="hidden lg:block w-full md:w-1/2 md:order-20 pr-8 xl:pr-0 lg:pl-20 2xl:pl-32 3xl:pl-96 lg:max-h-[630px] xl:max-h-[630px]">
+        <div id="contentLeft"
+             className="hidden lg:block w-full md:w-1/2 md:order-20 pr-8 xl:pr-0 lg:pl-20 2xl:pl-32 3xl:pl-96 lg:max-h-[630px] xl:max-h-[630px]">
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
@@ -127,7 +156,8 @@ const AboutSection = () => (
             />
         </div>
 
-        <div id="contentRight" className="w-full lg:w-1/2 flex flex-col items-start lg:pr-20 lg:max-h-[630px] xl:max-h-[630px]">
+        <div id="contentRight"
+             className="w-full lg:w-1/2 flex flex-col items-start lg:pr-20 lg:max-h-[630px] xl:max-h-[630px]">
             <HeaderSectionAbout/>
             <div id="contentLeft" className="block lg:hidden lg:w-1/2 lg:order-20 lg:pl-20 2xl:pl-40">
                 <Image
