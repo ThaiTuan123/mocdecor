@@ -34,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({title, price, rating, reviewCo
             className="p-1 md:p-4 transition-transform duration-300 ease-in-out transform hover:outline-4 cursor-pointer rounded ring-1 ring-stroke hover:ring-caption  "
             onClick={onClick} // Attach onClick handler
         >
-            <div className="relative w-full h-44 md:h-52 lg:h-269">
+            <div className="relative w-full h-44 md:h-52 lg:h-220 xl:h-269 ">
                 {/* Placeholder image with blur effect */}
                 {isLoading && (
                     <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">

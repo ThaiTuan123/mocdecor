@@ -214,7 +214,7 @@ const OtherProductsSection: React.FC = () => {
                         secondText={languages.get('home.title.secondText.otherProducts')}
                     />
                 </div>
-                <Heading2 text={languages.get('home.title.header2.otherProducts')}/>
+                <Heading2 className='mb-6' text={languages.get('home.title.header2.otherProducts')}/>
                 <div className="flex flex-col md:grid gap-4 md:gap-6 max-w-7xl w-full ">
                     <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:col-span-2">
                         {/* Sổ tay */}

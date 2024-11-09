@@ -46,7 +46,7 @@ const Tab: React.FC<TabProps> = ({
                 </div>
             </div>
             <div
-                className="2xl:container 2xl:mx-auto py-7 md:py-20 px-6 md:px-6 lg:px-36">{renderContent(activeTab)}</div>
+                className="2xl:container 2xl:mx-auto py-7 md:py-14 lg:py-16 px-6 md:px-6 lg:px-20 xl:px-36 3xl:px-80">{renderContent(activeTab)}</div>
         </div>
     );
 };
