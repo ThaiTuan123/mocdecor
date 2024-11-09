@@ -44,6 +44,11 @@ const Header = () => {
     }
   }, [listCategory])
 
+  const getCountCart = () => {
+    const count = cart.reduce((result, item) => result + item.quantity, 0)
+    return count
+  }
+
   const setQuantity = (quantity: number, id: string, operation?: string) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
@@ -274,7 +279,7 @@ const Header = () => {
                 <h2 className="text-4lg text-primary">
                   {languages.get("cart.title")}
                 </h2>
-                <span className="text-2lg">({cart.length})</span>
+                <span className="text-2lg">({getCountCart()})</span>
               </div>
               {browserId ? (
                 <p className="text-gray-100">
@@ -292,7 +297,7 @@ const Header = () => {
               absolute={false}
             />
           </div>
-          {cart.length > 0 ? renderCartHaveProduct() : renderCartEmpty()}
+          {getCountCart() > 0 ? renderCartHaveProduct() : renderCartEmpty()}
         </div>
       </LayoutOpacity>
     )
@@ -306,7 +311,7 @@ const Header = () => {
             <h2 className="text-2.25lg text-primary">
               {languages.get("cart.title")}
             </h2>
-            <span className="text-sm">({cart.length})</span>
+            <span className="text-sm">({getCountCart()})</span>
           </div>
           <img
             src={images.icons.menuClose}
@@ -314,7 +319,7 @@ const Header = () => {
             onClick={() => setCartOpen(false)}
           />
         </div>
-        {cart.length > 0 ? renderCartHaveProduct() : renderCartEmpty()}
+        {getCountCart() > 0 ? renderCartHaveProduct() : renderCartEmpty()}
       </div>
     )
   }
@@ -419,7 +424,7 @@ const Header = () => {
               <Icon src={images.icons.cart} alt="Cart Toggle" />
               <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
                 <span className="text-white text-0.8x text-center translate-y-[1px]">
-                  {cart.length}
+                  {getCountCart()}
                 </span>
               </div>
             </button>
@@ -468,7 +473,7 @@ const Header = () => {
                 />
                 <div className="absolute top-[-2px] right-[-2px] w-[14px] h-[14px] rounded-2xl bg-primary flex items-center justify-center">
                   <span className="text-white text-0.8x text-center translate-y-[1px]">
-                    {cart.length}
+                    {getCountCart()}
                   </span>
                 </div>
               </div>
