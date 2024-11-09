@@ -85,14 +85,20 @@ const Header = () => {
         </span>
         <div className="flex flex-col gap-6 w-full">
           <CustomButton
+            href={'/products/Khung%20anh/khung-dep'}
+            onClick={() => setIsShowCart(false)}
             text={languages.get("cart.empty.button.frame")}
             className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
+            href={'/products/ANH%20IN/anh-in-6-9'}
+            onClick={() => setIsShowCart(false)}
             text={languages.get("cart.empty.button.print")}
             className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
+            href={'/products/ALBUM%20ANH/anh-in-6x9'}
+            onClick={() => setIsShowCart(false)}
             text={languages.get("cart.empty.button.album")}
             className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
           />

@@ -2,6 +2,7 @@
 
 import React, {useState} from "react";
 import {useIsMobile} from "@/utils/useIsMobile";
+import Link from "next/link";
 
 interface CommonButtonProps {
     type?: "button" | "submit" | "reset";
@@ -39,14 +40,15 @@ const CommonButton: React.FC<CommonButtonProps> = ({
     // Render as anchor tag if href is provided
     if (href) {
         return (
-            <a
+            <Link
                 href={href}
-                className={buttonClassNames}
+                className={`!text-lg ${buttonClassNames} text-center`}
+                onClick={onClick}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
                 {text}
-            </a>
+            </Link>
         );
     }
 
@@ -54,7 +56,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
     return (
         <button
             type={type}
-className={`!text-lg ${buttonClassNames}`}
+            className={`!text-lg ${buttonClassNames}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={onClick}

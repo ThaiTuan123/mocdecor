@@ -43,7 +43,7 @@ export const fetchCategories = async (
 
 // Fetch a list of categories
 export const fetchListCategory = async (limit: number = 20, page: number = 1) => {
-    const url = `${API.LIST_CATEGORY}?limit=${limit}&page=${page}`;
+    const url = `${API.PRODUCT_CATEGORIES}?limit=${limit}&page=${page}`;
     return apiRequest(url);
 };
 
