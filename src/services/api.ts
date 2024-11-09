@@ -66,3 +66,9 @@ export const fetchProductCategories = async (name: string, limit: number = 20, p
     const url = `${API.PRODUCT_CATEGORIES}?limit=${limit}&page=${page}&name=${name}`;
     return apiRequest(url);
 }
+
+//products
+export const fetchListProducts = async (categorySlug: string, slug: string) => {
+    const url = `${API.LIST_PRODUCT}/${slug}/category/${categorySlug}`;
+    return apiRequest(url);
+}

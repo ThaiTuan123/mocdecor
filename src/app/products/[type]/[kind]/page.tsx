@@ -13,6 +13,7 @@ import useProductCategories from "@/recoil/hooks/useProductCategories"
 import CustomButton from "../../../../components/button/CustomButton"
 import ProductPopup from "@/components/popup/ProductPopup"
 import { Product } from "@/types/product"
+import useListProducts from "@/recoil/hooks/useListProducts"
 
 const productData: Product[] = [
   {
@@ -157,6 +158,7 @@ export default function Products() {
   const [openFilter, setOpenFilter] = useState(false)
   const [collapseActive, setCollapseActive] = useState<string | string[]>([])
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { listProduct = [] } = useListProducts(pathname.split("/")[2], pathname.split("/")[3])
 
   useEffect(() => {
     if (productCategories) {
@@ -174,13 +176,13 @@ export default function Products() {
     const value = pathname.split("/")[2]
     let title = ""
     switch (value) {
-      case "Khung%20anh":
+      case "Khung-anh":
         title = languages.get("product.hero.title.frame")
         break
-      case "ANH%20IN":
+      case "anh-in":
         title = languages.get("product.hero.title.print")
         break
-      case "ALBUM%20ANH":
+      case "album-anh":
         title = languages.get("product.hero.title.album")
         break
       // case "other":
@@ -444,7 +446,7 @@ export default function Products() {
   const renderProduct = () => {
     return (
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-6 gap-2 mt-8">
-        {productData.map((item, index) => (
+        {listProduct.length > 0 && listProduct.map((item: any, index: number) => (
           <div className="flex flex-col border md:rounded-lg rounded hover:ring-caption cursor-pointer ring-stroke ring-1" key={index} onClick={() => setSelectedProduct(item)}>
             <img
               className="w-full h-28 md:h-64 object-contain"
