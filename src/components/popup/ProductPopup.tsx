@@ -31,6 +31,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
         };
     }, []);
 
+    const getTotalPrice = () => {
+        const price = parseFloat(product.price); // Convert to number
+        return price * quantity;
+    };
+
     const handleSizeChange = (size: string) => setSelectedSize(size);
 
     const handleImageLoad = () => setImageLoading(false);
@@ -105,7 +110,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCar
                         : product.title}
                 </h2>
                 <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
-                    {product.price} {CURRENCY_SYMBOL}
+                    {getTotalPrice()} {CURRENCY_SYMBOL}
                 </p>
                 <div className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 md:py-3 lg:py-4 px-4 lg:px-4 rounded">
                     <div className="flex flex-row gap-6">
