@@ -1,5 +1,6 @@
 import {motion} from 'framer-motion';
 import React from "react";
+import Image from "next/image";
 
 interface MotionImageCardProps {
     src: string;
@@ -16,7 +17,9 @@ const MotionImageCard: React.FC<MotionImageCardProps> = ({src, alt, text, classN
         }}
         transition={{type: 'spring', stiffness: 300, damping: 20}}
     >
-        <img
+        <Image
+            width={450}
+            height={176}
             src={src}
             alt={alt}
             className="w-full md:h-full h-44 object-cover rounded-lg"
