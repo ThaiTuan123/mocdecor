@@ -15,124 +15,6 @@ import ProductPopup from "@/components/popup/ProductPopup"
 import { Product } from "@/types/product"
 import useListProducts from "@/recoil/hooks/useListProducts"
 
-const productData: Product[] = [
-  {
-    id: 1,
-    title: "Set Light Blue Pastel",
-    price: "175000",
-    description: "Set Light Blue Pastel", // Added if needed for your application
-    category: '123', // Added if needed for your application
-    reviewCount: 699,
-    image: images.client5,
-    rating: {
-        rate: 1,
-        count: 5,
-    },
-    images: [
-      images.client5,
-      images.client5,
-      images.client5,
-      images.client5,
-      images.client5,
-      images.client5,
-    ],
-  },
-  {
-    id: 2,
-    title: "Set Light Blue Pastel",
-    price: "175000",
-    description: "Set Light Blue Pastel", // Added if needed for your application
-    category: '123', // Added if needed for your application
-    reviewCount: 699,
-    image: images.client5,
-    rating: {
-        rate: 1,
-        count: 5,
-    },
-    images: [
-      images.client5,
-      images.client5,
-      images.client5,
-      images.client5
-    ],
-  },
-  {
-    id: 3,
-    title: "Set Light Blue Pastel",
-    price: "175000",
-    description: "Set Light Blue Pastel", // Added if needed for your application
-    category: '123', // Added if needed for your application
-    reviewCount: 699,
-    image: images.client5,
-    rating: {
-        rate: 1,
-        count: 5,
-    },
-    images: [
-      images.client5,
-      images.client5,
-      images.client5,
-      images.client5
-    ],
-  },
-  {
-    id: 4,
-    title: "Set Light Blue Pastel",
-    price: "175000",
-    description: "Set Light Blue Pastel", // Added if needed for your application
-    category: '123', // Added if needed for your application
-    reviewCount: 699,
-    image: images.client5,
-    rating: {
-        rate: 1,
-        count: 5,
-    },
-    images: [
-      images.client5,
-      images.client5,
-      images.client5,
-      images.client5
-    ],
-  },
-  {
-    id: 5,
-    title: "Set Light Blue Pastel",
-    price: "175000",
-    description: "Set Light Blue Pastel", // Added if needed for your application
-    category: '123', // Added if needed for your application
-    reviewCount: 699,
-    image: images.client5,
-    rating: {
-        rate: 1,
-        count: 5,
-    },
-    images: [
-      images.client5,
-      images.client5,
-      images.client5,
-      images.client5
-    ],
-  },
-  {
-    id: 6,
-    title: "Set Light Blue Pastel",
-    price: "175000",
-    description: "Set Light Blue Pastel", // Added if needed for your application
-    category: '123', // Added if needed for your application
-    reviewCount: 699,
-    image: images.client5,
-    rating: {
-        rate: 1,
-        count: 5,
-    },
-    images: [
-      images.client5,
-      images.client5,
-      images.client5,
-      images.client5
-    ],
-  },
-]
 
 interface filtersCheckboxType {
   range: string[]
@@ -157,8 +39,11 @@ export default function Products() {
   const { productCategories } = useProductCategories(pathname.split("/")[2])
   const [openFilter, setOpenFilter] = useState(false)
   const [collapseActive, setCollapseActive] = useState<string | string[]>([])
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const { listProduct = [] } = useListProducts(pathname.split("/")[2], pathname.split("/")[3])
+  const [selectedProduct, setSelectedProduct] = useState<any>(null)
+  const { listProduct = [] } = useListProducts(
+    pathname.split("/")[2],
+    pathname.split("/")[3]
+  )
 
   useEffect(() => {
     if (productCategories) {
@@ -280,32 +165,32 @@ export default function Products() {
         <>
           {radio ? (
             <Radio.Group
-            onChange={onChangeRadio}
-            value={filterRadio}
-            className="flex flex-col gap-4"
-          >
-            {item.menu.map((item: any, index: number) => (
-              <Radio value={item.value} key={index}>
-                {item.label}
-              </Radio>
-            ))}
-          </Radio.Group>
+              onChange={onChangeRadio}
+              value={filterRadio}
+              className="flex flex-col gap-4"
+            >
+              {item.menu.map((item: any, index: number) => (
+                <Radio value={item.value} key={index}>
+                  {item.label}
+                </Radio>
+              ))}
+            </Radio.Group>
           ) : (
             <Checkbox.Group
-            onChange={(list) => onChangeCheckbox(list, item.value)}
-            value={filterTags[item.value]}
-            options={item.menu}
-            className="flex flex-col gap-4 text-doveGray text-lg"
-          ></Checkbox.Group>
+              onChange={(list) => onChangeCheckbox(list, item.value)}
+              value={filterTags[item.value]}
+              options={item.menu}
+              className="flex flex-col gap-4 text-doveGray text-lg"
+            ></Checkbox.Group>
           )}
         </>
       )
     }
 
     const handleScroll = (e: any) => {
-      e.stopPropagation();
-      e.preventDefault();
-    };
+      e.stopPropagation()
+      e.preventDefault()
+    }
 
     return (
       <div className="fixed top-0 left-0 right-0 bottom-0 md:hidden flex flex-col items-start bg-white z-50">
@@ -411,6 +296,18 @@ export default function Products() {
     setPaginationActive(page)
   }
 
+  const getPriceProduct = (product: any) => {
+    let price = 0
+    if (product.sku && product.sku.length > 0) {
+      price = product.sku.reduce(
+        (min: number, item: any) =>
+          Number(item.price) < min ? item.price : min,
+        product.sku[0].price
+      )
+    }
+    return String(price)
+  }
+
   const renderSubFilter = (item: filterType, typeInput: string) => {
     return (
       <div
@@ -446,32 +343,37 @@ export default function Products() {
   const renderProduct = () => {
     return (
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-6 gap-2 mt-8">
-        {listProduct.length > 0 && listProduct.map((item: any, index: number) => (
-          <div className="flex flex-col border md:rounded-lg rounded hover:ring-caption cursor-pointer ring-stroke ring-1" key={index} onClick={() => setSelectedProduct(item)}>
-            <img
-              className="w-full h-28 md:h-64 object-contain"
-              src={item.image}
-              alt=""
-            />
-            <div className="flex flex-col gap-2 p-4">
-              <h3 className="text-karaka md:text-2lg text-lg font-semibold">
-                {item.title}
-              </h3>
-              <div className="flex items-center gap-2">
-                {renderStar(item.rating.rate)}
-                <span className="text-sm text-doveGray">({item.reviewCount})</span>
+        {listProduct.length > 0 &&
+          listProduct.map((item: any, index: number) => (
+            <div
+              className="flex flex-col border md:rounded-lg rounded hover:ring-caption cursor-pointer ring-stroke ring-1"
+              key={index}
+              onClick={() => setSelectedProduct(item)}
+            >
+              <img
+                className="w-full h-28 md:h-64 object-contain"
+                src={item.mainImage}
+                alt=""
+              />
+              <div className="flex flex-col gap-2 p-4">
+                <h3 className="text-karaka md:text-2lg text-lg font-semibold overflow-hidden whitespace-nowrap text-ellipsis">
+                  {item.title}
+                </h3>
+                <div className="flex items-center gap-2">
+                  {renderStar(4)}
+                  <span className="text-sm text-doveGray">(699)</span>
+                </div>
+                <span className="text-2lg text-caption">
+                  {formatVietnameseCurrency(getPriceProduct(item))}
+                </span>
               </div>
-              <span className="text-2lg text-caption">
-                {formatVietnameseCurrency(Number(item.price))}
-              </span>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     )
   }
 
-  const renderStar = (rate: number) => {
+  const renderStar = (rate = 4) => {
     return (
       <div className="flex gap-1">
         {starArray.slice(0, rate).map((_, index) => (
@@ -591,11 +493,12 @@ export default function Products() {
         {renderPagination()}
       </div>
       {openFilter && renderFilterMobile()}
-      {selectedProduct && <ProductPopup
-        product={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        onAddToCart={() => {}}
-      />}
+      {selectedProduct && (
+        <ProductPopup
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
     </div>
   )
 }

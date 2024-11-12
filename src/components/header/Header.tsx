@@ -18,8 +18,9 @@ import QuantitySelector from "@/components/inputs/QuantitySelectorInput"
 import useListCategory from "@/recoil/hooks/useListCategory"
 import { useRecoilState } from "recoil"
 import { cartState } from "@/recoil/atoms/cartAtom"
-import { useRouter } from "next/navigation"
 import { FaChevronLeft } from "react-icons/fa"
+import Cart from "../Cart/Cart"
+
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -28,9 +29,8 @@ const Header = () => {
   const [isShowCart, setIsShowCart] = useState(false)
   const [browserId, setBrowserId] = useState<string | null>(null)
   const { listCategory } = useListCategory()
-  const [cart, setCart] = useRecoilState(cartState)
+  const [cartGlobal, setCartGlobal] = useRecoilState(cartState)
   const [subNavMobile, setSubNavMobile] = useState(false)
-  const router = useRouter()
 
   useEffect(() => {
     const id = getOrCreateBrowserId()
@@ -45,21 +45,11 @@ const Header = () => {
   }, [listCategory])
 
   const getCountCart = () => {
-    const count = cart.reduce((result, item) => result + item.quantity, 0)
-    return count
-  }
-
-  const setQuantity = (quantity: number, id: string, operation?: string) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantity: operation === "+" ? quantity + 1 : (operation === "-" ? quantity - 1 : quantity),
-            }
-          : item
-      )
-    )
+    if(cartGlobal) {
+      const count = cartGlobal.reduce((result: number, item: any) => result + item.quantity, 0)
+      return count
+    }
+    return 0
   }
 
   const toggleMenu = () => {
@@ -71,147 +61,6 @@ const Header = () => {
     if (value === "cart") {
       setIsShowCart(true)
     }
-  }
-
-  const handleDeleteCart = (item: any) => {
-    console.log(item.id)
-    const newCart = cart.filter((it) => it.id != item.id)
-    setCart(newCart)
-  }
-
-  const renderCartEmpty = () => {
-    return (
-      <div className="w-full flex flex-col items-center md:px-8 px-6 pt-44">
-        <h3 className="md:text-2lg text-lg font-bold text-primary text-center">
-          {languages.get("cart.empty.title")}
-        </h3>
-        <span className="block mt-2 mb-9 text-doveGray md:text-lg text-sm text-center">
-          {languages.get("cart.empty.desc")}
-        </span>
-        <div className="flex flex-col gap-6 w-full">
-          <CustomButton
-            href={'/products/khung-anh/khung-dep'}
-            onClick={() => setIsShowCart(false)}
-            text={languages.get("cart.empty.button.frame")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          />
-          <CustomButton
-            href={'/products/anh-in/anh-in-6-9'}
-            onClick={() => setIsShowCart(false)}
-            text={languages.get("cart.empty.button.print")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          />
-          <CustomButton
-            href={'/products/album-anh/anh-in-6x9'}
-            onClick={() => setIsShowCart(false)}
-            text={languages.get("cart.empty.button.album")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          />
-        </div>
-      </div>
-    )
-  }
-
-  const renderCartHaveProduct = () => {
-    const handleGotoPayment = () => {
-      setIsShowCart(false)
-      setCartOpen(false)
-      router.push("/payment")
-    }
-
-    return (
-      <div className="h-full w-full">
-        <div className="overflow-y-scroll h-4/6 md:h-2/3">
-          {cart.map((item, index) => (
-            <>
-              <div
-                className="flex items-center gap-4 py-5 md:px-7 px-6 w-full overflow-hidden"
-                key={index}
-              >
-                <div className="p-3">
-                  <Image
-                    src={images.paymentType2}
-                    alt=""
-                    width={70}
-                    height={70}
-                  />
-                </div>
-                <div className="flex flex-col gap-3 flex-1">
-                  <div className="flex justify-between">
-                    <h3 className="inline-block overflow-hidden text-ellipsis whitespace-nowrap flex-1 w-1">
-                      {item.title}
-                    </h3>
-                    <Image
-                      src={images.icons.ic_trash}
-                      width={24}
-                      height={24}
-                      alt=""
-                      className="cursor-pointer"
-                      onClick={() => handleDeleteCart(item)}
-                    />
-                  </div>
-                  <span className="text-sm text-doveGray">{item.desc}</span>
-                  <div className="flex justify-between items-end">
-                  <div className="flex items-center">
-                      <button
-                        onClick={() => setQuantity(item.quantity, item.id, '-')}
-                        className={`px-2 py-1 md:px-4 md:py-2 border rounded-l ${
-                          item.quantity === 1
-                            ? "bg-gray-50 text-stroke cursor-not-allowed"
-                            : "bg-white text-black hover:scale-100"
-                        }`}
-                        disabled={item.quantity === 1}
-                      >
-                        -
-                      </button>
-                      <input
-                        value={item.quantity}
-                        onChange={(e) => {
-                          const value = parseInt(e.target.value, 10)
-                          if (
-                            !isNaN(value) &&
-                            value >= 1 &&
-                            value <= 999
-                          ) {
-                            setQuantity(value, item.id)
-                          }
-                        }}
-                        className="w-6 md:w-12 text-center py-1 md:py-2 font-raleway"
-                      />
-                      <button
-                        onClick={() => setQuantity(item.quantity, item.id, '+')}
-                        className="px-2 py-1 md:px-4 md:py-2 border rounded-r text-black bg-white hover:scale-100"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <span className="text-2lg text-caption">
-                      {formatVietnameseCurrency(item.price)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="border"></div>
-            </>
-          ))}
-        </div>
-        <div className="border-t pt-4 md:pt-6 md:px-8 px-6 md:h-1/3 h-1/4">
-          <div className="flex justify-between mb-4">
-            <h3 className="text-doveGray text-2lg">
-              {languages.get("cart.total")}
-            </h3>
-            <span className="text-2.25lg text-caption">
-              {formatVietnameseCurrency(175000)}
-            </span>
-          </div>
-          <CustomButton
-            onClick={() => handleGotoPayment()}
-            text={languages.get("cart.payment")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
-          />
-        </div>
-      </div>
-    )
   }
 
   const renderSubNav = (labelKey: string) => {
@@ -268,64 +117,6 @@ const Header = () => {
           alt=""
           className="absolute right-0 top-0 h-451"
         />
-      </div>
-    )
-  }
-
-  const renderCart = () => {
-    return (
-      <LayoutOpacity
-        isVisible={isShowCart}
-        onClick={() => setIsShowCart(false)}
-      >
-        <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight hidden md:block">
-          <div className="py-7 px-11 flex justify-between border-b">
-            <div className="flex flex-col ">
-              <div className="flex flex-row gap-4 items-center">
-                <h2 className="text-4lg text-primary">
-                  {languages.get("cart.title")}
-                </h2>
-                <span className="text-2lg">({getCountCart()})</span>
-              </div>
-              {browserId ? (
-                <p className="text-gray-100">
-                  {languages.get("header.id.customer")}
-                  {browserId}
-                </p>
-              ) : (
-                <p className="text-gray-100">
-                  {languages.get("header.loading")}
-                </p>
-              )}
-            </div>
-            <CancelButton
-              onClick={() => setIsShowCart(false)}
-              absolute={false}
-            />
-          </div>
-          {getCountCart() > 0 ? renderCartHaveProduct() : renderCartEmpty()}
-        </div>
-      </LayoutOpacity>
-    )
-  }
-
-  const renderCartMobile = () => {
-    return (
-      <div className="fixed top-0 left-0 right-0 bottom-0 md:hidden flex flex-col items-start bg-white shadow-md space-y-4">
-        <div className="flex justify-between w-full items-center border-b px-6 py-6">
-          <div className="flex flex-row gap-2 items-center">
-            <h2 className="text-2.25lg text-primary">
-              {languages.get("cart.title")}
-            </h2>
-            <span className="text-sm">({getCountCart()})</span>
-          </div>
-          <img
-            src={images.icons.menuClose}
-            className="w-6 h-6"
-            onClick={() => setCartOpen(false)}
-          />
-        </div>
-        {getCountCart() > 0 ? renderCartHaveProduct() : renderCartEmpty()}
       </div>
     )
   }
@@ -503,8 +294,24 @@ const Header = () => {
             ))}
           </div>
         )}
-        {cartOpen && renderCartMobile()}
-        {renderCart()}
+        {cartOpen && browserId && (
+          <Cart
+            setIsShowCart={setIsShowCart}
+            setCartOpen={setCartOpen}
+            isShowCart={isShowCart}
+            browserId={browserId}
+            isCartMobile={true}
+          />
+        )}
+        {browserId && (
+          <Cart
+            setIsShowCart={setIsShowCart}
+            setCartOpen={setCartOpen}
+            isShowCart={isShowCart}
+            browserId={browserId}
+            isCartMobile={false}
+          />
+        )}
       </header>
       {subNavMobile && renderSubNavMobile()}
     </>
