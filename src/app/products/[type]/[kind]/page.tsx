@@ -352,7 +352,7 @@ export default function Products() {
             >
               <img
                 className="w-full h-28 md:h-64 object-contain"
-                src={item.image}
+                src={item.mainImage}
                 alt=""
               />
               <div className="flex flex-col gap-2 p-4">

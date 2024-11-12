@@ -5,6 +5,6 @@ export type CartItem = {
     originalPrice: any;
     productName: string;
     sellerSku: string;
-    skuImage: any;
-    skuName: string;
+    skuImage?: any;
+    skuName?: string;
   };

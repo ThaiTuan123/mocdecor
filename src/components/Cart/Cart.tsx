@@ -93,7 +93,6 @@ const Cart = ({
                 skuId: skuId,
                 quantity: quantity
               },
-              action: "add",
             }
           }
           

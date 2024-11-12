@@ -26,7 +26,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [imageLoading, setImageLoading] = useState<boolean>(true)
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const [activeAccordion, setActiveAccordion] = useState<string | null>(null)
-  const [selectedImage, setSelectedImage] = useState<string>(product.image)
+  const [imagesSku, setImagesSku] = useState<string[]>([])
+  const [selectedImage, setSelectedImage] = useState<string>('')
   const [browserId, setBrowserId] = useState<string | null>(null)
   const [skuSelected, setSkuSelected] = useState<any>(null)
   const [cartGlobal, setCartGlobal] = useRecoilState<CartItem[]>(cartState)
@@ -34,6 +35,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   useEffect(() => {
     const id = getOrCreateBrowserId()
     setBrowserId(id)
+    const listImagesSku = product.sku.map((sku: any) => sku.skuAttributes[0]?.image)
+    setImagesSku(listImagesSku)
+    if(product.sku.length === 1) {
+      handleSizeChange(product.sku[0].skuCode, true)
+    }
   }, [])
 
   useEffect(() => {
@@ -43,8 +49,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     }
   }, [])
 
-  const getTotalPrice = (product: any) => {
-    console.log(product)
+  const getTotalPrice = () => {
     if (skuSelected) {
       const priceNumber = parseFloat(skuSelected.price)
       return priceNumber * quantity
@@ -52,11 +57,15 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     return 0
   }
 
-  const handleSizeChange = (size: string) => {
-    const skuSelectObj = product.sku.find((item: any) => {
-      return item.skuAttributes[0].value == size
-    })
-    setSkuSelected(skuSelectObj)
+  const handleSizeChange = (size: string, isOneSku: boolean) => {
+    if(!isOneSku) {
+      const skuSelectObj = product.sku.find((item: any) => {
+        return item.skuAttributes[0].value == size
+      })
+      setSkuSelected(skuSelectObj)
+    } else {
+      setSkuSelected(product.sku[0])
+    }
     setSelectedSize(size)
   }
 
@@ -87,14 +96,17 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
   const renderSizeButtons = () => {
     const sizeButtonArray = product.sku.map((item: any) => {
-      return item.skuAttributes[0].value
+      if(item.skuAttributes[0]) {
+        return item.skuAttributes[0].value
+      }
+      return null
     })
     return (
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
-        {sizeButtonArray.map((size: any) => (
+        {(sizeButtonArray && product.sku.length !== 1) && sizeButtonArray.map((size: any) => (
           <button
             key={size}
-            onClick={() => handleSizeChange(size)}
+            onClick={() => handleSizeChange(size, false)}
             className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
               selectedSize === size
                 ? "bg-primary text-white scale-100"
@@ -104,6 +116,18 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             {size}
           </button>
         ))}
+        {product.sku.length === 1 && (
+          <button
+          key={product.sku[0].skuCode}
+          className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
+            selectedSize === product.sku[0].skuCode
+              ? "bg-primary text-white scale-100"
+              : "bg-white text-black hover:scale-100 hover:bg-gray-200"
+          }`}
+        >
+          {product.sku[0].skuCode}
+        </button>
+        )}
       </div>
     )
   }
@@ -116,7 +140,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           skuId: skuSelected.skuId,
           quantity: quantity,
         },
-        action: "add",
       }
       updateCart(browserId, body)
     }
@@ -128,8 +151,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       originalPrice: skuSelected.price,
       productName: product.title,
       sellerSku: "TTT-19x24-Xanh Dương",
-      skuImage: skuSelected.skuAttributes[0].image,
-      skuName: skuSelected.skuAttributes[0].name,
+      skuImage: skuSelected.skuAttributes[0]?.image,
+      skuName: skuSelected.skuAttributes[0]?.name,
     }
     setCartGlobal((prev) => [
         ...prev,
@@ -162,12 +185,12 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             : product.title}
         </h2>
         <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
-          {getTotalPrice(product)} {CURRENCY_SYMBOL}
+          {getTotalPrice()} {CURRENCY_SYMBOL}
         </p>
         <div className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 md:py-3 lg:py-4 px-4 lg:px-4 rounded">
           <div className="flex flex-row gap-4 md:gap-6">
             <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
-              {languages.get("popup.text.size")}
+            {languages.get("popup.text.size")}
             </h3>
             {renderSizeButtons()}
           </div>
@@ -208,7 +231,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {languages.get("popup.button.return")}
         </button>
         <button
-          disabled={!skuSelected}
+          disabled={!skuSelected && product.sku.length > 1}
           onClick={() => onAddToCart()}
           className="text-sm md:text-lg px-2 py-4 w-full lg:w-1/2 bg-brown-700 text-white rounded hover:bg-brown-800 transform hover:scale-105 transition-all duration-300"
         >
@@ -227,7 +250,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           <div className="flex flex-col justify-between relative w-full lg:w-412">
             <Image
               //src={product.image}
-              src={selectedImage}
+              src={product.mainImage}
               alt={product.title}
               width={300}
               height={300}
@@ -239,7 +262,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             />
             <div className="h-32 w-full lg:w-412 overflow-hidden pt-4 lg:pt-6">
               <ProductCarousel
-                images={product.images}
+                images={imagesSku}
                 onImageSelect={setSelectedImage}
                 onImageHover={setSelectedImage}
               />
