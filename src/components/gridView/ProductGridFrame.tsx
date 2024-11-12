@@ -26,13 +26,6 @@ const ProductGridFrame: React.FC = () => {
         setSelectedProduct(null);
     };
 
-    const handleAddToCart = () => {
-        if (selectedProduct) {
-            console.log("Added to cart:", selectedProduct);
-            handleClosePopup();
-        }
-    };
-
     return (
         <div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
@@ -53,8 +46,7 @@ const ProductGridFrame: React.FC = () => {
             {selectedProduct && (
                 <ProductPopup
                     product={selectedProduct}
-                    onClose={handleClosePopup}
-                    onAddToCart={handleAddToCart}/>
+                    onClose={handleClosePopup}/>
             )}
         </div>
     );

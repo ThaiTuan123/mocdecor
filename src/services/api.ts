@@ -69,6 +69,21 @@ export const fetchProductCategories = async (name: string, limit: number = 20, p
 
 //products
 export const fetchListProducts = async (categorySlug: string, slug: string) => {
-    const url = `${API.LIST_PRODUCT}/${slug}/category/${categorySlug}`;
+    const url = `${API.LIST_PRODUCT}/category/${categorySlug}/type/${slug}`;
     return apiRequest(url);
+}
+
+//cart
+export const fetchCart = async (browserId: string) => {
+    const url = `${API.CART}/${browserId}`;
+    return apiRequest(url);
+}
+
+//update cart
+export const updateCart = async (browserId: string, body: any) => {
+    const url = `${API.CART}/${browserId}`;
+    return apiRequest(url, {
+        method: 'POST',
+        body: body
+    });
 }

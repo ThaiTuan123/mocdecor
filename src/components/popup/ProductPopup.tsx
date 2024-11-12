@@ -1,185 +1,255 @@
 //ProductPopup.tsx
 
-import React, {useEffect, useState} from "react";
-import Image from "next/image";
-import {Product} from "@/types/product";
-import {CURRENCY_SYMBOL} from "@/configs/constants/constants";
-import languages from "@/configs/languages";
-import CancelButton from "@/components/button/CancelButton";
-import QuantitySelector from "@/components/inputs/QuantitySelectorInput";
-import ProductCarousel from "@/components/carousel/ProductCarousel";
-import {TITLE_MAX_LENGTH} from "@/utils/constants";
+import React, { useEffect, useState } from "react"
+import Image from "next/image"
+import { Product } from "@/types/product"
+import { CURRENCY_SYMBOL } from "@/configs/constants/constants"
+import languages from "@/configs/languages"
+import CancelButton from "@/components/button/CancelButton"
+import QuantitySelector from "@/components/inputs/QuantitySelectorInput"
+import ProductCarousel from "@/components/carousel/ProductCarousel"
+import { TITLE_MAX_LENGTH } from "@/utils/constants"
+import { updateCart } from "@/services/api"
+import { getOrCreateBrowserId } from "@/utils/browserId"
+import { useRecoilState } from "recoil"
+import { cartState } from "@/recoil/atoms/cartAtom"
+import { CartItem } from "@/types/cartType"
 
 interface ProductPopupProps {
-    product: Product;
-    onClose: () => void;
-    onAddToCart: () => void;
+  product: any
+  onClose: () => void
 }
 
-const ProductPopup: React.FC<ProductPopupProps> = ({product, onClose, onAddToCart}) => {
-    const [selectedSize, setSelectedSize] = useState<string>("19x24 cm");
-    const [quantity, setQuantity] = useState<number>(1);
-    const [imageLoading, setImageLoading] = useState<boolean>(true);
-    const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-    const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
-    const [selectedImage, setSelectedImage] = useState<string>(product.image);
+const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
+  const [selectedSize, setSelectedSize] = useState<string>("19x24 cm")
+  const [quantity, setQuantity] = useState<number>(1)
+  const [imageLoading, setImageLoading] = useState<boolean>(true)
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
+  const [activeAccordion, setActiveAccordion] = useState<string | null>(null)
+  const [selectedImage, setSelectedImage] = useState<string>(product.image)
+  const [browserId, setBrowserId] = useState<string | null>(null)
+  const [skuSelected, setSkuSelected] = useState<any>(null)
+  const [cartGlobal, setCartGlobal] = useRecoilState<CartItem[]>(cartState)
 
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, []);
+  useEffect(() => {
+    const id = getOrCreateBrowserId()
+    setBrowserId(id)
+  }, [])
 
-    const getTotalPrice = () => {
-        const price = parseFloat(product.price); // Convert to number
-        return price * quantity;
-    };
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [])
 
-    const handleSizeChange = (size: string) => setSelectedSize(size);
+  const getTotalPrice = (product: any) => {
+    console.log(product)
+    if (skuSelected) {
+      const priceNumber = parseFloat(skuSelected.price)
+      return priceNumber * quantity
+    }
+    return 0
+  }
 
-    const handleImageLoad = () => setImageLoading(false);
+  const handleSizeChange = (size: string) => {
+    const skuSelectObj = product.sku.find((item: any) => {
+      return item.skuAttributes[0].value == size
+    })
+    setSkuSelected(skuSelectObj)
+    setSelectedSize(size)
+  }
 
-    const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
+  const handleImageLoad = () => setImageLoading(false)
 
-    const toggleAccordion = (section: string) => {
-        setActiveAccordion(activeAccordion === section ? null : section);
-    };
+  const toggleFullScreen = () => setIsFullScreen(!isFullScreen)
 
-    const renderFullScreenImage = () => (
-        isFullScreen && (
-            <div
-                className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-20"
-                onClick={toggleFullScreen}
-            >
-                <Image
-                    src={product.image}
-                    alt={product.title}
-                    layout="fill"
-                    objectFit="contain"
-                    className="cursor-zoom-out"
-                    onLoad={handleImageLoad}
-                />
-            </div>
-        )
-    );
+  const toggleAccordion = (section: string) => {
+    setActiveAccordion(activeAccordion === section ? null : section)
+  }
 
-    const renderSizeButtons = () => (
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
-            {["19x24 cm", "24x34 cm", "30x40 cm", "20x40 cm"].map((size) => (
-                <button
-                    key={size}
-                    onClick={() => handleSizeChange(size)}
-                    className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
-                        selectedSize === size
-                            ? "bg-primary text-white scale-100"
-                            : "bg-white text-black hover:scale-100 hover:bg-gray-200"
-                    }`}
-                >
-                    {size === "19x24 cm"
-                        ? languages.get("popup.button.size19")
-                        : languages.get("popup.button.size24")}
-                </button>
-            ))}
-        </div>
-    );
+  const renderFullScreenImage = () =>
+    isFullScreen && (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-20"
+        onClick={toggleFullScreen}
+      >
+        <Image
+          src={product.image}
+          alt={product.title}
+          layout="fill"
+          objectFit="contain"
+          className="cursor-zoom-out"
+          onLoad={handleImageLoad}
+        />
+      </div>
+    )
 
-    const renderAccordionSection = (title: string, content: string) => (
-        <div className="border-b border-gray-200">
-            <button
-                onClick={() => toggleAccordion(title)}
-                className="flex justify-between w-full py-4 text-lg font-raleway text-left text-black hover:text-gray-100"
-            >
-                <span>{title}</span>
-                <span>{activeAccordion === title ? "−" : "+"}</span>
-            </button>
-            {activeAccordion === title && (
-                <div className="py-2 text-gray-600">
-                    {content}
-                </div>
-            )}
-        </div>
-    );
-
-    const renderProductDetails = () => (
-        <div className="ml-0 lg:ml-5 flex flex-col flex-grow lg:w-full">
-            <div>
-                <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary lg:pt-6 md:pt-0 lg:min-h-20">
-                    {product.title.length > TITLE_MAX_LENGTH
-                        ? `${product.title.substring(0, TITLE_MAX_LENGTH)}...`
-                        : product.title}
-                </h2>
-                <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
-                    {getTotalPrice()} {CURRENCY_SYMBOL}
-                </p>
-                <div
-                    className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 md:py-3 lg:py-4 px-4 lg:px-4 rounded">
-                    <div className="flex flex-row gap-4 md:gap-6">
-                        <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.size")}</h3>
-                        {renderSizeButtons()}
-                    </div>
-                    <div className="flex flex-row center gap-4 md:gap-6">
-                        <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">{languages.get("popup.text.quantity")}</h3>
-                        <QuantitySelector
-                            quantity={quantity}
-                            setQuantity={setQuantity}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <div className="order-2 lg:order-none mt-4">
-                {renderAccordionSection(languages.get('popup.text.orderNotes'), languages.get('popup.description.noOrderNotes'))}
-                {renderAccordionSection(languages.get('popup.text.setOfIngredients'), languages.get('popup.description.noSetOfIngredients'))}
-                {renderAccordionSection(languages.get('popup.text.shipping'), languages.get('popup.description.shipping'))}
-                {renderAccordionSection(languages.get('popup.text.productInfo'), product.description || languages.get('popup.description.noProductInfo'))}
-            </div>
-
-            <div className="order-1 lg:order-none flex gap-3 md:gap-5 p-0 mt-4 lg:pt-16">
-                <button
-                    onClick={onClose}
-                    className="hidden lg:block text-sm md:text-lg px-4 py-4 w-1/2 border border-brown-700 text-brown-700 bg-white rounded transform hover:scale-105 transition-all duration-300"
-                >
-                    {languages.get("popup.button.return")}
-                </button>
-                <button
-                    onClick={onAddToCart}
-                    className="text-sm md:text-lg px-2 py-4 w-full lg:w-1/2 bg-brown-700 text-white rounded hover:bg-brown-800 transform hover:scale-105 transition-all duration-300"
-                >
-                    {languages.get("popup.button.addCard")}
-                </button>
-            </div>
-
-        </div>
-    );
-
+  const renderSizeButtons = () => {
+    const sizeButtonArray = product.sku.map((item: any) => {
+      return item.skuAttributes[0].value
+    })
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            {renderFullScreenImage()}
-            <div className="w-375 md:w-580 lg:w-1024 bg-white rounded-lg p-4 lg:p-6 mx-6 py-12 relative flex flex-col">
-                <CancelButton onClick={onClose}/>
-                <div className="flex flex-col lg:flex-row max-h-[710px] overflow-y-auto p-0 lg:p-3">
-                    <div className="flex flex-col justify-between relative w-full lg:w-412">
-                        <Image
-                            //src={product.image}
-                            src={selectedImage}
-                            alt={product.title}
-                            width={300}
-                            height={300}
-                            className={`w-full lg:w-412 h-327 lg:h-[550px] object-fill cursor-zoom-in ${imageLoading ? "blur-md" : "blur-0"}`}
-                            onLoad={handleImageLoad}
-                            onClick={toggleFullScreen}
-                        />
-                        <div className='h-32 w-full lg:w-412 overflow-hidden pt-4 lg:pt-6'>
-                            <ProductCarousel images={product.images} onImageSelect={setSelectedImage}
-                                             onImageHover={setSelectedImage}/>
-                        </div>
-                    </div>
-                    {renderProductDetails()}
-                </div>
-            </div>
-        </div>
-    );
-};
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
+        {sizeButtonArray.map((size: any) => (
+          <button
+            key={size}
+            onClick={() => handleSizeChange(size)}
+            className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
+              selectedSize === size
+                ? "bg-primary text-white scale-100"
+                : "bg-white text-black hover:scale-100 hover:bg-gray-200"
+            }`}
+          >
+            {size}
+          </button>
+        ))}
+      </div>
+    )
+  }
 
-export default ProductPopup;
+  const onAddToCart = () => {
+    if (browserId && product) {
+      const body = {
+        product: {
+          mainId: product.mainId,
+          skuId: skuSelected.skuId,
+          quantity: quantity,
+        },
+        action: "add",
+      }
+      updateCart(browserId, body)
+    }
+
+    const cartUpdateObj = {
+      mainId: product.mainId,
+      quantity: quantity,
+      skuId: skuSelected.skuId,
+      originalPrice: skuSelected.price,
+      productName: product.title,
+      sellerSku: "TTT-19x24-Xanh Dương",
+      skuImage: skuSelected.skuAttributes[0].image,
+      skuName: skuSelected.skuAttributes[0].name,
+    }
+    setCartGlobal((prev) => [
+        ...prev,
+        cartUpdateObj,
+      ])
+    onClose()
+  }
+
+  const renderAccordionSection = (title: string, content: string) => (
+    <div className="border-b border-gray-200">
+      <button
+        onClick={() => toggleAccordion(title)}
+        className="flex justify-between w-full py-4 text-lg font-raleway text-left text-black hover:text-gray-100"
+      >
+        <span>{title}</span>
+        <span>{activeAccordion === title ? "−" : "+"}</span>
+      </button>
+      {activeAccordion === title && (
+        <div className="py-2 text-gray-600">{content}</div>
+      )}
+    </div>
+  )
+
+  const renderProductDetails = () => (
+    <div className="ml-0 lg:ml-5 flex flex-col flex-grow lg:w-full">
+      <div>
+        <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary lg:pt-6 md:pt-0 lg:min-h-20">
+          {product.title.length > TITLE_MAX_LENGTH
+            ? `${product.title.substring(0, TITLE_MAX_LENGTH)}...`
+            : product.title}
+        </h2>
+        <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
+          {getTotalPrice(product)} {CURRENCY_SYMBOL}
+        </p>
+        <div className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 md:py-3 lg:py-4 px-4 lg:px-4 rounded">
+          <div className="flex flex-row gap-4 md:gap-6">
+            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+              {languages.get("popup.text.size")}
+            </h3>
+            {renderSizeButtons()}
+          </div>
+          <div className="flex flex-row center gap-4 md:gap-6">
+            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+              {languages.get("popup.text.quantity")}
+            </h3>
+            <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+          </div>
+        </div>
+      </div>
+
+      <div className="order-2 lg:order-none mt-4">
+        {renderAccordionSection(
+          languages.get("popup.text.orderNotes"),
+          languages.get("popup.description.noOrderNotes")
+        )}
+        {renderAccordionSection(
+          languages.get("popup.text.setOfIngredients"),
+          languages.get("popup.description.noSetOfIngredients")
+        )}
+        {renderAccordionSection(
+          languages.get("popup.text.shipping"),
+          languages.get("popup.description.shipping")
+        )}
+        {renderAccordionSection(
+          languages.get("popup.text.productInfo"),
+          product.description ||
+            languages.get("popup.description.noProductInfo")
+        )}
+      </div>
+
+      <div className="order-1 lg:order-none flex gap-3 md:gap-5 p-0 mt-4 lg:pt-16">
+        <button
+          onClick={onClose}
+          className="hidden lg:block text-sm md:text-lg px-4 py-4 w-1/2 border border-brown-700 text-brown-700 bg-white rounded transform hover:scale-105 transition-all duration-300"
+        >
+          {languages.get("popup.button.return")}
+        </button>
+        <button
+          disabled={!skuSelected}
+          onClick={() => onAddToCart()}
+          className="text-sm md:text-lg px-2 py-4 w-full lg:w-1/2 bg-brown-700 text-white rounded hover:bg-brown-800 transform hover:scale-105 transition-all duration-300"
+        >
+          {languages.get("popup.button.addCard")}
+        </button>
+      </div>
+    </div>
+  )
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      {renderFullScreenImage()}
+      <div className="w-375 md:w-580 lg:w-1024 bg-white rounded-lg p-4 lg:p-6 mx-6 py-12 relative flex flex-col">
+        <CancelButton onClick={onClose} />
+        <div className="flex flex-col lg:flex-row max-h-[710px] overflow-y-auto p-0 lg:p-3">
+          <div className="flex flex-col justify-between relative w-full lg:w-412">
+            <Image
+              //src={product.image}
+              src={selectedImage}
+              alt={product.title}
+              width={300}
+              height={300}
+              className={`w-full lg:w-412 h-327 lg:h-[550px] object-fill cursor-zoom-in ${
+                imageLoading ? "blur-md" : "blur-0"
+              }`}
+              onLoad={handleImageLoad}
+              onClick={toggleFullScreen}
+            />
+            <div className="h-32 w-full lg:w-412 overflow-hidden pt-4 lg:pt-6">
+              <ProductCarousel
+                images={product.images}
+                onImageSelect={setSelectedImage}
+                onImageHover={setSelectedImage}
+              />
+            </div>
+          </div>
+          {renderProductDetails()}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default ProductPopup

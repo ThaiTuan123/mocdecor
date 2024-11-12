@@ -12,7 +12,7 @@ const useListProducts = (categorySlug: string, slug: string) : { listProduct: an
             setLoading(true);
             try {
                 const data = await fetchListProducts(categorySlug, slug);
-                setListProduct(data.items);
+                setListProduct(data);
             } catch (error) {
                 console.error('Failed to fetch categories:', error);
             } finally {

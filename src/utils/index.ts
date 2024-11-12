@@ -1,4 +1,5 @@
-export function formatVietnameseCurrency(amount: number) {
-    const formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+export function formatVietnameseCurrency(amount: string) {
+    const amountNumber = Number(amount)
+    const formattedAmount = amountNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     return `${formattedAmount} đ`;
   }
