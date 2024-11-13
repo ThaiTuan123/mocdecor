@@ -203,7 +203,7 @@ const Cart = ({
                       </button>
                     </div>
                     <span className="text-2lg text-caption">
-                      {formatVietnameseCurrency(item.originalPrice)}
+                      {formatVietnameseCurrency(String(item.originalPrice * item.quantity))}
                     </span>
                   </div>
                 </div>

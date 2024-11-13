@@ -19,6 +19,7 @@ import {useRecoilValue} from "recoil";
 import {cartState} from "@/recoil/atoms/cartAtom";
 import PaymentSuccessPopup from "@/components/popup/PaymentSuccessPopup";
 import usePopupSuccess from "@/recoil/hooks/usePopupSuccess";
+import { CartItem } from "@/types/cartType"
 
 interface formType {
     city: string | null
@@ -41,6 +42,7 @@ export default function Payment() {
     })
     const [isShowModalSuccess, setIsShowModalSuccess] = useState(false)
     const [countdown, setCountdown] = useState(5)
+    const priceFee = 30000
 
     const cart = useRecoilValue(cartState); // <--- Changed here
 
@@ -70,6 +72,11 @@ export default function Payment() {
         if (resCountries) {
             setCities(resCountries)
         }
+    }
+
+    const getTotalPrice = () => {
+        const price = cart.reduce((result, item) => result + Number(item.originalPrice) * item.quantity, 0)
+        return String(price)
     }
 
     const renderHero = () => {
@@ -253,25 +260,25 @@ export default function Payment() {
     const renderContainerProduct = () => {
         return (
             <div className="flex flex-col mt-0 lg:mt-8">
-                {cart.map((item: any, index: number) => (
+                {cart.map((item: CartItem, index: number) => (
                     <div key={index}>
                         <div className="flex items-center gap-4 py-5 pr-5">
                             <div className="px-0 lg:p-3">
                                 <Image
-                                    src={images.paymentType2}
-                                    alt={item.title || "product image"}
+                                    src={item.skuImage}
+                                    alt={item.productName || "product image"}
                                     width={70}
                                     height={70}
                                 />
                             </div>
                             <div className="flex flex-col gap-3">
                                 <h3>
-                                    {item.title.length > 45 ? `${item.title.slice(0, 45)}...` : item.title}
+                                    {item.productName.length > 45 ? `${item.productName.slice(0, 45)}...` : item.productName}
                                 </h3>
-                                <span className="text-sm text-doveGray">{item.desc}</span>
+                                <span className="text-sm text-doveGray">{"description"}</span>
                                 <div className="flex gap-1 items-end">
                                 <span className="text-2lg text-caption">
-                                    {formatVietnameseCurrency(item.price)}
+                                    {formatVietnameseCurrency(String(item.originalPrice * item.quantity))}
                                 </span>
                                     <span className="text-1.25sm text-doveGray">
                                     x{item.quantity}
@@ -287,7 +294,7 @@ export default function Payment() {
     };
 
     const renderInfoOrder = () => {
-        const renderPriceRow = (label: string, value: number, isTotal = false) => (
+        const renderPriceRow = (label: string, value: string, isTotal = false) => (
             <div className="flex justify-between">
             <span className={`text-sm ${isTotal ? 'text-lg lg:text-2lg font-bold text-black' : 'text-karaka'}`}>
                 {label}
@@ -306,9 +313,9 @@ export default function Payment() {
                 </h2>
                 {renderContainerProduct()}
                 <div className="flex flex-col gap-4 bg-pampas px-6 py-4 mt-5 lg:mt-0 rounded">
-                    {renderPriceRow(languages.get("payment.order.price"), 175000)}
-                    {renderPriceRow(languages.get("payment.order.ship.fee"), 30000)}
-                    {renderPriceRow(languages.get("payment.order.total"), 205000, true)}
+                    {renderPriceRow(languages.get("payment.order.price"), getTotalPrice())}
+                    {renderPriceRow(languages.get("payment.order.ship.fee"), String(priceFee))}
+                    {renderPriceRow(languages.get("payment.order.total"), String(Number(getTotalPrice()) + priceFee), true)}
                 </div>
                 <CustomButton
                     className="block lg:hidden w-full mt-6 py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
