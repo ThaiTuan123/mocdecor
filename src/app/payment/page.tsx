@@ -294,7 +294,7 @@ export default function Payment() {
             </span>
                 <span className={`text-lg ${isTotal ? 'lg:text-2lg font-bold' : 'font-semibold'} text-black`}>
 
-                {formatVietnameseCurrency(value)}
+                {formatVietnameseCurrency(value.toString())}
             </span>
             </div>
         );
