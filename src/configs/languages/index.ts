@@ -54,6 +54,7 @@ class Languages {
 
             // sub nav
             "navbar.sub.view.title": "Các loại",
+            "navbar.sub.view.otherProductTypes": "SẢN PHẨM KHÁC",
             "navbar.sub.view.read.more": "Xem thêm",
             "navbar.sub.mobile.back": "Trở lại",
 

@@ -8,18 +8,14 @@ import languages from "@/configs/languages"
 import images from "@/configs/images"
 import "../styles.css"
 import { icons, menuLinks, subNavData } from "./constant"
-import LayoutOpacity from "../layoutOpacity"
-import CustomButton from "../button/CustomButton"
 import Image from "next/image"
-import { formatVietnameseCurrency } from "@/utils"
-import CancelButton from "@/components/button/CancelButton"
 import { getOrCreateBrowserId } from "@/utils/browserId"
-import QuantitySelector from "@/components/inputs/QuantitySelectorInput"
 import useListCategory from "@/recoil/hooks/useListCategory"
 import { useRecoilState } from "recoil"
 import { cartState } from "@/recoil/atoms/cartAtom"
 import { FaChevronLeft } from "react-icons/fa"
 import Cart from "../Cart/Cart"
+import useMenu from "@/recoil/hooks/useMenu"
 
 
 const Header = () => {
@@ -29,6 +25,7 @@ const Header = () => {
   const [isShowCart, setIsShowCart] = useState(false)
   const [browserId, setBrowserId] = useState<string | null>(null)
   const { listCategory } = useListCategory()
+  const { menu } = useMenu()
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState)
   const [subNavMobile, setSubNavMobile] = useState(false)
 
@@ -43,6 +40,12 @@ const Header = () => {
       console.log(listCategory)
     }
   }, [listCategory])
+
+  useEffect(() => {
+    if (menu) {
+      console.log('menu')
+    }
+  }, [menu])
 
   const getCountCart = () => {
     if(cartGlobal) {
@@ -75,8 +78,8 @@ const Header = () => {
         onMouseLeave={() => setHoveredLabelKey("")}
       >
         <div className="flex flex-row gap-6">
-          {listCategory.length > 0 &&
-            listCategory.map((item, index) => (
+          {menu?.menu?.length > 0 &&
+            menu?.menu?.map((item, index) => (
               <div key={index} className="flex flex-col min-w-44">
                 <span className="text-gray-100 text-1.25lg">
                   {languages.get("navbar.sub.view.title")}
@@ -101,6 +104,36 @@ const Header = () => {
                 </div>
               </div>
             ))}
+          {menu?.menu?.length === 3 && (
+              <div key="4" className="flex flex-col min-w-44">
+              <span className="text-notRating text-sm mb-2">
+                {languages.get("navbar.sub.view.title")}
+              </span>
+              <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
+                {languages.get("navbar.sub.view.otherProductTypes")}
+              </h2>
+              <div className="flex flex-col gap-4 cursor-pointer">
+                {
+                  menu?.otherType?.map((subItem, subIndex) => {
+                    return (
+                      // TODO add line when hover
+                      <Link
+                        key={subIndex}
+                        className={`relative text-doveGray text-sm md:hover:text-karaka`}
+                        href={`/products/${subItem.slug}`}
+                        onClick={() => {
+                          setMenuOpen(false)
+                          setSubNavMobile(false)
+                        }}
+                      >
+                        {subItem.name}
+                      </Link>
+                    )
+                  })
+                }
+              </div>
+            </div>
+            )}
         </div>
         <div className="flex gap-3 items-center mt-4 cursor-pointer">
           <span className="text-karaka text-lg">
@@ -146,8 +179,8 @@ const Header = () => {
           onScroll={handleScroll}
         >
           <div className="flex flex-col gap-6 px-6 mb-6">
-            {listCategory.length > 0 &&
-              listCategory.map((item, index) => (
+            {menu?.menu?.length > 0 &&
+              menu?.menu?.map((item, index) => (
                 <div key={index} className="flex flex-col min-w-44">
                   <span className="text-notRating text-sm mb-2">
                     {languages.get("navbar.sub.view.title")}
@@ -174,7 +207,38 @@ const Header = () => {
                     })}
                   </div>
                 </div>
-              ))}
+              ))
+            }
+            {menu?.menu?.length === 3 && (
+              <div key="4" className="flex flex-col min-w-44">
+              <span className="text-notRating text-sm mb-2">
+                {languages.get("navbar.sub.view.title")}
+              </span>
+              <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
+                {languages.get("navbar.sub.view.otherProductTypes")}
+              </h2>
+              <div className="flex flex-col gap-4 cursor-pointer">
+                {
+                  menu?.otherType?.map((subItem, subIndex) => {
+                    return (
+                      // TODO add line when hover
+                      <Link
+                        key={subIndex}
+                        className={`relative text-doveGray text-sm md:hover:text-karaka`}
+                        href={`/products/${subItem.slug}`}
+                        onClick={() => {
+                          setMenuOpen(false)
+                          setSubNavMobile(false)
+                        }}
+                      >
+                        {subItem.name}
+                      </Link>
+                    )
+                  })
+                }
+              </div>
+            </div>
+            )}
           </div>
           <img src={images.heroSubNav} alt="" className="rotate-90" />
         </div>
