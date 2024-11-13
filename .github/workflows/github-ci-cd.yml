@@ -5,11 +5,11 @@ env:
 on:
   push:
     branches:
-      - main    
+      - main
   pull_request:
     branches:
-      - main 
-    types: 
+      - main
+    types:
       - merged
 jobs:
   Deploy-Production:
