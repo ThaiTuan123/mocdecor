@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "@/components/carousel/Carousel";
 import Image from 'next/image';
 import {cardServiceData, clientData, customerData, socialLinks} from "@/app/home/constant";
@@ -26,14 +26,27 @@ import Heading3 from "@/components/texts/Heading3";
 import VideoYoutube from "@/components/video/VideoYoutube";
 import MobileArrowButton from "@/components/button/MobileArrowButton";
 import CategoryCard from "@/components/card/CategoryCard";
-import useCategories from "@/recoil/hooks/useFetchCategories";
-import {useRecoilValue} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {categoryErrorState} from "@/recoil/atoms/categoryErrorAtom";
+import { categoriesState } from "@/recoil/atoms/categoriesAtom";
+import useListCategory from "@/recoil/hooks/useListCategory";
 
 const CategorySection = () => {
-    const categoryNames = ["Khung ảnh", "Album ảnh", "Ảnh in"];
-    const {categories} = useCategories(categoryNames);
+    const { listCategory} = useListCategory();
+    const [category, setCategory] = useRecoilState(categoriesState)
     const error = useRecoilValue(categoryErrorState);
+
+    useEffect(() => {
+        const categoryArr = listCategory.map(item => {
+            return {
+                name: item.name,
+                image: item.image,
+                enName: item.enName,
+                slug: item.slug
+            }
+        })
+        console.log(categoryArr)
+    }, [listCategory])
 
     if (error) {
         console.error('Error fetching categories:', error);
@@ -74,7 +87,7 @@ const CategorySection = () => {
             </h2>
             <div
                 className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center lg:justify-between xl:justify-center">
-                {categories.map((category, index) => (
+                {category && category.map((category, index) => (
                     <CategoryCard key={index} category={category} index={index}/>
                 ))}
             </div>

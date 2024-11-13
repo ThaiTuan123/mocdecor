@@ -21,6 +21,13 @@ const hoverAnimation = {
 const CategoryCard: React.FC<CategoryCardProps> = ({category, index}) => {
     const [hovered, setHovered] = useState(false);
 
+    const checkImage = (url: string) => {
+        if(url.startsWith('https://')) {
+            return true
+        }
+        return false
+    }
+
     return (
         <div
             className="relative mb-6 md:mb-0 group cursor-pointer px-6 md:px-0"
@@ -29,7 +36,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({category, index}) => {
         >
             <div className="relative">
                 <Image
-                    src={category.image && category.image !== '' ? category.image : images.image404}
+                    src={checkImage(category.image) ? category.image : images.image404}
                     alt={category.name}
                     width={474}
                     height={382}
