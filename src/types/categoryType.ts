@@ -1,20 +1,20 @@
 // src/types.ts
 
 export interface CategoryType {
-    _id: string;
+    _id?: string;
     name: string;
     enName: string;
-    description: string;
+    description?: string;
     image: string;
-    types: {
+    types?: {
         _id: string;
         name: string;
         description: string;
         image: string;
         slug: string;
     }[];
-    createdAt: string;
-    updatedAt: string;
+    createdAt?: string;
+    updatedAt?: string;
     slug: string;
 }
 

@@ -46,7 +46,7 @@ export default function Products() {
   )
 
   useEffect(() => {
-    if (productCategories) {
+    if (productCategories && productCategories[0]?.types) {
       const newArr = productCategories[0]?.types.map((item) => {
         return {
           label: item.name,
