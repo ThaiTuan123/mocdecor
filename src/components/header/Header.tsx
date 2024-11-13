@@ -120,7 +120,7 @@ const Header = () => {
                       <Link
                         key={subIndex}
                         className={`relative text-doveGray text-sm md:hover:text-karaka`}
-                        href={`/products/${subItem.slug}`}
+                        href={`/products/${subItem.parentSlug}/${subItem.slug}`}
                         onClick={() => {
                           setMenuOpen(false)
                           setSubNavMobile(false)
@@ -225,7 +225,7 @@ const Header = () => {
                       <Link
                         key={subIndex}
                         className={`relative text-doveGray text-sm md:hover:text-karaka`}
-                        href={`/products/${subItem.slug}`}
+                        href={`/products/${subItem.parentSlug}/${subItem.slug}`}
                         onClick={() => {
                           setMenuOpen(false)
                           setSubNavMobile(false)

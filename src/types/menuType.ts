@@ -24,6 +24,7 @@ export interface MenuOthersType {
   description: string;
   image: string;
   slug: string;
+  parentSlug: string;
 }
 
 export interface FetchMenuResponse {
