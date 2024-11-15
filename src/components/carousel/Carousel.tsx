@@ -7,6 +7,9 @@ import languages from "@/configs/languages";
 import {activeIndexState} from "@/recoil/atoms/activeIndexStateAtom";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {carouselItemsState} from "@/recoil/hooks/useCarouselItems";
+import images from "@/configs/images";
+import {errorUrlsState} from "@/recoil/atoms/errorUrlsStateAtom";
+import {loadedState} from "@/recoil/atoms/loadedStateAtom";
 
 const Carousel = () => {
     const items = useRecoilValue(carouselItemsState);
@@ -38,7 +41,16 @@ const Carousel = () => {
 };
 
 const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIndex: number }) => {
-    const [loaded, setLoaded] = useState<boolean[]>(Array(items.length).fill(false));
+   // const [loaded, setLoaded] = useState<boolean[]>(Array(items.length).fill(false));
+    const [loaded, setLoaded] = useRecoilState(loadedState); // Manage loaded state using Recoil
+    const [errorUrls, setErrorUrls] = useRecoilState(errorUrlsState); // Manage error state using Recoil
+
+    const fallbackImageUrl = images.bannerHomeError;
+    /*TODO fix add API banner*/
+
+    const handleImageError = (index: number) => {
+        setErrorUrls(prev => ({ ...prev, [index]: true }));
+    };
 
     const handleImageLoad = (index: number) => {
         setLoaded(prev => {
@@ -48,9 +60,14 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
         });
     };
 
+    const simulatedItems = items.map((item, index) => ({
+        ...item,
+        imageUrl: index === 0 ? 'https://api.mocdecor.org/medias/870cea0ab9c75f610879eec6798627610.jpg' : item.imageUrl, // Fake error for the first image
+    }));
+
     return (
         <div className="relative h-584 overflow-hidden md:h-background-height">
-            {items.map((item, index) => (
+            {simulatedItems.map((item, index) => (
                 <div
                     key={item.id}
                     className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${index === activeIndex ? 'translate-x-0' : 'translate-x-full'}`}
@@ -58,11 +75,12 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
                     data-carousel-item={index === activeIndex ? "active" : ""}
                 >
                     <Image
-                        src={item.imageUrl}
+                        src={fallbackImageUrl}
                         alt={item.title}
                         fill={true}
                         className={`block object-cover w-full h-full transition-all duration-500 ${loaded[index] ? 'blur-0' : 'blur-lg'}`}
                         onLoad={() => handleImageLoad(index)}
+                        onError={() => handleImageError(index)}
                     />
                 </div>
             ))}

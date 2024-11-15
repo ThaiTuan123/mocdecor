@@ -61,6 +61,7 @@ const images = {
     contactMap: "/assets/imgs/pictures/map-contact.png",
 
     // home
+    bannerHomeError: "/assets/imgs/pictures/bg-homepage-banner.webp",
     homeCategory1: "/assets/imgs/pictures/category-home-1.png",
     homeCategory2: "/assets/imgs/pictures/category-home-2.png",
     homeCategory3: "/assets/imgs/pictures/category-home-3.png",
