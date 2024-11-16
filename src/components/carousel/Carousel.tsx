@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from 'next/image';
 import {CarouselItem} from "@/components/carousel/types";
 import CommonButton from "@/components/button/CustomButton";
@@ -42,23 +42,9 @@ const Carousel = () => {
 
 const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIndex: number }) => {
     // const [loaded, setLoaded] = useState<boolean[]>(Array(items.length).fill(false));
-    const [loaded, setLoaded] = useRecoilState(loadedState); // Manage loaded state using Recoil
-    const [errorUrls, setErrorUrls] = useRecoilState(errorUrlsState); // Manage error state using Recoil
 
     const fallbackImageUrl = images.bannerHomeError;
     /*TODO fix add API banner*/
-
-    const handleImageError = (index: number) => {
-        setErrorUrls(prev => ({...prev, [index]: true}));
-    };
-
-    const handleImageLoad = (index: number) => {
-        setLoaded(prev => {
-            const newLoaded = [...prev];
-            newLoaded[index] = true;
-            return newLoaded;
-        });
-    };
 
     const mockCarouselItems: CarouselItem[] = [
         {
@@ -93,12 +79,10 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
                     data-carousel-item={index === activeIndex ? "active" : ""}
                 >
                     <Image
-                        src={errorUrls[index] ? fallbackImageUrl : item.imageUrl}
+                        src={item.imageUrl}
                         alt={item.title}
                         fill={true}
-                        className={`block object-cover w-full h-full transition-all duration-500 ${loaded[index] ? 'blur-0' : 'blur-lg'}`}
-                        onLoad={() => handleImageLoad(index)}
-                        onError={() => handleImageError(index)}
+                        className={`block object-cover w-full h-full transition-all duration-500}`}
                         priority={index === activeIndex} // Load the active slide first
                         loading={index === activeIndex ? 'eager' : 'lazy'} // Lazy load others
                     />
