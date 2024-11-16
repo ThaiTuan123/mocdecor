@@ -99,6 +99,8 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
                         className={`block object-cover w-full h-full transition-all duration-500 ${loaded[index] ? 'blur-0' : 'blur-lg'}`}
                         onLoad={() => handleImageLoad(index)}
                         onError={() => handleImageError(index)}
+                        priority={index === activeIndex} // Load the active slide first
+                        loading={index === activeIndex ? 'eager' : 'lazy'} // Lazy load others
                     />
                 </div>
             ))}
