@@ -78,14 +78,15 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
                     style={{transform: `translateX(${(index - activeIndex) * 100}%)`}}
                     data-carousel-item={index === activeIndex ? "active" : ""}
                 >
-                    <Image
-                        src={item.imageUrl}
-                        alt={item.title}
-                        fill={true}
-                        className={`block object-cover w-full h-full transition-all duration-500}`}
-                        priority={index === activeIndex} // Load the active slide first
-                        loading={index === activeIndex ? 'eager' : 'lazy'} // Lazy load others
-                    />
+                    {/*TODO banner image API*/}
+                    {/*<Image*/}
+                    {/*    src={item.imageUrl}*/}
+                    {/*    alt={item.title}*/}
+                    {/*    fill={true}*/}
+                    {/*    className={`block object-cover w-full h-full transition-all duration-500}`}*/}
+                    {/*    priority={index === activeIndex} // Load the active slide first*/}
+                    {/*    loading={index === activeIndex ? 'eager' : 'lazy'} // Lazy load others*/}
+                    {/*/>*/}
                 </div>
             ))}
         </div>
