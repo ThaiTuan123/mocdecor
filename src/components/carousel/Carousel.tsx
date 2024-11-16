@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Image from 'next/image';
 import {CarouselItem} from "@/components/carousel/types";
 import CommonButton from "@/components/button/CustomButton";
@@ -41,7 +41,7 @@ const Carousel = () => {
 };
 
 const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIndex: number }) => {
-   // const [loaded, setLoaded] = useState<boolean[]>(Array(items.length).fill(false));
+    // const [loaded, setLoaded] = useState<boolean[]>(Array(items.length).fill(false));
     const [loaded, setLoaded] = useRecoilState(loadedState); // Manage loaded state using Recoil
     const [errorUrls, setErrorUrls] = useRecoilState(errorUrlsState); // Manage error state using Recoil
 
@@ -49,7 +49,7 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
     /*TODO fix add API banner*/
 
     const handleImageError = (index: number) => {
-        setErrorUrls(prev => ({ ...prev, [index]: true }));
+        setErrorUrls(prev => ({...prev, [index]: true}));
     };
 
     const handleImageLoad = (index: number) => {
@@ -60,14 +60,32 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
         });
     };
 
-    const simulatedItems = items.map((item, index) => ({
-        ...item,
-        imageUrl: index === 0 ? 'https://api.mocdecor.org/medias/870cea0ab9c75f610879eec6798627610.jpg' : item.imageUrl, // Fake error for the first image
-    }));
+    const mockCarouselItems: CarouselItem[] = [
+        {
+            id: '1',
+            title: 'Slide 1',
+            imageUrl: 'https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?crop=entropy&cs=tinysrgb&w=800&h=600&fit=crop',
+        },
+        {
+            id: '2',
+            title: 'Slide 2',
+            imageUrl: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&w=800&h=600&fit=crop',
+        },
+        {
+            id: '3',
+            title: 'Slide 3',
+            imageUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&w=800&h=600&fit=crop',
+        },
+        {
+            id: '4',
+            title: 'Slide 4',
+            imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&w=800&h=600&fit=crop',
+        },
+    ];
 
     return (
         <div className="relative h-584 overflow-hidden md:h-background-height">
-            {simulatedItems.map((item, index) => (
+            {mockCarouselItems.map((item, index) => (
                 <div
                     key={item.id}
                     className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${index === activeIndex ? 'translate-x-0' : 'translate-x-full'}`}
@@ -75,7 +93,7 @@ const CarouselWrapper = ({items, activeIndex}: { items: CarouselItem[], activeIn
                     data-carousel-item={index === activeIndex ? "active" : ""}
                 >
                     <Image
-                        src={fallbackImageUrl}
+                        src={errorUrls[index] ? fallbackImageUrl : item.imageUrl}
                         alt={item.title}
                         fill={true}
                         className={`block object-cover w-full h-full transition-all duration-500 ${loaded[index] ? 'blur-0' : 'blur-lg'}`}
