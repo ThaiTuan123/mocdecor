@@ -106,10 +106,10 @@ const Header = () => {
             ))}
           {menu?.menu?.length === 3 && (
               <div key="4" className="flex flex-col min-w-44">
-              <span className="text-notRating text-sm mb-2">
+              <span className="text-gray-100 text-1.25lg">
                 {languages.get("navbar.sub.view.title")}
               </span>
-              <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
+              <h2 className="text-2.25lg text-primary mb-8 mt-1">
                 {languages.get("navbar.sub.view.otherProductTypes")}
               </h2>
               <div className="flex flex-col gap-4 cursor-pointer">
@@ -119,7 +119,7 @@ const Header = () => {
                       // TODO add line when hover
                       <Link
                         key={subIndex}
-                        className={`relative text-doveGray text-sm md:hover:text-karaka`}
+                        className={`relative text-doveGray text-lg md:hover:text-karaka`}
                         href={`/products/${subItem.parentSlug}/${subItem.slug}`}
                         onClick={() => {
                           setMenuOpen(false)
