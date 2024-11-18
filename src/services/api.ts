@@ -30,6 +30,7 @@ const apiRequest = async (url: string, options: RequestOptions = {}) => {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
+    cache: "force-cache",
   });
 
   return handleResponse(response);

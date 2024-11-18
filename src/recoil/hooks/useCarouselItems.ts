@@ -1,24 +1,39 @@
 // src/hooks/useCarouselItems.ts
-import {atom, selector} from 'recoil';
-import {CarouselItem} from "@/components/carousel/types";
-import {fetchBannerItems} from "@/services/api";
+import { useEffect } from "react";
+import { atom, useSetRecoilState, useRecoilValue } from "recoil";
+import { CarouselItem } from "@/components/carousel/types";
+import { fetchBannerItems } from "@/services/api";
 
 export const carouselItemsState = atom<CarouselItem[]>({
-    key: 'carouselItemsState',
-    default: selector({
-        key: 'carouselItemsSelector',
-        get: async () => {
-            try {
-                const data = await fetchBannerItems();
-                return data.map((item: any) => ({
-                    id: item._id,
-                    title: item.name,
-                    imageUrl: item.image,
-                }));
-            } catch (error) {
-                console.error('Error fetching banner data:', error);
-                return [];
-            }
-        },
-    }),
+  key: "carouselItemsState",
+  default: [], // Atom chỉ lưu trữ dữ liệu, không xử lý async
 });
+
+// Custom hook để fetch dữ liệu và cập nhật atom
+export const useFetchCarouselItems = () => {
+  const setCarouselItems = useSetRecoilState(carouselItemsState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchBannerItems();
+        const items = data.map((item: any) => ({
+          id: item._id,
+          title: item.name,
+          imageUrl: item.image,
+        }));
+        setCarouselItems(items); // Cập nhật atom sau khi fetch dữ liệu thành công
+      } catch (error) {
+        console.error("Error fetching banner data:", error);
+        setCarouselItems([]); // Đặt giá trị mặc định trong trường hợp lỗi
+      }
+    };
+
+    fetchData();
+  }, [setCarouselItems]);
+};
+
+// Sử dụng trong component
+export const useCarouselItems = () => {
+  return useRecoilValue(carouselItemsState);
+};
