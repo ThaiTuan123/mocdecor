@@ -49,6 +49,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     }
   }, [])
 
+  // TODO: Use effect to update price when the sku change
   const getTotalPrice = () => {
     if (skuSelected) {
       const priceNumber = parseFloat(skuSelected.price)
@@ -95,39 +96,50 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     )
 
   const renderSizeButtons = () => {
-    const sizeButtonArray = product.sku.map((item: any) => {
-      if(item.skuAttributes[0]) {
-        return item.skuAttributes[0].value
-      }
-      return null
-    })
+    const attributesMap: Record<string, { value: string }[]> = {};
+
+    product.sku.forEach(({ skuAttributes }: any) => {
+      skuAttributes.forEach(({ name, value }: any) => {
+        if (!attributesMap[name]) {
+          attributesMap[name] = [];
+        }
+        if (!attributesMap[name].some((attr) => attr.value === value)) {
+          attributesMap[name].push({ value });
+        }
+      });
+    });
+
+    const formattedOutput = Object.entries(attributesMap).map(
+      ([key, values]) => ({
+        attributeName: key,
+        attributeValue: values.map(({ value }) => value),
+      })
+    );
+
     return (
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
-        {(sizeButtonArray && product.sku.length !== 1) && sizeButtonArray.map((size: any) => (
-          <button
-            key={size}
-            onClick={() => handleSizeChange(size, false)}
-            className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
-              selectedSize === size
-                ? "bg-primary text-white scale-100"
-                : "bg-white text-black hover:scale-100 hover:bg-gray-200"
-            }`}
-          >
-            {size}
-          </button>
+      <div className="flex flex-col gap-4 md:gap-6">
+        {formattedOutput.map(({ attributeName, attributeValue }) => (
+          <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
+            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+              {attributeName}
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
+              {attributeValue.map((value) => (
+                <button
+                  key={value}
+                  className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
+                    selectedSize === value
+                      ? "bg-primary text-white scale-100"
+                      : "bg-white text-black hover:scale-100 hover:bg-gray-200"
+                  }`}
+                  onClick={() => handleSizeChange(value, false)}
+                >
+                  {value}
+                </button>
+              ))}
+            </div>
+          </div>
         ))}
-        {product.sku.length === 1 && (
-          <button
-          key={product.sku[0].skuCode}
-          className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
-            selectedSize === product.sku[0].skuCode
-              ? "bg-primary text-white scale-100"
-              : "bg-white text-black hover:scale-100 hover:bg-gray-200"
-          }`}
-        >
-          {product.sku[0].skuCode}
-        </button>
-        )}
       </div>
     )
   }
@@ -153,13 +165,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       sellerSku: "TTT-19x24-Xanh Dương",
       skuImage: skuSelected.skuAttributes[0]?.image,
       skuName: skuSelected.skuAttributes[0]?.name,
-    }
-    setCartGlobal((prev) => [
-        ...prev,
-        cartUpdateObj,
-      ])
-    onClose()
-  }
+    };
+    setCartGlobal((prev) => [...prev, cartUpdateObj]);
+    onClose();
+  };
 
   const renderAccordionSection = (title: string, content: string) => (
     <div className="border-b border-gray-200">
@@ -188,12 +197,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {getTotalPrice()} {CURRENCY_SYMBOL}
         </p>
         <div className="flex flex-col mt-4 gap-3 md:gap-4 bg-brown-50 py-2 md:py-3 lg:py-4 px-4 lg:px-4 rounded">
-          <div className="flex flex-row gap-4 md:gap-6">
-            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
-            {languages.get("popup.text.size")}
-            </h3>
-            {renderSizeButtons()}
-          </div>
+          {renderSizeButtons()}
+
           <div className="flex flex-row center gap-4 md:gap-6">
             <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
               {languages.get("popup.text.quantity")}
