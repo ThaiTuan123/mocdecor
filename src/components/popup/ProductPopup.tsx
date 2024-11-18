@@ -20,8 +20,14 @@ interface ProductPopupProps {
   onClose: () => void
 }
 
+interface skuObjectType {
+    attributeName: string;
+    attributeValue: string[];
+}
+
 const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
-  const [selectedSize, setSelectedSize] = useState<string>("19x24 cm")
+  const [selectedSize, setSelectedSize] = useState<Record<string, string>>({})
+  const [formattedOutput, setFormattedOutput] = useState<skuObjectType[]>()
   const [quantity, setQuantity] = useState<number>(1)
   const [imageLoading, setImageLoading] = useState<boolean>(true)
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
@@ -37,9 +43,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     setBrowserId(id)
     const listImagesSku = product.sku.map((sku: any) => sku.skuAttributes[0]?.image)
     setImagesSku(listImagesSku)
-    if(product.sku.length === 1) {
-      handleSizeChange(product.sku[0].skuCode, true)
-    }
+    processDataSku()
   }, [])
 
   useEffect(() => {
@@ -51,24 +55,28 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
   // TODO: Use effect to update price when the sku change
   const getTotalPrice = () => {
-    if (skuSelected) {
-      const priceNumber = parseFloat(skuSelected.price)
-      return priceNumber * quantity
+    if(skuSelected) {
+      return skuSelected.price
     }
     return 0
   }
 
-  const handleSizeChange = (size: string, isOneSku: boolean) => {
-    if(!isOneSku) {
-      const skuSelectObj = product.sku.find((item: any) => {
-        return item.skuAttributes[0].value == size
-      })
-      setSkuSelected(skuSelectObj)
-    } else {
-      setSkuSelected(product.sku[0])
-    }
-    setSelectedSize(size)
+  const handleSizeChange = (attributeName: string, attributeValue: string, isOneSku: boolean) => {
+    setSelectedSize((prev) => ({
+      ...prev,
+      [attributeName]: attributeValue
+    }))
   }
+
+  useEffect(() => {
+    const skuSelectedObj = product.sku.find((sku: any) => {
+      return sku.skuAttributes.every((attribute: any) => {
+        return selectedSize[attribute.name] === attribute.value;
+      });
+    });
+
+    setSkuSelected(skuSelectedObj)
+  }, [selectedSize])
 
   const handleImageLoad = () => setImageLoading(false)
 
@@ -95,7 +103,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       </div>
     )
 
-  const renderSizeButtons = () => {
+  const processDataSku = () => {
     const attributesMap: Record<string, { value: string }[]> = {};
 
     product.sku.forEach(({ skuAttributes }: any) => {
@@ -109,30 +117,40 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       });
     });
 
-    const formattedOutput = Object.entries(attributesMap).map(
+    const formattedOutputObj = Object.entries(attributesMap).map(
       ([key, values]) => ({
         attributeName: key,
         attributeValue: values.map(({ value }) => value),
       })
     );
 
+    const initStateSelectedSku = formattedOutputObj.reduce((acc: any, attr) => {
+      acc[attr.attributeName] = ''
+      return acc
+    }, {})
+
+    setSelectedSize(initStateSelectedSku)
+    setFormattedOutput(formattedOutputObj)
+  }
+
+  const renderSizeButtons = () => {
     return (
       <div className="flex flex-col gap-4 md:gap-6">
-        {formattedOutput.map(({ attributeName, attributeValue }) => (
+        {formattedOutput && formattedOutput.map(({ attributeName, attributeValue } : { attributeName: string, attributeValue: string[] }) => (
           <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
             <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
               {attributeName}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
-              {attributeValue.map((value) => (
+              {attributeValue.map((value: any) => (
                 <button
                   key={value}
                   className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
-                    selectedSize === value
+                    selectedSize[attributeName] == value
                       ? "bg-primary text-white scale-100"
                       : "bg-white text-black hover:scale-100 hover:bg-gray-200"
                   }`}
-                  onClick={() => handleSizeChange(value, false)}
+                  onClick={() => handleSizeChange(attributeName, value, false)}
                 >
                   {value}
                 </button>
@@ -166,7 +184,22 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       skuImage: skuSelected.skuAttributes[0]?.image,
       skuName: skuSelected.skuAttributes[0]?.name,
     };
-    setCartGlobal((prev) => [...prev, cartUpdateObj]);
+    setCartGlobal((prev) => {
+      const existingItem = prev.findIndex(
+        (item) => item.skuId == cartUpdateObj.skuId && item.mainId == cartUpdateObj.mainId
+      )
+
+      if(existingItem !== -1) {
+        const updatedCart = [...prev]
+        updatedCart[existingItem] = {
+          ...updatedCart[existingItem],
+          quantity: updatedCart[existingItem].quantity + cartUpdateObj.quantity
+        }
+        return updatedCart
+      } else {
+        return [...prev, cartUpdateObj]
+      }
+    });
     onClose();
   };
 
@@ -236,7 +269,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {languages.get("popup.button.return")}
         </button>
         <button
-          disabled={!skuSelected && product.sku.length > 1}
+          disabled={!skuSelected}
           onClick={() => onAddToCart()}
           className="text-sm md:text-lg px-2 py-4 w-full lg:w-1/2 bg-brown-700 text-white rounded hover:bg-brown-800 transform hover:scale-105 transition-all duration-300"
         >

@@ -10,7 +10,6 @@ import "../styles.css"
 import { icons, menuLinks, subNavData } from "./constant"
 import Image from "next/image"
 import { getOrCreateBrowserId } from "@/utils/browserId"
-import useListCategory from "@/recoil/hooks/useListCategory"
 import { useRecoilState } from "recoil"
 import { cartState } from "@/recoil/atoms/cartAtom"
 import { FaChevronLeft } from "react-icons/fa"
@@ -24,7 +23,6 @@ const Header = () => {
   const [hoveredLabelKey, setHoveredLabelKey] = useState<string>("")
   const [isShowCart, setIsShowCart] = useState(false)
   const [browserId, setBrowserId] = useState<string | null>(null)
-  const { listCategory } = useListCategory()
   const { menu } = useMenu()
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState)
   const [subNavMobile, setSubNavMobile] = useState(false)
@@ -34,12 +32,6 @@ const Header = () => {
     setBrowserId(id)
     console.log("Current Browser ID:", id)
   }, [])
-
-  useEffect(() => {
-    if (listCategory) {
-      console.log(listCategory)
-    }
-  }, [listCategory])
 
   useEffect(() => {
     if (menu) {

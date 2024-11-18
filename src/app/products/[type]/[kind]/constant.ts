@@ -7,7 +7,7 @@ export type filterType = {
   }[]
 }
 
-export type FilterKeys = "range" | "size" | "major"
+export type FilterKeys = "range" | "major"
 
 export const filterData = [
   {
@@ -25,32 +25,6 @@ export const filterData = [
       {
         label: "500.000 Đ - 1000.000 Đ",
         value: "500k-1m",
-      },
-    ],
-  },
-  {
-    title: "Kích cỡ",
-    value: "size",
-    menu: [
-      {
-        label: "",
-        value: "",
-      },
-      {
-        label: "",
-        value: "",
-      },
-      {
-        label: "",
-        value: "",
-      },
-      {
-        label: "",
-        value: "",
-      },
-      {
-        label: "",
-        value: "",
       },
     ],
   },
