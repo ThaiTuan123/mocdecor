@@ -9,16 +9,14 @@ import { useEffect, useState } from "react"
 import { Checkbox, Collapse, Radio, RadioChangeEvent } from "antd"
 import { usePathname } from "next/navigation"
 import "./style.css"
-import useProductCategories from "@/recoil/hooks/useProductCategories"
 import CustomButton from "../../../../components/button/CustomButton"
 import ProductPopup from "@/components/popup/ProductPopup"
-import { Product } from "@/types/product"
 import useListProducts from "@/recoil/hooks/useListProducts"
+import useListCategory from "@/recoil/hooks/useListCategory"
 
 
 interface filtersCheckboxType {
   range: string[]
-  size: string[]
   major: string[]
 }
 
@@ -30,13 +28,12 @@ export default function Products() {
   const [paginationActive, setPaginationActive] = useState(1)
   const [filterTags, setFilterTags] = useState<filtersCheckboxType>({
     range: [],
-    size: [],
     major: [],
   })
   const [filterRadio, setFilterRadio] = useState("")
   const [hoverFilter, setHoverFilter] = useState("")
   const pathname = usePathname()
-  const { productCategories } = useProductCategories(pathname.split("/")[2])
+  const { listCategory } = useListCategory()
   const [openFilter, setOpenFilter] = useState(false)
   const [collapseActive, setCollapseActive] = useState<string | string[]>([])
   const [selectedProduct, setSelectedProduct] = useState<any>(null)
@@ -44,18 +41,25 @@ export default function Products() {
     pathname.split("/")[2],
     pathname.split("/")[3]
   )
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    if (productCategories && productCategories[0]?.types) {
-      const newArr = productCategories[0]?.types.map((item) => {
-        return {
-          label: item.name,
-          value: item.slug,
-        }
-      })
-      filterData[2].menu = newArr
+    if(listProduct) {
+      setProducts(listProduct)
     }
-  }, [productCategories])
+  }, [listProduct])
+
+  useEffect(() => {
+    const newArr = listCategory.find(item => {
+      return item.slug == pathname.split("/")[2]
+    })
+    if(newArr?.types) {
+      filterData[1].menu = newArr.types.map(item => ({
+        value: item.slug,
+        label: item.name 
+      }))
+    }
+  }, [listCategory])
 
   const title = () => {
     const value = pathname.split("/")[2]
@@ -106,7 +110,7 @@ export default function Products() {
     return (
       <div className="hidden md:flex justify-between py-8 border-b px-36 lg:px-36 md:px-10">
         <div className="flex gap-20">
-          {filterData.slice(0, 3).map((item, index) => (
+          {filterData.slice(0, 2).map((item, index) => (
             <div
               className="flex gap-2 items-center cursor-pointer relative"
               key={index}
@@ -122,13 +126,13 @@ export default function Products() {
         </div>
         <div
           className="flex gap-2 items-center cursor-pointer relative"
-          onMouseEnter={() => setHoverFilter(filterData[3].title)}
+          onMouseEnter={() => setHoverFilter(filterData[2].title)}
           onMouseLeave={() => setHoverFilter("")}
         >
-          <span className="text-doveGray text-lg">{filterData[3].title}</span>
+          <span className="text-doveGray text-lg">{filterData[2].title}</span>
           <Image src={images.icons.ic_down} height={10} width={13} alt="" />
-          {hoverFilter === filterData[3].title &&
-            renderSubFilter(filterData[3] as filterType, "radio")}
+          {hoverFilter === filterData[2].title &&
+            renderSubFilter(filterData[2] as filterType, "radio")}
         </div>
       </div>
     )
@@ -146,7 +150,6 @@ export default function Products() {
     const clearFilter = () => {
       setFilterTags({
         range: [],
-        size: [],
         major: [],
       })
       setOpenFilter(false)
@@ -343,8 +346,8 @@ export default function Products() {
   const renderProduct = () => {
     return (
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-6 gap-2 mt-8">
-        {listProduct.length > 0 &&
-          listProduct.map((item: any, index: number) => (
+        {products.length > 0 &&
+          products.map((item: any, index: number) => (
             <div
               className="flex flex-col border md:rounded-lg rounded hover:ring-caption cursor-pointer ring-stroke ring-1"
               key={index}
@@ -399,13 +402,12 @@ export default function Products() {
   }
 
   const renderFilterTag = () => {
-    const mergeFilters = (range: string[], size: string[], major: string[]) => {
-      return [...range, ...size, ...major]
+    const mergeFilters = (range: string[], major: string[]) => {
+      return [...range, ...major]
     }
 
     const mergeArr = mergeFilters(
       filterTags.range,
-      filterTags.size,
       filterTags.major
     )
 

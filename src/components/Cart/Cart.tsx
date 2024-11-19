@@ -54,10 +54,20 @@ const Cart = ({
     return "0"
   }
 
-  const handleDeleteCart = (item: any) => {
-    console.log(item.id)
-    const newCart = cart.filter((it: any) => it.id != item.id)
+  const handleDeleteCart = (item: CartItem) => {
+    const newCart = cart.filter((it: CartItem) => it.skuId != item.skuId && it.mainId != item.mainId)
     setCartGlobal(newCart)
+    if (browserId && cartGlobal) {
+      const body = {
+        product: {
+          mainId: item.mainId,
+          skuId: item.skuId,
+        },
+        action: "remove",
+      }
+      
+      updateCart(browserId, body)
+    }
   }
 
     const setQuantity = (quantity: number, skuId: string, mainId: string, operation?: string) => {
