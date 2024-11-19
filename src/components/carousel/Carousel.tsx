@@ -6,29 +6,43 @@ import CarouselButton from "@/components/button/CarouselButton";
 import languages from "@/configs/languages";
 import { activeIndexState } from "@/recoil/atoms/activeIndexStateAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { carouselItemsState } from "@/recoil/hooks/useCarouselItems";
+import {
+  carouselItemsState,
+  useFetchCarouselItems,
+} from "@/recoil/hooks/useCarouselItems";
 import images from "@/configs/images";
 import { errorUrlsState } from "@/recoil/atoms/errorUrlsStateAtom";
 import { loadedState } from "@/recoil/atoms/loadedStateAtom";
 
 const Carousel = () => {
   const items = useRecoilValue(carouselItemsState);
+  const fetchCarouselItems = useFetchCarouselItems();
+
   const [activeIndex, setActiveIndex] = useRecoilState(activeIndexState);
 
   useEffect(() => {
+    console.warn("Carousel component rendered");
+    fetchCarouselItems; // Fetch dữ liệu khi component render lần đầu
+  }, [fetchCarouselItems]);
+
+  useEffect(() => {
+    if (items.length === 0) return; // Avoid setting an interval on empty items
+
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % items.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [items.length]);
+  }, [items.length, setActiveIndex]);
 
   const handlePrevious = () => {
-    setActiveIndex((activeIndex - 1 + items.length) % items.length);
+    setActiveIndex(
+      (prevIndex) => (prevIndex - 1 + items.length) % items.length
+    );
   };
 
   const handleNext = () => {
-    setActiveIndex((activeIndex + 1) % items.length);
+    setActiveIndex((prevIndex) => (prevIndex + 1) % items.length);
   };
 
   return (

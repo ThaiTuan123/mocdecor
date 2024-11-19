@@ -12,7 +12,7 @@ export const carouselItemsState = atom<CarouselItem[]>({
 // Custom hook để fetch dữ liệu và cập nhật atom
 export const useFetchCarouselItems = () => {
   const setCarouselItems = useSetRecoilState(carouselItemsState);
-
+  console.log("useFetchCarouselItems called");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,9 +31,4 @@ export const useFetchCarouselItems = () => {
 
     fetchData();
   }, [setCarouselItems]);
-};
-
-// Sử dụng trong component
-export const useCarouselItems = () => {
-  return useRecoilValue(carouselItemsState);
 };
