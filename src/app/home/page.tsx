@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect} from "react";
+import React, {Suspense, useEffect} from "react";
 import Image from 'next/image';
 import {cardServiceData, clientData, customerData, socialLinks} from "@/app/home/constant";
 import images from "@/configs/images";
@@ -439,7 +439,9 @@ const ServiceSection: React.FC = () => {
                         </div>
                         <div className='w-full lg:w-2/5 items-center justify-center flex'>
                             <div className="relative w-full ">
-                                <VideoYoutube videoId="t-QhaFw-zy8" height="0px"/>
+                                <Suspense fallback={<p>Loading video...</p>}>
+                                    <VideoYoutube videoId="t-QhaFw-zy8" height="0px"/>
+                                </Suspense>
                             </div>
                         </div>
                     </div>
@@ -448,7 +450,9 @@ const ServiceSection: React.FC = () => {
                     <div className='flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-start'>
                         <div className='w-full lg:w-2/5 items-center justify-center flex order-2 lg:order-none'>
                             <div className="relative w-full">
-                                <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
+                                <Suspense fallback={<p>Loading video...</p>}>
+                                    <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
+                                </Suspense>
                             </div>
                         </div>
                         <div className='flex-col flex justify-start items-start w-full order-1 md:order-2 lg:w-3/5'>

@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
-import { CarouselItem } from "@/components/carousel/types";
+import {CarouselItem} from "@/components/carousel/types";
 import CommonButton from "@/components/button/CustomButton";
 import CarouselButton from "@/components/button/CarouselButton";
 import languages from "@/configs/languages";
-import { activeIndexState } from "@/recoil/atoms/activeIndexStateAtom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  carouselItemsState,
-  useFetchCarouselItems,
-} from "@/recoil/hooks/useCarouselItems";
+import {activeIndexState} from "@/recoil/atoms/activeIndexStateAtom";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {carouselItemsState, isLoadingState, useFetchCarouselItems,} from "@/recoil/hooks/useCarouselItems";
 import images from "@/configs/images";
-import { errorUrlsState } from "@/recoil/atoms/errorUrlsStateAtom";
-import { loadedState } from "@/recoil/atoms/loadedStateAtom";
 
 const Carousel = () => {
   const items = useRecoilValue(carouselItemsState);
   const fetchCarouselItems = useFetchCarouselItems();
+  const isLoading = useRecoilValue(isLoadingState);
 
   const [activeIndex, setActiveIndex] = useRecoilState(activeIndexState);
 
@@ -46,47 +42,55 @@ const Carousel = () => {
   };
 
   return (
-    <div
-      id="indicators-carousel"
-      className="3xl:mx-auto 3xl:mx-container relative w-full"
-      data-carousel="static"
-    >
-      <CarouselWrapper items={items} activeIndex={activeIndex} />
-      <CarouselControls
-        handlePrevious={handlePrevious}
-        handleNext={handleNext}
-      />
-      <CarouselIndicators
-        items={items}
-        activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
-      />
-    </div>
+      <div
+          id="indicators-carousel"
+          className={`3xl:mx-auto 3xl:mx-container relative w-full ${
+              isLoading ? "animate-pulse" : ""
+          }`}
+          data-carousel="static"
+      >
+        {isLoading ? (
+            <p className="text-center text-gray-500">Loading...</p>
+        ) : (
+            <>
+              <CarouselWrapper items={items} activeIndex={activeIndex}/>
+              <CarouselControls
+                  handlePrevious={handlePrevious}
+                  handleNext={handleNext}
+              />
+              <CarouselIndicators
+                  items={items}
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+              />
+            </>
+        )}
+      </div>
   );
 };
 
 const CarouselWrapper = ({
-  items,
-  activeIndex,
-}: {
+                           items,
+                           activeIndex,
+                         }: {
   items: CarouselItem[];
   activeIndex: number;
 }) => {
   const [loaded, setLoaded] = useState<boolean[]>(
-    Array(items.length).fill(false)
+      Array(items.length).fill(false)
   );
 
   const fallbackImageUrl = images.bannerHomeError;
 
   return (
-    <div className="relative h-584 overflow-hidden md:h-background-height">
-      {items.map((item, index) => (
-        <div
-          key={item.id}
-          className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${
-            index === activeIndex ? "translate-x-0" : "translate-x-full"
-          }`}
-          style={{ transform: `translateX(${(index - activeIndex) * 100}%)` }}
+      <div className="relative h-584 overflow-hidden md:h-background-height">
+        {items.map((item, index) => (
+            <div
+                key={item.id}
+                className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${
+                    index === activeIndex ? "translate-x-0" : "translate-x-full"
+                }`}
+                style={{transform: `translateX(${(index - activeIndex) * 100}%)` }}
           data-carousel-item={index === activeIndex ? "active" : ""}
         >
           <Image
@@ -94,8 +98,9 @@ const CarouselWrapper = ({
             alt={item.title}
             fill={true}
             className={`block object-cover w-full h-full transition-all duration-500}`}
-            priority={index === activeIndex} // Load the active slide first
-            loading={index === activeIndex ? "eager" : "lazy"} // Lazy load others
+            // priority={index === activeIndex} // Load the active slide first
+            blurDataURL={fallbackImageUrl}
+            loading="lazy"
           />
         </div>
       ))}

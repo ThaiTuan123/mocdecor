@@ -3,14 +3,14 @@
 import React from "react";
 import images from "@/configs/images";
 import languages from "@/configs/languages";
-import Empty from "./Empty";
-import FooterDiscover from "@/components/footer/FooterDiscover";
 import Image from "next/image";
-import NotFoundGallery from "@/app/gallery/NotFound";
-import FoundGallery from "@/app/gallery/FoundGallery";
+import NotFoundGallery from "@/app/gallery/@Notfound/Pages";
+import FoundGallery from "@/app/gallery/@FoundGallery/Pages";
 import {useGallery} from "@/recoil/hooks/useGallery";
+import Empty from "@/app/gallery/@Empty/Pages";
 
-export default function Home() {
+export default function Page() {
+
     // Extract constants for reusable text values
     const heroIntroText = languages.get("gallery.hero.intro.text");
     const heroUploadText = languages.get("gallery.hero.upload.text");
@@ -87,7 +87,6 @@ export default function Home() {
         <div>
             {renderHero()}
             {renderGallery()}
-            {FooterDiscover()}
         </div>
     );
 }
