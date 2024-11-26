@@ -98,10 +98,9 @@ const CarouselWrapper = ({
             alt={item.title}
             fill={true}
             className={`block object-cover w-full h-full transition-all duration-500}`}
-            // priority={index === activeIndex} // Load the active slide first
+            priority={index === activeIndex} // Load the active slide first
             blurDataURL={fallbackImageUrl}
             loading="eager" // Ưu tiên tải ngay ảnh LCP
-            priority={true} // Đặt ảnh này là ưu tiên
           />
         </div>
       ))}
