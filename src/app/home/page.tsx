@@ -22,7 +22,6 @@ import languages from "@/configs/languages";
 import TabFrame from "@/components/tab/TabFrame";
 import TabPrint from "@/components/tab/TabPrint";
 import Heading3 from "@/components/texts/Heading3";
-import VideoYoutube from "@/components/video/VideoYoutube";
 import MobileArrowButton from "@/components/button/MobileArrowButton";
 import CategoryCard from "@/components/card/CategoryCard";
 import {useRecoilState, useRecoilValue} from "recoil";
@@ -408,79 +407,113 @@ const FeedbackSection: React.FC = () => {
 }
 
 const ServiceSection: React.FC = () => {
-    return (
-        /*bg-image-service-home*/
-        <section className='bg-image-service-home bg-cover md:bg-fixed bg-no-repeat '>
-            {/* Main content */}
-            <div className='pt-8 md:pt-28 px-6 md:px-6 lg:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container'>
-                <div className='gap-y-12 flex flex-col'>
-                    {/* Content for Hiếu */}
-                    <div className='flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-center'>
-                        <div className='flex-col flex justify-start items-start w-full lg:w-3/5'>
-                            <TitleText
-                                firstText={languages.get('home.title.firstText.service')}
-                                secondText={languages.get('home.title.secondText.service')}
-                                textColor='text-white'
-                                bgColor='bg-white'
-                                itemsCenter={true}
-                            />
-                            <Heading2
-                                className='mt-3 !mb-0'
-                                text={languages.get('home.title.header2.service')}
-                                textColor={"text-white"}
-                                align={"left"}
-                            />
-                            <TextContent
-                                className='!mb-2 !mt-6 md:mt-8 md:mb-8'
-                                textColor={'text-white'}
-                                text={languages.get('home.title.textContentHieu.service')}
-                            />
-                            <h4 className='text-white font-semibold font-raleway'> {languages.get('home.title.header4Hieu.service')} </h4>
-                        </div>
-                        <div className='w-full lg:w-2/5 items-center justify-center flex'>
-                            <div className="relative w-full ">
-                                <Suspense fallback={<p>Loading video...</p>}>
-                                    <VideoYoutube videoId="t-QhaFw-zy8" height="0px"/>
-                                </Suspense>
-                            </div>
-                        </div>
-                    </div>
-                    <Line height={"h-px"}/>
-                    {/* Content for Phú */}
-                    <div className='flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-start'>
-                        <div className='w-full lg:w-2/5 items-center justify-center flex order-2 lg:order-none'>
-                            <div className="relative w-full">
-                                <Suspense fallback={<p>Loading video...</p>}>
-                                    <VideoYoutube videoId="tSmyaP5QfeM" height="0px"/>
-                                </Suspense>
-                            </div>
-                        </div>
-                        <div className='flex-col flex justify-start items-start w-full order-1 md:order-2 lg:w-3/5'>
-                            <Heading2
-                                text={languages.get('home.title.header2Phu.service')}
-                                textColor={"text-white"}
-                                align={"left"}
-                                className='!mb-3 md:mb-8'
-                            />
-                            <TextContent
-                                textColor={'text-white'}
-                                text={languages.get('home.title.textContentPhu.service')}
-                            />
-                            <h4 className='text-white font-semibold font-raleway'> {languages.get('home.title.header4Phu.service')} </h4>
-                        </div>
-                    </div>
-                </div>
+  return (
+    /*bg-image-service-home*/
+    <section className="bg-image-service-home bg-cover md:bg-fixed bg-no-repeat ">
+      {/* Main content */}
+      <div className="pt-8 md:pt-28 px-6 md:px-6 lg:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container">
+        <div className="gap-y-12 flex flex-col">
+          {/* Content for Hiếu */}
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-center">
+            <div className="flex-col flex justify-start items-start w-full lg:w-3/5">
+              <TitleText
+                firstText={languages.get("home.title.firstText.service")}
+                secondText={languages.get("home.title.secondText.service")}
+                textColor="text-white"
+                bgColor="bg-white"
+                itemsCenter={true}
+              />
+              <Heading2
+                className="mt-3 !mb-0"
+                text={languages.get("home.title.header2.service")}
+                textColor={"text-white"}
+                align={"left"}
+              />
+              <TextContent
+                className="!mb-2 !mt-6 md:mt-8 md:mb-8"
+                textColor={"text-white"}
+                text={languages.get("home.title.textContentHieu.service")}
+              />
+              <h4 className="text-white font-semibold font-raleway">
+                {" "}
+                {languages.get("home.title.header4Hieu.service")}{" "}
+              </h4>
             </div>
-            {/* Services offered */}
-            <div
-                className='pb-16 pt-6 md:pb-0 flex-row md:flex-row justify-between md:h-64 h-584 opacity-80 2xl:mx-auto 2xl:container grid grid-cols-2 md:flex'>
-                {cardServiceData.map((card, index) => (
-                    <ServiceCard key={index} icon={card.icon} title={card.title} description={card.description}/>
-                ))}
+            <div className="w-full lg:w-2/5 items-center justify-center flex">
+              <div className="relative w-full ">
+                <Suspense fallback={<p>Loading video...</p>}>
+                  <div
+                    className="relative w-full"
+                    style={{
+                      height: 0,
+                      position: "relative",
+                      paddingBottom: "56.25%",
+                    }}
+                  >
+                    <video preload="none" autoPlay loop muted>
+                      <source src="/assets/videos/1.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </Suspense>
+              </div>
             </div>
-        </section>
-    );
-}
+          </div>
+          <Line height={"h-px"} />
+          {/* Content for Phú */}
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-start">
+            <div className="w-full lg:w-2/5 items-center justify-center flex order-2 lg:order-none">
+              <div className="relative w-full">
+                <Suspense fallback={<p>Loading video...</p>}>
+                  <div
+                    className="relative w-full"
+                    style={{
+                      height: 0,
+                      position: "relative",
+                      paddingBottom: "56.25%",
+                    }}
+                  >
+                    <video preload="none" autoPlay loop muted>
+                      <source src="/assets/videos/2.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </Suspense>
+              </div>
+            </div>
+            <div className="flex-col flex justify-start items-start w-full order-1 md:order-2 lg:w-3/5">
+              <Heading2
+                text={languages.get("home.title.header2Phu.service")}
+                textColor={"text-white"}
+                align={"left"}
+                className="!mb-3 md:mb-8"
+              />
+              <TextContent
+                textColor={"text-white"}
+                text={languages.get("home.title.textContentPhu.service")}
+              />
+              <h4 className="text-white font-semibold font-raleway">
+                {" "}
+                {languages.get("home.title.header4Phu.service")}{" "}
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Services offered */}
+      <div className="pb-16 pt-6 md:pb-0 flex-row md:flex-row justify-between md:h-64 h-584 opacity-80 2xl:mx-auto 2xl:container grid grid-cols-2 md:flex">
+        {cardServiceData.map((card, index) => (
+          <ServiceCard
+            key={index}
+            icon={card.icon}
+            title={card.title}
+            description={card.description}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
 
 // Main section containing both scrolling components
 const CoopClientsSection: React.FC = () => {
