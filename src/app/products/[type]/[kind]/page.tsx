@@ -345,7 +345,7 @@ export default function Products() {
 
   const renderProduct = () => {
     return (
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-6 gap-2 mt-8">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-6 gap-2 mt-8 min-h-52">
         {products.length > 0 &&
           products.map((item: any, index: number) => (
             <div
