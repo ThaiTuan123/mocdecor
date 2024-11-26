@@ -1,17 +1,18 @@
 import React from "react";
 import FooterDiscover from "@/components/footer/FooterDiscover";
 
-export default function Layout({
-                                   children,
+interface LayoutProps {
+    children: React.ReactNode;
+    Empty?: React.ComponentType;
+    FoundGallery?: React.ComponentType;
+    Notfound?: React.ComponentType;
+}
 
-                               }: {
-    children: React.ReactNode
-
-}) {
+export default function Layout({ children }: LayoutProps) {
     return (
         <>
             {children}
             {FooterDiscover()}
         </>
-    )
+    );
 }
