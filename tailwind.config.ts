@@ -10,7 +10,7 @@ const config: Config = {
     theme: {
         extend: {
             backgroundImage: {
-                'image-footer': "url('/assets/imgs/pictures/image-footer.png')",
+                'image-footer': "url('/assets/imgs/pictures/image-footer.webp')",
                 'image-footer-policy': "url('/assets/imgs/backgrounds/footer-policy.webp')",
                 'image-hero-policy': "url('/assets/imgs/backgrounds/hero-policy.webp')",
                 'image-hero-contact': "url('/assets/imgs/backgrounds/hero-contact.webp')",
@@ -26,9 +26,9 @@ const config: Config = {
                 'image-gift-home-mobile': "url('/assets/imgs/backgrounds/bg-gift-home-mobile.webp')",
 
                 //-- mobile background
-                'image-home-background-print-mobile': "url('/assets/imgs/backgrounds/bg-print-home-mobile.png')",
-                'image-home-background-frame-mobile': "url('/assets/imgs/backgrounds/bg-frame-home-mobile.png')",
-                'image-home-background-album-mobile': "url('/assets/imgs/backgrounds/bg-album-home-mobile.png')",
+                'image-home-background-print-mobile': "url('/assets/imgs/backgrounds/bg-print-home-mobile.webp')",
+                'image-home-background-frame-mobile': "url('/assets/imgs/backgrounds/bg-frame-home-mobile.webp')",
+                'image-home-background-album-mobile': "url('/assets/imgs/backgrounds/bg-album-home-mobile.webp')",
 
                 'image-bracelet-home': "url('/assets/imgs/backgrounds/bracelet-home.webp')",
                 'image-calendar-home': "url('/assets/imgs/backgrounds/calendar-home.webp')",
@@ -37,7 +37,7 @@ const config: Config = {
 
                 'image-vong-tay-home-mobile': "url('/assets/imgs/backgrounds/bg-vong-tay-mobile-1.webp')",
                 'image-lich-go-mobile': "url('/assets/imgs/backgrounds/bg-lich-go-mobile-1.webp')",
-                'image-story-home-1': "url('/assets/imgs/backgrounds/story-home-1.png')",
+                'image-story-home-1': "url('/assets/imgs/backgrounds/story-home-1.webp')",
                 'image-product-story': "url('/assets/imgs/backgrounds/bg-product-story.webp')",
 
                 //// frame
