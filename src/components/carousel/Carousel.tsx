@@ -29,7 +29,7 @@ const Carousel = () => {
   }, [fetchCarouselItems]);
 
   useEffect(() => {
-    if (items.length === 0) return; // Avoid setting an interval on empty items
+    if (items.length === 0) return;
 
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => {
@@ -54,20 +54,16 @@ const Carousel = () => {
   return (
     <div
       id="indicators-carousel"
-      className={`3xl:mx-auto 3xl:mx-container relative w-full ${
-        isLoading ? "animate-pulse" : ""
-      }`}
+      className={`3xl:mx-auto 3xl:mx-container relative w-full`}
       data-carousel="static"
     >
-      {/* {isLoading ? (
-        <p className="text-center text-gray-500">Loading...</p>
-      ) : ( */}
       <>
         <CarouselWrapper
           items={items}
           activeIndex={activeIndex}
           loaded={loaded}
           setLoaded={setLoaded}
+          isLoading={isLoading}
         />
         <CarouselControls
           handlePrevious={handlePrevious}
@@ -79,7 +75,6 @@ const Carousel = () => {
           setActiveIndex={setActiveIndex}
         />
       </>
-      {/* )} */}
     </div>
   );
 };
@@ -89,48 +84,54 @@ const CarouselWrapper = ({
   activeIndex,
   loaded,
   setLoaded,
+  isLoading,
 }: {
   items: CarouselItem[];
   activeIndex: number;
   loaded: boolean[];
   setLoaded: React.Dispatch<React.SetStateAction<boolean[]>>;
+  isLoading: boolean;
 }) => {
   const fallbackImageUrl = images.bannerHomeError;
 
-  const isVisible = (index: number) =>
-    Math.abs(index - activeIndex) <= 1 || // Render ảnh kế cận
-    (activeIndex === 0 && index === items.length - 1) || // Slide cuối
-    (activeIndex === items.length - 1 && index === 0); // Slide đầu
-
   return (
     <div className="relative h-584 overflow-hidden md:h-background-height">
-      {items.map((item, index) =>
-        isVisible(index) ? ( // Render ảnh chỉ khi cần
-          <div
-            key={item.id}
-            className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${
-              index === activeIndex ? "translate-x-0" : "translate-x-full"
-            }`}
-            style={{ transform: `translateX(${(index - activeIndex) * 100}%)` }}
-            data-carousel-item={index === activeIndex ? "active" : ""}
-          >
-            <Image
-              src={item.imageUrl}
-              alt={item.title}
-              fill={true}
-              className="block object-cover w-full h-full transition-opacity duration-500"
-              blurDataURL={fallbackImageUrl}
-              loading="lazy"
-              onLoadingComplete={() => {
-                const updatedLoaded = [...loaded];
-                updatedLoaded[index] = true;
-                setLoaded(updatedLoaded);
-              }}
-              placeholder="blur"
-            />
-          </div>
-        ) : null
+      {isLoading && (
+        <Image
+          src={fallbackImageUrl}
+          alt="Loading"
+          fill={true}
+          className="absolute inset-0 block object-cover w-full h-full blur-md"
+          priority
+        />
       )}
+      {items.map((item, index) => (
+        <div
+          key={item.id}
+          className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${
+            index === activeIndex ? "translate-x-0" : "translate-x-full"
+          }`}
+          style={{ transform: `translateX(${(index - activeIndex) * 100}%)` }}
+          data-carousel-item={index === activeIndex ? "active" : ""}
+        >
+          <Image
+            src={item.imageUrl}
+            alt={item.title}
+            fill={true}
+            className={`block object-cover w-full h-full transition-opacity duration-500 ${
+              !loaded[index] ? "blur-md" : "blur-0"
+            }`}
+            blurDataURL={fallbackImageUrl}
+            loading="lazy"
+            placeholder="blur"
+            onLoadingComplete={() => {
+              const updatedLoaded = [...loaded];
+              updatedLoaded[index] = true;
+              setLoaded(updatedLoaded);
+            }}
+          />
+        </div>
+      ))}
     </div>
   );
 };
@@ -183,4 +184,5 @@ const CarouselControls = ({
     <CarouselButton type="next" handleClick={handleNext} />
   </>
 );
+
 export default Carousel;
