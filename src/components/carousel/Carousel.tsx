@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import {CarouselItem} from "@/components/carousel/types";
+import { CarouselItem } from "@/components/carousel/types";
 import CommonButton from "@/components/button/CustomButton";
 import CarouselButton from "@/components/button/CarouselButton";
 import languages from "@/configs/languages";
-import {activeIndexState} from "@/recoil/atoms/activeIndexStateAtom";
-import {useRecoilState, useRecoilValue} from "recoil";
-import {carouselItemsState, isLoadingState, useFetchCarouselItems,} from "@/recoil/hooks/useCarouselItems";
+import { activeIndexState } from "@/recoil/atoms/activeIndexStateAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  carouselItemsState,
+  isLoadingState,
+  useFetchCarouselItems,
+} from "@/recoil/hooks/useCarouselItems";
 import images from "@/configs/images";
 
 const Carousel = () => {
@@ -15,6 +19,9 @@ const Carousel = () => {
   const isLoading = useRecoilValue(isLoadingState);
 
   const [activeIndex, setActiveIndex] = useRecoilState(activeIndexState);
+  const [loaded, setLoaded] = useState<boolean[]>(
+    Array(items.length).fill(false)
+  );
 
   useEffect(() => {
     console.warn("Carousel component rendered");
@@ -22,14 +29,17 @@ const Carousel = () => {
   }, [fetchCarouselItems]);
 
   useEffect(() => {
-    if (items.length === 0) return; // Avoid setting an interval on empty items
+    if (items.length === 0) return;
 
     const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % items.length);
+      setActiveIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % items.length;
+        return loaded[nextIndex] ? nextIndex : prevIndex; // Chuyển slide nếu đã load xong
+      });
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [items.length, setActiveIndex]);
+  }, [items, loaded, setActiveIndex]);
 
   const handlePrevious = () => {
     setActiveIndex(
@@ -42,65 +52,83 @@ const Carousel = () => {
   };
 
   return (
-      <div
-          id="indicators-carousel"
-          className={`3xl:mx-auto 3xl:mx-container relative w-full ${
-              isLoading ? "animate-pulse" : ""
-          }`}
-          data-carousel="static"
-      >
-        {isLoading ? (
-            <p className="text-center text-gray-500">Loading...</p>
-        ) : (
-            <>
-              <CarouselWrapper items={items} activeIndex={activeIndex}/>
-              <CarouselControls
-                  handlePrevious={handlePrevious}
-                  handleNext={handleNext}
-              />
-              <CarouselIndicators
-                  items={items}
-                  activeIndex={activeIndex}
-                  setActiveIndex={setActiveIndex}
-              />
-            </>
-        )}
-      </div>
+    <div
+      id="indicators-carousel"
+      className={`3xl:mx-auto 3xl:mx-container relative w-full`}
+      data-carousel="static"
+    >
+      <>
+        <CarouselWrapper
+          items={items}
+          activeIndex={activeIndex}
+          loaded={loaded}
+          setLoaded={setLoaded}
+          isLoading={isLoading}
+        />
+        <CarouselControls
+          handlePrevious={handlePrevious}
+          handleNext={handleNext}
+        />
+        <CarouselIndicators
+          items={items}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+        />
+      </>
+    </div>
   );
 };
 
 const CarouselWrapper = ({
-                           items,
-                           activeIndex,
-                         }: {
+  items,
+  activeIndex,
+  loaded,
+  setLoaded,
+  isLoading,
+}: {
   items: CarouselItem[];
   activeIndex: number;
+  loaded: boolean[];
+  setLoaded: React.Dispatch<React.SetStateAction<boolean[]>>;
+  isLoading: boolean;
 }) => {
-  const [loaded, setLoaded] = useState<boolean[]>(
-      Array(items.length).fill(false)
-  );
-
   const fallbackImageUrl = images.bannerHomeError;
 
   return (
-      <div className="relative h-584 overflow-hidden md:h-background-height">
-        {items.map((item, index) => (
-            <div
-                key={item.id}
-                className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${
-                    index === activeIndex ? "translate-x-0" : "translate-x-full"
-                }`}
-                style={{transform: `translateX(${(index - activeIndex) * 100}%)` }}
+    <div className="relative h-584 overflow-hidden md:h-background-height">
+      {isLoading && (
+        <Image
+          src={fallbackImageUrl}
+          alt="Loading"
+          fill={true}
+          className="absolute inset-0 block object-cover w-full h-full blur-md"
+          priority
+        />
+      )}
+      {items.map((item, index) => (
+        <div
+          key={item.id}
+          className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${
+            index === activeIndex ? "translate-x-0" : "translate-x-full"
+          }`}
+          style={{ transform: `translateX(${(index - activeIndex) * 100}%)` }}
           data-carousel-item={index === activeIndex ? "active" : ""}
         >
           <Image
             src={item.imageUrl}
             alt={item.title}
             fill={true}
-            className={`block object-cover w-full h-full transition-all duration-500}`}
-            priority={index === activeIndex} // Load the active slide first
+            className={`block object-cover w-full h-full transition-opacity duration-500 ${
+              !loaded[index] ? "blur-md" : "blur-0"
+            }`}
             blurDataURL={fallbackImageUrl}
-            loading="eager" // Ưu tiên tải ngay ảnh LCP
+            loading="lazy"
+            placeholder="blur"
+            onLoadingComplete={() => {
+              const updatedLoaded = [...loaded];
+              updatedLoaded[index] = true;
+              setLoaded(updatedLoaded);
+            }}
           />
         </div>
       ))}
@@ -156,4 +184,5 @@ const CarouselControls = ({
     <CarouselButton type="next" handleClick={handleNext} />
   </>
 );
+
 export default Carousel;
