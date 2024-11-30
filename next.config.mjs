@@ -27,6 +27,10 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'p16-oec-va.ibyteimg.com',
               },
+            {
+                protocol: 'https',
+                hostname: 'via.placeholder.com',
+            },
         ],
     },
 };
