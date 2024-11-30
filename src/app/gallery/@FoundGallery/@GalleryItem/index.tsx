@@ -18,6 +18,7 @@ export default function GalleryItem() {
         }
     };
 
+    /*TODO check handle File >5*/
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -83,12 +84,13 @@ export default function GalleryItem() {
                     </div>
                 </div>
 
-                {/* Hidden File Input */}
+                {/*TODO Hidden File Input */}
                 <input
                     type="file"
                     accept="image/*"
                     ref={fileInputRef}
                     className="hidden"
+                    multiple
                     onChange={handleFileChange}
                 />
 
