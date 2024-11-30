@@ -6,9 +6,9 @@ export interface MenuType {
   enName: string;
   description: string;
   image: string;
-  types: {
+  subCategories: {
     _id: string;
-    name: string;
+    text: string;
     description: string;
     image: string;
     slug: string;
@@ -20,7 +20,7 @@ export interface MenuType {
 
 export interface MenuOthersType {
   _id: string;
-  name: string;
+  text: string;
   description: string;
   image: string;
   slug: string;
@@ -28,6 +28,6 @@ export interface MenuOthersType {
 }
 
 export interface FetchMenuResponse {
-  menu: MenuType[];
+  types: MenuType[];
   otherType: MenuOthersType[];
 }

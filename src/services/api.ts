@@ -50,7 +50,7 @@ export const fetchCategories = async (
 
 // Fetch menu
 export const fetchMenu = async () => {
-  const url = `${API.PRODUCT_CATEGORIES}/menu`;
+  const url = `${API.MENU}`;
   return apiRequest(url);
 };
 
