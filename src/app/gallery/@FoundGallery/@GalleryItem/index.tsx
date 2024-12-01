@@ -20,17 +20,27 @@ export default function GalleryItem() {
 
     /*TODO check handle File >5*/
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
+        const files = event.target.files;
+
+        // Kiểm tra nếu không có file nào được chọn
+        if (!files || files.length === 0) return;
+
+        // Kiểm tra nếu số lượng file vượt quá giới hạn
+        if (files.length > 5) {
+            alert('Bạn chỉ được tải lên tối đa 5 hình cùng một lúc.');
+            return;
+        }
+
+        // Xử lý file nếu số lượng hợp lệ
+        Array.from(files).forEach((file) => {
             const reader = new FileReader();
             reader.onload = () => {
-                // Add the selected image to the gallery
                 if (reader.result) {
                     handleAddImage(reader.result as string);
                 }
             };
             reader.readAsDataURL(file);
-        }
+        });
     };
 
     return (
