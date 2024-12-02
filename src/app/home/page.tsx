@@ -1,10 +1,15 @@
 "use client";
 
-import React, {Suspense, useEffect} from "react";
-import Image from 'next/image';
-import {cardServiceData, clientData, customerData, socialLinks} from "@/app/home/constant";
+import React, { Suspense, useEffect } from "react";
+import Image from "next/image";
+import {
+  cardServiceData,
+  clientData,
+  customerData,
+  socialLinks,
+} from "@/app/home/constant";
 import images from "@/configs/images";
-import {motion} from 'framer-motion';
+import { motion } from "framer-motion";
 import BackgroundSection from "@/components/banners/BackgroundSection";
 import IconSocialLink from "@/components/icons/IconSocialLink";
 import RightArrowButton from "@/components/button/RightArrowButton";
@@ -24,74 +29,31 @@ import TabPrint from "@/components/tab/TabPrint";
 import Heading3 from "@/components/texts/Heading3";
 import MobileArrowButton from "@/components/button/MobileArrowButton";
 import CategoryCard from "@/components/card/CategoryCard";
-import {useRecoilState, useRecoilValue} from "recoil";
-import {categoryErrorState} from "@/recoil/atoms/categoryErrorAtom";
-import {categoriesState} from "@/recoil/atoms/categoriesAtom";
-import useListCategory from "@/recoil/hooks/useListCategory";
 import Carousel from "@/components/carousel/Carousel";
+import useMenu from "@/recoil/hooks/useMenu";
 
 const CategorySection = () => {
-    const {listCategory} = useListCategory();
-    const [category, setCategory] = useRecoilState(categoriesState)
-    const error = useRecoilValue(categoryErrorState);
+  const { menu } = useMenu();
 
-    useEffect(() => {
-        const categoryArr = listCategory.map(item => {
-            return {
-                name: item.name,
-                image: item.image,
-                enName: item.enName,
-                slug: item.slug
-            }
-        })
-        console.log(categoryArr)
-    }, [listCategory])
-
-    if (error) {
-        console.error('Error fetching categories:', error);
-        return <section id='category' className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto">
-            <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
-                {languages.get('home.subTitle.category')}
-            </h2>
-            <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
-                {languages.get('home.title.category')}
-            </h2>
-
-            {/*TODO CategoryCard error*/}
-            <div
-                className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center lg:justify-between xl:justify-center">
-                <div className="text-center w-full px-6">
-                    <Image
-                        src={images.image404} // Show fallback image for error
-                        alt="Error loading categories"
-                        width={474}
-                        height={382}
-                        className="mx-auto rounded h-150 md:h-252 lg:h-379 object-cover lg:object-fill"
-                    />
-                    <p className="text-lg text-red-600 mt-4">
-                        Rất tiếc! Có lỗi xảy ra khi tải danh mục. Vui lòng thử lại sau.
-                    </p>
-                </div>
-            </div>
-        </section>;
-    }
-
-    return (
-        <section id='category' className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto">
-            <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
-                {languages.get('home.subTitle.category')}
-            </h2>
-            <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
-                {languages.get('home.title.category')}
-            </h2>
-            <div
-                className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center lg:justify-between xl:justify-center">
-                {category && category.map((category, index) => (
-                    <CategoryCard key={index} category={category} index={index}/>
-                ))}
-            </div>
-        </section>
-    );
+  return (
+    <section
+      id="category"
+      className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto"
+    >
+      <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
+        {languages.get("home.subTitle.category")}
+      </h2>
+      <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
+        {languages.get("home.title.category")}
+      </h2>
+      <div className="flex flex-col md:flex-row gap-0 md:gap-2 content-center items-center justify-center lg:justify-between xl:justify-center">
+        {menu?.types?.length > 0 &&
+          menu?.types?.map((category, index) => (
+            <CategoryCard key={index} category={category} index={index} />
+          ))}
+      </div>
+    </section>
+  );
 };
 
 const HeaderSectionAbout = () => (

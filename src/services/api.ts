@@ -50,7 +50,7 @@ export const fetchCategories = async (
 
 // Fetch menu
 export const fetchMenu = async () => {
-  const url = `${API.PRODUCT_CATEGORIES}/menu`;
+  const url = `${API.MENU}`;
   return apiRequest(url);
 };
 
@@ -87,9 +87,15 @@ export const fetchProductCategories = async (
   return apiRequest(url);
 };
 
+// Fetch product types by category
+export const fetchProductTypeByCategory = async (slug: string) => {
+  const url = `${API.PRODUCT_TYPES_BY_CATEGORIES}${slug}`;
+  return apiRequest(url);
+};
+
 //products
-export const fetchListProducts = async (categorySlug: string, slug: string) => {
-  const url = `${API.LIST_PRODUCT}/category/${categorySlug}/type/${slug}`;
+export const fetchListProducts = async (categorySlug: string) => {
+  const url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=20&page=1&orderBy=_id&sort=desc`;
   return apiRequest(url);
 };
 

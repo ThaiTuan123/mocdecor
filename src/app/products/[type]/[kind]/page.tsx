@@ -12,8 +12,7 @@ import "./style.css"
 import CustomButton from "../../../../components/button/CustomButton"
 import ProductPopup from "@/components/popup/ProductPopup"
 import useListProducts from "@/recoil/hooks/useListProducts"
-import useListCategory from "@/recoil/hooks/useListCategory"
-
+import useCategoryDetail from "@/recoil/hooks/useCategoryDetail"
 
 interface filtersCheckboxType {
   range: string[]
@@ -33,56 +32,28 @@ export default function Products() {
   const [filterRadio, setFilterRadio] = useState("")
   const [hoverFilter, setHoverFilter] = useState("")
   const pathname = usePathname()
-  const { listCategory } = useListCategory()
+  const { cateDetail } = useCategoryDetail(pathname.split("/")[2])
   const [openFilter, setOpenFilter] = useState(false)
   const [collapseActive, setCollapseActive] = useState<string | string[]>([])
   const [selectedProduct, setSelectedProduct] = useState<any>(null)
-  const { listProduct = [] } = useListProducts(
-    pathname.split("/")[2],
-    pathname.split("/")[3]
-  )
+  const { listProduct = [] } = useListProducts(pathname.split("/")[2])
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    if(listProduct) {
-      setProducts(listProduct)
+    if (listProduct) {
+      setProducts(listProduct.products)
     }
   }, [listProduct])
 
   useEffect(() => {
-    const newArr = listCategory.find(item => {
-      return item.slug == pathname.split("/")[2]
-    })
-    if(newArr?.types) {
-      filterData[1].menu = newArr.types.map(item => ({
-        value: item.slug,
-        label: item.name 
+    if (cateDetail?.subCategories) {
+      const updatedMenu = cateDetail.subCategories.map((item) => ({
+        value: item.slug || "",
+        label: item.text || "",
       }))
+      filterData[1].menu = updatedMenu
     }
-  }, [listCategory])
-
-  const title = () => {
-    const value = pathname.split("/")[2]
-    let title = ""
-    switch (value) {
-      case "Khung-anh":
-        title = languages.get("product.hero.title.frame")
-        break
-      case "anh-in":
-        title = languages.get("product.hero.title.print")
-        break
-      case "album-anh":
-        title = languages.get("product.hero.title.album")
-        break
-      // case "other":
-      //   title = languages.get("product.hero.title.other")
-      //   break
-      default:
-        title = languages.get("product.hero.title.frame")
-        break
-    }
-    return title
-  }
+  }, [JSON.stringify(cateDetail?.subCategories)])
 
   const renderHero = () => {
     return (
@@ -96,7 +67,7 @@ export default function Products() {
             <span>{languages.get("product.hero.product")}</span>
           </div>
           <h1 className="uppercase font-playfairBold text-2xl md:text-6lg text-center">
-            {title()}
+            {cateDetail?.name?.toUpperCase()}
           </h1>
           <span className="font-playfairRegular text-sm md:text-2lg text-center">
             {languages.get("product.hero.desc")}
@@ -346,7 +317,7 @@ export default function Products() {
   const renderProduct = () => {
     return (
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-6 gap-2 mt-8 min-h-52">
-        {products.length > 0 &&
+        {products?.length > 0 &&
           products.map((item: any, index: number) => (
             <div
               className="flex flex-col border md:rounded-lg rounded hover:ring-caption cursor-pointer ring-stroke ring-1"
@@ -355,19 +326,19 @@ export default function Products() {
             >
               <img
                 className="w-full h-28 md:h-64 object-contain"
-                src={item.mainImage}
+                src={item.images[0]}
                 alt=""
               />
               <div className="flex flex-col gap-2 p-4">
                 <h3 className="text-karaka md:text-2lg text-lg font-semibold overflow-hidden whitespace-nowrap text-ellipsis">
-                  {item.title}
+                  {item.product.name}
                 </h3>
                 <div className="flex items-center gap-2">
                   {renderStar(4)}
                   <span className="text-sm text-doveGray">(699)</span>
                 </div>
                 <span className="text-2lg text-caption">
-                  {formatVietnameseCurrency(getPriceProduct(item))}
+                  {formatVietnameseCurrency(item.retail_price)}
                 </span>
               </div>
             </div>

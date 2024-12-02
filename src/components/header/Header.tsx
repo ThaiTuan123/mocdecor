@@ -28,16 +28,10 @@ const Header = () => {
   const [subNavMobile, setSubNavMobile] = useState(false)
 
   useEffect(() => {
-    const id = getOrCreateBrowserId()
-    setBrowserId(id)
-    console.log("Current Browser ID:", id)
-  }, [])
-
-  useEffect(() => {
-    if (menu) {
-      console.log('menu')
-    }
-  }, [menu])
+    const id = getOrCreateBrowserId();
+    setBrowserId(id);
+    console.log("Current Browser ID:", id);
+  }, []);
 
   const getCountCart = () => {
     if(cartGlobal) {
@@ -70,17 +64,17 @@ const Header = () => {
         onMouseLeave={() => setHoveredLabelKey("")}
       >
         <div className="flex flex-row gap-6">
-          {menu?.menu?.length > 0 &&
-            menu?.menu?.map((item, index) => (
-              <div key={index} className="flex flex-col min-w-44">
-                <span className="text-gray-100 text-1.25lg">
-                  {languages.get("navbar.sub.view.title")}
-                </span>
-                <h2 className="text-2.25lg text-primary mb-8 mt-1">
-                  {item.name}
-                </h2>
-                <div className="flex flex-col gap-4 cursor-pointer">
-                  {item.types.map((subItem, subIndex) => {
+          {menu?.types?.map((item, index) => (
+            <div key={index} className="flex flex-col min-w-44">
+              <span className="text-gray-100 text-1.25lg">
+                {languages.get("navbar.sub.view.title")}
+              </span>
+              <h2 className="text-2.25lg text-primary mb-8 mt-1">
+                {item.name.toUpperCase()}
+              </h2>
+              <div className="flex flex-col gap-4 cursor-pointer">
+                {item.subCategories?.length > 0 &&
+                  item.subCategories.slice(0, 7).map((subItem, subIndex) => {
                     return (
                       // TODO add line when hover
                       <Link
@@ -89,15 +83,34 @@ const Header = () => {
                         href={`/products/${item.slug}/${subItem.slug}`}
                         onClick={() => setHoveredLabelKey("")}
                       >
-                        {subItem.name}
+                        {subItem.text}
                       </Link>
-                    )
+                    );
                   })}
-                </div>
               </div>
-            ))}
-          {menu?.menu?.length === 3 && (
-              <div key="4" className="flex flex-col min-w-44">
+              {item.subCategories?.length > 7 && (
+                <>
+                  <div className="flex gap-3 items-center mt-4 cursor-pointer">
+                    <span className="text-karaka text-lg">
+                      {languages.get("navbar.sub.view.read.more")}
+                    </span>
+                    <img
+                      src={images.icons.ic_arrow_right}
+                      alt=""
+                      className="w-4 object-contain"
+                    />
+                  </div>
+                  <img
+                    src={images.heroSubNav}
+                    alt=""
+                    className="absolute right-0 top-0 h-451"
+                  />
+                </>
+              )}
+            </div>
+          ))}
+          {menu?.types?.length === 3 && (
+            <div key="4" className="flex flex-col min-w-44">
               <span className="text-gray-100 text-1.25lg">
                 {languages.get("navbar.sub.view.title")}
               </span>
@@ -105,27 +118,44 @@ const Header = () => {
                 {languages.get("navbar.sub.view.otherProductTypes")}
               </h2>
               <div className="flex flex-col gap-4 cursor-pointer">
-                {
-                  menu?.otherType?.map((subItem, subIndex) => {
-                    return (
-                      // TODO add line when hover
-                      <Link
-                        key={subIndex}
-                        className={`relative text-doveGray text-lg md:hover:text-karaka`}
-                        href={`/products/${subItem.parentSlug}/${subItem.slug}`}
-                        onClick={() => {
-                          setMenuOpen(false)
-                          setSubNavMobile(false)
-                        }}
-                      >
-                        {subItem.name}
-                      </Link>
-                    )
-                  })
-                }
+                {menu?.otherType?.slice(0, 7).map((subItem, subIndex) => {
+                  return (
+                    // TODO add line when hover
+                    <Link
+                      key={subIndex}
+                      className={`relative text-doveGray text-lg md:hover:text-karaka`}
+                      href={`/products/${subItem.parentSlug}/${subItem.slug}`}
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setSubNavMobile(false);
+                      }}
+                    >
+                      {subItem.text}
+                    </Link>
+                  );
+                })}
               </div>
+              {menu?.otherType?.length > 7 && (
+                <>
+                  <div className="flex gap-3 items-center mt-4 cursor-pointer">
+                    <span className="text-karaka text-lg">
+                      {languages.get("navbar.sub.view.read.more")}
+                    </span>
+                    <img
+                      src={images.icons.ic_arrow_right}
+                      alt=""
+                      className="w-4 object-contain"
+                    />
+                  </div>
+                  <img
+                    src={images.heroSubNav}
+                    alt=""
+                    className="absolute right-0 top-0 h-451"
+                  />
+                </>
+              )}
             </div>
-            )}
+          )}
         </div>
         <div className="flex gap-3 items-center mt-4 cursor-pointer">
           <span className="text-karaka text-lg">
@@ -171,17 +201,17 @@ const Header = () => {
           onScroll={handleScroll}
         >
           <div className="flex flex-col gap-6 px-6 mb-6">
-            {menu?.menu?.length > 0 &&
-              menu?.menu?.map((item, index) => (
+            {menu?.types?.length > 0 &&
+              menu?.types?.map((item, index) => (
                 <div key={index} className="flex flex-col min-w-44">
                   <span className="text-notRating text-sm mb-2">
                     {languages.get("navbar.sub.view.title")}
                   </span>
                   <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
-                    {item.name}
+                    {item.name.toUpperCase()}
                   </h2>
                   <div className="flex flex-col gap-4 cursor-pointer">
-                    {item.types.map((subItem, subIndex) => {
+                    {item.subCategories.map((subItem, subIndex) => {
                       return (
                         // TODO add line when hover
                         <Link
@@ -189,29 +219,27 @@ const Header = () => {
                           className={`relative text-doveGray text-sm md:hover:text-karaka`}
                           href={`/products/${item.slug}/${subItem.slug}`}
                           onClick={() => {
-                            setMenuOpen(false)
-                            setSubNavMobile(false)
+                            setMenuOpen(false);
+                            setSubNavMobile(false);
                           }}
                         >
-                          {subItem.name}
+                          {subItem.text}
                         </Link>
-                      )
+                      );
                     })}
                   </div>
                 </div>
-              ))
-            }
-            {menu?.menu?.length === 3 && (
+              ))}
+            {menu?.types?.length === 3 && (
               <div key="4" className="flex flex-col min-w-44">
-              <span className="text-notRating text-sm mb-2">
-                {languages.get("navbar.sub.view.title")}
-              </span>
-              <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
-                {languages.get("navbar.sub.view.otherProductTypes")}
-              </h2>
-              <div className="flex flex-col gap-4 cursor-pointer">
-                {
-                  menu?.otherType?.map((subItem, subIndex) => {
+                <span className="text-notRating text-sm mb-2">
+                  {languages.get("navbar.sub.view.title")}
+                </span>
+                <h2 className="text-lg text-primary mb-8 mt-1 uppercase pb-4 border-b">
+                  {languages.get("navbar.sub.view.otherProductTypes")}
+                </h2>
+                <div className="flex flex-col gap-4 cursor-pointer">
+                  {menu?.otherType?.map((subItem, subIndex) => {
                     return (
                       // TODO add line when hover
                       <Link
@@ -223,7 +251,7 @@ const Header = () => {
                           setSubNavMobile(false)
                         }}
                       >
-                        {subItem.name}
+                        {subItem.text}
                       </Link>
                     )
                   })

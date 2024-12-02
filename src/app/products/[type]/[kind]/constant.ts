@@ -64,7 +64,7 @@ export const filterData = [
   },
   {
     title: "Sắp xếp theo",
-    value: "soft",
+    value: "sort",
     menu: [
       {
         label: "Bán chạy",
