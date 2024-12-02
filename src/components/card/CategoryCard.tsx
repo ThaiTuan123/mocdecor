@@ -52,7 +52,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({category, index}) => {
                 <h3 className="text-2xl md:text-5lg font-bold my-4 text-center text-white uppercase font-playfairBold">
                     {category.name}
                 </h3>
-                <Link href={`/products/${category.enName}/${category.slug}`}>
+                <Link href={`/products/${category.slug}/${category.slug}`}>
                     <motion.div
                         className="hidden md:flex flex-col bg-white w-14 items-center rounded"
                         initial={hoverAnimation.initial}
@@ -69,7 +69,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({category, index}) => {
                 <h3 className="ml-8 text-2xl font-bold my-4 text-center text-white uppercase font-playfairBold">
                     {category.name}
                 </h3>
-                <Link href={`/products/${category.enName}/${category.slug}`}>
+                <Link href={`/products/${category.slug}/${category.slug}`}>
                     <div
                         className="mr-8 mt-4 flex flex-col items-center bg-white w-14 content-center rounded transition duration-700 ease-in-out">
                         <span className="text-primary text-2xl">{ARROW_RIGHT}</span>
@@ -80,4 +80,4 @@ const CategoryCard: React.FC<CategoryCardProps> = ({category, index}) => {
     );
 };
 
-export default CategoryCard;
+export default CategoryCard
