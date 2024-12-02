@@ -5,7 +5,7 @@ import images from "@/configs/images";
 import languages from "@/configs/languages";
 import Image from "next/image";
 import NotFoundGallery from "@/app/gallery/@Notfound/Pages";
-import FoundGallery from "@/app/gallery/@FoundGallery/Pages";
+import FoundGallery from "@/app/gallery/@FoundGallery/pages";
 import {useGallery} from "@/recoil/hooks/useGallery";
 import Empty from "@/app/gallery/@Empty/Pages";
 

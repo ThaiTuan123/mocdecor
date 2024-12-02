@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
 const useImageManager = (initialImages: string[]) => {
     const [images, setImages] = useState<string[]>(initialImages);
@@ -11,7 +11,11 @@ const useImageManager = (initialImages: string[]) => {
         setImages((prevImages: string[]) => [...prevImages, imageUrl]);
     };
 
-    return { images, removeImage, handleAddImage };
+    const updateImages = (newImages: string[]) => {
+        setImages(newImages);
+    };
+
+    return {images, removeImage, handleAddImage, updateImages};
 };
 
 export default useImageManager;

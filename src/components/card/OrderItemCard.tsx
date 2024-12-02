@@ -1,15 +1,17 @@
 import React from 'react';
 import imagesIcons from "@/configs/images";
+import Image from "next/image";
 
 interface OrderItemCardProps {
     imageSrc: string;
     title: string;
     selectedCount: number;
     totalCount: number;
-    status: 'default' | 'click' | 'error'; // Define possible statuses
+    status: string; // Define possible statuses
+    onClick: () => void; // Add onClick prop
 }
 
-const OrderItemCard: React.FC<OrderItemCardProps> = ({imageSrc, title, selectedCount, totalCount, status}) => {
+const OrderItemCard: React.FC<OrderItemCardProps> = ({imageSrc, title, selectedCount, totalCount, status, onClick}) => {
     let bgColorClass = '';
     let errorIconElement = null;
 
@@ -32,9 +34,13 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({imageSrc, title, selectedC
     }
 
     return (
-        <div className={`flex items-start px-6 py-4 border-t border-b border-stroke ${bgColorClass} hover:bg-gray-200`}>
-            <img
+        <div
+            className={`flex items-start px-6 py-4 border-t border-b border-stroke ${bgColorClass} hover:bg-gray-200 hover:cursor-pointer`}
+            onClick={onClick}>
+            <Image
                 src={imageSrc}
+                width={150}
+                height={150}
                 alt="Product Image"
                 className="size-24 object-cover rounded"
             />
