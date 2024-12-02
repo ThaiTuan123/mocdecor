@@ -6,7 +6,7 @@ import { atom } from "recoil";
 export const menuState = atom<FetchMenuResponse>({
   key: "menuState",
   default: {
-    menu: [],
+    types: [],
     otherType: [],
   },
 });
