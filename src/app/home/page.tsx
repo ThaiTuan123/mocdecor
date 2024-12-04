@@ -422,7 +422,7 @@ const ServiceSection: React.FC = () => {
                                       }}
                                   >
                                       <video preload="none" autoPlay loop muted>
-                                          <source src="/assets/videos/1.mp4" type="video/mp4"/>
+                                          <source src="/assets/videos/1.webm" type="video/webm"/>
                                           Your browser does not support the video tag.
                                       </video>
                                   </div>
@@ -445,7 +445,7 @@ const ServiceSection: React.FC = () => {
                                       }}
                                   >
                                       <video preload="none" autoPlay loop muted>
-                                          <source src="/assets/videos/2.mp4" type="video/mp4"/>
+                                          <source src="/assets/videos/2.webm" type="video/webm"/>
                                           Your browser does not support the video tag.
                                       </video>
                                   </div>
