@@ -39,13 +39,13 @@ const images = {
         ic_dropdown_right: "/assets/imgs/icons/ic-dropdown-right.png",
 
         //home
-        homeInstagram:'/assets/imgs/icons/ic-home-insta.png',
-        homeTiktok:'/assets/imgs/icons/ic-home-tiktok.png',
+        homeInstagram: '/assets/imgs/icons/ic-home-insta.png',
+        homeTiktok: '/assets/imgs/icons/ic-home-tiktok.png',
         //customer home
-        homeQuoteCustomer:'/assets/imgs/icons/ic-quote.png',
+        homeQuoteCustomer: '/assets/imgs/icons/ic-quote.png',
 
         //gallery
-        mobileSearch:'/assets/imgs/icons/ic-search-white.png',
+        mobileSearch: '/assets/imgs/icons/ic-search-white.png',
     },
     backgrounds: {
         heroContact: "/assets/imgs/backgrounds/hero-contact.webp",  // Add this
@@ -65,9 +65,9 @@ const images = {
     homeCategory1: "/assets/imgs/pictures/category-home-1.png",
     homeCategory2: "/assets/imgs/pictures/category-home-2.png",
     homeCategory3: "/assets/imgs/pictures/category-home-3.png",
-    homeAbout1 : "/assets/imgs/pictures/home-about-1.png",
-    homeAbout2 : "/assets/imgs/pictures/home-about-2.png",
-    homeAbout3 : "/assets/imgs/pictures/about-3-tablet.webp",
+    homeAbout1: "/assets/imgs/pictures/home-about-1.png",
+    homeAbout2: "/assets/imgs/pictures/home-about-2.png",
+    homeAbout3: "/assets/imgs/pictures/about-3-tablet.webp",
     braceletHome: "/assets/imgs/pictures/bracelet-home.png",
     calenderHome: "/assets/imgs/pictures/calender-home.png",
     notebookHome: "/assets/imgs/pictures/notebook-home.png",
@@ -89,13 +89,18 @@ const images = {
 
     homeBackgroundService: "/assets/imgs/backgrounds/bg-service-home.webp",
 
+    //// customer
+    customer1: "/assets/imgs/backgrounds/customer-1-builevy.webp",
+    customer2: "/assets/imgs/backgrounds/customer-2-buitrongnghia.webp",
+    customer3: "/assets/imgs/backgrounds/customer-3-lehaminhtrang.webp",
+
     // gallery
     emptyGallery: "/assets/imgs/pictures/empty-gallery.png",
     notFoundGallery: "/assets/imgs/pictures/not-found-gallery.png",
 
     //service
-    hieuServiceHome:'/assets/imgs/pictures/hieu-service-home.png',
-    phuServiceHome:'/assets/imgs/pictures/phu-service-home.png',
+    hieuServiceHome: '/assets/imgs/pictures/hieu-service-home.png',
+    phuServiceHome: '/assets/imgs/pictures/phu-service-home.png',
 
     //client
     client1: "/assets/imgs/pictures/client1.png",

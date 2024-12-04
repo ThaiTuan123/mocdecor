@@ -83,47 +83,47 @@ export const cardServiceData = [
 
 export const customerData: CustomerCardData[] = [
     {
-        imageCustomerUrl: 'bg-image-customer-1',
+        imageCustomerUrl: images.customer1,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },
     {
-        imageCustomerUrl: 'bg-image-customer-2',
+        imageCustomerUrl: images.customer2,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },
     {
-        imageCustomerUrl: 'bg-image-customer-3',
+        imageCustomerUrl: images.customer3,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },
     {
-        imageCustomerUrl: 'bg-image-customer-1',
+        imageCustomerUrl: images.customer1,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },
     {
-        imageCustomerUrl: 'bg-image-customer-2',
+        imageCustomerUrl: images.customer2,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },
     {
-        imageCustomerUrl: 'bg-image-customer-3',
+        imageCustomerUrl: images.customer3,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },
     {
-        imageCustomerUrl: 'bg-image-customer-1',
+        imageCustomerUrl: images.customer1,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },
     {
-        imageCustomerUrl: 'bg-image-customer-2',
+        imageCustomerUrl: images.customer2,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },
     {
-        imageCustomerUrl: 'bg-image-customer-3',
+        imageCustomerUrl: images.customer3,
         textDescription: "Ảnh in xinh lắm luôn í, vừa sắc nét vừa có giá thành rất sinh viên luôn. Highly recommend nhà Mộc nha!",
         nameCustomer: "BÙI LÊ THÙY VY",
     },

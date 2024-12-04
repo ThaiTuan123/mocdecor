@@ -43,9 +43,9 @@ const config: Config = {
                 //// frame
                 'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.webp')",
                 //// customer
-                'image-customer-1': "url('/assets/imgs/backgrounds/customer-1-builevy.webp')",
-                'image-customer-2': "url('/assets/imgs/backgrounds/customer-2-buitrongnghia.webp')",
-                'image-customer-3': "url('/assets/imgs/backgrounds/customer-3-lehaminhtrang.webp')",
+                // 'image-customer-1': "url('/assets/imgs/backgrounds/customer-1-builevy.webp')",
+                // 'image-customer-2': "url('/assets/imgs/backgrounds/customer-2-buitrongnghia.webp')",
+                // 'image-customer-3': "url('/assets/imgs/backgrounds/customer-3-lehaminhtrang.webp')",
 
                 //// service
                 // 'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.webp')",
