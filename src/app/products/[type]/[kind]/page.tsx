@@ -324,10 +324,12 @@ export default function Products() {
               key={index}
               onClick={() => setSelectedProduct(item)}
             >
-              <img
+              <Image
                 className="w-full h-28 md:h-64 object-contain"
                 src={item.images[0]}
                 alt=""
+                width={300}
+                height={300}
               />
               <div className="flex flex-col gap-2 p-4">
                 <h3 className="text-karaka md:text-2lg text-lg font-semibold overflow-hidden whitespace-nowrap text-ellipsis">

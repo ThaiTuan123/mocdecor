@@ -55,7 +55,7 @@ const images = {
     image404: "/assets/imgs/pictures/404.png",
 
     // sub nav
-    heroSubNav: "/assets/imgs/pictures/hero_sub_nav.png",
+    heroSubNav: "/assets/imgs/pictures/hero_sub_nav.webp",
 
     // contact
     contactMap: "/assets/imgs/pictures/map-contact.png",

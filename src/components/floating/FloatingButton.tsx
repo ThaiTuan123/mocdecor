@@ -13,8 +13,7 @@ interface FloatingButtonConfig {
 
 const floatingButtonConfigs: FloatingButtonConfig[] = [
     {
-        //TODO: change alert to link facebook
-        onClick: () => alert('Call button clicked!'),
+        onClick: () => window.open('https://www.messenger.com/t/mocdecor99', '_blank'),
         imageSrc: imagesIcons.svg.icMessage,
         altText: "Call"
     },
