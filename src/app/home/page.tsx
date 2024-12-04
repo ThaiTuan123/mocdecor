@@ -502,14 +502,22 @@ const CoopClientsSection: React.FC = () => {
                 </div>
 
                 <div className='gap-y-4 md:gap-y-8 flex flex-col'>
-                    <div style={{overflow: "hidden", whiteSpace: "nowrap"}}>
-                        <motion.div className='flex gap-6'
-                                    animate={{x: ["0%", "-100%"]}}
-                                    transition={{duration: 20, repeat: Infinity, ease: "linear"}}
+                    <div style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                        {/* Animate the first set of images */}
+                        <motion.div
+                            className='flex gap-6'
+                            animate={{ x: ['0%', '-100%'] }}
+                            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                         >
                             {[...clientData, ...clientData].map((client, index) => (
-                                <Image className='h-16 w-32 gap-3 lg:h-32  lg:w-60 lg:gap-10' width={232.77}
-                                       height={142.9} key={index} src={client.src} alt={client.alt}/>
+                                <Image
+                                    key={index}
+                                    className='h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10'
+                                    width={232.77}
+                                    height={142.9}
+                                    src={client.src}
+                                    alt={client.alt}
+                                />
                             ))}
                         </motion.div>
 
@@ -518,8 +526,14 @@ const CoopClientsSection: React.FC = () => {
                                     transition={{duration: 20, repeat: Infinity, ease: "linear"}}
                         >
                             {[...clientData, ...clientData].map((client, index) => (
-                                <Image className='h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10' width={232.77}
-                                       height={142.9} key={index} src={client.src} alt={client.alt}/>
+                                <Image
+                                    key={index}
+                                    className='h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10'
+                                    width={232.77}
+                                    height={142.9}
+                                    src={client.src}
+                                    alt={client.alt}
+                                />
                             ))}
                         </motion.div>
                     </div>
