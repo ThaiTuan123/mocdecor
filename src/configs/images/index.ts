@@ -9,14 +9,14 @@ const images = {
         cart: "/assets/imgs/icons/ic-cart.png",
         menuOpen: "/assets/imgs/icons/ic-sidebar.png",
         menuClose: "/assets/imgs/icons/ic-X.png",
-        delivery: "/assets/imgs/icons/ic-delivery.png",
-        quality: "/assets/imgs/icons/ic-quality.png",
-        complete: "/assets/imgs/icons/ic-complete.png",
-        consultant: "/assets/imgs/icons/ic-consultant.png",
+        delivery: "/assets/imgs/icons/ic-delivery.webp",
+        quality: "/assets/imgs/icons/ic-quality.webp",
+        complete: "/assets/imgs/icons/ic-complete.webp",
+        consultant: "/assets/imgs/icons/ic-consultant.webp",
         facebookLight: "/assets/imgs/icons/ic-facebook.png",
-        instagramLight: "/assets/imgs/icons/ic-instagram.png",
+        instagramLight: "/assets/imgs/icons/ic-instagram.webp",
         xLight: "/assets/imgs/icons/ic-X.png",
-        tiktokLight: "/assets/imgs/icons/ic-tiktok.png",
+        tiktokLight: "/assets/imgs/icons/ic-tiktok.webp",
         ic_plus: "/assets/imgs/icons/ic-plus.png",
         ic_minus: "/assets/imgs/icons/ic-minus.png",
         instagramColor: "/assets/imgs/icons/ic-instagram-with-color.png",
@@ -77,6 +77,17 @@ const images = {
     homeStory3: "/assets/imgs/pictures/story-home-3.png",
     logoMocHome: "/assets/imgs/pictures/logo-moc-home.png",
     logoMocHomeMobile: "/assets/imgs/pictures/logo-moc-home-mobile.png",
+
+    //background image home
+    homeBackgroundPrint: "/assets/imgs/backgrounds/bg-print-home.webp",
+    homeBackgroundFrame: "/assets/imgs/backgrounds/bg-frame-home.webp",
+    homeBackgroundAlbum: "/assets/imgs/backgrounds/bg-album-home.webp",
+
+    homeBackgroundPrintMobile: "/assets/imgs/backgrounds/bg-print-home-mobile.webp",
+    homeBackgroundFrameMobile: "/assets/imgs/backgrounds/bg-frame-home-mobile.webp",
+    homeBackgroundAlbumMobile: "/assets/imgs/backgrounds/bg-album-home-mobile.webp",
+
+    homeBackgroundService: "/assets/imgs/backgrounds/bg-service-home.webp",
 
     // gallery
     emptyGallery: "/assets/imgs/pictures/empty-gallery.png",
