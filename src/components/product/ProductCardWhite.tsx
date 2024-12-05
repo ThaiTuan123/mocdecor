@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Image from 'next/image';
 import {Product} from '@/types/product';
 import {CURRENCY_SYMBOL} from "@/configs/constants/constants";
+import {FaRegStar, FaStar} from "react-icons/fa";
 
 // Extend Product props to include onClick
 interface ProductCardProps extends Product {
@@ -15,17 +16,11 @@ const ProductCardWhite: React.FC<ProductCardProps> = ({title, price, rating, rev
     // Helper function to render star icons
     const renderStars = () => (
         [...Array(5)].map((_, i) => (
-            <svg
-                key={i}
-                xmlns="http://www.w3.org/2000/svg"
-                className={`h-4 w-4 ${i < rating.rate ? 'text-rating' : 'text-gray-300'}`}
-                fill="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                />
-            </svg>
+            i < rating.rate ? (
+                <FaStar key={i} className="text-rating" size={16} />
+            ) : (
+                <FaRegStar key={i} className="text-gray-300" size={16} />
+            )
         ))
     );
 

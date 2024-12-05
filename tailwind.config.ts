@@ -18,17 +18,17 @@ const config: Config = {
                 'image-hero-gallery': "url('/assets/imgs/backgrounds/hero-gallery-bg.webp')",
 
                 // Home Page
-                'image-home-background-print': "url('/assets/imgs/backgrounds/bg-print-home.webp')",
-                'image-home-background-frame': "url('/assets/imgs/backgrounds/bg-frame-home.webp')",
-                'image-home-background-album': "url('/assets/imgs/backgrounds/bg-album-home.webp')",
+                // 'image-home-background-print': "url('/assets/imgs/backgrounds/bg-print-home.webp')",
+                // 'image-home-background-frame': "url('/assets/imgs/backgrounds/bg-frame-home.webp')",
+                // 'image-home-background-album': "url('/assets/imgs/backgrounds/bg-album-home.webp')",
 
                 'image-gift-home': "url('/assets/imgs/backgrounds/bg-gift-home.webp')",
                 'image-gift-home-mobile': "url('/assets/imgs/backgrounds/bg-gift-home-mobile.webp')",
 
                 //-- mobile background
-                'image-home-background-print-mobile': "url('/assets/imgs/backgrounds/bg-print-home-mobile.webp')",
-                'image-home-background-frame-mobile': "url('/assets/imgs/backgrounds/bg-frame-home-mobile.webp')",
-                'image-home-background-album-mobile': "url('/assets/imgs/backgrounds/bg-album-home-mobile.webp')",
+                // 'image-home-background-print-mobile': "url('/assets/imgs/backgrounds/bg-print-home-mobile.webp')",
+                // 'image-home-background-frame-mobile': "url('/assets/imgs/backgrounds/bg-frame-home-mobile.webp')",
+                // 'image-home-background-album-mobile': "url('/assets/imgs/backgrounds/bg-album-home-mobile.webp')",
 
                 'image-bracelet-home': "url('/assets/imgs/backgrounds/bracelet-home.webp')",
                 'image-calendar-home': "url('/assets/imgs/backgrounds/calendar-home.webp')",
@@ -43,12 +43,12 @@ const config: Config = {
                 //// frame
                 'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.webp')",
                 //// customer
-                'image-customer-1': "url('/assets/imgs/backgrounds/customer-1-builevy.webp')",
-                'image-customer-2': "url('/assets/imgs/backgrounds/customer-2-buitrongnghia.webp')",
-                'image-customer-3': "url('/assets/imgs/backgrounds/customer-3-lehaminhtrang.webp')",
+                // 'image-customer-1': "url('/assets/imgs/backgrounds/customer-1-builevy.webp')",
+                // 'image-customer-2': "url('/assets/imgs/backgrounds/customer-2-buitrongnghia.webp')",
+                // 'image-customer-3': "url('/assets/imgs/backgrounds/customer-3-lehaminhtrang.webp')",
 
                 //// service
-                'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.webp')",
+                // 'image-service-home': "url('/assets/imgs/backgrounds/bg-service-home.webp')",
 
                 // payment
                 'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.webp')",

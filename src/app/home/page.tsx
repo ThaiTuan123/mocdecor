@@ -154,22 +154,22 @@ const sectionsData = [
     {
         title: languages.get('home.title.background.print'),
         subTitle: languages.get('home.subTitle.background.print'),
-        backgroundClass: "bg-image-home-background-print",
-        backgroundMobileClass: "bg-image-home-background-print-mobile",
+        backgroundClass: images.homeBackgroundPrint,
+        backgroundMobileClass: images.homeBackgroundPrintMobile,
         tabComponent: <TabPrint/>
     },
     {
         title: languages.get('home.title.background.frame'),
         subTitle: languages.get('home.subTitle.background.frame'),
-        backgroundClass: "bg-image-home-background-frame",
-        backgroundMobileClass: "bg-image-home-background-frame-mobile",
+        backgroundClass: images.homeBackgroundFrame,
+        backgroundMobileClass: images.homeBackgroundFrameMobile,
         tabComponent: <TabFrame/>
     },
     {
         title: languages.get('home.title.background.album'),
         subTitle: languages.get('home.subTitle.background.album'),
-        backgroundClass: "bg-image-home-background-album",
-        backgroundMobileClass: "bg-image-home-background-album-mobile",
+        backgroundClass: images.homeBackgroundAlbum,
+        backgroundMobileClass: images.homeBackgroundAlbumMobile,
         tabComponent: <TabPrint/>
     }
 ];
@@ -370,110 +370,120 @@ const FeedbackSection: React.FC = () => {
 
 const ServiceSection: React.FC = () => {
   return (
-    /*bg-image-service-home*/
-    <section className="bg-image-service-home bg-cover md:bg-fixed bg-no-repeat ">
-      {/* Main content */}
-      <div className="pt-8 md:pt-28 px-6 md:px-6 lg:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container">
-        <div className="gap-y-12 flex flex-col">
-          {/* Content for Hiếu */}
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-center">
-            <div className="flex-col flex justify-start items-start w-full lg:w-3/5">
-              <TitleText
-                firstText={languages.get("home.title.firstText.service")}
-                secondText={languages.get("home.title.secondText.service")}
-                textColor="text-white"
-                bgColor="bg-white"
-                itemsCenter={true}
+      <section className="relative">
+          <div className="absolute inset-0 -z-10">
+              <Image
+                  src={images.homeBackgroundService} //background image
+                  alt="Service Section Background"
+                  fill={true}
+                  className="object-cover"
+                  quality={75}
+                  priority // Preload for better performance
               />
-              <Heading2
-                className="mt-3 !mb-0"
-                text={languages.get("home.title.header2.service")}
-                textColor={"text-white"}
-                align={"left"}
-              />
-              <TextContent
-                className="!mb-2 !mt-6 md:mt-8 md:mb-8"
-                textColor={"text-white"}
-                text={languages.get("home.title.textContentHieu.service")}
-              />
-              <h4 className="text-white font-semibold font-raleway">
-                {" "}
-                {languages.get("home.title.header4Hieu.service")}{" "}
-              </h4>
-            </div>
-            <div className="w-full lg:w-2/5 items-center justify-center flex">
-              <div className="relative w-full ">
-                <Suspense fallback={<p>Loading video...</p>}>
-                  <div
-                    className="relative w-full"
-                    style={{
-                      height: 0,
-                      position: "relative",
-                      paddingBottom: "56.25%",
-                    }}
-                  >
-                    <video preload="none" autoPlay loop muted>
-                      <source src="/assets/videos/1.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                </Suspense>
-              </div>
-            </div>
           </div>
-          <Line height={"h-px"} />
-          {/* Content for Phú */}
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-start">
-            <div className="w-full lg:w-2/5 items-center justify-center flex order-2 lg:order-none">
-              <div className="relative w-full">
-                <Suspense fallback={<p>Loading video...</p>}>
-                  <div
-                    className="relative w-full"
-                    style={{
-                      height: 0,
-                      position: "relative",
-                      paddingBottom: "56.25%",
-                    }}
-                  >
-                    <video preload="none" autoPlay loop muted>
-                      <source src="/assets/videos/2.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+          {/* Main content */}
+          <div className="pt-8 md:pt-28 px-6 md:px-6 lg:px-36 pb-8 md:pb-0 flex flex-col 2xl:mx-auto 2xl:container">
+              <div className="gap-y-12 flex flex-col">
+                  {/* Content for Hiếu */}
+                  <div className="flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-center">
+                      <div className="flex-col flex justify-start items-start w-full lg:w-3/5">
+                          <TitleText
+                              firstText={languages.get("home.title.firstText.service")}
+                              secondText={languages.get("home.title.secondText.service")}
+                              textColor="text-white"
+                              bgColor="bg-white"
+                              itemsCenter={true}
+                          />
+                          <Heading2
+                              className="mt-3 !mb-0"
+                              text={languages.get("home.title.header2.service")}
+                              textColor={"text-white"}
+                              align={"left"}
+                          />
+                          <TextContent
+                              className="!mb-2 !mt-6 md:mt-8 md:mb-8"
+                              textColor={"text-white"}
+                              text={languages.get("home.title.textContentHieu.service")}
+                          />
+                          <h4 className="text-white font-semibold font-raleway">
+                              {" "}
+                              {languages.get("home.title.header4Hieu.service")}{" "}
+                          </h4>
+                      </div>
+                      <div className="w-full lg:w-2/5 items-center justify-center flex">
+                          <div className="relative w-full ">
+                              <Suspense fallback={<p>Loading video...</p>}>
+                                  <div
+                                      className="relative w-full"
+                                      style={{
+                                          height: 0,
+                                          position: "relative",
+                                          paddingBottom: "56.25%",
+                                      }}
+                                  >
+                                      <video preload="none" autoPlay loop muted>
+                                          <source src="/assets/videos/1.webm" type="video/webm"/>
+                                          Your browser does not support the video tag.
+                                      </video>
+                                  </div>
+                              </Suspense>
+                          </div>
+                      </div>
                   </div>
-                </Suspense>
+                  <Line height={"h-px"}/>
+                  {/* Content for Phú */}
+                  <div className="flex flex-col lg:flex-row gap-6 lg:gap-16 justify-center items-start">
+                      <div className="w-full lg:w-2/5 items-center justify-center flex order-2 lg:order-none">
+                          <div className="relative w-full">
+                              <Suspense fallback={<p>Loading video...</p>}>
+                                  <div
+                                      className="relative w-full"
+                                      style={{
+                                          height: 0,
+                                          position: "relative",
+                                          paddingBottom: "56.25%",
+                                      }}
+                                  >
+                                      <video preload="none" autoPlay loop muted>
+                                          <source src="/assets/videos/2.webm" type="video/webm"/>
+                                          Your browser does not support the video tag.
+                                      </video>
+                                  </div>
+                              </Suspense>
+                          </div>
+                      </div>
+                      <div className="flex-col flex justify-start items-start w-full order-1 md:order-2 lg:w-3/5">
+                          <Heading2
+                              text={languages.get("home.title.header2Phu.service")}
+                              textColor={"text-white"}
+                              align={"left"}
+                              className="!mb-3 md:mb-8"
+                          />
+                          <TextContent
+                              textColor={"text-white"}
+                              text={languages.get("home.title.textContentPhu.service")}
+                          />
+                          <h4 className="text-white font-semibold font-raleway">
+                              {" "}
+                              {languages.get("home.title.header4Phu.service")}{" "}
+                          </h4>
+                      </div>
+                  </div>
               </div>
-            </div>
-            <div className="flex-col flex justify-start items-start w-full order-1 md:order-2 lg:w-3/5">
-              <Heading2
-                text={languages.get("home.title.header2Phu.service")}
-                textColor={"text-white"}
-                align={"left"}
-                className="!mb-3 md:mb-8"
-              />
-              <TextContent
-                textColor={"text-white"}
-                text={languages.get("home.title.textContentPhu.service")}
-              />
-              <h4 className="text-white font-semibold font-raleway">
-                {" "}
-                {languages.get("home.title.header4Phu.service")}{" "}
-              </h4>
-            </div>
           </div>
-        </div>
-      </div>
-      {/* Services offered */}
-      <div className="pb-16 pt-6 md:pb-0 flex-row md:flex-row justify-between md:h-64 h-584 opacity-80 2xl:mx-auto 2xl:container grid grid-cols-2 md:flex">
-        {cardServiceData.map((card, index) => (
-          <ServiceCard
-            key={index}
-            icon={card.icon}
-            title={card.title}
-            description={card.description}
-          />
-        ))}
-      </div>
-    </section>
+          {/* Services offered */}
+          <div
+              className="pb-16 pt-6 md:pb-0 flex-row md:flex-row justify-between md:h-64 h-584 opacity-80 2xl:mx-auto 2xl:container grid grid-cols-2 md:flex">
+              {cardServiceData.map((card, index) => (
+                  <ServiceCard
+                      key={index}
+                      icon={card.icon}
+                      title={card.title}
+                      description={card.description}
+                  />
+              ))}
+          </div>
+      </section>
   );
 };
 
@@ -492,14 +502,22 @@ const CoopClientsSection: React.FC = () => {
                 </div>
 
                 <div className='gap-y-4 md:gap-y-8 flex flex-col'>
-                    <div style={{overflow: "hidden", whiteSpace: "nowrap"}}>
-                        <motion.div className='flex gap-6'
-                                    animate={{x: ["0%", "-100%"]}}
-                                    transition={{duration: 20, repeat: Infinity, ease: "linear"}}
+                    <div style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                        {/* Animate the first set of images */}
+                        <motion.div
+                            className='flex gap-6'
+                            animate={{ x: ['0%', '-100%'] }}
+                            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                         >
                             {[...clientData, ...clientData].map((client, index) => (
-                                <Image className='h-16 w-32 gap-3 lg:h-32  lg:w-60 lg:gap-10' width={232.77}
-                                       height={142.9} key={index} src={client.src} alt={client.alt}/>
+                                <Image
+                                    key={index}
+                                    className='h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10'
+                                    width={232.77}
+                                    height={142.9}
+                                    src={client.src}
+                                    alt={client.alt}
+                                />
                             ))}
                         </motion.div>
 
@@ -508,8 +526,14 @@ const CoopClientsSection: React.FC = () => {
                                     transition={{duration: 20, repeat: Infinity, ease: "linear"}}
                         >
                             {[...clientData, ...clientData].map((client, index) => (
-                                <Image className='h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10' width={232.77}
-                                       height={142.9} key={index} src={client.src} alt={client.alt}/>
+                                <Image
+                                    key={index}
+                                    className='h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10'
+                                    width={232.77}
+                                    height={142.9}
+                                    src={client.src}
+                                    alt={client.alt}
+                                />
                             ))}
                         </motion.div>
                     </div>
@@ -535,8 +559,8 @@ const HomePage = () => (
                 <BackgroundSection
                     title={section.title}
                     subTitle={section.subTitle}
-                    backgroundClass={section.backgroundClass}
-                    backgroundMobileClass={section.backgroundMobileClass}
+                    backgroundDesktop={section.backgroundClass}
+                    backgroundMobile={section.backgroundMobileClass}
                 />
                 {section.tabComponent}
             </ScrollAnimation>
