@@ -1,6 +1,7 @@
 import languages from "@/configs/languages";
 import images from "@/configs/images";
 import Link from "next/link";
+import Image from "next/image";
 
 const FooterDiscover = () => {
     const footerTitle = languages.get("policy.footer.title");
@@ -38,7 +39,12 @@ const FooterDiscover = () => {
                 {socialLinks.map(({ href, imgSrc, altText }) => (
                     <a href={href} target="_blank" rel="noopener noreferrer" key={href}>
                         <div className="w-11 h-11 bg-white flex items-center justify-center rounded hover:scale-105">
-                            <img src={imgSrc} alt={altText} />
+                            <Image
+                                src={imgSrc}
+                                alt={altText}
+                                width={44}
+                                height={44}
+                            />
                         </div>
                     </a>
                 ))}
