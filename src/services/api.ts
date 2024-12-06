@@ -54,6 +54,12 @@ export const fetchMenu = async () => {
   return apiRequest(url);
 };
 
+// Fetch top pos product category
+export const fetchTopProductCategory = async () => {
+  const url = `${API.TOP_POS_PRODUCT_CATEGORY}`;
+  return apiRequest(url);
+};
+
 // Fetch a list of categories
 export const fetchListCategory = async (
   limit: number = 20,

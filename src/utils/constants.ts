@@ -21,4 +21,7 @@ export class API {
   static MENU = BASE_URL + '/public/pos-product-categories/menu'
   static PRODUCT_TYPES_BY_CATEGORIES =
     BASE_URL + '/public/pos-product-categories/'
+  static TOP_POS_PRODUCT_CATEGORY =
+    BASE_URL + '/public/pos-product-categories/top'
+  static POS_PRODUCT = BASE_URL + '/public/pos-products'
 }

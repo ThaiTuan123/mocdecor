@@ -1,14 +1,33 @@
 export interface Product {
-    id: number;
-    title: string;
-    price: string;
-    description: string; // Added if needed for your application
-    category: string; // Added if needed for your application
-    reviewCount: number;
+  //   product_id: number;
+  //   title: string;
+  //   description: string; // Added if needed for your application
+  //   category: string; // Added if needed for your application
+  reviewCount: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
+  //   images: string[]; // Carousel images
+
+  displayId: string;
+  fields: Array<{
+    id: string;
+    keyValue: string;
+    name: string;
+    value: string;
+  }>;
+  images: string[];
+  product: {
+    categories: Array<{
+      id: number;
+      name: string;
+    }>;
+    displayId: string;
     image: string;
-    rating: {
-        rate: number;
-        count: number;
-    };
-    images: string[]; // Carousel images
+    name: string;
+    noteProduct: string;
+  };
+  product_id: string;
+  retail_price: number;
 }

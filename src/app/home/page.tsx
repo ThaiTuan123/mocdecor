@@ -24,13 +24,13 @@ import TextContent from "@/components/texts/TextContent";
 import Line from "@/components/shape/Lines";
 import ServiceCard from "@/components/card/ServiceCard";
 import languages from "@/configs/languages";
-import TabFrame from "@/components/tab/TabFrame";
-import TabPrint from "@/components/tab/TabPrint";
 import Heading3 from "@/components/texts/Heading3";
 import MobileArrowButton from "@/components/button/MobileArrowButton";
 import CategoryCard from "@/components/card/CategoryCard";
 import Carousel from "@/components/carousel/Carousel";
 import useMenu from "@/recoil/hooks/useMenu";
+import useTopPosProductCategory from "@/recoil/hooks/useTopProductCategories";
+import CategoryProductTab from "@/components/tab/TabPrint";
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -149,30 +149,6 @@ const AboutSection = () => (
         </div>
     </section>
 );
-
-const sectionsData = [
-    {
-        title: languages.get('home.title.background.print'),
-        subTitle: languages.get('home.subTitle.background.print'),
-        backgroundClass: images.homeBackgroundPrint,
-        backgroundMobileClass: images.homeBackgroundPrintMobile,
-        tabComponent: <TabPrint/>
-    },
-    {
-        title: languages.get('home.title.background.frame'),
-        subTitle: languages.get('home.subTitle.background.frame'),
-        backgroundClass: images.homeBackgroundFrame,
-        backgroundMobileClass: images.homeBackgroundFrameMobile,
-        tabComponent: <TabFrame/>
-    },
-    {
-        title: languages.get('home.title.background.album'),
-        subTitle: languages.get('home.subTitle.background.album'),
-        backgroundClass: images.homeBackgroundAlbum,
-        backgroundMobileClass: images.homeBackgroundAlbumMobile,
-        tabComponent: <TabPrint/>
-    }
-];
 
 const OtherProductsSection: React.FC = () => {
     const handleClick = () => {
@@ -543,27 +519,68 @@ const CoopClientsSection: React.FC = () => {
     );
 };
 
-const HomePage = () => (
+const HomePage = () => {
+  const { topPosProductCategory } = useTopPosProductCategory();
+  console.log("CategorySection");
+  console.log(topPosProductCategory);
+
+  const sectionsData =
+    topPosProductCategory?.category?.map((category, index) => {
+      return {
+        title: category.name,
+        subTitle: category.description,
+        backgroundClass: category.banner,
+        backgroundMobileClass: category.image,
+        tabComponent: <CategoryProductTab category={category} index={index} />,
+      };
+    }) || [];
+
+  //   const sectionsData = [
+  //     {
+  //       title: languages.get("home.title.background.print"),
+  //       subTitle: languages.get("home.subTitle.background.print"),
+  //       backgroundClass: images.homeBackgroundPrint,
+  //       backgroundMobileClass: images.homeBackgroundPrintMobile,
+  //       tabComponent: <TabPrint />,
+  //     },
+  //     {
+  //       title: languages.get("home.title.background.frame"),
+  //       subTitle: languages.get("home.subTitle.background.frame"),
+  //       backgroundClass: images.homeBackgroundFrame,
+  //       backgroundMobileClass: images.homeBackgroundFrameMobile,
+  //       tabComponent: <TabFrame />,
+  //     },
+  //     {
+  //       title: languages.get("home.title.background.album"),
+  //       subTitle: languages.get("home.subTitle.background.album"),
+  //       backgroundClass: images.homeBackgroundAlbum,
+  //       backgroundMobileClass: images.homeBackgroundAlbumMobile,
+  //       tabComponent: <TabPrint />,
+  //     },
+  //   ];
+
+  return (
     <>
-        <Carousel/>
-        <ScrollAnimation>
-            <CategorySection/>
-        </ScrollAnimation>
+      <Carousel />
+      <ScrollAnimation>
+        <CategorySection />
+      </ScrollAnimation>
 
         <ScrollAnimation>
             <AboutSection/>
         </ScrollAnimation>
 
-        {sectionsData.map((section, index) => (
-            <ScrollAnimation key={index}>
-                <BackgroundSection
-                    title={section.title}
-                    subTitle={section.subTitle}
-                    backgroundDesktop={section.backgroundClass}
-                    backgroundMobile={section.backgroundMobileClass}
-                />
-                {section.tabComponent}
-            </ScrollAnimation>
+      {sectionsData.length > 0 &&
+        sectionsData.map((section, index) => (
+          <ScrollAnimation key={index}>
+            <BackgroundSection
+              title={section.title}
+              subTitle={section.subTitle}
+              backgroundDesktop={section.backgroundClass}
+              backgroundMobile={section.backgroundMobileClass}
+            />
+            {section.tabComponent}
+          </ScrollAnimation>
         ))}
 
         <ScrollAnimation>
@@ -590,6 +607,7 @@ const HomePage = () => (
             <CoopClientsSection/>
         </ScrollAnimation>
     </>
-);
+  );
+}
 
 export default HomePage;
