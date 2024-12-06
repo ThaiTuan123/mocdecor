@@ -1,51 +1,56 @@
 import Tab from "@/components/tab/Tab";
 import React from "react";
 import ProductGrid from "@/components/gridView/ProductGrid";
-import languages from "@/configs/languages";
+import { CategoryType } from "@/types/categoryType";
 
-const TabPrint = () => {
+const CategoryProductTab = ({
+  category,
+  index,
+}: {
+  category: CategoryType;
+  index: number;
+}) => {
+  const subCategory =
+    category.subCategories?.map((subCategory) => ({
+      label: subCategory.text ?? "",
+      value: subCategory.text ?? "",
+    })) || [];
 
-    const tabsPrint = [
-        {
-            label: languages.get('tab.label.6x9'),
-            value: languages.get('tab.label.6x9')
-        },
-        {
-            label: languages.get('tab.label.9x12'),
-            value: languages.get('tab.label.9x12')
-        },
-        {
-            label: languages.get('tab.label.photostrip'),
-            value: languages.get('tab.label.photostrip')
-        },
-        {
-            label: languages.get('tab.label.instagram'),
-            value: languages.get('tab.label.instagram')
-        },
-    ];
+  const defaultActiveTab = category?.subCategories?.[0]?.text ?? "";
 
-    const renderPrintContent = (activeTab: string) => {
-        switch (activeTab) {
-            case languages.get('tab.label.6x9'):
-                return <div><ProductGrid/></div>;
-            case languages.get('tab.label.9x12'):
-                return <div>{languages.get('tab.content.9x12')}</div>;
-            case languages.get('tab.label.photostrip'):
-                return <div>{languages.get('tab.content.photostrip')}</div>;
-            case languages.get('tab.label.instagram'):
-                return <div>{languages.get('tab.content.instagram')}</div>;
-            default:
-                return null;
-        }
-    };
+  const renderContent = (activeTab: string) => {
+    const tabContent = category.subCategories?.find(
+      (subCategory) => subCategory.text === activeTab
+    );
+
+    if (!tabContent) return null;
 
     return (
-        <Tab
-            tabs={tabsPrint}
-            defaultActiveTab={languages.get('tab.label.6x9')}
-            renderContent={renderPrintContent}
-        />
+      <div>
+        <ProductGrid category={category.slug} subCategory={tabContent.slug} />
+      </div>
     );
+  };
+
+  return index % 2 === 0 ? (
+    <Tab
+      tabs={subCategory}
+      defaultActiveTab={defaultActiveTab}
+      renderContent={renderContent}
+    />
+  ) : (
+    <Tab
+      tabs={subCategory}
+      defaultActiveTab={defaultActiveTab}
+      renderContent={renderContent}
+      background={"bg-image-gradient-frame bg-cover 2xl:mx-auto 2xl:container"}
+      textColor="text-white"
+      borderActive="border-white"
+      hoverButton="hover:text-white"
+      hoverBorder="hover:border-white"
+      textColorInactive="text-black-50"
+    />
+  );
 };
 
-export default TabPrint;
+export default CategoryProductTab;

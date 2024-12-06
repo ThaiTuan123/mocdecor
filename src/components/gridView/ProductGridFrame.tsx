@@ -26,21 +26,23 @@ const ProductGridFrame: React.FC = () => {
         setSelectedProduct(null);
     };
 
-    return (
-        <div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                {products.map((product) => (
-                    <ProductCardWhite key={product.id}
-                                      {...product}
-                                      onClick={() => handleProductClick(product)} // Handle product click
-
-                    />
-                ))}
-
-            </div>
-            <div className="flex justify-center my-6 md:my-10">
-                <SolidButton text={languages.get('button.viewMore')} href="/your-target-page"/>
-            </div>
+  return (
+    <div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {products.map((product) => (
+          <ProductCardWhite
+            key={product.product_id}
+            {...product}
+            onClick={() => handleProductClick(product)} // Handle product click
+          />
+        ))}
+      </div>
+      <div className="flex justify-center my-6 md:my-10">
+        <SolidButton
+          text={languages.get("button.viewMore")}
+          href="/your-target-page"
+        />
+      </div>
 
             {/* Show the popup if a product is selected */}
             {selectedProduct && (
