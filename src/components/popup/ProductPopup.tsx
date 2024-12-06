@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Product } from "@/types/product";
 import { CURRENCY_SYMBOL } from "@/configs/constants/constants";
 import languages from "@/configs/languages";
 import CancelButton from "@/components/button/CancelButton";
@@ -156,41 +155,41 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
   const renderSizeButtons = () => {
     return (
-      <div className="flex flex-col gap-4 md:gap-6">
-        {formattedOutput &&
-          formattedOutput.map(
-            ({
-              attributeName,
-              attributeValue,
-            }: {
-              attributeName: string;
-              attributeValue: string[];
-            }) => (
-              <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
-                <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
-                  {attributeName}
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
-                  {attributeValue.map((value: any) => (
-                    <button
-                      key={value}
-                      className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
-                        selectedSize[attributeName] == value
-                          ? "bg-primary text-white scale-100"
-                          : "bg-white text-black hover:scale-100 hover:bg-gray-200"
-                      }`}
-                      onClick={() =>
-                        handleSizeChange(attributeName, value, false)
-                      }
-                    >
-                      {value}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )
-          )}
-      </div>
+        <div className="flex flex-col gap-4 md:gap-6">
+          {formattedOutput &&
+              formattedOutput.map(
+                  ({
+                     attributeName,
+                     attributeValue,
+                   }: {
+                    attributeName: string;
+                    attributeValue: string[];
+                  }) => (
+                      <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
+                        <h3 className="w-16 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+                          {attributeName}
+                        </h3>
+                        <div className="max-w-52 md:max-w-96 flex flex-wrap gap-2 mt-2 max-h-40 md:max-h-48 overflow-y-auto">
+                          {attributeValue.map((value: any) => (
+                              <button
+                                  key={value}
+                                  className={` px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
+                                      selectedSize[attributeName] == value
+                                          ? "bg-primary text-white scale-100"
+                                          : "bg-white text-black hover:scale-100 hover:bg-gray-200"
+                                  }`}
+                                  onClick={() =>
+                                      handleSizeChange(attributeName, value, false)
+                                  }
+                              >
+                                {value}
+                              </button>
+                          ))}
+                        </div>
+                      </div>
+                  )
+              )}
+        </div>
     );
   };
 
@@ -267,7 +266,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {renderSizeButtons()}
 
           <div className="flex flex-row center gap-4 md:gap-6">
-            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+            <h3 className="w-16 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
               {languages.get("popup.text.quantity")}
             </h3>
             <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
@@ -295,7 +294,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         )}
       </div>
 
-      <div className="order-1 lg:order-none flex gap-3 md:gap-5 p-0 mt-4 lg:pt-16">
+      <div className="order-1 lg:order-none flex gap-3 md:gap-5 p-0 mt-4 lg:pt-16 lg:pb-4">
         <button
           onClick={onClose}
           className="hidden lg:block text-sm md:text-lg px-4 py-4 w-1/2 border border-brown-700 text-brown-700 bg-white rounded transform hover:scale-105 transition-all duration-300"
