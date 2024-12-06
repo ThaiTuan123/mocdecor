@@ -1,90 +1,111 @@
 //ProductPopup.tsx
 
-import React, { useEffect, useState } from "react"
-import Image from "next/image"
-import { Product } from "@/types/product"
-import { CURRENCY_SYMBOL } from "@/configs/constants/constants"
-import languages from "@/configs/languages"
-import CancelButton from "@/components/button/CancelButton"
-import QuantitySelector from "@/components/inputs/QuantitySelectorInput"
-import ProductCarousel from "@/components/carousel/ProductCarousel"
-import { TITLE_MAX_LENGTH } from "@/utils/constants"
-import { updateCart } from "@/services/api"
-import { getOrCreateBrowserId } from "@/utils/browserId"
-import { useRecoilState } from "recoil"
-import { cartState } from "@/recoil/atoms/cartAtom"
-import { CartItem } from "@/types/cartType"
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { Product } from "@/types/product";
+import { CURRENCY_SYMBOL } from "@/configs/constants/constants";
+import languages from "@/configs/languages";
+import CancelButton from "@/components/button/CancelButton";
+import QuantitySelector from "@/components/inputs/QuantitySelectorInput";
+import ProductCarousel from "@/components/carousel/ProductCarousel";
+import { TITLE_MAX_LENGTH } from "@/utils/constants";
+import { updateCart } from "@/services/api";
+import { getOrCreateBrowserId } from "@/utils/browserId";
+import { useRecoilState } from "recoil";
+import { cartState } from "@/recoil/atoms/cartAtom";
+import { CartItem } from "@/types/cartType";
 
 interface ProductPopupProps {
-  product: any
-  onClose: () => void
+  product: any;
+  onClose: () => void;
 }
 
 interface skuObjectType {
-    attributeName: string;
-    attributeValue: string[];
+  attributeName: string;
+  attributeValue: string[];
 }
 
 const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
-  const [selectedSize, setSelectedSize] = useState<Record<string, string>>({})
-  const [formattedOutput, setFormattedOutput] = useState<skuObjectType[]>()
-  const [quantity, setQuantity] = useState<number>(1)
-  const [imageLoading, setImageLoading] = useState<boolean>(true)
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
-  const [activeAccordion, setActiveAccordion] = useState<string | null>(null)
-  const [imagesSku, setImagesSku] = useState<string[]>([])
-  const [selectedImage, setSelectedImage] = useState<string>('')
-  const [browserId, setBrowserId] = useState<string | null>(null)
-  const [skuSelected, setSkuSelected] = useState<any>(null)
-  const [cartGlobal, setCartGlobal] = useRecoilState<CartItem[]>(cartState)
+  const [selectedSize, setSelectedSize] = useState<Record<string, string>>({});
+  const [formattedOutput, setFormattedOutput] = useState<skuObjectType[]>();
+  const [quantity, setQuantity] = useState<number>(1);
+  const [imageLoading, setImageLoading] = useState<boolean>(true);
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+  const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
+  const [imagesSku, setImagesSku] = useState<string[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string>("");
+  const [browserId, setBrowserId] = useState<string | null>(null);
+  const [skuSelected, setSkuSelected] = useState<any>(null);
+  const [cartGlobal, setCartGlobal] = useRecoilState<CartItem[]>(cartState);
+  useEffect(() => {
+    const id = getOrCreateBrowserId();
+    setBrowserId(id);
+    const listImagesSku = product.product.sku.reduce(
+      (acc: string[], sku: any) => {
+        return [...acc, ...sku.images];
+      },
+      []
+    );
+
+    const uniqueImages: string[] = Array.from(new Set(listImagesSku));
+    setImagesSku(uniqueImages);
+    processDataSku();
+  }, []);
 
   useEffect(() => {
-    const id = getOrCreateBrowserId()
-    setBrowserId(id)
-    const listImagesSku = product.sku.map((sku: any) => sku.skuAttributes[0]?.image)
-    setImagesSku(listImagesSku)
-    processDataSku()
-  }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden"
+    document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = ""
-    }
-  }, [])
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   // TODO: Use effect to update price when the sku change
   const getTotalPrice = () => {
-    if(skuSelected) {
-      return skuSelected.price
+    if (skuSelected) {
+      return skuSelected.retail_price;
     }
-    return 0
-  }
 
-  const handleSizeChange = (attributeName: string, attributeValue: string, isOneSku: boolean) => {
+    return product.retail_price;
+  };
+
+  const handleSizeChange = (
+    attributeName: string,
+    attributeValue: string,
+    isOneSku: boolean
+  ) => {
     setSelectedSize((prev) => ({
       ...prev,
-      [attributeName]: attributeValue
-    }))
-  }
+      [attributeName]: attributeValue,
+    }));
+  };
 
   useEffect(() => {
-    const skuSelectedObj = product.sku.find((sku: any) => {
-      return sku.skuAttributes.every((attribute: any) => {
-        return selectedSize[attribute.name] === attribute.value;
+    const isSelectAllAttribute = Object.values(selectedSize).every(
+      (value) => value !== ""
+    );
+
+    if (isSelectAllAttribute) {
+      const skuSelectedObj = product.product.sku.find((sku: any) => {
+        return sku.fields.every((field: any) => {
+          return (
+            selectedSize.hasOwnProperty(field.name) &&
+            selectedSize[field.name] === field.value
+          );
+        });
       });
-    });
 
-    setSkuSelected(skuSelectedObj)
-  }, [selectedSize])
+      setSkuSelected(skuSelectedObj || null); // Gán null nếu không tìm thấy
+      getTotalPrice();
+    }
+  }, [selectedSize]);
 
-  const handleImageLoad = () => setImageLoading(false)
+  const handleImageLoad = () => setImageLoading(false);
 
-  const toggleFullScreen = () => setIsFullScreen(!isFullScreen)
+  const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
 
   const toggleAccordion = (section: string) => {
-    setActiveAccordion(activeAccordion === section ? null : section)
-  }
+    setActiveAccordion(activeAccordion === section ? null : section);
+  };
 
   const renderFullScreenImage = () =>
     isFullScreen && (
@@ -93,21 +114,21 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         onClick={toggleFullScreen}
       >
         <Image
-          src={product.image}
-          alt={product.title}
+          src={selectedImage}
+          alt={product.product.name}
           layout="fill"
           objectFit="contain"
           className="cursor-zoom-out"
           onLoad={handleImageLoad}
         />
       </div>
-    )
+    );
 
   const processDataSku = () => {
     const attributesMap: Record<string, { value: string }[]> = {};
 
-    product.sku.forEach(({ skuAttributes }: any) => {
-      skuAttributes.forEach(({ name, value }: any) => {
+    product.product.sku.forEach(({ fields }: any) => {
+      fields.forEach(({ name, value }: any) => {
         if (!attributesMap[name]) {
           attributesMap[name] = [];
         }
@@ -125,42 +146,53 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     );
 
     const initStateSelectedSku = formattedOutputObj.reduce((acc: any, attr) => {
-      acc[attr.attributeName] = ''
-      return acc
-    }, {})
+      acc[attr.attributeName] = "";
+      return acc;
+    }, {});
 
-    setSelectedSize(initStateSelectedSku)
-    setFormattedOutput(formattedOutputObj)
-  }
+    setSelectedSize(initStateSelectedSku);
+    setFormattedOutput(formattedOutputObj);
+  };
 
   const renderSizeButtons = () => {
     return (
       <div className="flex flex-col gap-4 md:gap-6">
-        {formattedOutput && formattedOutput.map(({ attributeName, attributeValue } : { attributeName: string, attributeValue: string[] }) => (
-          <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
-            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
-              {attributeName}
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
-              {attributeValue.map((value: any) => (
-                <button
-                  key={value}
-                  className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
-                    selectedSize[attributeName] == value
-                      ? "bg-primary text-white scale-100"
-                      : "bg-white text-black hover:scale-100 hover:bg-gray-200"
-                  }`}
-                  onClick={() => handleSizeChange(attributeName, value, false)}
-                >
-                  {value}
-                </button>
-              ))}
-            </div>
-          </div>
-        ))}
+        {formattedOutput &&
+          formattedOutput.map(
+            ({
+              attributeName,
+              attributeValue,
+            }: {
+              attributeName: string;
+              attributeValue: string[];
+            }) => (
+              <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
+                <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+                  {attributeName}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
+                  {attributeValue.map((value: any) => (
+                    <button
+                      key={value}
+                      className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
+                        selectedSize[attributeName] == value
+                          ? "bg-primary text-white scale-100"
+                          : "bg-white text-black hover:scale-100 hover:bg-gray-200"
+                      }`}
+                      onClick={() =>
+                        handleSizeChange(attributeName, value, false)
+                      }
+                    >
+                      {value}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )
+          )}
       </div>
-    )
-  }
+    );
+  };
 
   const onAddToCart = () => {
     if (browserId && product) {
@@ -170,8 +202,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           skuId: skuSelected.skuId,
           quantity: quantity,
         },
-      }
-      updateCart(browserId, body)
+      };
+      updateCart(browserId, body);
     }
 
     const cartUpdateObj = {
@@ -179,25 +211,27 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       quantity: quantity,
       skuId: skuSelected.skuId,
       originalPrice: skuSelected.price,
-      productName: product.title,
+      productName: product.product.name,
       sellerSku: "TTT-19x24-Xanh Dương",
-      skuImage: skuSelected.skuAttributes[0]?.image,
-      skuName: skuSelected.skuAttributes[0]?.name,
+      skuImage: skuSelected.fields[0]?.image,
+      skuName: skuSelected.fields[0]?.name,
     };
     setCartGlobal((prev) => {
       const existingItem = prev.findIndex(
-        (item) => item.skuId == cartUpdateObj.skuId && item.mainId == cartUpdateObj.mainId
-      )
+        (item) =>
+          item.skuId == cartUpdateObj.skuId &&
+          item.mainId == cartUpdateObj.mainId
+      );
 
-      if(existingItem !== -1) {
-        const updatedCart = [...prev]
+      if (existingItem !== -1) {
+        const updatedCart = [...prev];
         updatedCart[existingItem] = {
           ...updatedCart[existingItem],
-          quantity: updatedCart[existingItem].quantity + cartUpdateObj.quantity
-        }
-        return updatedCart
+          quantity: updatedCart[existingItem].quantity + cartUpdateObj.quantity,
+        };
+        return updatedCart;
       } else {
-        return [...prev, cartUpdateObj]
+        return [...prev, cartUpdateObj];
       }
     });
     onClose();
@@ -216,15 +250,15 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         <div className="py-2 text-gray-600">{content}</div>
       )}
     </div>
-  )
+  );
 
   const renderProductDetails = () => (
     <div className="ml-0 lg:ml-5 flex flex-col flex-grow lg:w-full">
       <div>
         <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary lg:pt-6 md:pt-0 lg:min-h-20">
-          {product.title.length > TITLE_MAX_LENGTH
-            ? `${product.title.substring(0, TITLE_MAX_LENGTH)}...`
-            : product.title}
+          {product.product.name.length > TITLE_MAX_LENGTH
+            ? `${product.product.name.substring(0, TITLE_MAX_LENGTH)}...`
+            : product.product.name}
         </h2>
         <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
           {getTotalPrice()} {CURRENCY_SYMBOL}
@@ -277,7 +311,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         </button>
       </div>
     </div>
-  )
+  );
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -288,8 +322,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           <div className="flex flex-col justify-between relative w-full lg:w-412">
             <Image
               //src={product.image}
-              src={product.mainImage}
-              alt={product.title}
+              src={imagesSku?.[0]}
+              alt={product.product.name}
               width={300}
               height={300}
               className={`w-full lg:w-412 h-327 lg:h-[550px] object-fill cursor-zoom-in ${
@@ -310,7 +344,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductPopup
+export default ProductPopup;
