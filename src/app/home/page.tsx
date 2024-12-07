@@ -42,7 +42,7 @@ const CategorySection = () => {
       id="category"
       className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto"
     >
-      <p className="text-2lg md:text-4xl font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
+      <p className="text-2lg md:text-4lg font-normal mb-1 md:mb-8 text-brown-500">
         {languages.get("home.subTitle.category")}
       </p>
       <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">

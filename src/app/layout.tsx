@@ -28,11 +28,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="vn" className={`${raleway.variable} ${playfairDisplay.variable}`}>
+        <html lang="vi" className={`${raleway.variable} ${playfairDisplay.variable}`}>
         <head>
-            <title> Moc Decor </title>
-            <meta name="Moc Decor"
-                  content="Mộc Decor specializes in high-quality photo printing and exquisite handmade crafts, offering unique and personalized decor solutions for your home and business."/>
+            <title>Mộc Decor</title>
+            <meta
+                name="description"
+                content="Mộc Decor specializes in high-quality photo printing and exquisite handmade crafts, offering unique and personalized decor solutions for your home and business."
+            />
         </head>
         <body className='w-full !scroll-smooth'>
         <DisableAnimations>
