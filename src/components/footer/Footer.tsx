@@ -57,11 +57,10 @@ const FooterLogo = ({ className }: FooterLogoProps) => (
         <Image
             src={images.imageFooterBackground}
             alt="Footer Background"
-            layout="fill"
-            objectFit="cover"
+            fill={true}
             quality={75} // Optimize image quality
-            priority // Prioritize loading for performance
-            className="z-0" // Ensure the background stays behind the logo
+            className="z-0 object-cover" // Ensure the background stays behind the logo
+            loading='lazy'
         />
 
         {/* Logo */}

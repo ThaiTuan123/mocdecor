@@ -126,8 +126,8 @@ const AboutSection = () => (
             <Image
                 src={images.homeAbout1}
                 alt="Mộc Decor"
-                width={1024}
-                height={768}
+                width={524}
+                height={630}
                 className=" px-8   3xl:px-10 3xl:pl-6 mx-auto md:object-fill h-252 lg:h-[630px] rounded-lg"
             />
         </div>
@@ -230,10 +230,10 @@ const StorySection: React.FC = () => {
                     <Image
                         src={images.imageProductStory} // Replace with your actual image path
                         alt="Product Story Background"
-                        layout="fill"
-                        objectFit="cover"
+                        fill={true}
                         quality={75} // Optimize image quality
-                        priority // Prioritize loading
+                        loading='lazy'
+                        className={'object-cover'}
                     />
                     <div className='absolute inset-0 z-10'></div> {/* Optional overlay */}
                     <div className='relative z-20 w-full flex flex-col pt-16 px-7 md:px-0'>
@@ -253,9 +253,8 @@ const StorySection: React.FC = () => {
                             <Image
                                 src={images.imageStoryHome1}
                                 alt="Story Background"
-                                layout="fill"
-                                objectFit="cover"
-                                className="rounded" // Optional styling
+                                fill={true}
+                                className="rounded object-cover" // Optional styling
                                 quality={75}
                                 priority
                             />
@@ -304,19 +303,17 @@ const GiftSection: React.FC = () => {
                 <Image
                     src={images.giftHomeMobile} // Replace with the actual mobile background image
                     alt="Gift Section Background Mobile"
-                    layout="fill"
-                    objectFit="cover"
-                    className="block md:hidden"
-                    onLoadingComplete={() => setIsLoaded(true)}
-                    priority
+                    fill={true}
+                    className="block md:hidden object-cover"
+                    onLoad={() => setIsLoaded(true)}
+                    loading='lazy'
                 />
                 <Image
                     src={images.giftHome} // Replace with the actual desktop background image
                     alt="Gift Section Background Desktop"
-                    layout="fill"
-                    objectFit="cover"
-                    className="hidden md:block"
-                    onLoadingComplete={() => setIsLoaded(true)}
+                    fill={true}
+                    className="hidden md:block object-cover"
+                    onLoad={() => setIsLoaded(true)}
                     priority
                 />
             </div>
@@ -444,10 +441,10 @@ const ServiceSection: React.FC = () => {
                               textColor={"text-white"}
                               text={languages.get("home.title.textContentHieu.service")}
                           />
-                          <h4 className="text-white font-semibold font-raleway">
+                          <p className="text-white font-semibold font-raleway">
                               {" "}
                               {languages.get("home.title.header4Hieu.service")}{" "}
-                          </h4>
+                          </p>
                       </div>
                       <div className="w-full lg:w-2/5 items-center justify-center flex">
                           <div className="relative w-full ">
@@ -502,10 +499,10 @@ const ServiceSection: React.FC = () => {
                               textColor={"text-white"}
                               text={languages.get("home.title.textContentPhu.service")}
                           />
-                          <h4 className="text-white font-semibold font-raleway">
+                          <p className="text-white font-semibold font-raleway">
                               {" "}
                               {languages.get("home.title.header4Phu.service")}{" "}
-                          </h4>
+                          </p>
                       </div>
                   </div>
               </div>

@@ -124,7 +124,7 @@ const CarouselWrapper = ({
             blurDataURL={fallbackImageUrl}
             loading="lazy"
             placeholder="blur"
-            onLoadingComplete={() => {
+            onLoad={() => {
               const updatedLoaded = [...loaded];
               updatedLoaded[index] = true;
               setLoaded(updatedLoaded);

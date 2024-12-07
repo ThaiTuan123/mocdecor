@@ -34,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
         <Image
           src={images?.[0]}
           alt={product.product.name}
-          width={368}
+          width={212}
           height={269}
           className={`w-full h-full rounded-t object-fill transition-all duration-300 ${
             isLoading ? "blur-sm" : "blur-0"

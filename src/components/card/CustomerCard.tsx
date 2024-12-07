@@ -2,6 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import images from "@/configs/images";
 import languages from "@/configs/languages";
+import {useRecoilState} from "recoil";
+import {isImageLoadedState} from "@/recoil/atoms/imageLoadAtom";
 
 interface CardCustomerProps {
     imageCustomerUrl: string;
@@ -10,20 +12,29 @@ interface CardCustomerProps {
 }
 
 const CustomerCard: React.FC<CardCustomerProps> = ({imageCustomerUrl, textDescription, nameCustomer}) => {
+    const [isImageLoaded, setIsImageLoaded] = useRecoilState(isImageLoadedState);
+
     return (
         <div>
             <div className="relative w-327 md:w-412 h-327">
                 {/* Optimized background image */}
-                <Image
-                    src={imageCustomerUrl}
-                    alt="Customer Background"
-                    fill={true}
-                    className="object-cover" // Tailwind utilities for styling
-                    quality={75} // Adjust image quality
-                    priority // Load priority if above the fold
-                />
                 <div
-                    className="absolute inset-0 flex flex-col justify-end items-start h-full px-6 pb-7">
+                    className={`relative w-full h-full ${!isImageLoaded ? 'animate-pulse bg-gray-200' : ''}`}
+                >
+                    <Image
+                        src={imageCustomerUrl}
+                        alt="Customer Background"
+                        fill={true}
+                        className={`object-cover transition-opacity duration-500 ${
+                            isImageLoaded ? 'opacity-100' : 'opacity-0'
+                        }`}
+                        quality={75} // Adjust image quality
+                        loading="lazy" // Enable lazy loading
+                        onLoad={() => setIsImageLoaded(true)} // Set image loaded state
+                        onError={() => setIsImageLoaded(true)} // Fallback in case of errors
+                    />
+                </div>
+                <div className="absolute inset-0 flex flex-col justify-end items-start h-full px-6 pb-7">
                     <div>
                         <Image
                             src={images.icons.homeQuoteCustomer}
@@ -38,11 +49,10 @@ const CustomerCard: React.FC<CardCustomerProps> = ({imageCustomerUrl, textDescri
                     </div>
                 </div>
             </div>
-
             <div className="pt-4 md:pt-6">
                 <p className="text-lg md:text-xl font-raleway font-semibold uppercase">{nameCustomer}</p>
                 <p className="text-sm md:text-lg text-gray-100 font-raleway mt-2">
-                    {languages.get("home.title.p.roleCustomer")}
+                    {languages.get('home.title.p.roleCustomer')}
                 </p>
             </div>
         </div>
