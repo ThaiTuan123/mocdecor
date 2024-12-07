@@ -29,10 +29,10 @@ const TitleText: React.FC<TitleTextProps> = ({
                 animate={{ width: '2rem' }}
                 transition={{ duration: 1, ease: 'easeInOut' }}
             ></motion.div>
-            <h3 className={`text-sm md:text-lg font-raleway mr-1 uppercase ${textColor}`}>
+            <p className={`text-sm md:text-lg mr-1 uppercase ${textColor}`}>
                 {firstText}
-            </h3>
-            <h3 className={`text-sm md:text-lg font-raleway font-bold uppercase ${textColor}`}>
+            </p>
+            <p className={`text-sm md:text-lg font-bold uppercase ${textColor}`}>
                 <Typewriter
                     words={[secondText]}
                     loop={false}
@@ -42,7 +42,7 @@ const TitleText: React.FC<TitleTextProps> = ({
                     deleteSpeed={100}
                     delaySpeed={1000}
                 />
-            </h3>
+            </p>
         </div>
     );
 };

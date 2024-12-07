@@ -116,9 +116,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         <Image
           src={selectedImage}
           alt={product.product.name}
-          layout="fill"
-          objectFit="contain"
-          className="cursor-zoom-out"
+          fill={true}
+          className="cursor-zoom-out object-contain"
           onLoad={handleImageLoad}
         />
       </div>
