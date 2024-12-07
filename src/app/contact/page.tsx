@@ -10,20 +10,26 @@ import TextareaInput from "@/components/inputs/TextareaInput";
 import languages from "@/configs/languages";
 import {contactItems, socialIcons} from "@/app/contact/constant";
 import {ContactItemType, IconType} from "@/app/contact/types";
-import {useImageLoad} from "@/recoil/hooks/useImageLoad";
 import {useContactForm} from "@/recoil/hooks/useContactForm";
 import {GoogleMapsEmbed} from "@/utils/helpers/googleMapsEmbedHelper";
+import images from "@/configs/images";
+import Image from "next/image";
 
 const HeroSection = () => {
-    const isImageLoaded = useImageLoad();
-
     return (
-        <div
-            className={`h-252 md:h-80 bg-no-repeat bg-cover flex justify-center py-8 md:py-12 text-white transition-all duration-500 ${
-                isImageLoaded ? 'bg-image-hero-contact blur-0' : 'bg-gray-200 blur-lg'
-            }`}
-        >
-            <div className=" w-3/5 md:w-1/2 flex flex-col items-center gap-2 justify-center">
+        <div className="relative h-252 md:h-80 flex justify-center py-8 md:py-12 text-white transition-all duration-500">
+            {/* Optimized Background Image */}
+            <Image
+                src={images.contactHeroBackground}
+                alt="Contact Hero Background"
+                fill={true}
+                className={"object-cover"}
+                quality={80}
+                priority
+            />
+
+            {/* Content */}
+            <div className="relative z-10 w-3/5 md:w-1/2 flex flex-col items-center gap-2 justify-center">
                 <div className="flex flex-row gap-1 text-smLh">
                     <span className="text-black-50">
                         {languages.get("about")}
@@ -62,7 +68,7 @@ const ContactItemList = ({items}: { items: ContactItemType[] }) => (
     <ul className="mb-4 mt-8 bg-pampas rounded-lg px-4 lg:px-8 py-6 space-y-5">
         {items.map(item => (
             <li key={item.key} className="flex items-center text-karaka text-sm lg:text-lg">
-                <img src={item.icon} alt={item.alt} className="mr-4 items-start" width={24} height={24}/>
+                <Image src={item.icon} alt={item.alt} className="mr-4 items-start" width={24} height={24}/>
                 {languages.get(item.key)}
             </li>
         ))}
@@ -86,7 +92,7 @@ const ContactDetails = () => (
             <SocialIcons icons={socialIcons}/>
         </div>
         <div className="mt-4">
-           <GoogleMapsEmbed/>
+            <GoogleMapsEmbed/>
         </div>
     </div>
 );

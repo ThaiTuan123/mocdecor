@@ -97,6 +97,10 @@ const images = {
     // footer
     imageFooterBackground: "/assets/imgs/pictures/image-footer.webp",
 
+    //Contact pages
+    contactHeroBackground: "/assets/imgs/backgrounds/hero-contact.webp",
+
+
     //// customer
     customer1: "/assets/imgs/backgrounds/customer-1-builevy.webp",
     customer2: "/assets/imgs/backgrounds/customer-2-buitrongnghia.webp",

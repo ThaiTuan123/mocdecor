@@ -1,15 +1,30 @@
+import Image from "next/image";
+
 interface IconProps {
-    src: string;
-    alt: string;
-    size?: 'small' | 'large'; // optional prop to specify size
-    onClick?: () => void
+    src: string; // Path to the image
+    alt: string; // Alt text for accessibility
+    size?: "small" | "large"; // Optional prop to specify size
+    onClick?: () => void; // Optional click handler
 }
 
-const Icon = ({src, alt, size = 'small', onClick}: IconProps) => {
-    const sizeClasses = size === 'small' ? 'h-6 w-6' : 'h-12 w-12'; // 24px for small and 48px for large
+const Icon = ({ src, alt, size = "small", onClick }: IconProps) => {
+    // Define size based on the 'size' prop
+    const dimensions = size === "small" ? 24 : 48;
 
     return (
-        <img src={src} alt={alt} className={`${sizeClasses} text-black hover:opacity-85 cursor-pointer`} onClick={onClick}/>
+        <div
+            className={`inline-block hover:opacity-85 cursor-pointer`}
+            onClick={onClick}
+            style={{ width: dimensions, height: dimensions }}
+        >
+            <Image
+                src={src} // Optimized image path
+                alt={alt} // Alt text
+                width={dimensions} // Width based on size
+                height={dimensions} // Height based on size
+                className="object-contain" // Ensures image fits without distortion
+            />
+        </div>
     );
 };
 
