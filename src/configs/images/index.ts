@@ -89,6 +89,10 @@ const images = {
 
     homeBackgroundService: "/assets/imgs/backgrounds/bg-service-home.webp",
 
+    //Contact pages
+    contactHeroBackground: "/assets/imgs/backgrounds/hero-contact.webp",
+
+
     //// customer
     customer1: "/assets/imgs/backgrounds/customer-1-builevy.webp",
     customer2: "/assets/imgs/backgrounds/customer-2-buitrongnghia.webp",
