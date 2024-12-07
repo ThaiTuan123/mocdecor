@@ -113,3 +113,11 @@ export const updateCart = async (browserId: string, body: any) => {
     body: body,
   });
 };
+
+export const uploadSingle = async (body: any) => {
+  const url = API.UPLOAD_IMAGE;
+  return apiRequest(url, {
+    method: "POST",
+    body: body,
+  });
+};

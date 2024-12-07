@@ -1,14 +1,17 @@
 // src/app/gallery/@FoundGallery/@GalleryCategory/index.tsx
 
-import React from "react";
+import React, { useEffect } from "react";
 import languages from "@/configs/languages";
 import LabelValue from "@/components/texts/LabelValue";
 import OrderItemCard from "@/components/card/OrderItemCard";
-import {OrderList} from "@/types/order";
-import orderListData from '@/app/data/orderListData.json';
 
-export default function GalleryCategory() {
-    const orders: OrderList = orderListData; // Typing the imported data
+interface GalleryCategoryProps {
+    uploadState: any
+    setUploadState: React.Dispatch<any>
+    setSelectedUpload: React.Dispatch<React.SetStateAction<string>>
+}
+
+export default function GalleryCategory({ uploadState, setUploadState, setSelectedUpload }: GalleryCategoryProps) {
 
     return (
         <div className="w-full lg:w-1/3 lg:border lg:border-stroke bg-white rounded">
@@ -34,15 +37,15 @@ export default function GalleryCategory() {
 
             {/* Order List */}
             <div className="h-[630px] overflow-y-auto">
-                {orders.orders.map((order) => (
+                {uploadState.length && uploadState.map((order: any) => (
                     <OrderItemCard
                         key={order.id}
-                        imageSrc={order.imageSrc}
-                        title={order.title}
-                        selectedCount={order.selectedCount}
-                        totalCount={order.totalCount}
-                        status={order.status}
-                        onClick={() => console.log(`Order ${order.id} clicked`)}
+                        imageSrc={order.image}
+                        title={order.name}
+                        selectedCount={order.countSelected}
+                        totalCount={40}
+                        status={"click"}
+                        onClick={() => setSelectedUpload(order.id)}
                     />
                 ))}
             </div>
