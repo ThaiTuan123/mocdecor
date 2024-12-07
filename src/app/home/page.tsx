@@ -42,9 +42,9 @@ const CategorySection = () => {
       id="category"
       className="py-0 pt-8 md:py-8 text-center md:container md:mx-auto"
     >
-      <h2 className="text-2lg md:text-4xl font-raleway font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
+      <p className="text-2lg md:text-4xl font-normal mb-1 md:mb-8 text-brown-500 text-opacity-50">
         {languages.get("home.subTitle.category")}
-      </h2>
+      </p>
       <h2 className="text-2xl md:text-7xl font-playfairBold font-bold md:mb-8 uppercase text-brown-500 text-opacity-70">
         {languages.get("home.title.category")}
       </h2>
@@ -342,12 +342,12 @@ const GiftSection: React.FC = () => {
                     <div className="h-24 w-1 bg-white mx-4 hidden md:block"></div>
                     <div id="title">
                         <div className="flex-n1 font-raleway flex flex-col md:items-start items-center">
-                            <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">
+                            <p className="text-4xl font-extrabold text-white mb-4 font-raleway">
                                 {languages.get('home.title.header2.gift1')}
-                            </h2>
-                            <h2 className="text-4xl font-extrabold text-white font-raleway">
+                            </p>
+                            <p className="text-4xl font-extrabold text-white font-raleway">
                                 {languages.get('home.title.header2.gift2')}
-                            </h2>
+                            </p>
                         </div>
                     </div>
                 </div>

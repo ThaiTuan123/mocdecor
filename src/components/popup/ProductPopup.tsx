@@ -167,9 +167,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
                     attributeValue: string[];
                   }) => (
                       <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
-                        <h3 className="w-16 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+                        <p className="w-16 md:w-20 text-sm md:text-lg font-medium content-center">
                           {attributeName}
-                        </h3>
+                        </p>
                         <div className="max-w-52 md:max-w-96 flex flex-wrap gap-2 mt-2 max-h-40 md:max-h-48 overflow-y-auto">
                           {attributeValue.map((value: any) => (
                               <button
@@ -267,9 +267,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {renderSizeButtons()}
 
           <div className="flex flex-row center gap-4 md:gap-6">
-            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+            <p className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
               {languages.get("popup.text.quantity")}
-            </h3>
+            </p>
             <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           </div>
         </div>

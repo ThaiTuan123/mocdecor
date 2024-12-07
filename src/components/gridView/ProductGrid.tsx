@@ -54,10 +54,10 @@ const ProductGrid: React.FC<{ category: string; subCategory: string }> = ({
                   ))
               ) : (
                   <div className="col-span-2 md:col-span-3 lg:col-span-4">
-                      <h1 className='text-xl '>
+                      <p className='text-xl '>
                           Chúng tôi đang trong quá trình cập nhật sản phẩm {subCategory}. Nếu cần, có thể liên hệ trực
                           tiếp với chúng tôi.
-                      </h1>
+                      </p>
                   </div>
               )}
           </div>

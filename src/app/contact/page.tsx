@@ -77,7 +77,7 @@ const ContactItemList = ({items}: { items: ContactItemType[] }) => (
 
 const ContactDetails = () => (
     <div className="px-0 lg:px-16 md:text-start">
-        <h3 className="text-2xl text-center md:text-start md:text-4xl font-playfairBold text-primary mb-4">
+        <h3 className="text-2xl text-center font-bold md:text-start md:text-4xl font-playfairBold text-primary mb-4">
             {languages.get('contact.subtitle.findUs')}
         </h3>
         <p className="mb-5 md:mb-8 text-center md:text-start text-karaka font-normal text-sm md:text-lg">

@@ -91,7 +91,7 @@ export default function Payment() {
         );
 
         const renderHeroHeading = () => (
-            <h1 className="uppercase font-playfairBold text-2xl md:text-6lg text-center">
+            <h1 className="uppercase font-bold text-2xl md:text-6lg text-center">
                 {languages.get("payment.title")}
             </h1>
         );
@@ -272,9 +272,9 @@ export default function Payment() {
                                 />
                             </div>
                             <div className="flex flex-col gap-3">
-                                <h3>
+                                <p>
                                     {item.productName.length > 45 ? `${item.productName.slice(0, 45)}...` : item.productName}
-                                </h3>
+                                </p>
                                 <span className="text-sm text-doveGray">{"description"}</span>
                                 <div className="flex gap-1 items-end">
                                 <span className="text-2lg text-caption">

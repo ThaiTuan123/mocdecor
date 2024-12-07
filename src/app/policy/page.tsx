@@ -25,12 +25,12 @@ export default function Policy() {
             <span>/</span>
             <span>{languages.get("policy.hero.policy.text")}</span>
           </div>
-              <h1 className="uppercase font-playfairBold text-2xl md:text-6lg text-center">
+              <h1 className="uppercase font-bold text-2xl md:text-6lg text-center">
                   {languages.get("policy.title")}
               </h1>
-              <span className="font-playfairRegular text-sm md:text-2lg text-center">
+              <p className="text-sm md:text-2lg text-center">
             {languages.get("policy.desc")}
-          </span>
+          </p>
         </div>
       </div>
     )
@@ -67,9 +67,9 @@ export default function Policy() {
         <div className="flex flex-col gap-7">
           {item.map((item, index) => (
             <div className="flex flex-col gap-4" key={index}>
-              <h3 className="text-karaka sm:text-1.25lg text-xs font-raleway font-bold">
+              <p className="text-karaka sm:text-1.25lg text-xs font-raleway font-bold">
                 {item?.title}
-              </h3>
+              </p>
               <span
                 className="whitespace-pre-line text-karaka sm:text-1.25lg text-sm font-raleway"
                 dangerouslySetInnerHTML={{
