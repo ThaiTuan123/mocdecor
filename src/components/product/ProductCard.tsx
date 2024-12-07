@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Image from "next/image";
-import { Product } from "@/types/product";
-import { CURRENCY_SYMBOL } from "@/configs/constants/constants";
+import {Product} from "@/types/product";
+import {CURRENCY_SYMBOL} from "@/configs/constants/constants";
 import {FaRegStar, FaStar} from "react-icons/fa";
+import {formatCurrency} from "@/utils/formatCurrency";
 
 interface ProductCardProps extends Product {
   onClick?: () => void;
@@ -54,20 +55,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
             <div className="h-4 bg-gray-200 rounded w-1/2"></div>
           </div>
         ) : (
-          <>
-            <p className="text-sm md:text-xl font-raleway font-bold text-brown-900 truncate">
-              {product.product.name}
-            </p>
-            <div className="flex items-center justify-start mt-2">
-              <div className="flex items-start">{renderStars()}</div>
-              <span className="ml-2 text-sm text-gray-100 font-medium font-raleway">
+            <>
+              <p className="text-sm md:text-xl font-raleway font-bold text-brown-900 truncate">
+                {product.product.name}
+              </p>
+              <div className="flex items-center justify-start mt-2">
+                <div className="flex items-start">{renderStars()}</div>
+                <span className="ml-2 text-sm text-gray-100 font-medium font-raleway">
                 {count}
               </span>
-            </div>
-            <p className="mt-2 text-sm md:text-xl font-normal text-orange-600 font-raleway">
-              {retail_price} {CURRENCY_SYMBOL}
-            </p>
-          </>
+              </div>
+              <p className="mt-2 text-sm md:text-xl font-normal text-orange-600 font-raleway">
+                {`${formatCurrency(retail_price)} ${CURRENCY_SYMBOL}`}
+              </p>
+            </>
         )}
       </div>
     </div>
