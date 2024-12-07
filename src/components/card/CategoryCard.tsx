@@ -38,8 +38,8 @@ const CategoryCard: React.FC<CategoryCardProps> = ({category, index}) => {
                 <Image
                     src={checkImage(category.image) ? category.image : images.image404}
                     alt={category.name}
-                    width={474}
-                    height={382}
+                    width={421}
+                    height={379}
                     className="mx-auto rounded h-150 md:h-252 lg:h-379 object-cover lg:object-fill"
                 />
                 <div
