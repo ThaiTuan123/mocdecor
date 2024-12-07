@@ -47,7 +47,7 @@ export default function GalleryItem() {
         <div className="w-full lg:w-2/3 border bg-white border-stroke rounded ml-0 lg:ml-4">
             {/* Header */}
             <div className="py-5 px-6 lg:px-7 border-b border-stroke">
-                <h2 className="text-xl font-semibold mb-4 text-primary">{languages.get('product.detail.title')}</h2>
+                <p className="text-xl font-semibold mb-4 text-primary">{languages.get('product.detail.title')}</p>
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                     <div className="flex flex-col justify-between lg:gap-4">
                         <LabelValueProductDetail
@@ -112,7 +112,7 @@ export default function GalleryItem() {
 
                 {/* Notes Section */}
                 <div className="mt-6">
-                    <h3 className="text-sm font-medium mb-4 uppercase">{languages.get('product.detail.status.message')}</h3>
+                    <p className="text-sm font-medium mb-4 uppercase">{languages.get('product.detail.status.message')}</p>
                     <textarea
                         placeholder={languages.get('product.detail.status.messageDetail')}
                         className="w-full p-2 border rounded resize-none"

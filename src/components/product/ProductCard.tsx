@@ -57,9 +57,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
           </div>
         ) : (
           <>
-            <h2 className="text-sm md:text-xl font-raleway font-bold text-brown-900 truncate">
+            <p className="text-sm md:text-xl font-raleway font-bold text-brown-900 truncate">
               {product.product.name}
-            </h2>
+            </p>
             <div className="flex items-center justify-start mt-2">
               <div className="flex items-start">{renderStars()}</div>
               <span className="ml-2 text-sm text-gray-100 font-medium font-raleway">

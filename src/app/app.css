@@ -4,50 +4,13 @@
 
 /* Base styles */
 @layer base {
-    /*Font Raleway*/
-    @font-face {
-        font-family: 'Raleway';
-        src: url('/assets/fonts/raleway/raleway-regular.ttf') format('truetype');
-        font-weight: 400;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: 'Raleway';
-        src: url('/assets/fonts/raleway/raleway-bold.ttf') format('truetype');
-        font-weight: 700;
-        font-style: normal;
-    }
-
-    /*Font Playfair Display*/
-    @font-face {
-        font-family: 'Playfair Display Regular';
-        src: url('/assets/fonts/playfairDisplay/playfair-display-regular.ttf') format('truetype');
-        font-weight: 400;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Playfair Display Medium';
-        src: url('/assets/fonts/playfairDisplay/playfair-display-medium.ttf') format('truetype');
-        font-weight: 500;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Playfair Display Bold';
-        src: url('/assets/fonts/playfairDisplay/playfair-display-bold.ttf') format('truetype');
-        font-weight: 700;
-        font-style: normal;
-    }
-
     body {
         font-family: 'Raleway', sans-serif;
     }
 
-    /*TODO when project done then open this code*/
-    /*h1, h2, h3, h4, h5, span {*/
-    /*    user-select: none;*/
-    /*}*/
+    h1, h2, h3, h4, h5 {
+        font-family: 'Playfair Display', serif;
+    }
 }
 
 /* Component styles */

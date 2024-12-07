@@ -332,9 +332,9 @@ export default function Products() {
                 height={300}
               />
               <div className="flex flex-col gap-2 p-4">
-                <h3 className="text-karaka md:text-2lg text-lg font-semibold overflow-hidden whitespace-nowrap text-ellipsis">
+                <p className="text-karaka md:text-2lg text-lg font-semibold overflow-hidden whitespace-nowrap text-ellipsis">
                   {item.product.name}
-                </h3>
+                </p>
                 <div className="flex items-center gap-2">
                   {renderStar(4)}
                   <span className="text-sm text-doveGray">(699)</span>

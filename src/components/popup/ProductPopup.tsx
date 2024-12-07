@@ -167,9 +167,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
               attributeValue: string[];
             }) => (
               <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
-                <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+                <p className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
                   {attributeName}
-                </h3>
+                </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
                   {attributeValue.map((value: any) => (
                     <button
@@ -255,11 +255,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const renderProductDetails = () => (
     <div className="ml-0 lg:ml-5 flex flex-col flex-grow lg:w-full">
       <div>
-        <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary lg:pt-6 md:pt-0 lg:min-h-20">
+        <p className="text-2xl md:text-4xl font-playfairBold font-bold text-primary lg:pt-6 md:pt-0 lg:min-h-20">
           {product.product.name.length > TITLE_MAX_LENGTH
             ? `${product.product.name.substring(0, TITLE_MAX_LENGTH)}...`
             : product.product.name}
-        </h2>
+        </p>
         <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
           {getTotalPrice()} {CURRENCY_SYMBOL}
         </p>
@@ -267,9 +267,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {renderSizeButtons()}
 
           <div className="flex flex-row center gap-4 md:gap-6">
-            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+            <p className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
               {languages.get("popup.text.quantity")}
-            </h3>
+            </p>
             <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           </div>
         </div>

@@ -1,5 +1,6 @@
 import type {Config} from "tailwindcss";
 import { PluginAPI } from 'tailwindcss/types/config';
+import {fontFamily} from "tailwindcss/defaultTheme";
 
 const config: Config = {
     content: [
@@ -108,10 +109,8 @@ const config: Config = {
                 },
             },
             fontFamily: {
-                raleway: ['Raleway', 'sans-serif'],
-                playfairRegular: ['Playfair Display Regular', 'serif'],
-                playfairMedium: ['Playfair Display Medium', 'serif'],
-                playfairBold: ['Playfair Display Bold', 'serif'],
+                sans: ['var(--font-raleway)', ...fontFamily.sans],
+                serif: ['var(--font-playfair-display)', ...fontFamily.serif],
             },
             fontSize: {
                 '0.8x': ['0.5rem', '0.5rem'],       // 8px, 8px
