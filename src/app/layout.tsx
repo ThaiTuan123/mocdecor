@@ -8,6 +8,19 @@ import {SpeedInsights} from '@vercel/speed-insights/next';
 import DisableAnimations from "@/components/disableAnimationMobile/DisableAnimations";
 import FloatingButtons from "@/components/floating/FloatingButton";
 import {RecoilRoot} from 'recoil'; // Import RecoilRoot
+import { Raleway, Playfair_Display } from 'next/font/google';
+
+const raleway = Raleway({
+    subsets: ['latin'],
+    weight: ['400', '700'], // Include only the weights used
+    variable: '--font-raleway', // Add as CSS variable
+});
+
+const playfairDisplay = Playfair_Display({
+    subsets: ['latin'],
+    weight: ['400', '500', '700'], // Include only the weights used
+    variable: '--font-playfair-display', // Add as CSS variable
+});
 
 export default function RootLayout({
                                        children,
@@ -15,7 +28,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="vn">
+        <html lang="vn" className={`${raleway.variable} ${playfairDisplay.variable}`}>
         <body className='w-full !scroll-smooth'>
         <DisableAnimations>
             <RecoilRoot>

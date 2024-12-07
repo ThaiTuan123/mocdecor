@@ -80,9 +80,9 @@ const ContactDetails = () => (
         <Line/>
         <ContactItemList items={contactItems}/>
         <div className="mt-4 flex">
-            <h5 className="text-xl font-raleway text-caption mb-2">
+            <p className="text-xl font-raleway text-caption mb-2">
                 {languages.get('connectWithMoc')}
-            </h5>
+            </p>
             <SocialIcons icons={socialIcons}/>
         </div>
         <div className="mt-4">

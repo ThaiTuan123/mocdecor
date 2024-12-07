@@ -25,7 +25,7 @@ export default function Empty() {
             <div
                 className="order-2 md:order-none flex flex-none md:flex-1 bg-white md:bg-image-left-error bg-cover pr-0 md:pr-5 justify-end items-center">
                 <div className="flex flex-col w-full md:w-2/3 gap-2 md:gap-6 items-center md:items-start">
-                    <h2 className="text-primary font-semibold text-2lg md:text-4lg">{galleryTitle}</h2>
+                    <p className="text-primary font-semibold text-2lg md:text-4lg">{galleryTitle}</p>
                     <span className="text-karaka text-sm md:text-2lg text-center md:text-left">{galleryDescription}</span>
                 </div>
             </div>
