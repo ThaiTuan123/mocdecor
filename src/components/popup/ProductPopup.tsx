@@ -156,41 +156,41 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
   const renderSizeButtons = () => {
     return (
-      <div className="flex flex-col gap-4 md:gap-6">
-        {formattedOutput &&
-          formattedOutput.map(
-            ({
-              attributeName,
-              attributeValue,
-            }: {
-              attributeName: string;
-              attributeValue: string[];
-            }) => (
-              <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
-                <p className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
-                  {attributeName}
-                </p>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-2">
-                  {attributeValue.map((value: any) => (
-                    <button
-                      key={value}
-                      className={`px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
-                        selectedSize[attributeName] == value
-                          ? "bg-primary text-white scale-100"
-                          : "bg-white text-black hover:scale-100 hover:bg-gray-200"
-                      }`}
-                      onClick={() =>
-                        handleSizeChange(attributeName, value, false)
-                      }
-                    >
-                      {value}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )
-          )}
-      </div>
+        <div className="flex flex-col gap-4 md:gap-6">
+          {formattedOutput &&
+              formattedOutput.map(
+                  ({
+                     attributeName,
+                     attributeValue,
+                   }: {
+                    attributeName: string;
+                    attributeValue: string[];
+                  }) => (
+                      <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
+                        <h3 className="w-16 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+                          {attributeName}
+                        </h3>
+                        <div className="max-w-52 md:max-w-96 flex flex-wrap gap-2 mt-2 max-h-40 md:max-h-48 overflow-y-auto">
+                          {attributeValue.map((value: any) => (
+                              <button
+                                  key={value}
+                                  className={` px-3 md:px-4 py-2 rounded transition-transform duration-300 text-sm ${
+                                      selectedSize[attributeName] == value
+                                          ? "bg-primary text-white scale-100"
+                                          : "bg-white text-black hover:scale-100 hover:bg-gray-200"
+                                  }`}
+                                  onClick={() =>
+                                      handleSizeChange(attributeName, value, false)
+                                  }
+                              >
+                                {value}
+                              </button>
+                          ))}
+                        </div>
+                      </div>
+                  )
+              )}
+        </div>
     );
   };
 
@@ -255,11 +255,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const renderProductDetails = () => (
     <div className="ml-0 lg:ml-5 flex flex-col flex-grow lg:w-full">
       <div>
-        <p className="text-2xl md:text-4xl font-playfairBold font-bold text-primary lg:pt-6 md:pt-0 lg:min-h-20">
+        <h2 className="text-2xl md:text-4xl font-playfairBold font-bold text-primary lg:pt-6 md:pt-0 lg:min-h-20">
           {product.product.name.length > TITLE_MAX_LENGTH
             ? `${product.product.name.substring(0, TITLE_MAX_LENGTH)}...`
             : product.product.name}
-        </p>
+        </h2>
         <p className="mt-3 text-xl md:text-2xl font-raleway text-orange-600">
           {getTotalPrice()} {CURRENCY_SYMBOL}
         </p>
@@ -267,9 +267,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {renderSizeButtons()}
 
           <div className="flex flex-row center gap-4 md:gap-6">
-            <p className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
+            <h3 className="w-18 md:w-20 text-sm md:text-lg font-raleway font-medium content-center">
               {languages.get("popup.text.quantity")}
-            </p>
+            </h3>
             <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           </div>
         </div>
