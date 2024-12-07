@@ -1,19 +1,19 @@
 //ProductPopup.tsx
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
-import { Product } from "@/types/product";
-import { CURRENCY_SYMBOL } from "@/configs/constants/constants";
+import {CURRENCY_SYMBOL} from "@/configs/constants/constants";
 import languages from "@/configs/languages";
 import CancelButton from "@/components/button/CancelButton";
 import QuantitySelector from "@/components/inputs/QuantitySelectorInput";
 import ProductCarousel from "@/components/carousel/ProductCarousel";
-import { TITLE_MAX_LENGTH } from "@/utils/constants";
-import { updateCart } from "@/services/api";
-import { getOrCreateBrowserId } from "@/utils/browserId";
-import { useRecoilState } from "recoil";
-import { cartState } from "@/recoil/atoms/cartAtom";
-import { CartItem } from "@/types/cartType";
+import {TITLE_MAX_LENGTH} from "@/utils/constants";
+import {updateCart} from "@/services/api";
+import {getOrCreateBrowserId} from "@/utils/browserId";
+import {useRecoilState} from "recoil";
+import {cartState} from "@/recoil/atoms/cartAtom";
+import {CartItem} from "@/types/cartType";
+import {formatCurrency} from "@/utils/formatCurrency";
 
 interface ProductPopupProps {
   product: any;
@@ -62,10 +62,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   // TODO: Use effect to update price when the sku change
   const getTotalPrice = () => {
     if (skuSelected) {
-      return skuSelected.retail_price;
+      return formatCurrency(skuSelected.retail_price);
     }
 
-    return product.retail_price;
+    return formatCurrency(product.retail_price);
   };
 
   const handleSizeChange = (

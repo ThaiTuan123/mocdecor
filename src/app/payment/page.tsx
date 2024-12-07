@@ -19,7 +19,7 @@ import {useRecoilValue} from "recoil";
 import {cartState} from "@/recoil/atoms/cartAtom";
 import PaymentSuccessPopup from "@/components/popup/PaymentSuccessPopup";
 import usePopupSuccess from "@/recoil/hooks/usePopupSuccess";
-import { CartItem } from "@/types/cartType"
+import {CartItem} from "@/types/cartType"
 
 interface formType {
     city: string | null
@@ -176,9 +176,9 @@ export default function Payment() {
 
         return (
             <div className="flex-1 flex flex-col pt-4 lg:pt-12 pb-8 lg:pb-16 px-6 lg:pl-36 lg:pr-6">
-                <h2 className="text-2lg text-primary">
+                <p className="font-semibold text-2lg text-primary">
                     {languages.get("payment.info.title")}
-                </h2>
+                </p>
                 <form className="space-y-6 mt-4 lg:mt-8" onSubmit={handleSubmit}>
                     {renderInputRow([
                         <TextInput
@@ -241,9 +241,9 @@ export default function Payment() {
                         required
                     />
 
-                    <h2 className="text-2lg text-primary">
+                    <p className="font-semibold text-2lg text-primary">
                         {languages.get("payment.type.title")}
-                    </h2>
+                    </p>
 
                     {renderInfoTypePayment()}
 
@@ -308,9 +308,9 @@ export default function Payment() {
 
         return (
             <div className="flex-1 py-9 md:py-12 px-6 lg:pl-8 lg:pr-36">
-                <h2 className="text-2lg text-primary">
+                <p className="font-semibold text-2lg text-primary">
                     {languages.get("payment.order.title")}
-                </h2>
+                </p>
                 {renderContainerProduct()}
                 <div className="flex flex-col gap-4 bg-pampas px-6 py-4 mt-5 lg:mt-0 rounded">
                     {renderPriceRow(languages.get("payment.order.price"), getTotalPrice())}
