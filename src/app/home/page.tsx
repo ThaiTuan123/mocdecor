@@ -31,6 +31,8 @@ import Carousel from "@/components/carousel/Carousel";
 import useMenu from "@/recoil/hooks/useMenu";
 import useTopPosProductCategory from "@/recoil/hooks/useTopProductCategories";
 import CategoryProductTab from "@/components/tab/TabPrint";
+import {useRecoilState} from "recoil";
+import {isImageLoadedState} from "@/recoil/atoms/imageLoadAtom";
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -223,8 +225,18 @@ const StorySection: React.FC = () => {
     return (
         <section className='2xl:mx-auto 2xl:container h-896 lg:h-946'>
             <div className='relative'>
-                <div className='bg-image-product-story h-218 md:h-80 relative z-10'>
-                    <div className='w-full flex flex-col pt-16 px-7 md:px-0'>
+                {/* Background image section */}
+                <div className='relative h-218 md:h-80'>
+                    <Image
+                        src={images.imageProductStory} // Replace with your actual image path
+                        alt="Product Story Background"
+                        layout="fill"
+                        objectFit="cover"
+                        quality={75} // Optimize image quality
+                        priority // Prioritize loading
+                    />
+                    <div className='absolute inset-0 z-10'></div> {/* Optional overlay */}
+                    <div className='relative z-20 w-full flex flex-col pt-16 px-7 md:px-0'>
                         <TitleText
                             firstText={languages.get('home.title.firstText.story')}
                             secondText={languages.get('home.title.secondText.story')}
@@ -233,18 +245,27 @@ const StorySection: React.FC = () => {
                     </div>
                 </div>
 
-                <div
-                    id='content'
-                    className='absolute max-w-6xl mx-auto inset-0 z-20 mt-44 md:mt-52'
-                >
-                    <div className='flex md:h-[600] '>
-                        <div
-                            className=" hidden md:visible w-full md:w-3/5 bg-image-story-home-1 bg-cover md:flex items-end justify-between px-8 py-8 rounded">
-                            <Heading3 size={'text-2xl'}
-                                      text={languages.get('home.title.header3.itemStory1')}/>
-                            {/*TODO add this button when have blogs*/}
-                            {/*<SolidButton text={languages.get('button.readMore')} href="/your-target-page"/>*/}
+                {/* Content section */}
+                <div id='content' className='absolute lg:max-w-7xl mx-auto inset-0 z-30 mt-44 md:mt-52'>
+                    <div className='flex w-full md:h-[600]'>
+                        {/* Left side background image */}
+                        <div className="hidden md:flex w-full md:w-3/5 relative items-end justify-between px-8 py-8 rounded">
+                            <Image
+                                src={images.imageStoryHome1}
+                                alt="Story Background"
+                                layout="fill"
+                                objectFit="cover"
+                                className="rounded" // Optional styling
+                                quality={75}
+                                priority
+                            />
+                            <div className="z-10"> {/* Content over the image */}
+                                <Heading3 size={'text-2xl'} text={languages.get('home.title.header3.itemStory1')} />
+                                {/* TODO: Add button when blogs are available */}
+                                {/* <SolidButton text={languages.get('button.readMore')} href="/your-target-page" /> */}
+                            </div>
                         </div>
+                        {/* Right side motion cards */}
                         <div className='w-full md:w-2/5 flex flex-col gap-4 px-6 md:px-0 md:pl-4'>
                             <MotionImageCard
                                 src={images.homeStory1}
@@ -267,31 +288,73 @@ const StorySection: React.FC = () => {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
 const GiftSection: React.FC = () => {
+    const [isLoaded, setIsLoaded] = useRecoilState(isImageLoadedState);
+
     const handleClick = () => {
         alert('Discover button clicked!');
     };
     return (
-        <section
-            className={`2xl:mx-auto 2xl:container bg-image-gift-home-mobile md:bg-image-gift-home bg-cover bg-center h-648 md:max-h-96 md:h-96 flex mt-8 md:mt-0`}>
-            <div className='w-full md:max-w-6xl mx-0 md:mx-20'>
-                <div className='flex flex-col md:flex-row items-center pt-40 pb-8 md:pb-0 md:pt-0'>
-                    <Image className='hidden md:block' src={images.logoMocHome} alt="Logo" width={290} height={290}/>
-                    <Image className='block md:hidden' src={images.logoMocHomeMobile} alt="Logo mobile" width={187}
-                           height={187}/>
+        <section className="relative 2xl:mx-auto 2xl:container h-648 md:max-h-96 md:h-96 flex mt-8 md:mt-0">
+            {/* Background images */}
+            <div className={`absolute inset-0 z-0 ${!isLoaded ? 'animate-pulse bg-gray-200' : ''}`}>
+                <Image
+                    src={images.giftHomeMobile} // Replace with the actual mobile background image
+                    alt="Gift Section Background Mobile"
+                    layout="fill"
+                    objectFit="cover"
+                    className="block md:hidden"
+                    onLoadingComplete={() => setIsLoaded(true)}
+                    priority
+                />
+                <Image
+                    src={images.giftHome} // Replace with the actual desktop background image
+                    alt="Gift Section Background Desktop"
+                    layout="fill"
+                    objectFit="cover"
+                    className="hidden md:block"
+                    onLoadingComplete={() => setIsLoaded(true)}
+                    priority
+                />
+            </div>
+
+            {/* Content */}
+            <div className="relative w-full md:max-w-6xl mx-0 md:mx-20 z-10">
+                <div className="flex flex-col md:flex-row items-center pt-40 pb-8 md:pb-0 md:pt-0">
+                    {/* Logos */}
+                    <Image
+                        className="hidden md:block"
+                        src={images.logoMocHome}
+                        alt="Logo"
+                        width={290}
+                        height={290}
+                    />
+                    <Image
+                        className="block md:hidden"
+                        src={images.logoMocHomeMobile}
+                        alt="Logo Mobile"
+                        width={187}
+                        height={187}
+                    />
                     <div className="h-24 w-1 bg-white mx-4 hidden md:block"></div>
-                    <div id='title'>
+                    <div id="title">
                         <div className="flex-n1 font-raleway flex flex-col md:items-start items-center">
-                            <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">{languages.get('home.title.header2.gift1')}</h2>
-                            <h2 className="text-4xl font-extrabold text-white font-raleway">{languages.get('home.title.header2.gift2')}</h2>
+                            <h2 className="text-4xl font-extrabold text-white mb-4 font-raleway">
+                                {languages.get('home.title.header2.gift1')}
+                            </h2>
+                            <h2 className="text-4xl font-extrabold text-white font-raleway">
+                                {languages.get('home.title.header2.gift2')}
+                            </h2>
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-row w-full justify-center md:justify-start px-0 md:px-8'>
-                    <DiscoverButton className='items-center justify-center ' onClick={handleClick}>
+
+                {/* Button */}
+                <div className="flex flex-row w-full justify-center md:justify-start px-0 md:px-8">
+                    <DiscoverButton className="items-center justify-center" onClick={handleClick}>
                         {languages.get('button.discover')}
                     </DiscoverButton>
                 </div>
@@ -530,7 +593,8 @@ const HomePage = () => {
         title: category.name,
         subTitle: category.description,
         backgroundClass: category.banner,
-        backgroundMobileClass: category.image,
+          /*TODO add category banner here*/
+        backgroundMobileClass: category.banner,
         tabComponent: <CategoryProductTab category={category} index={index} />,
       };
     }) || [];

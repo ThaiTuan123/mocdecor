@@ -51,15 +51,29 @@ interface FooterLogoProps {
     className?: string;
 }
 
-const FooterLogo = ({className}: FooterLogoProps) => (
-    <div className={`w-1/3 flex items-center justify-center bg-image-footer bg-no-repeat bg-cover ${className}`}>
+const FooterLogo = ({ className }: FooterLogoProps) => (
+    <div className={`relative w-1/3 flex items-center justify-center ${className}`}>
+        {/* Background image */}
         <Image
-            src={images.logoWhite}
-            alt="Moc Decor Logo"
-            width={144} // Replace with the actual width of your image
-            height={144} // Replace with the actual height of your image
-            className="mx-auto mb-2 md:w-36 md:h-36 w-64 h-64"
+            src={images.imageFooterBackground}
+            alt="Footer Background"
+            layout="fill"
+            objectFit="cover"
+            quality={75} // Optimize image quality
+            priority // Prioritize loading for performance
+            className="z-0" // Ensure the background stays behind the logo
         />
+
+        {/* Logo */}
+        <div className="relative z-10 flex items-center justify-center">
+            <Image
+                src={images.logoWhite}
+                alt="Moc Decor Logo"
+                width={144} // Replace with the actual width of your logo
+                height={144} // Replace with the actual height of your logo
+                className="mx-auto mb-2 md:w-36 md:h-36 w-64 h-64"
+            />
+        </div>
     </div>
 );
 

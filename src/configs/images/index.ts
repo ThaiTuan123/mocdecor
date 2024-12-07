@@ -88,6 +88,14 @@ const images = {
     homeBackgroundAlbumMobile: "/assets/imgs/backgrounds/bg-album-home-mobile.webp",
 
     homeBackgroundService: "/assets/imgs/backgrounds/bg-service-home.webp",
+    imageStoryHome1: "/assets/imgs/backgrounds/story-home-1.webp",
+    imageProductStory: "/assets/imgs/backgrounds/bg-product-story.webp",
+
+    giftHomeMobile: "/assets/imgs/backgrounds/bg-gift-home-mobile.webp",
+    giftHome: "/assets/imgs/backgrounds/bg-gift-home.webp",
+
+    // footer
+    imageFooterBackground: "/assets/imgs/pictures/image-footer.webp",
 
     //// customer
     customer1: "/assets/imgs/backgrounds/customer-1-builevy.webp",
