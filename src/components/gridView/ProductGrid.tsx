@@ -67,7 +67,7 @@ const ProductGrid: React.FC<{ category: string; subCategory: string }> = ({
               <div className="flex justify-center my-6 md:my-10">
                   <OutlineButton
                       text={languages.get("button.viewMore")}
-                      href="/your-target-page"
+                      href={`/products/${category}/${subCategory}`}
                   />
               </div>
           )}
