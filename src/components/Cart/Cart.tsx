@@ -113,9 +113,9 @@ const Cart = ({
   const renderCartEmpty = () => {
     return (
       <div className="w-full flex flex-col items-center md:px-8 px-6 pt-44">
-        <h3 className="md:text-2lg text-lg font-bold text-primary text-center">
+        <p className="md:text-2lg text-lg font-bold text-primary text-center">
           {languages.get("cart.empty.title")}
-        </h3>
+        </p>
         <span className="block mt-2 mb-9 text-doveGray md:text-lg text-sm text-center">
           {languages.get("cart.empty.desc")}
         </span>
@@ -169,9 +169,9 @@ const Cart = ({
                 </div>
                 <div className="flex flex-col gap-3 flex-1">
                   <div className="flex justify-between">
-                    <h3 className="inline-block overflow-hidden text-ellipsis whitespace-nowrap flex-1 w-1">
+                    <p className="inline-block overflow-hidden text-ellipsis whitespace-nowrap flex-1 w-1">
                       {item.productName}
-                    </h3>
+                    </p>
                     <Image
                       src={images.icons.ic_trash}
                       width={24}
@@ -224,9 +224,9 @@ const Cart = ({
         </div>
         <div className="border-t pt-4 md:pt-6 md:px-8 px-6 md:h-1/3 h-1/4">
           <div className="flex justify-between mb-4">
-            <h3 className="text-doveGray text-2lg">
+            <p className="text-doveGray text-2lg">
               {languages.get("cart.total")}
-            </h3>
+            </p>
             <span className="text-2.25lg text-caption">
               {formatVietnameseCurrency(getTotalPrice())}
             </span>
@@ -272,7 +272,7 @@ const Cart = ({
           <div className="py-7 px-11 flex justify-between border-b">
             <div className="flex flex-col ">
               <div className="flex flex-row gap-4 items-center">
-                <h2 className="text-4lg text-primary">
+                <h2 className="font-bold text-4lg text-primary">
                   {languages.get("cart.title")}
                 </h2>
                 <span className="text-2lg">({getCountCart()})</span>

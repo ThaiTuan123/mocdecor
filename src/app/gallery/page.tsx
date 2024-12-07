@@ -42,7 +42,7 @@ const HeroSection: React.FC<{
                     <span>/</span>
                     <span>{uploadText}</span>
                 </div>
-                <h1 className="uppercase font-playfairBold text-2xl md:text-6lg text-center">{title}</h1>
+                <h1 className="uppercase font-bold text-2xl md:text-6lg text-center">{title}</h1>
                 <div className="w-full order-2 lg:order-1 h-16 bg-white rounded flex items-center px-4 my-4">
                     <img src={images.icons.search} className="mr-2 size-5" alt="Search Icon"/>
                     <input

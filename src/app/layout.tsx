@@ -8,7 +8,7 @@ import {SpeedInsights} from '@vercel/speed-insights/next';
 import DisableAnimations from "@/components/disableAnimationMobile/DisableAnimations";
 import FloatingButtons from "@/components/floating/FloatingButton";
 import {RecoilRoot} from 'recoil'; // Import RecoilRoot
-import { Raleway, Playfair_Display } from 'next/font/google';
+import {Playfair_Display, Raleway} from 'next/font/google';
 
 const raleway = Raleway({
     subsets: ['latin'],
@@ -29,6 +29,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="vn" className={`${raleway.variable} ${playfairDisplay.variable}`}>
+        <head>
+            <title> Moc Decor </title>
+            <meta name="Moc Decor"
+                  content="Mộc Decor specializes in high-quality photo printing and exquisite handmade crafts, offering unique and personalized decor solutions for your home and business."/>
+        </head>
         <body className='w-full !scroll-smooth'>
         <DisableAnimations>
             <RecoilRoot>

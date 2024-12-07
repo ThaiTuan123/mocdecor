@@ -21,8 +21,8 @@ const FooterDiscover = () => {
     ];
 
     return (
-        <div className="px-6 md:px-0 bg-ưimage-footer-policy bg-no-repeat bg-cover flex items-center flex-col pb-14 pt-24 text-white">
-            <h2 className="font-playfairBold text-2xl md:text-4lg mb-6 text-center px-6 md:px-0">
+        <div className="px-6 md:px-0 bg-image-footer-policy bg-no-repeat bg-cover flex items-center flex-col pb-14 pt-24 text-white">
+            <h2 className="font-bold text-2xl md:text-4lg mb-6 text-center px-6 md:px-0">
                 {footerTitle}
             </h2>
             <Link href={'/products/Khung%20anh/khung-dep'} className="w-52 h-12 flex items-center justify-center border-primary border-solid border-2 cursor-pointer mb-6 md:mb-8 bg-white rounded hover:scale-105">
