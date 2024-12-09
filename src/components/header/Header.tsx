@@ -15,9 +15,11 @@ import { cartState } from "@/recoil/atoms/cartAtom"
 import { FaChevronLeft } from "react-icons/fa"
 import Cart from "../Cart/Cart"
 import useMenu from "@/recoil/hooks/useMenu"
+import { useRouter } from "next/navigation"
 
 
 const Header = () => {
+  const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
   const [hoveredLabelKey, setHoveredLabelKey] = useState<string>("")
@@ -90,7 +92,7 @@ const Header = () => {
               </div>
               {item.subCategories?.length > 7 && (
                 <>
-                  <div className="flex gap-3 items-center mt-4 cursor-pointer">
+                  <div className="flex gap-3 items-center mt-4 cursor-pointer absolute bottom-4" onClick={() => router.push("/products/anh-in/anh-bo-goc")}>
                     <span className="text-karaka text-lg">
                       {languages.get("navbar.sub.view.read.more")}
                     </span>
@@ -137,7 +139,7 @@ const Header = () => {
               </div>
               {menu?.otherType?.length > 7 && (
                 <>
-                  <div className="flex gap-3 items-center mt-4 cursor-pointer">
+                  <div className="flex gap-3 items-center mt-4 cursor-pointer absolute bottom-4" onClick={() => router.push("/products/khac/den-dom-dom")}>
                     <span className="text-karaka text-lg">
                       {languages.get("navbar.sub.view.read.more")}
                     </span>
@@ -157,7 +159,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        <div className="flex gap-3 items-center mt-4 cursor-pointer">
+        <div className="flex gap-3 items-center mt-4 cursor-pointer absolute bottom-4" onClick={() => router.push("/products/album-anh/album-photobooth")}>
           <span className="text-karaka text-lg">
             {languages.get("navbar.sub.view.read.more")}
           </span>
