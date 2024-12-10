@@ -1,9 +1,9 @@
 // src/services/api.ts
-import { FetchCategoriesResponse } from "@/types/categoryType";
-import { API, BASE_URL } from "@/utils/constants";
+import { FetchCategoriesResponse } from '@/types/categoryType';
+import { API, BASE_URL } from '@/utils/constants';
 
-import languages from "@/configs/languages";
-import { ContactFormModel } from "@/types/ContactFormModel";
+import languages from '@/configs/languages';
+import { ContactFormModel } from '@/types/ContactFormModel';
 
 interface RequestOptions {
   method?: string;
@@ -14,23 +14,23 @@ interface RequestOptions {
 const handleResponse = async (response: Response) => {
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(languages.get("error.response.title.network") + errorText);
+    throw new Error(languages.get('error.response.title.network') + errorText);
   }
   return response.json();
 };
 
 const apiRequest = async (url: string, options: RequestOptions = {}) => {
   const {
-    method = "GET",
+    method = 'GET',
     body = null,
-    headers = { "Content-Type": "application/json" },
+    headers = { 'Content-Type': 'application/json' },
   } = options;
 
   const response = await fetch(url, {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
-    cache: "force-cache",
+    cache: 'force-cache',
   });
 
   return handleResponse(response);
@@ -71,15 +71,15 @@ export const fetchListCategory = async (
 
 // Fetch banner items
 export const fetchBannerItems = async () => {
-  const url = "https://api.mocdecor.org/public/settings/banner";
+  const url = 'https://api.mocdecor.org/public/settings/banner';
   return apiRequest(url);
 };
 
 // Submit contact form
 export const submitContactForm = async (formData: ContactFormModel) => {
-  const url = "https://api.mocdecor.org/public/contact/submit";
+  const url = 'https://api.mocdecor.org/public/contact/submit';
   return apiRequest(url, {
-    method: "POST",
+    method: 'POST',
     body: formData,
   });
 };
@@ -115,7 +115,7 @@ export const fetchCart = async (browserId: string) => {
 export const updateCart = async (browserId: string, body: any) => {
   const url = `${API.CART}/${browserId}`;
   return apiRequest(url, {
-    method: "POST",
+    method: 'POST',
     body: body,
   });
 };

@@ -1,9 +1,9 @@
 // src/hooks/useCategories.ts
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { fetchTopProductCategory } from "@/services/api";
-import { FetchTopPosProductCategoryResponse } from "@/types/topCategory";
-import { topPosProductCategoryState } from "../atoms/topPosProductCategory";
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { fetchTopProductCategory } from '@/services/api';
+import { FetchTopPosProductCategoryResponse } from '@/types/topCategory';
+import { topPosProductCategoryState } from '../atoms/topPosProductCategory';
 
 const useTopPosProductCategory = (): {
   topPosProductCategory: FetchTopPosProductCategoryResponse;
@@ -21,7 +21,7 @@ const useTopPosProductCategory = (): {
         const data = await fetchTopProductCategory();
         setTopPosProductCategory({ category: data });
       } catch (error) {
-        console.error("Failed to fetch top pos product category:", error);
+        console.error('Failed to fetch top pos product category:', error);
       } finally {
         setLoading(false);
       }

@@ -1,22 +1,26 @@
 // src/components/CancelButton.tsx
 import React from 'react';
-import {FiXSquare} from "react-icons/fi";
+import { FiXSquare } from 'react-icons/fi';
 
 interface CancelButtonProps {
-    onClick: () => void;
-    absolute?: boolean;
-    className?: string;
+  onClick: () => void;
+  absolute?: boolean;
+  className?: string;
 }
 
-const CancelButton: React.FC<CancelButtonProps> = ({ onClick, absolute = true, className }) => {
-    return (
-        <button
-            onClick={onClick}
-            className={`${absolute ? 'absolute top-12 right-4 lg:top-4 lg:right-4' : ''} ${className || ''} text-black hover:text-red-500 flex items-center justify-center z-10 lg:hidden`}
-        >
-            <FiXSquare className="w-8 h-8" />
-        </button>
-    );
+const CancelButton: React.FC<CancelButtonProps> = ({
+  onClick,
+  absolute = true,
+  className,
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`${absolute ? 'absolute right-4 top-12 lg:right-4 lg:top-4' : ''} ${className || ''} z-10 flex items-center justify-center text-black hover:text-red-500 lg:hidden`}
+    >
+      <FiXSquare className="h-8 w-8" />
+    </button>
+  );
 };
 
 export default CancelButton;

@@ -2,16 +2,16 @@ import React from 'react';
 import { ARROW_RIGHT } from '@/utils/constants';
 
 interface MobileArrowProps {
-    onClick: () => void;
+  onClick: () => void;
 }
 
 const MobileArrow: React.FC<MobileArrowProps> = ({ onClick }) => (
-    <div
-        className="flex md:hidden flex-col bg-white w-11 md:w-14 items-center rounded transition duration-700 ease-in-out"
-        onClick={onClick}
-    >
-        <span className="text-primary text-1.25lg md:text-2xl">{ARROW_RIGHT}</span>
-    </div>
+  <div
+    className="flex w-11 flex-col items-center rounded bg-white transition duration-700 ease-in-out md:hidden md:w-14"
+    onClick={onClick}
+  >
+    <span className="text-1.25lg text-primary md:text-2xl">{ARROW_RIGHT}</span>
+  </div>
 );
 
 export default MobileArrow;

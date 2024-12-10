@@ -1,8 +1,7 @@
-import React from "react";
-import Line from "@/components/shape/Lines";
+import React from 'react';
 
 const SeparatorAbout = () => (
-    <div className="hidden md:block w-3/12 h-px bg-stroke"></div>
+  <div className="hidden h-px w-3/12 bg-stroke md:block"></div>
 );
 
 export default SeparatorAbout;

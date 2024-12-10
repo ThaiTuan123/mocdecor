@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { CarouselItem } from "@/components/carousel/types";
-import CommonButton from "@/components/button/CustomButton";
-import CarouselButton from "@/components/button/CarouselButton";
-import languages from "@/configs/languages";
-import { activeIndexState } from "@/recoil/atoms/activeIndexStateAtom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { CarouselItem } from '@/components/carousel/types';
+import CommonButton from '@/components/button/CustomButton';
+import CarouselButton from '@/components/button/CarouselButton';
+import languages from '@/configs/languages';
+import { activeIndexState } from '@/recoil/atoms/activeIndexStateAtom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   carouselItemsState,
   isLoadingState,
   useFetchCarouselItems,
-} from "@/recoil/hooks/useCarouselItems";
-import images from "@/configs/images";
+} from '@/recoil/hooks/useCarouselItems';
+import images from '@/configs/images';
 
 const Carousel = () => {
   const items = useRecoilValue(carouselItemsState);
@@ -24,7 +24,7 @@ const Carousel = () => {
   );
 
   useEffect(() => {
-    console.warn("Carousel component rendered");
+    console.warn('Carousel component rendered');
     fetchCarouselItems; // Fetch dữ liệu khi component render lần đầu
   }, [fetchCarouselItems]);
 
@@ -54,7 +54,7 @@ const Carousel = () => {
   return (
     <div
       id="indicators-carousel"
-      className={`3xl:mx-auto 3xl:mx-container relative w-full`}
+      className={`3xl:mx-container relative w-full 3xl:mx-auto`}
       data-carousel="static"
     >
       <>
@@ -101,25 +101,25 @@ const CarouselWrapper = ({
           src={fallbackImageUrl}
           alt="Loading"
           fill={true}
-          className="absolute inset-0 block object-cover w-full h-full blur-md"
+          className="absolute inset-0 block h-full w-full object-cover blur-md"
           priority
         />
       )}
       {items.map((item, index) => (
         <div
           key={item.id}
-          className={`absolute inset-0 transition-transform duration-700 ease-in-out transform ${
-            index === activeIndex ? "translate-x-0" : "translate-x-full"
+          className={`absolute inset-0 transform transition-transform duration-700 ease-in-out ${
+            index === activeIndex ? 'translate-x-0' : 'translate-x-full'
           }`}
           style={{ transform: `translateX(${(index - activeIndex) * 100}%)` }}
-          data-carousel-item={index === activeIndex ? "active" : ""}
+          data-carousel-item={index === activeIndex ? 'active' : ''}
         >
           <Image
             src={item.imageUrl}
             alt={item.title}
             fill={true}
-            className={`block object-cover w-full h-full transition-opacity duration-500 ${
-              !loaded[index] ? "blur-md" : "blur-0"
+            className={`block h-full w-full object-cover transition-opacity duration-500 ${
+              !loaded[index] ? 'blur-md' : 'blur-0'
             }`}
             blurDataURL={fallbackImageUrl}
             loading="lazy"
@@ -145,23 +145,23 @@ const CarouselIndicators = ({
   activeIndex: number;
   setActiveIndex: (index: number) => void;
 }) => (
-  <div className="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-24 left-1/2">
+  <div className="absolute bottom-24 left-1/2 z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse">
     <div className="flex flex-col space-y-10">
       <CommonButton
         className="text-xl"
-        text={languages.get("home.button.carousel")}
+        text={languages.get('home.button.carousel')}
       />
-      <div id="indicatorsSlider" className="flex space-x-3 justify-center">
+      <div id="indicatorsSlider" className="flex justify-center space-x-3">
         {items.map((_, index) => (
           <button
             key={index}
             type="button"
-            className={`w-3 h-3 transition-transform duration-300 ease-in-out ${
+            className={`h-3 w-3 transition-transform duration-300 ease-in-out ${
               index === activeIndex
-                ? "bg-brown-500 outline outline-white scale-110"
-                : "bg-brown-200 hover:scale-110"
+                ? 'scale-110 bg-brown-500 outline outline-white'
+                : 'bg-brown-200 hover:scale-110'
             } `}
-            aria-current={index === activeIndex ? "true" : "false"}
+            aria-current={index === activeIndex ? 'true' : 'false'}
             aria-label={`Slide ${index + 1}`}
             data-carousel-slide-to={index}
             onClick={() => setActiveIndex(index)}

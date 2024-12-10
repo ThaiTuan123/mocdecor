@@ -5,35 +5,54 @@
         @apply bg-white;
     }
 
-    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header {
-        @apply flex items-center h-[87px] pl-[144px] pr-[144px];
+    body
+    > div.w-full
+    > div.ant-collapse.ant-collapse-icon-position-start
+    > div:nth-child(n)
+    > div.ant-collapse-header {
+        @apply flex h-[87px] items-center pl-[144px] pr-[144px];
     }
 
-    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+    body
+    > div.w-full
+    > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+    > div.ant-collapse-item.ant-collapse-no-arrow
+    > div.ant-collapse-content {
         @apply pl-[128px] pr-[128px];
     }
 
-    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div {
+    body
+    > div.w-full
+    > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14
+    > div:nth-child(n)
+    > div {
         position: static;
     }
 }
 
-.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
-    border-color: #523B18;
+.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer)
+.ant-select-selector {
+    border-color: #523b18;
     box-shadow: none;
 }
 
-.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
-    border-color: #523B18;
+.ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer):hover
+.ant-select-selector {
+    border-color: #523b18;
 }
 
 .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
-    border-color: #523B18;
-    background-color: #523B18;
+    border-color: #523b18;
+    background-color: #523b18;
 }
 
-.ant-radio-wrapper:hover .ant-radio-wrapper, .ant-radio-wrapper:hover .ant-radio-inner {
-    border-color: #523B18;
+.ant-radio-wrapper:hover .ant-radio-wrapper,
+.ant-radio-wrapper:hover .ant-radio-inner {
+    border-color: #523b18;
 }
 
 span.ant-select-selection-placeholder {
@@ -41,63 +60,142 @@ span.ant-select-selection-placeholder {
 }
 
 @media (min-width: 1536px) {
-    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+    body
+    > div.w-full
+    > div.ant-collapse.ant-collapse-icon-position-start
+    > div:nth-child(n)
+    > div.ant-collapse-header,
+    body
+    > div.w-full
+    > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+    > div.ant-collapse-item.ant-collapse-no-arrow
+    > div.ant-collapse-content {
         width: 100%;
     }
 }
 @media (min-width: 1536px) {
     @media (min-width: 640px) {
-        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start
+        > div:nth-child(n)
+        > div.ant-collapse-header,
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+        > div.ant-collapse-item.ant-collapse-no-arrow
+        > div.ant-collapse-content {
             max-width: 640px;
         }
     }
 }
 @media (min-width: 1536px) {
     @media (min-width: 768px) {
-        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start
+        > div:nth-child(n)
+        > div.ant-collapse-header,
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+        > div.ant-collapse-item.ant-collapse-no-arrow
+        > div.ant-collapse-content {
             max-width: 768px;
         }
     }
 }
 @media (min-width: 1536px) {
     @media (min-width: 1024px) {
-        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start
+        > div:nth-child(n)
+        > div.ant-collapse-header,
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+        > div.ant-collapse-item.ant-collapse-no-arrow
+        > div.ant-collapse-content {
             max-width: 1024px;
         }
     }
 }
 @media (min-width: 1536px) {
     @media (min-width: 1280px) {
-        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start
+        > div:nth-child(n)
+        > div.ant-collapse-header,
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+        > div.ant-collapse-item.ant-collapse-no-arrow
+        > div.ant-collapse-content {
             max-width: 1280px;
         }
     }
 }
 @media (min-width: 1536px) {
     @media (min-width: 1536px) {
-        body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start
+        > div:nth-child(n)
+        > div.ant-collapse-header,
+        body
+        > div.w-full
+        > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+        > div.ant-collapse-item.ant-collapse-no-arrow
+        > div.ant-collapse-content {
             max-width: 1536px;
         }
     }
 }
 
 @media (min-width: 1536px) {
-    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start > div:nth-child(n) > div.ant-collapse-header, body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+    body
+    > div.w-full
+    > div.ant-collapse.ant-collapse-icon-position-start
+    > div:nth-child(n)
+    > div.ant-collapse-header,
+    body
+    > div.w-full
+    > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+    > div.ant-collapse-item.ant-collapse-no-arrow
+    > div.ant-collapse-content {
         margin-left: auto;
         margin-right: auto;
     }
 }
 
 @media (max-width: 640px) {
-    body > div.w-full.mt-navbar > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div.ant-collapse-header {
+    body
+    > div.w-full.mt-navbar
+    > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14
+    > div:nth-child(n)
+    > div.ant-collapse-header {
         padding-left: 24px;
         padding-right: 24px;
     }
-    body > div.w-full.mt-navbar > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14 > div:nth-child(n) > div.ant-collapse-header > div > img {
+
+    body
+    > div.w-full.mt-navbar
+    > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-b.border-solid.border-stroke.mb-14.mt-14
+    > div:nth-child(n)
+    > div.ant-collapse-header
+    > div
+    > img {
         width: 10px;
         height: 10px;
     }
-    body > div.w-full > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid > div.ant-collapse-item.ant-collapse-no-arrow > div.ant-collapse-content {
+
+    body
+    > div.w-full
+    > div.ant-collapse.ant-collapse-icon-position-start.ant-collapse-borderless.border-t.border-solid
+    > div.ant-collapse-item.ant-collapse-no-arrow
+    > div.ant-collapse-content {
         padding-left: 10px;
         padding-right: 20px;
     }

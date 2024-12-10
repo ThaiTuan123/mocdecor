@@ -1,24 +1,24 @@
-import languages from "@/configs/languages"
-import React, { useEffect } from "react"
-import CustomButton from "../button/CustomButton"
-import { useRouter } from "next/navigation"
-import Image from "next/image"
-import images from "@/configs/images"
-import { formatVietnameseCurrency } from "@/utils"
-import LayoutOpacity from "../layoutOpacity"
-import useCart from "@/recoil/hooks/useCart"
-import CancelButton from "../button/CancelButton"
-import { useRecoilState } from "recoil"
-import { cartState } from "@/recoil/atoms/cartAtom"
-import { CartItem } from "@/types/cartType"
-import { updateCart } from "@/services/api"
+import languages from '@/configs/languages';
+import React, { useEffect } from 'react';
+import CustomButton from '../button/CustomButton';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import images from '@/configs/images';
+import { formatVietnameseCurrency } from '@/utils';
+import LayoutOpacity from '../layoutOpacity';
+import useCart from '@/recoil/hooks/useCart';
+import CancelButton from '../button/CancelButton';
+import { useRecoilState } from 'recoil';
+import { cartState } from '@/recoil/atoms/cartAtom';
+import { CartItem } from '@/types/cartType';
+import { updateCart } from '@/services/api';
 
 interface cartProps {
-  setIsShowCart: React.Dispatch<React.SetStateAction<boolean>>
-  setCartOpen: React.Dispatch<React.SetStateAction<boolean>>
-  isShowCart: boolean
-  browserId: string
-  isCartMobile: boolean
+  setIsShowCart: React.Dispatch<React.SetStateAction<boolean>>;
+  setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isShowCart: boolean;
+  browserId: string;
+  isCartMobile: boolean;
 }
 
 const Cart = ({
@@ -28,148 +28,153 @@ const Cart = ({
   browserId,
   isCartMobile,
 }: cartProps) => {
-  const router = useRouter()
-  const { cart, loading } = useCart(browserId)
-  const [cartGlobal, setCartGlobal] = useRecoilState(cartState)
+  const router = useRouter();
+  const { cart, loading } = useCart(browserId);
+  const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   useEffect(() => {
-      setCartGlobal(cart)
-  }, [cart])
+    setCartGlobal(cart);
+  }, [cart]);
 
   const getCountCart = () => {
-    if(cartGlobal) {
-      const count = cartGlobal.reduce((result: number, item: any) => result + item.quantity, 0)
-      return count
+    if (cartGlobal) {
+      const count = cartGlobal.reduce(
+        (result: number, item: any) => result + item.quantity,
+        0
+      );
+      return count;
     }
-    return 0
-  }
+    return 0;
+  };
 
   const getTotalPrice = () => {
-    if(cartGlobal) {
+    if (cartGlobal) {
       const price = cartGlobal.reduce((total, item) => {
-        return total + item.quantity * item.originalPrice
-      }, 0)
-      return String(price)
+        return total + item.quantity * item.originalPrice;
+      }, 0);
+      return String(price);
     }
-    return "0"
-  }
+    return '0';
+  };
 
   const handleDeleteCart = (item: CartItem) => {
-    const newCart = cart.filter((it: CartItem) => it.skuId != item.skuId && it.mainId != item.mainId)
-    setCartGlobal(newCart)
+    const newCart = cart.filter(
+      (it: CartItem) => it.skuId != item.skuId && it.mainId != item.mainId
+    );
+    setCartGlobal(newCart);
     if (browserId && cartGlobal) {
       const body = {
         product: {
           mainId: item.mainId,
           skuId: item.skuId,
         },
-        action: "remove",
-      }
-      
-      updateCart(browserId, body)
-    }
-  }
+        action: 'remove',
+      };
 
-    const setQuantity = (quantity: number, skuId: string, mainId: string, operation?: string) => {
-        setCartGlobal((prevCart) =>
-        prevCart.map((item) =>
-            (item.skuId === skuId && item.mainId === mainId)
-            ? {
-                ...item,
-                quantity:
-                    operation === "+"
-                    ? quantity + 1
-                    : operation === "-"
+      updateCart(browserId, body);
+    }
+  };
+
+  const setQuantity = (
+    quantity: number,
+    skuId: string,
+    mainId: string,
+    operation?: string
+  ) => {
+    setCartGlobal((prevCart) =>
+      prevCart.map((item) =>
+        item.skuId === skuId && item.mainId === mainId
+          ? {
+              ...item,
+              quantity:
+                operation === '+'
+                  ? quantity + 1
+                  : operation === '-'
                     ? quantity - 1
                     : quantity,
-                }
-            : item
-        )
-        )
-        if (browserId && cartGlobal) {
-          let body
-          if(operation === '+' || operation === '-') {
-            body = {
-              product: {
-                mainId: mainId,
-                skuId: skuId,
-              },
-              action: operation === '+' ? "add" : "remove",
             }
-          } else {
-            body = {
-              product: {
-                mainId: mainId,
-                skuId: skuId,
-                quantity: quantity
-              },
-            }
-          }
-          
-          updateCart(browserId, body)
-        }
+          : item
+      )
+    );
+    if (browserId && cartGlobal) {
+      let body;
+      if (operation === '+' || operation === '-') {
+        body = {
+          product: {
+            mainId: mainId,
+            skuId: skuId,
+          },
+          action: operation === '+' ? 'add' : 'remove',
+        };
+      } else {
+        body = {
+          product: {
+            mainId: mainId,
+            skuId: skuId,
+            quantity: quantity,
+          },
+        };
+      }
+
+      updateCart(browserId, body);
     }
+  };
 
   const renderCartEmpty = () => {
     return (
-      <div className="w-full flex flex-col items-center md:px-8 px-6 pt-44">
-        <p className="md:text-2lg text-lg font-bold text-primary text-center">
-          {languages.get("cart.empty.title")}
+      <div className="flex w-full flex-col items-center px-6 pt-44 md:px-8">
+        <p className="text-center text-lg font-bold text-primary md:text-2lg">
+          {languages.get('cart.empty.title')}
         </p>
-        <span className="block mt-2 mb-9 text-doveGray md:text-lg text-sm text-center">
-          {languages.get("cart.empty.desc")}
+        <span className="mb-9 mt-2 block text-center text-sm text-doveGray md:text-lg">
+          {languages.get('cart.empty.desc')}
         </span>
-        <div className="flex flex-col gap-6 w-full">
+        <div className="flex w-full flex-col gap-6">
           <CustomButton
-            href={"/products/khung-anh/khung-dep"}
+            href={'/products/khung-anh/khung-dep'}
             onClick={() => setIsShowCart(false)}
-            text={languages.get("cart.empty.button.frame")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+            text={languages.get('cart.empty.button.frame')}
+            className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
-            href={"/products/anh-in/anh-in-6-9"}
+            href={'/products/anh-in/anh-in-6-9'}
             onClick={() => setIsShowCart(false)}
-            text={languages.get("cart.empty.button.print")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+            text={languages.get('cart.empty.button.print')}
+            className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
-            href={"/products/album-anh/anh-in-6x9"}
+            href={'/products/album-anh/anh-in-6x9'}
             onClick={() => setIsShowCart(false)}
-            text={languages.get("cart.empty.button.album")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+            text={languages.get('cart.empty.button.album')}
+            className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const renderCartHaveProduct = () => {
     const handleGotoPayment = () => {
-      setIsShowCart(false)
-      setCartOpen(false)
-      router.push("/payment")
-    }
+      setIsShowCart(false);
+      setCartOpen(false);
+      router.push('/payment');
+    };
 
     return (
       <div className="h-full w-full">
-        <div className="overflow-y-scroll h-4/6 md:h-2/3">
-          {cartGlobal.map((item:CartItem, index: number) => (
+        <div className="h-4/6 overflow-y-scroll md:h-2/3">
+          {cartGlobal.map((item: CartItem, index: number) => (
             <>
               <div
-                className="flex items-center gap-4 py-5 md:px-7 px-6 w-full overflow-hidden"
+                className="flex w-full items-center gap-4 overflow-hidden px-6 py-5 md:px-7"
                 key={index}
               >
                 <div className="p-3">
-                  <Image
-                    src={item.skuImage}
-                    alt=""
-                    width={70}
-                    height={70}
-                  />
+                  <Image src={item.skuImage} alt="" width={70} height={70} />
                 </div>
-                <div className="flex flex-col gap-3 flex-1">
+                <div className="flex flex-1 flex-col gap-3">
                   <div className="flex justify-between">
-                    <p className="inline-block overflow-hidden text-ellipsis whitespace-nowrap flex-1 w-1">
+                    <p className="inline-block w-1 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
                       {item.productName}
                     </p>
                     <Image
@@ -182,14 +187,21 @@ const Cart = ({
                     />
                   </div>
                   <span className="text-sm text-doveGray">description</span>
-                  <div className="flex justify-between items-end">
+                  <div className="flex items-end justify-between">
                     <div className="flex items-center">
                       <button
-                        onClick={() => setQuantity(item.quantity, item.skuId, item.mainId, "-")}
-                        className={`px-2 py-1 md:px-4 md:py-2 border rounded-l ${
+                        onClick={() =>
+                          setQuantity(
+                            item.quantity,
+                            item.skuId,
+                            item.mainId,
+                            '-'
+                          )
+                        }
+                        className={`rounded-l border px-2 py-1 md:px-4 md:py-2 ${
                           item.quantity === 1
-                            ? "bg-gray-50 text-stroke cursor-not-allowed"
-                            : "bg-white text-black hover:scale-100"
+                            ? 'cursor-not-allowed bg-gray-50 text-stroke'
+                            : 'bg-white text-black hover:scale-100'
                         }`}
                         disabled={item.quantity === 1}
                       >
@@ -198,22 +210,31 @@ const Cart = ({
                       <input
                         value={item.quantity}
                         onChange={(e) => {
-                          const value = parseInt(e.target.value, 10)
+                          const value = parseInt(e.target.value, 10);
                           if (!isNaN(value) && value >= 1 && value <= 999) {
-                            setQuantity(value, item.skuId, item.mainId)
+                            setQuantity(value, item.skuId, item.mainId);
                           }
                         }}
-                        className="w-6 md:w-12 text-center py-1 md:py-2 font-raleway"
+                        className="font-raleway w-6 py-1 text-center md:w-12 md:py-2"
                       />
                       <button
-                        onClick={() => setQuantity(item.quantity, item.skuId, item.mainId, "+")}
-                        className="px-2 py-1 md:px-4 md:py-2 border rounded-r text-black bg-white hover:scale-100"
+                        onClick={() =>
+                          setQuantity(
+                            item.quantity,
+                            item.skuId,
+                            item.mainId,
+                            '+'
+                          )
+                        }
+                        className="rounded-r border bg-white px-2 py-1 text-black hover:scale-100 md:px-4 md:py-2"
                       >
                         +
                       </button>
                     </div>
                     <span className="text-2lg text-caption">
-                      {formatVietnameseCurrency(String(item.originalPrice * item.quantity))}
+                      {formatVietnameseCurrency(
+                        String(item.originalPrice * item.quantity)
+                      )}
                     </span>
                   </div>
                 </div>
@@ -222,10 +243,10 @@ const Cart = ({
             </>
           ))}
         </div>
-        <div className="border-t pt-4 md:pt-6 md:px-8 px-6 md:h-1/3 h-1/4">
-          <div className="flex justify-between mb-4">
-            <p className="text-doveGray text-2lg">
-              {languages.get("cart.total")}
+        <div className="h-1/4 border-t px-6 pt-4 md:h-1/3 md:px-8 md:pt-6">
+          <div className="mb-4 flex justify-between">
+            <p className="text-2lg text-doveGray">
+              {languages.get('cart.total')}
             </p>
             <span className="text-2.25lg text-caption">
               {formatVietnameseCurrency(getTotalPrice())}
@@ -233,34 +254,34 @@ const Cart = ({
           </div>
           <CustomButton
             onClick={() => handleGotoPayment()}
-            text={languages.get("cart.payment")}
-            className="w-full py-3 font-semibold bg-primary text-white hover:bg-white hover:text-primary"
+            text={languages.get('cart.payment')}
+            className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const renderCartMobile = () => {
     return (
-      <div className="fixed top-0 left-0 right-0 bottom-0 md:hidden flex flex-col items-start bg-white shadow-md space-y-4">
-        <div className="flex justify-between w-full items-center border-b px-6 py-6">
-          <div className="flex flex-row gap-2 items-center">
+      <div className="fixed bottom-0 left-0 right-0 top-0 flex flex-col items-start space-y-4 bg-white shadow-md md:hidden">
+        <div className="flex w-full items-center justify-between border-b px-6 py-6">
+          <div className="flex flex-row items-center gap-2">
             <h2 className="text-2.25lg text-primary">
-              {languages.get("cart.title")}
+              {languages.get('cart.title')}
             </h2>
             <span className="text-sm">({getCountCart()})</span>
           </div>
           <img
             src={images.icons.menuClose}
-            className="w-6 h-6"
+            className="h-6 w-6"
             onClick={() => setCartOpen(false)}
           />
         </div>
         {getCountCart() > 0 ? renderCartHaveProduct() : renderCartEmpty()}
       </div>
-    )
-  }
+    );
+  };
 
   const renderCart = () => {
     return (
@@ -268,23 +289,23 @@ const Cart = ({
         isVisible={isShowCart}
         onClick={() => setIsShowCart(false)}
       >
-        <div className="w-2/5 bg-white h-full absolute right-0 animate-leftToRight hidden md:block">
-          <div className="py-7 px-11 flex justify-between border-b">
-            <div className="flex flex-col ">
-              <div className="flex flex-row gap-4 items-center">
-                <h2 className="font-bold text-4lg text-primary">
-                  {languages.get("cart.title")}
+        <div className="absolute right-0 hidden h-full w-2/5 animate-leftToRight bg-white md:block">
+          <div className="flex justify-between border-b px-11 py-7">
+            <div className="flex flex-col">
+              <div className="flex flex-row items-center gap-4">
+                <h2 className="text-4lg font-bold text-primary">
+                  {languages.get('cart.title')}
                 </h2>
                 <span className="text-2lg">({getCountCart()})</span>
               </div>
               {browserId ? (
                 <p className="text-gray-100">
-                  {languages.get("header.id.customer")}
+                  {languages.get('header.id.customer')}
                   {browserId}
                 </p>
               ) : (
                 <p className="text-gray-100">
-                  {languages.get("header.loading")}
+                  {languages.get('header.loading')}
                 </p>
               )}
             </div>
@@ -296,10 +317,10 @@ const Cart = ({
           {getCountCart() > 0 ? renderCartHaveProduct() : renderCartEmpty()}
         </div>
       </LayoutOpacity>
-    )
-  }
+    );
+  };
 
-  return isCartMobile ? renderCartMobile() : renderCart()
-}
+  return isCartMobile ? renderCartMobile() : renderCart();
+};
 
-export default Cart
+export default Cart;

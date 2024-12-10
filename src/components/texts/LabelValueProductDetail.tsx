@@ -1,16 +1,16 @@
 // LabelValue.tsx
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 interface LabelValueProps {
-    label: string;
-    value: React.ReactNode; // Allows for any valid React node (string, JSX, etc.)
+  label: string;
+  value: React.ReactNode; // Allows for any valid React node (string, JSX, etc.)
 }
 
-const LabelValueProductDetail: FC<LabelValueProps> = ({label, value}) => (
-    <div className='w-full flex flex-row justify-between lg:justify-normal lg:gap-4 items-center'>
-        <p className="text-sm text-brown-900 font-raleway">{label}</p>
-        <span className="font-semibold text-brown-900 font-raleway">{value}</span>
-    </div>
+const LabelValueProductDetail: FC<LabelValueProps> = ({ label, value }) => (
+  <div className="flex w-full flex-row items-center justify-between lg:justify-normal lg:gap-4">
+    <p className="font-raleway text-sm text-brown-900">{label}</p>
+    <span className="font-raleway font-semibold text-brown-900">{value}</span>
+  </div>
 );
 
 export default LabelValueProductDetail;
