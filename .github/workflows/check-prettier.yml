@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - '*'
-    # Triggers on all branches except 'main'. You can modify this list if needed.
 
 jobs:
   Check-Prettier:
@@ -23,3 +22,7 @@ jobs:
 
       - name: Run Prettier check
         run: npx prettier --check .
+
+      - name: Fix Prettier issues (optional)
+        if: failure() # Runs this step only if the Prettier check fails
+        run: npx prettier --write .
