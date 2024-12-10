@@ -1,12 +1,12 @@
-import type {Config} from "tailwindcss";
+import type { Config } from 'tailwindcss';
 import { PluginAPI } from 'tailwindcss/types/config';
-import {fontFamily} from "tailwindcss/defaultTheme";
+import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config: Config = {
     content: [
-        "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-        "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+        './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
         extend: {
@@ -92,7 +92,7 @@ const config: Config = {
             },
             fontSize: {
                 '0.8x': ['0.5rem', '0.5rem'],       // 8px, 8px
-                'x':  ['0.625rem', '0.75rem'],       // 10px, 12px
+                'x': ['0.625rem', '0.75rem'],       // 10px, 12px
                 'xs': ['0.75rem', '0.875rem'],       // 12px, 14px
                 '4.2xl': ['2.5rem', '3.3325rem'],      // 40px, 53.32px
                 'smLh': ['0.875rem', '1.313rem'],    // 14px, 21px
@@ -106,20 +106,20 @@ const config: Config = {
             },
             keyframes: {
                 upDown: {
-                    '0%, 100%': {transform: 'translateY(0)'},
-                    '50%': {transform: 'translateY(-20px)'},
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-20px)' },
                 },
                 fallIn: {
-                    '0%': {transform: 'translateY(-50px)', opacity: '0'},
-                    '100%': {transform: 'translateY(0)', opacity: '1'},
+                    '0%': { transform: 'translateY(-50px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
                 },
                 leftToRight: {
-                    '0%': {transform: 'translateX(700px)', opacity: '0'},
-                    '100%': {transform: 'translateX(0)', opacity: '1'},
+                    '0%': { transform: 'translateX(700px)', opacity: '0' },
+                    '100%': { transform: 'translateX(0)', opacity: '1' },
                 },
                 moveUpDown: {
-                    '0%, 100%': {transform: 'translateY(0)'},
-                    '50%': {transform: 'translateY(-10px)'},
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-10px)' },
                 },
             },
             animation: {
@@ -177,7 +177,7 @@ const config: Config = {
                 '1024': '64rem',
             },
             margin: {
-                navbar: '72px'
+                navbar: '72px',
             },
             padding: {
                 '16px-plus-2px': 'calc(16px + 2px)', // Custom padding value
@@ -195,22 +195,22 @@ const config: Config = {
                 '4xl': '2560px',  // Adjust as needed
             },
             borderRadius: {
-               '2.5xl': '1.25rem',
+                '2.5xl': '1.25rem',
             },
         },
     },
     plugins: [
-        function ({ addUtilities } : { addUtilities: PluginAPI['addUtilities'] }) {
-          addUtilities({
-            '.no-scrollbar': {
-              '-ms-overflow-style': 'none', /* IE and Edge */
-              'scrollbar-width': 'none', /* Firefox */
-            },
-            '.no-scrollbar::-webkit-scrollbar': {
-              display: 'none', /* Chrome, Safari, and Opera */
-            },
-          });
+        function({ addUtilities }: { addUtilities: PluginAPI['addUtilities'] }) {
+            addUtilities({
+                '.no-scrollbar': {
+                    '-ms-overflow-style': 'none', /* IE and Edge */
+                    'scrollbar-width': 'none', /* Firefox */
+                },
+                '.no-scrollbar::-webkit-scrollbar': {
+                    display: 'none', /* Chrome, Safari, and Opera */
+                },
+            });
         },
-      ],
+    ],
 };
 export default config;
