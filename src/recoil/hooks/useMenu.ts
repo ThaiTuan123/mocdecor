@@ -1,9 +1,9 @@
 // src/hooks/useCategories.ts
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { FetchMenuResponse } from "@/types/menuType";
-import { menuState } from "../atoms/menuAtom";
-import { fetchMenu } from "@/services/api";
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { FetchMenuResponse } from '@/types/menuType';
+import { menuState } from '../atoms/menuAtom';
+import { fetchMenu } from '@/services/api';
 
 const useMenu = (): { menu: FetchMenuResponse; loading: boolean } => {
   const [menu, setMenu] = useRecoilState(menuState);
@@ -16,7 +16,7 @@ const useMenu = (): { menu: FetchMenuResponse; loading: boolean } => {
         const data = await fetchMenu();
         setMenu(data);
       } catch (error) {
-        console.error("Failed to fetch menu:", error);
+        console.error('Failed to fetch menu:', error);
       } finally {
         setLoading(false);
       }

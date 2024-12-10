@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import {Product} from '@/types/product';
-import {CURRENCY_SYMBOL} from "@/configs/constants/constants";
-import {FaRegStar, FaStar} from "react-icons/fa";
+import { Product } from '@/types/product';
+import { CURRENCY_SYMBOL } from '@/configs/constants/constants';
+import { FaRegStar, FaStar } from 'react-icons/fa';
 
 // Extend Product props to include onClick
 interface ProductCardProps extends Product {
-    onClick?: () => void;
+  onClick?: () => void;
 }
 
 // Functional component for rendering a product card
@@ -33,15 +33,15 @@ const ProductCardWhite: React.FC<ProductCardProps> = ({
 
   return (
     <div
-      className="transition-transform duration-300 ease-in-out transform cursor-pointer rounded ring-1 ring-stroke hover:ring-caption"
+      className="transform cursor-pointer rounded ring-1 ring-stroke transition-transform duration-300 ease-in-out hover:ring-caption"
       onClick={onClick} // Attach onClick handler
     >
-      <div className="relative w-full h-44 md:h-52 lg:h-252 xl:h-301">
+      <div className="relative h-44 w-full md:h-52 lg:h-252 xl:h-301">
         {/* Placeholder image with blur effect */}
         {isLoading && (
-          <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
             <svg
-              className="w-12 h-12 text-gray-400 animate-spin"
+              className="h-12 w-12 animate-spin text-gray-400"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -61,23 +61,23 @@ const ProductCardWhite: React.FC<ProductCardProps> = ({
           alt={product.product.name}
           width={368}
           height={269}
-          className={`w-full h-full object-fill rounded-t ${
-            isLoading ? "blur-sm" : "blur-0"
+          className={`h-full w-full rounded-t object-fill ${
+            isLoading ? 'blur-sm' : 'blur-0'
           } transition-all duration-300`}
           onLoad={() => setIsLoading(false)}
         />
       </div>
-      <div className="px-1 md:px-4 md:pb-4 mt-4 text-start">
-        <h2 className="text-sm md:text-xl font-raleway font-bold text-white truncate">
+      <div className="mt-4 px-1 text-start md:px-4 md:pb-4">
+        <h2 className="font-raleway truncate text-sm font-bold text-white md:text-xl">
           {product.product.name}
         </h2>
-        <div className="flex items-center justify-start mt-2">
+        <div className="mt-2 flex items-center justify-start">
           <div className="flex items-start">{renderStars()}</div>
-          <span className="ml-2 text-sm text-white font-medium font-raleway">
+          <span className="font-raleway ml-2 text-sm font-medium text-white">
             ({rating.count})
           </span>
         </div>
-        <p className="mt-2 text-sm md:text-xl font-normal text-white font-raleway">
+        <p className="font-raleway mt-2 text-sm font-normal text-white md:text-xl">
           {retail_price} {CURRENCY_SYMBOL}
         </p>
       </div>

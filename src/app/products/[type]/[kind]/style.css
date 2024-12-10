@@ -1,43 +1,56 @@
-.ant-radio-wrapper span.ant-radio+* {
-    color: #6D6D6D;
+.ant-radio-wrapper span.ant-radio + * {
+  color: #6d6d6d;
 }
 
-.ant-checkbox+span {
-    color: #6D6D6D;
+.ant-checkbox + span {
+  color: #6d6d6d;
 }
 
-body > div.w-full.overflow-hidden.mt-navbar > div > div.fixed.top-0.left-0.right-0.bottom-0.md\:hidden.flex.flex-col.items-start.bg-white.z-50 > div.flex.flex-col.w-full > div:nth-child(n) > div {
-    background-color: white;
+body
+> div.w-full.overflow-hidden.mt-navbar
+> div
+> div.fixed.top-0.left-0.right-0.bottom-0.md\:hidden.flex.flex-col.items-start.bg-white.z-50
+> div.flex.flex-col.w-full
+> div:nth-child(n)
+> div {
+  background-color: white;
 }
 
-.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
-    border-color: #523B18;
-    box-shadow: none;
+.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer)
+.ant-select-selector {
+  border-color: #523b18;
+  box-shadow: none;
 }
 
-.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
-    border-color: #523B18;
+.ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer):hover
+.ant-select-selector {
+  border-color: #523b18;
 }
 
 .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
-    border-color: #523B18;
-    background-color: #523B18;
+  border-color: #523b18;
+  background-color: #523b18;
 }
 
-.ant-radio-wrapper:hover .ant-radio-wrapper, .ant-radio-wrapper:hover .ant-radio-inner {
-    border-color: #523B18;
+.ant-radio-wrapper:hover .ant-radio-wrapper,
+.ant-radio-wrapper:hover .ant-radio-inner {
+  border-color: #523b18;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #523B18 !important; 
-    border-color: #523B18 !important;      
+  background-color: #523b18 !important;
+  border-color: #523b18 !important;
 }
 
 .ant-checkbox-checked:hover .ant-checkbox-inner {
-    border-color: #523B18 !important;
-    background-color: #523B18 !important;
+  border-color: #523b18 !important;
+  background-color: #523b18 !important;
 }
 
 .ant-checkbox-wrapper:hover .ant-checkbox-inner {
-    border-color: #523B18 !important;
+  border-color: #523b18 !important;
 }

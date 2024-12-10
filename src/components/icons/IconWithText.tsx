@@ -1,17 +1,19 @@
 import Icon from './Icon';
 
 interface IconWithTextProps {
-    src: string;
-    alt: string;
-    size: 'small' | 'large';
-    text: string;
+  src: string;
+  alt: string;
+  size: 'small' | 'large';
+  text: string;
 }
 
-const IconWithText = ({src, alt, size, text}: IconWithTextProps) => (
-    <div className="flex flex-col items-center md:flex-row">
-        <Icon src={src} alt={alt} size={size}/>
-        <span className="font-raleway text-sm md:text-lg mt-2 md:mt-0 md:ml-4 text-center md:text-left">{text}</span>
-    </div>
+const IconWithText = ({ src, alt, size, text }: IconWithTextProps) => (
+  <div className="flex flex-col items-center md:flex-row">
+    <Icon src={src} alt={alt} size={size} />
+    <span className="font-raleway mt-2 text-center text-sm md:ml-4 md:mt-0 md:text-left md:text-lg">
+      {text}
+    </span>
+  </div>
 );
 
 export default IconWithText;

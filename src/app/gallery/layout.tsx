@@ -1,5 +1,5 @@
-import React from "react";
-import FooterDiscover from "@/components/footer/FooterDiscover";
+import React from 'react';
+import FooterDiscover from '@/components/footer/FooterDiscover';
 
 interface LayoutProps {
   children: React.ReactNode;

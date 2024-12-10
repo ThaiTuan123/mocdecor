@@ -1,0 +1,25 @@
+name: Check Prettier Formatting
+
+on:
+  push:
+    branches:
+      - '*'
+    # Triggers on all branches except 'main'. You can modify this list if needed.
+
+jobs:
+  Check-Prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Prettier check
+        run: npx prettier --check .

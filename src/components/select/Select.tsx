@@ -1,14 +1,13 @@
-import { Select } from "antd"
-import React from "react"
-
+import { Select } from 'antd';
+import React from 'react';
 
 interface SelectCustomProps {
-  label: string
-  handleChange: (value: string) => void
-  option: any[]
-  placeholder: string
-  value: string | null
-  disable: boolean
+  label: string;
+  handleChange: (value: string) => void;
+  option: any[];
+  placeholder: string;
+  value: string | null;
+  disable: boolean;
 }
 
 const SelectCustom: React.FC<SelectCustomProps> = ({
@@ -17,13 +16,13 @@ const SelectCustom: React.FC<SelectCustomProps> = ({
   option,
   placeholder,
   value,
-  disable
+  disable,
 }) => (
   <div className="w-full">
     <label className="block text-sm font-medium text-doveGray">{label}</label>
     <Select
       placeholder={placeholder}
-      style={{ width: "100%", height: 50, marginTop: 4 }}
+      style={{ width: '100%', height: 50, marginTop: 4 }}
       onChange={handleChange}
       options={option}
       className="custom-select"
@@ -31,6 +30,6 @@ const SelectCustom: React.FC<SelectCustomProps> = ({
       disabled={disable}
     />
   </div>
-)
+);
 
-export default SelectCustom
+export default SelectCustom;

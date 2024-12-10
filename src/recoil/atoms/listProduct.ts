@@ -2,6 +2,6 @@
 import { atom } from 'recoil';
 
 export const listProductState = atom({
-    key: 'listProductState',
-    default: [],
+  key: 'listProductState',
+  default: [],
 });
