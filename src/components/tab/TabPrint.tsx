@@ -11,7 +11,7 @@ const CategoryProductTab = ({
   index: number;
 }) => {
   const subCategory =
-    category.subCategories?.map((subCategory) => ({
+    category.subCategories?.map(subCategory => ({
       label: subCategory.text ?? '',
       value: subCategory.text ?? '',
     })) || [];
@@ -20,7 +20,7 @@ const CategoryProductTab = ({
 
   const renderContent = (activeTab: string) => {
     const tabContent = category.subCategories?.find(
-      (subCategory) => subCategory.text === activeTab
+      subCategory => subCategory.text === activeTab
     );
 
     if (!tabContent) return null;

@@ -4,6 +4,10 @@
   "trailingComma": "es5",
   "tabWidth": 2,
   "printWidth": 80,
+  "arrowParens": "avoid",
+  "useTabs": false,
+  "endOfLine": "auto",
+  "jsxSingleQuote": false,
   "plugins": [
     "prettier-plugin-tailwindcss"
   ]

@@ -10,7 +10,7 @@ export function useFeedbackScrollerAnimation(scrollInterval: number) {
       document.querySelectorAll<HTMLDivElement>('.feedback-scroller');
 
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      scrollers.forEach((scroller) => {
+      scrollers.forEach(scroller => {
         scroller.setAttribute('data-animated', 'true');
 
         const scrollerInner = scroller.querySelector(
@@ -19,7 +19,7 @@ export function useFeedbackScrollerAnimation(scrollInterval: number) {
         if (scrollerInner) {
           const scrollerContent = Array.from(scrollerInner.children);
 
-          scrollerContent.forEach((item) => {
+          scrollerContent.forEach(item => {
             const duplicatedItem = item.cloneNode(true) as HTMLElement;
             duplicatedItem.setAttribute('aria-hidden', 'true');
             scrollerInner.appendChild(duplicatedItem);

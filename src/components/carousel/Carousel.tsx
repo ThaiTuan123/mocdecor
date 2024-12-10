@@ -32,7 +32,7 @@ const Carousel = () => {
     if (items.length === 0) return;
 
     const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => {
+      setActiveIndex(prevIndex => {
         const nextIndex = (prevIndex + 1) % items.length;
         return loaded[nextIndex] ? nextIndex : prevIndex; // Chuyển slide nếu đã load xong
       });
@@ -42,13 +42,11 @@ const Carousel = () => {
   }, [items, loaded, setActiveIndex]);
 
   const handlePrevious = () => {
-    setActiveIndex(
-      (prevIndex) => (prevIndex - 1 + items.length) % items.length
-    );
+    setActiveIndex(prevIndex => (prevIndex - 1 + items.length) % items.length);
   };
 
   const handleNext = () => {
-    setActiveIndex((prevIndex) => (prevIndex + 1) % items.length);
+    setActiveIndex(prevIndex => (prevIndex + 1) % items.length);
   };
 
   return (

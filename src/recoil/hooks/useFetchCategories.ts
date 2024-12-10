@@ -15,13 +15,13 @@ const useCategories = (categoryNames: string[]) => {
         // Only fetch if not already loaded
         try {
           const results = await Promise.all(
-            categoryNames.map(async (name) => {
+            categoryNames.map(async name => {
               const response = await fetchProductCategories(name);
               return response;
             })
           );
 
-          const combinedResults = results.flatMap((res) =>
+          const combinedResults = results.flatMap(res =>
             res && res.items ? res.items : []
           );
 

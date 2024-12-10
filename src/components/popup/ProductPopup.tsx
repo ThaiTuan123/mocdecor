@@ -73,7 +73,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     attributeValue: string,
     isOneSku: boolean
   ) => {
-    setSelectedSize((prev) => ({
+    setSelectedSize(prev => ({
       ...prev,
       [attributeName]: attributeValue,
     }));
@@ -81,7 +81,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
   useEffect(() => {
     const isSelectAllAttribute = Object.values(selectedSize).every(
-      (value) => value !== ''
+      value => value !== ''
     );
 
     if (isSelectAllAttribute) {
@@ -131,7 +131,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         if (!attributesMap[name]) {
           attributesMap[name] = [];
         }
-        if (!attributesMap[name].some((attr) => attr.value === value)) {
+        if (!attributesMap[name].some(attr => attr.value === value)) {
           attributesMap[name].push({ value });
         }
       });
@@ -215,9 +215,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       skuImage: skuSelected.fields[0]?.image,
       skuName: skuSelected.fields[0]?.name,
     };
-    setCartGlobal((prev) => {
+    setCartGlobal(prev => {
       const existingItem = prev.findIndex(
-        (item) =>
+        item =>
           item.skuId == cartUpdateObj.skuId &&
           item.mainId == cartUpdateObj.mainId
       );

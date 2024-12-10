@@ -33,7 +33,7 @@ export default function GalleryItem() {
     }
 
     // Xử lý file nếu số lượng hợp lệ
-    Array.from(files).forEach((file) => {
+    Array.from(files).forEach(file => {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {

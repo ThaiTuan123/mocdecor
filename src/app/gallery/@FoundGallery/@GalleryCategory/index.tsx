@@ -42,7 +42,7 @@ export default function GalleryCategory() {
 
       {/* Order List */}
       <div className="h-[630px] overflow-y-auto">
-        {orders.orders.map((order) => (
+        {orders.orders.map(order => (
           <OrderItemCard
             key={order.id}
             imageSrc={order.imageSrc}

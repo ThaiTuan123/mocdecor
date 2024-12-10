@@ -129,7 +129,7 @@ export default function Payment() {
   };
 
   const handleChangeCity = async (value: string) => {
-    setFormValue((prev) => ({
+    setFormValue(prev => ({
       ...prev,
       city: value,
       district: null,
@@ -140,7 +140,7 @@ export default function Payment() {
   };
 
   const handleChangeDistrict = async (value: string) => {
-    setFormValue((prev) => ({
+    setFormValue(prev => ({
       ...prev,
       district: value,
       ward: null,
@@ -150,7 +150,7 @@ export default function Payment() {
   };
 
   const handleChangeWard = (value: string) => {
-    setFormValue((prev) => ({
+    setFormValue(prev => ({
       ...prev,
       ward: value,
     }));
@@ -165,7 +165,7 @@ export default function Payment() {
             item={item}
             isChecked={formValue.paymentType === item.value}
             onChange={() =>
-              setFormValue((prev) => ({ ...prev, paymentType: item.value }))
+              setFormValue(prev => ({ ...prev, paymentType: item.value }))
             }
           />
         ))}

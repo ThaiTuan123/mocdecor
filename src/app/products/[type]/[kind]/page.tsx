@@ -47,7 +47,7 @@ export default function Products() {
 
   useEffect(() => {
     if (cateDetail?.subCategories) {
-      const updatedMenu = cateDetail.subCategories.map((item) => ({
+      const updatedMenu = cateDetail.subCategories.map(item => ({
         value: item.slug || '',
         label: item.text || '',
       }));
@@ -151,7 +151,7 @@ export default function Products() {
             </Radio.Group>
           ) : (
             <Checkbox.Group
-              onChange={(list) => onChangeCheckbox(list, item.value)}
+              onChange={list => onChangeCheckbox(list, item.value)}
               value={filterTags[item.value]}
               options={item.menu}
               className="flex flex-col gap-4 text-lg text-doveGray"
@@ -248,13 +248,13 @@ export default function Products() {
   };
 
   const onChangeCheckbox = (list: string[], value: FilterKeys) => {
-    setFilterTags((prev) => ({ ...prev, [value]: list }));
+    setFilterTags(prev => ({ ...prev, [value]: list }));
   };
 
   const onRemoveTag = (tag: string) => {
     let value = '';
-    filterData.forEach((filterCategory) => {
-      filterCategory.menu.forEach((item) => {
+    filterData.forEach(filterCategory => {
+      filterCategory.menu.forEach(item => {
         if (item.value === tag) {
           value = filterCategory.value;
         }
@@ -262,9 +262,9 @@ export default function Products() {
     });
     const filterCategoryValue = value as FilterKeys;
     const newTags = filterTags[filterCategoryValue].filter(
-      (item) => item !== tag
+      item => item !== tag
     );
-    setFilterTags((prev) => ({ ...prev, [value]: newTags }));
+    setFilterTags(prev => ({ ...prev, [value]: newTags }));
   };
 
   const onChangePagination = (page: number) => {
@@ -293,7 +293,7 @@ export default function Products() {
         <div className="absolute left-0 right-0 top-u-40 h-10 w-full bg-transparent"></div>
         {typeInput === 'checkbox' ? (
           <Checkbox.Group
-            onChange={(list) => onChangeCheckbox(list, item.value)}
+            onChange={list => onChangeCheckbox(list, item.value)}
             value={filterTags[item.value]}
             options={item.menu}
             className="flex flex-col gap-4 text-lg text-doveGray"
@@ -385,8 +385,8 @@ export default function Products() {
     const labelTag = (tag: string) => {
       let label;
 
-      filterData.forEach((filterCategory) => {
-        filterCategory.menu.forEach((item) => {
+      filterData.forEach(filterCategory => {
+        filterCategory.menu.forEach(item => {
           if (item.value === tag) {
             label = item.label;
           }

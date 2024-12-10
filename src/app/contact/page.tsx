@@ -48,7 +48,7 @@ const HeroSection = () => {
 
 const SocialIcons = ({ icons }: { icons: IconType[] }) => (
   <div className="flex justify-around space-x-6 pl-4 pt-1">
-    {icons.map((icon) => (
+    {icons.map(icon => (
       <div key={icon.key} className="group">
         <a href={icon.link} target="_blank" rel="noopener noreferrer">
           <Icon src={icon.src} alt={icon.alt} size="small" />
@@ -60,7 +60,7 @@ const SocialIcons = ({ icons }: { icons: IconType[] }) => (
 
 const ContactItemList = ({ items }: { items: ContactItemType[] }) => (
   <ul className="mb-4 mt-8 space-y-5 rounded-lg bg-pampas px-4 py-6 lg:px-8">
-    {items.map((item) => (
+    {items.map(item => (
       <li
         key={item.key}
         className="flex items-center text-sm text-karaka lg:text-lg"

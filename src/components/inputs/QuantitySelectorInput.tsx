@@ -14,13 +14,13 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   maxQuantity = 999,
 }) => {
   const incrementQuantity = () => {
-    setQuantity((prevQuantity) =>
+    setQuantity(prevQuantity =>
       prevQuantity < maxQuantity ? prevQuantity + 1 : maxQuantity
     );
   };
 
   const decrementQuantity = () => {
-    setQuantity((prevQuantity) =>
+    setQuantity(prevQuantity =>
       prevQuantity > minQuantity ? prevQuantity - 1 : minQuantity
     );
   };
@@ -40,7 +40,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       </button>
       <input
         value={quantity}
-        onChange={(e) => {
+        onChange={e => {
           const value = parseInt(e.target.value, 10);
           if (!isNaN(value) && value >= minQuantity && value <= maxQuantity) {
             setQuantity(value);

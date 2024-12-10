@@ -8,7 +8,7 @@ const usePopupSuccess = (isVisible: boolean, onClose: () => void) => {
     if (!isVisible) return;
 
     const timer = setInterval(() => {
-      setTimeRemaining((prev) => prev - 1);
+      setTimeRemaining(prev => prev - 1);
     }, 1000);
 
     if (timeRemaining === 0) {

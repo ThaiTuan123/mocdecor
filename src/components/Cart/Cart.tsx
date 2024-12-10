@@ -81,8 +81,8 @@ const Cart = ({
     mainId: string,
     operation?: string
   ) => {
-    setCartGlobal((prevCart) =>
-      prevCart.map((item) =>
+    setCartGlobal(prevCart =>
+      prevCart.map(item =>
         item.skuId === skuId && item.mainId === mainId
           ? {
               ...item,
@@ -209,7 +209,7 @@ const Cart = ({
                       </button>
                       <input
                         value={item.quantity}
-                        onChange={(e) => {
+                        onChange={e => {
                           const value = parseInt(e.target.value, 10);
                           if (!isNaN(value) && value >= 1 && value <= 999) {
                             setQuantity(value, item.skuId, item.mainId);

@@ -13,7 +13,7 @@ const FooterTop = () => (
   <div className="bg-punga px-6 py-8 text-white md:py-1 2xl:px-96">
     <div className="container mx-auto flex h-52 items-center md:h-24">
       <div className="grid w-full grid-cols-2 justify-between gap-4 md:grid-cols-4">
-        {footerIcons.map((icon) => (
+        {footerIcons.map(icon => (
           <IconWithText
             key={icon.key}
             src={icon.src}
@@ -101,7 +101,7 @@ const FooterLinks = ({ className }: FooterLinksProps) => (
       {languages.get('connectWithMoc')}
     </h3>
     <div className="mb-8 mt-2 flex space-x-4 md:mb-0">
-      {socialIcons.map((icon) => (
+      {socialIcons.map(icon => (
         <Icon key={icon.key} src={icon.src} alt={icon.alt} size="small" />
       ))}
     </div>
