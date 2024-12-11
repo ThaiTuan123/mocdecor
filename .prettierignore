@@ -3,3 +3,5 @@ build
 .next
 public
 tailwind.config.ts
+styles.css
+.prettierrc
