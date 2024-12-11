@@ -73,6 +73,7 @@ span.ant-select-selection-placeholder {
     width: 100%;
   }
 }
+
 @media (min-width: 1536px) {
   @media (min-width: 640px) {
     body
@@ -89,6 +90,7 @@ span.ant-select-selection-placeholder {
     }
   }
 }
+
 @media (min-width: 1536px) {
   @media (min-width: 768px) {
     body
@@ -105,6 +107,7 @@ span.ant-select-selection-placeholder {
     }
   }
 }
+
 @media (min-width: 1536px) {
   @media (min-width: 1024px) {
     body
@@ -121,6 +124,7 @@ span.ant-select-selection-placeholder {
     }
   }
 }
+
 @media (min-width: 1536px) {
   @media (min-width: 1280px) {
     body
@@ -137,6 +141,7 @@ span.ant-select-selection-placeholder {
     }
   }
 }
+
 @media (min-width: 1536px) {
   @media (min-width: 1536px) {
     body
