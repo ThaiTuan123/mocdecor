@@ -119,3 +119,12 @@ export const updateCart = async (browserId: string, body: any) => {
     body: body,
   });
 };
+
+//submit payment
+export const submitPayment = async (browserId: string, body: any) => {
+  const url = `${API.PAYMENT}/${browserId}`;
+  return apiRequest(url, {
+    method: 'POST',
+    body: body,
+  });
+};

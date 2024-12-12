@@ -135,6 +135,7 @@ const Header = () => {
                       onClick={() => {
                         setMenuOpen(false);
                         setSubNavMobile(false);
+                        setHoveredLabelKey('')
                       }}
                     >
                       {subItem.text}
