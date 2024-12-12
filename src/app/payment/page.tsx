@@ -24,11 +24,17 @@ import { cartState } from '@/recoil/atoms/cartAtom';
 import PaymentSuccessPopup from '@/components/popup/PaymentSuccessPopup';
 import usePopupSuccess from '@/recoil/hooks/usePopupSuccess';
 import { CartItem } from '@/types/cartType';
+import { submitPayment } from '@/services/api';
+import { getOrCreateBrowserId } from '@/utils/browserId';
 
 interface formType {
   city: string | null;
   district: string | null;
   ward: string | null;
+  address: string;
+  name: string;
+  phone: string;
+  note: string;
   paymentType: number;
 }
 
@@ -40,21 +46,42 @@ export default function Payment() {
     city: null,
     district: null,
     ward: null,
+    address: "",
+    name: "",
+    phone: "",
+    note: "",
     paymentType: 1,
   });
   const [isShowModalSuccess, setIsShowModalSuccess] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const priceFee = 30000;
+  const [browserId, setBrowserId] = useState<string | null>(null);
 
   const cart = useRecoilValue(cartState); // <--- Changed here
 
   useEffect(() => {
     getDataCities();
+    const id = getOrCreateBrowserId();
+    setBrowserId(id);
   }, []);
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    setIsShowModalSuccess(true); // Show the popup when the form is submitted
+  const handleSubmit = () => {
+    const body = {
+      "paymentMethod": formValue.paymentType,
+      "recipientAddress": {
+        "address": formValue.address,
+        "city": formValue.city,
+        "district": formValue.district,
+        "ward": formValue.ward,
+        "name": formValue.name,
+        "phoneNumber": formValue.phone,
+        "note": formValue.note,
+      }
+    }
+    if(browserId) {
+      submitPayment(browserId, body)
+      setIsShowModalSuccess(true);
+    }
   };
 
   // Use the custom hook
@@ -183,13 +210,15 @@ export default function Payment() {
         <p className="text-2lg font-semibold text-primary">
           {languages.get('payment.info.title')}
         </p>
-        <form className="mt-4 space-y-6 lg:mt-8" onSubmit={handleSubmit}>
+        <form className="mt-4 space-y-6 lg:mt-8">
           {renderInputRow([
             <TextInput
               key="name"
               label={languages.get('payment.info.input.name.label')}
               placeholder={languages.get('payment.info.input.name.placeholder')}
               type="text"
+              value={formValue.name}
+              onChange={(e) => setFormValue(prev => ({ ...prev, name: e.target.value }))}
             />,
             <TextInput
               key="phone"
@@ -198,6 +227,8 @@ export default function Payment() {
                 'payment.info.input.phone.placeholder'
               )}
               type="text"
+              value={formValue.phone}
+              onChange={(e) => setFormValue(prev => ({ ...prev, phone: e.target.value }))}
             />,
           ])}
 
@@ -249,8 +280,9 @@ export default function Payment() {
             placeholder={languages.get(
               'payment.info.input.address.placeholder'
             )}
-            type="tel"
             required
+            value={formValue.address}
+            onChange={(e) => setFormValue(prev => ({ ...prev, address: e.target.value }))}
           />
 
           <p className="text-2lg font-semibold text-primary">
@@ -262,7 +294,7 @@ export default function Payment() {
           <CustomButton
             className="hidden w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary lg:block"
             text={languages.get('payment.info.form.button')}
-            onClick={() => setIsShowModalSuccess(true)}
+            onClick={handleSubmit}
           />
         </form>
       </div>
@@ -350,7 +382,6 @@ export default function Payment() {
           className="mt-6 block w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary lg:hidden"
           text={languages.get('payment.info.form.button')}
           // show PaymentSuccessPopup when onClick
-          onClick={() => setIsShowModalSuccess(true)}
         />
       </div>
     );

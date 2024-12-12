@@ -18,6 +18,7 @@ export class API {
   static PRODUCT_CATEGORIES = BASE_URL + '/public/product-management/category';
   static LIST_PRODUCT = BASE_URL + '/public/pos-products';
   static CART = BASE_URL + '/cart';
+  static PAYMENT = BASE_URL + '/cart/buy';
   static MENU = BASE_URL + '/public/pos-product-categories/menu';
   static PRODUCT_TYPES_BY_CATEGORIES =
     BASE_URL + '/public/pos-product-categories/';
