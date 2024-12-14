@@ -49,7 +49,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
     const uniqueImages: string[] = Array.from(new Set(listImagesSku));
     setImagesSku(uniqueImages);
-    setSelectedImage(uniqueImages?.[0])
+    setSelectedImage(uniqueImages?.[0]);
     processDataSku();
   }, []);
 

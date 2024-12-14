@@ -4,7 +4,7 @@ import TextInput from '@/components/inputs/TextInput';
 import CustomButton from '@/components/button/CustomButton';
 import languages from '@/configs/languages';
 import SelectCustom from '@/components/select/Select';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   fetchCities,
   fetchDistricts,
@@ -46,10 +46,10 @@ export default function Payment() {
     city: null,
     district: null,
     ward: null,
-    address: "",
-    name: "",
-    phone: "",
-    note: "",
+    address: '',
+    name: '',
+    phone: '',
+    note: '',
     paymentType: 1,
   });
   const [isShowModalSuccess, setIsShowModalSuccess] = useState(false);
@@ -67,19 +67,19 @@ export default function Payment() {
 
   const handleSubmit = () => {
     const body = {
-      "paymentMethod": formValue.paymentType,
-      "recipientAddress": {
-        "address": formValue.address,
-        "city": formValue.city,
-        "district": formValue.district,
-        "ward": formValue.ward,
-        "name": formValue.name,
-        "phoneNumber": formValue.phone,
-        "note": formValue.note,
-      }
-    }
-    if(browserId) {
-      submitPayment(browserId, body)
+      paymentMethod: formValue.paymentType,
+      recipientAddress: {
+        address: formValue.address,
+        city: formValue.city,
+        district: formValue.district,
+        ward: formValue.ward,
+        name: formValue.name,
+        phoneNumber: formValue.phone,
+        note: formValue.note,
+      },
+    };
+    if (browserId) {
+      submitPayment(browserId, body);
       setIsShowModalSuccess(true);
     }
   };
@@ -218,7 +218,9 @@ export default function Payment() {
               placeholder={languages.get('payment.info.input.name.placeholder')}
               type="text"
               value={formValue.name}
-              onChange={(e) => setFormValue(prev => ({ ...prev, name: e.target.value }))}
+              onChange={e =>
+                setFormValue(prev => ({ ...prev, name: e.target.value }))
+              }
             />,
             <TextInput
               key="phone"
@@ -228,7 +230,9 @@ export default function Payment() {
               )}
               type="text"
               value={formValue.phone}
-              onChange={(e) => setFormValue(prev => ({ ...prev, phone: e.target.value }))}
+              onChange={e =>
+                setFormValue(prev => ({ ...prev, phone: e.target.value }))
+              }
             />,
           ])}
 
@@ -282,7 +286,9 @@ export default function Payment() {
             )}
             required
             value={formValue.address}
-            onChange={(e) => setFormValue(prev => ({ ...prev, address: e.target.value }))}
+            onChange={e =>
+              setFormValue(prev => ({ ...prev, address: e.target.value }))
+            }
           />
 
           <p className="text-2lg font-semibold text-primary">
