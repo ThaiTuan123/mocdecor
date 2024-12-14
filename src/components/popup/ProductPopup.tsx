@@ -38,6 +38,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [skuSelected, setSkuSelected] = useState<any>(null);
   const [cartGlobal, setCartGlobal] = useRecoilState<CartItem[]>(cartState);
   useEffect(() => {
+    setSelectedImage(imagesSku?.[0])
     const id = getOrCreateBrowserId();
     setBrowserId(id);
     const listImagesSku = product.product.sku.reduce(
@@ -321,7 +322,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           <div className="relative flex w-full flex-col justify-between lg:w-412">
             <Image
               //src={product.image}
-              src={imagesSku?.[0]}
+              src={selectedImage}
               alt={product.product.name}
               width={300}
               height={300}
