@@ -38,7 +38,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [skuSelected, setSkuSelected] = useState<any>(null);
   const [cartGlobal, setCartGlobal] = useRecoilState<CartItem[]>(cartState);
   useEffect(() => {
-    setSelectedImage(imagesSku?.[0])
     const id = getOrCreateBrowserId();
     setBrowserId(id);
     const listImagesSku = product.product.sku.reduce(
@@ -50,6 +49,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
     const uniqueImages: string[] = Array.from(new Set(listImagesSku));
     setImagesSku(uniqueImages);
+    setSelectedImage(uniqueImages?.[0])
     processDataSku();
   }, []);
 
