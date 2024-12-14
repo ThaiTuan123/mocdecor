@@ -5,3 +5,5 @@ public
 tailwind.config.ts
 styles.css
 .prettierrc
+src/app/policy/style.css
+src/app/products/*/*/style.css
