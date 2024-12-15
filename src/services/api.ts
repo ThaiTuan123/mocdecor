@@ -100,8 +100,17 @@ export const fetchProductTypeByCategory = async (slug: string) => {
 };
 
 //products
-export const fetchListProducts = async (categorySlug: string) => {
-  const url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=20&page=1&orderBy=_id&sort=desc`;
+export const fetchListProducts = async (param: any) => {
+  const {
+    categorySlug,
+    typeIds = [],
+    limit = 20,
+    page = 1,
+    priceFrom = 0,
+    priceTo = 0,
+    sort = 'desc',
+  } = param;
+  const url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=${limit}&page=${page}&orderBy=_id&sort=${sort}&typeIds=${typeIds}&priceFrom=${priceFrom}&priceTo=${priceTo}`;
   return apiRequest(url);
 };
 

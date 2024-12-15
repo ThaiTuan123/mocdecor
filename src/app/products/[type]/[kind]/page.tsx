@@ -13,6 +13,7 @@ import CustomButton from '../../../../components/button/CustomButton';
 import ProductPopup from '@/components/popup/ProductPopup';
 import useListProducts from '@/recoil/hooks/useListProducts';
 import useCategoryDetail from '@/recoil/hooks/useCategoryDetail';
+import { fetchListProducts } from '@/services/api';
 
 interface filtersCheckboxType {
   range: string[];
@@ -29,14 +30,15 @@ export default function Products() {
     range: [],
     major: [],
   });
-  const [filterRadio, setFilterRadio] = useState('');
+  const [filterRadio, setFilterRadio] = useState();
   const [hoverFilter, setHoverFilter] = useState('');
   const pathname = usePathname();
+  const categorySlug = pathname.split('/')[2];
   const { cateDetail } = useCategoryDetail(pathname.split('/')[2]);
   const [openFilter, setOpenFilter] = useState(false);
   const [collapseActive, setCollapseActive] = useState<string | string[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const { listProduct = [] } = useListProducts(pathname.split('/')[2]);
+  const { listProduct = [] } = useListProducts({ categorySlug: categorySlug });
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -46,14 +48,62 @@ export default function Products() {
   }, [listProduct]);
 
   useEffect(() => {
+    if (
+      filterTags.range.length > 0 ||
+      filterTags.major.length > 0 ||
+      filterRadio
+    ) {
+      const param = {
+        categorySlug: categorySlug,
+        priceFrom:
+          filterTags.range.length > 0
+            ? mergePriceArr(filterTags.range).split('-')[0]
+            : 0,
+        priceTo:
+          filterTags.range.length > 0
+            ? mergePriceArr(filterTags.range).split('-')[1]
+            : 0,
+        typeIds: filterTags.major,
+        sort: filterRadio,
+      };
+      fetchListProducts(param).then(data => {
+        setProducts(data.products);
+      });
+    } else {
+      setProducts(listProduct.products);
+    }
+  }, [filterTags, filterRadio]);
+
+  useEffect(() => {
     if (cateDetail?.subCategories) {
       const updatedMenu = cateDetail.subCategories.map(item => ({
-        value: item.slug || '',
+        value: item.id || '',
         label: item.text || '',
       }));
       filterData[1].menu = updatedMenu;
     }
   }, [JSON.stringify(cateDetail?.subCategories)]);
+
+  const mergePriceArr = (ranges: string[]) => {
+    const convertToNumber = (value: string) => {
+      if (value.endsWith('k')) return parseInt(value.replace('k', '')) * 1000;
+      if (value.endsWith('m'))
+        return parseInt(value.replace('m', '')) * 1000000;
+      return parseInt(value);
+    };
+
+    const startValues = ranges.map(range =>
+      convertToNumber(range.split('-')[0])
+    );
+    const endValues = ranges.map(range => convertToNumber(range.split('-')[1]));
+
+    const minValue = Math.min(...startValues);
+    const maxValue = Math.max(...endValues);
+
+    const mergedRange = `${minValue}-${maxValue}`;
+
+    return mergedRange;
+  };
 
   const renderHero = () => {
     return (
@@ -247,7 +297,7 @@ export default function Products() {
     setFilterRadio(event.target.value);
   };
 
-  const onChangeCheckbox = (list: string[], value: FilterKeys) => {
+  const onChangeCheckbox = (list: any[], value: FilterKeys) => {
     setFilterTags(prev => ({ ...prev, [value]: list }));
   };
 
