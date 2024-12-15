@@ -59,7 +59,7 @@ const Header = () => {
   const renderSubNav = (labelKey: string) => {
     return (
       <div
-        className={`duration-600 fixed bottom-0 left-0 right-0 top-72px h-451 w-full bg-pampas pt-9 transition-opacity ease-linear lg:pl-36 md:pl-9 ${
+        className={`duration-600 fixed bottom-0 left-0 right-0 top-72px h-451 w-full bg-pampas pt-9 transition-opacity ease-linear md:pl-9 lg:pl-36 ${
           hoveredLabelKey === 'products' && labelKey == 'products'
             ? 'visible opacity-100'
             : 'invisible opacity-0'
@@ -67,7 +67,7 @@ const Header = () => {
         onMouseEnter={() => setHoveredLabelKey('products')}
         onMouseLeave={() => setHoveredLabelKey('')}
       >
-        <div className="flex flex-row lg:gap-6 md:gap-2">
+        <div className="flex flex-row md:gap-2 lg:gap-6">
           {menu?.types?.map((item, index) => (
             <div key={index} className="flex min-w-44 flex-col">
               <span className="text-1.25lg text-gray-100">
