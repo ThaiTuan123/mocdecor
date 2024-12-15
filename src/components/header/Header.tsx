@@ -96,7 +96,10 @@ const Header = () => {
                 <>
                   <div
                     className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
-                    onClick={() => router.push('/products/anh-in/anh-bo-goc')}
+                    onClick={() => {
+                      setHoveredLabelKey('');
+                      router.push('/products/anh-in/anh-bo-goc');
+                    }}
                   >
                     <span className="text-lg text-karaka">
                       {languages.get('navbar.sub.view.read.more')}
@@ -147,7 +150,10 @@ const Header = () => {
                 <>
                   <div
                     className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
-                    onClick={() => router.push('/products/khac/den-dom-dom')}
+                    onClick={() => {
+                      setHoveredLabelKey('');
+                      router.push('/products/khac/den-dom-dom');
+                    }}
                   >
                     <span className="text-lg text-karaka">
                       {languages.get('navbar.sub.view.read.more')}
@@ -170,7 +176,10 @@ const Header = () => {
         </div>
         <div
           className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
-          onClick={() => router.push('/products/album-anh/album-photobooth')}
+          onClick={() => {
+            setHoveredLabelKey('');
+            router.push('/products/album-anh/album-photobooth');
+          }}
         >
           <span className="text-lg text-karaka">
             {languages.get('navbar.sub.view.read.more')}
