@@ -22,9 +22,10 @@ const BackgroundSection: React.FC<BackgroundSectionProps> = ({
         src={backgroundMobile}
         alt="Background"
         fill={true}
-        className="object-fill"
+        className="object-cover"
         quality={75}
         priority // Ensure faster loading for above-the-fold content
+        sizes="100vw"
       />
     </div>
 
