@@ -64,7 +64,7 @@ export default function Products() {
             ? mergePriceArr(filterTags.range).split('-')[1]
             : 0,
         typeIds: filterTags.major,
-        sort: filterRadio,
+        sortBy: filterRadio,
       };
       fetchListProducts(param).then(data => {
         setProducts(data.products);

@@ -108,9 +108,9 @@ export const fetchListProducts = async (param: any) => {
     page = 1,
     priceFrom = 0,
     priceTo = 0,
-    sort = 'desc',
+    sortBy = 'desc',
   } = param;
-  const url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=${limit}&page=${page}&orderBy=_id&sort=${sort}&typeIds=${typeIds}&priceFrom=${priceFrom}&priceTo=${priceTo}`;
+  const url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=${limit}&page=${page}&orderBy=_id&sort=${sortBy}&typeIds=${typeIds}&priceFrom=${priceFrom}&priceTo=${priceTo}`;
   return apiRequest(url);
 };
 
