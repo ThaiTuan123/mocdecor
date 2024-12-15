@@ -335,6 +335,7 @@ const GiftSection: React.FC = () => {
           fill={true}
           className="block object-cover md:hidden"
           onLoad={() => setIsLoaded(true)}
+          sizes="(max-width: 768px) 100vw, 0" // Mobile tối đa 100% viewport width
           loading="lazy"
         />
         <Image
@@ -343,6 +344,7 @@ const GiftSection: React.FC = () => {
           fill={true}
           className="hidden object-cover md:block"
           onLoad={() => setIsLoaded(true)}
+          sizes="(min-width: 768px) 100vw" // Desktop tối đa 100% viewport width
           priority
         />
       </div>

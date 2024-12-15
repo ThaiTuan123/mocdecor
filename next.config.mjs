@@ -2,6 +2,9 @@
 
 const nextConfig = {
   images: {
+    deviceSizes: [640, 768, 1024, 1280, 1920], // Kích thước viewport phổ biến
+    imageSizes: [16, 32, 48, 64, 96], // Kích thước icon hoặc hình nhỏ
+    formats: ['image/webp'], // Ưu tiên sử dụng WebP
     remotePatterns: [
       {
         protocol: 'https',

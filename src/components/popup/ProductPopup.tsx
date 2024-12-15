@@ -295,7 +295,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         )}
       </div>
 
-      <div className="order-1 mt-4 flex gap-3 p-0 md:gap-5 lg:order-none lg:pt-16">
+      <div className="order-1 mt-4 flex gap-3 p-0 md:gap-5 lg:order-none lg:pb-1 lg:pt-16">
         <button
           onClick={onClose}
           className="hidden w-1/2 transform rounded border border-brown-700 bg-white px-4 py-4 text-sm text-brown-700 transition-all duration-300 hover:scale-105 md:text-lg lg:block"

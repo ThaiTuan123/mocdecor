@@ -32,7 +32,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         className={`rounded-l border px-2 py-1 md:px-4 md:py-2 ${
           quantity === minQuantity
             ? 'cursor-not-allowed bg-gray-50 text-stroke'
-            : 'bg-whit,,e text-black hover:scale-100'
+            : 'bg-white text-black hover:scale-100'
         }`}
         disabled={quantity === minQuantity}
       >
