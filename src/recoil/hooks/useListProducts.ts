@@ -4,7 +4,7 @@ import { fetchListProducts } from '@/services/api';
 import { listProductState } from '../atoms/listProduct';
 
 const useListProducts = (
-  categorySlug: string
+  param: any
 ): { listProduct: any; loading: boolean } => {
   const [listProduct, setListProduct] = useRecoilState(listProductState);
   const [loading, setLoading] = useState(true);
@@ -13,7 +13,7 @@ const useListProducts = (
     const getListProduct = async () => {
       setLoading(true);
       try {
-        const data = await fetchListProducts(categorySlug);
+        const data = await fetchListProducts(param);
         setListProduct(data);
       } catch (error) {
         console.error('Failed to fetch categories:', error);
@@ -21,10 +21,10 @@ const useListProducts = (
         setLoading(false);
       }
     };
-    if (categorySlug) {
+    if (param) {
       getListProduct();
     }
-  }, [categorySlug]);
+  }, [param.categorySlug]);
 
   return { listProduct, loading };
 };

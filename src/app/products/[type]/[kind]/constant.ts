@@ -16,15 +16,15 @@ export const filterData = [
     menu: [
       {
         label: '0 Đ - 100.000 Đ',
-        value: '0-100k',
+        value: '0-100000',
       },
       {
         label: '100.000 Đ - 500.000 Đ',
-        value: '100k-500k',
+        value: '100000-500000',
       },
       {
         label: '500.000 Đ - 1000.000 Đ',
-        value: '500k-1m',
+        value: '500000-1000000',
       },
     ],
   },
@@ -68,15 +68,15 @@ export const filterData = [
     menu: [
       {
         label: 'Bán chạy',
-        value: 'best-seller',
+        value: 1,
       },
       {
         label: 'Từ thấp đến cao',
-        value: 'low-to-high',
+        value: 2,
       },
       {
         label: 'Từ cao đến thấp',
-        value: 'high-to-low',
+        value: 3,
       },
     ],
   },

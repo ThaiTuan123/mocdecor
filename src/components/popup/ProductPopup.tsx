@@ -316,7 +316,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       {renderFullScreenImage()}
-      <div className="relative mx-6 flex w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6">
+      <div className="relative mx-6 flex h-[95%] w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6">
         <CancelButton onClick={onClose} />
         <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
           <div className="relative flex w-full flex-col justify-between lg:w-412">
