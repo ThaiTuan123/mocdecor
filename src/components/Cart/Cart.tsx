@@ -289,7 +289,7 @@ const Cart = ({
         isVisible={isShowCart}
         onClick={() => setIsShowCart(false)}
       >
-        <div className="absolute right-0 hidden h-full w-2/5 animate-leftToRight bg-white md:block md:w-3/5">
+        <div className="absolute right-0 hidden h-full w-2/5 animate-leftToRight bg-white md:block md:w-3/5 lg:w-2/5">
           <div className="flex justify-between border-b px-11 py-7">
             <div className="flex flex-col">
               <div className="flex flex-row items-center gap-4">

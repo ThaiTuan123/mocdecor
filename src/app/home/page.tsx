@@ -247,8 +247,8 @@ const StorySection: React.FC = () => {
             alt="Product Story Background"
             fill={true}
             quality={75} // Optimize image quality
-            loading="lazy"
             className={'object-cover'}
+            priority={true}
           />
           <div className="absolute inset-0 z-10"></div>
           {/* Optional overlay */}
@@ -337,6 +337,7 @@ const GiftSection: React.FC = () => {
           onLoad={() => setIsLoaded(true)}
           sizes="(max-width: 768px) 100vw, 0" // Mobile tối đa 100% viewport width
           loading="lazy"
+          quality={75}
         />
         <Image
           src={images.giftHome} // Replace with the actual desktop background image
@@ -359,6 +360,8 @@ const GiftSection: React.FC = () => {
             alt="Logo"
             width={290}
             height={290}
+            quality={75}
+            loading="lazy"
           />
           <Image
             className="block md:hidden"
@@ -366,6 +369,8 @@ const GiftSection: React.FC = () => {
             alt="Logo Mobile"
             width={187}
             height={187}
+            quality={75}
+            loading="lazy"
           />
           <div className="mx-4 hidden h-24 w-1 bg-white md:block"></div>
           <div id="title">
