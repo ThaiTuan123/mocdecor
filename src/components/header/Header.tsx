@@ -104,8 +104,10 @@ const Header = () => {
                     <span className="text-lg text-karaka">
                       {languages.get('navbar.sub.view.read.more')}
                     </span>
-                    <img
+                    <Image
                       src={images.icons.ic_arrow_right}
+                      width={16}
+                      height={16}
                       alt=""
                       className="w-4 object-contain"
                     />
@@ -303,7 +305,8 @@ const Header = () => {
                 width={80}
                 height={48}
                 alt="MOC DECOR LOGO"
-                className="h-12 w-auto md:hover:scale-110"
+                className="h-12 w-auto object-contain md:hover:scale-110"
+                priority={true}
               />
             </a>
           </Link>

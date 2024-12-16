@@ -41,6 +41,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, index }) => {
           width={421}
           height={379}
           className="mx-auto h-150 rounded object-cover md:h-252 lg:h-379 lg:object-fill"
+          priority={true}
         />
         <div className="absolute inset-0 rounded bg-gradient-to-b from-transparent to-[rgba(82,59,24,0.9)]"></div>
       </div>

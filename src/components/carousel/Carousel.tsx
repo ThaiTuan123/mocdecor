@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { CarouselItem } from '@/components/carousel/types';
-import CommonButton from '@/components/button/CustomButton';
-import CarouselButton from '@/components/button/CarouselButton';
-import languages from '@/configs/languages';
 import { activeIndexState } from '@/recoil/atoms/activeIndexStateAtom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -12,6 +9,9 @@ import {
   useFetchCarouselItems,
 } from '@/recoil/hooks/useCarouselItems';
 import images from '@/configs/images';
+import CommonButton from '@/components/button/CustomButton';
+import languages from '@/configs/languages';
+import CarouselButton from '@/components/button/CarouselButton';
 
 const Carousel = () => {
   const items = useRecoilValue(carouselItemsState);
@@ -113,15 +113,13 @@ const CarouselWrapper = ({
           data-carousel-item={index === activeIndex ? 'active' : ''}
         >
           <Image
+            fetchPriority={'high'}
             src={item.imageUrl}
             alt={item.title}
             fill={true}
-            className={`block h-full w-full object-cover transition-opacity duration-500 ${
-              !loaded[index] ? 'blur-md' : 'blur-0'
-            }`}
+            className={`block h-full w-full object-cover transition-opacity duration-500`}
             blurDataURL={fallbackImageUrl}
-            loading="lazy"
-            placeholder="blur"
+            loading="eager"
             onLoad={() => {
               const updatedLoaded = [...loaded];
               updatedLoaded[index] = true;

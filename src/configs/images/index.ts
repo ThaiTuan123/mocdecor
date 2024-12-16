@@ -6,7 +6,7 @@ const images = {
   },
   icons: {
     search: '/assets/imgs/icons/ic-search.png',
-    cart: '/assets/imgs/icons/ic-cart.png',
+    cart: '/assets/imgs/icons/ic-cart.webp',
     menuOpen: '/assets/imgs/icons/ic-sidebar.png',
     menuClose: '/assets/imgs/icons/ic-X.png',
     delivery: '/assets/imgs/icons/ic-delivery.webp',
@@ -34,7 +34,7 @@ const images = {
     ic_down: '/assets/imgs/icons/ic-dropdown.png',
     ic_star: '/assets/imgs/icons/ic-star.png',
     ic_star_active: '/assets/imgs/icons/ic-star-active.png',
-    ic_arrow_right: '/assets/imgs/icons/ic-arrow-right.png',
+    ic_arrow_right: '/assets/imgs/icons/ic-arrow-right.webp',
     ic_filter: '/assets/imgs/icons/ic-filter.png',
     ic_dropdown_right: '/assets/imgs/icons/ic-dropdown-right.png',
 
