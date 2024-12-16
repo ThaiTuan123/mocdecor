@@ -30,7 +30,7 @@ export default function Products() {
     range: [],
     major: [],
   });
-  const [filterRadio, setFilterRadio] = useState();
+  const [filterRadio, setFilterRadio] = useState<number>();
   const [hoverFilter, setHoverFilter] = useState('');
   const pathname = usePathname();
   const categorySlug = pathname.split('/')[2];
@@ -173,6 +173,7 @@ export default function Products() {
         range: [],
         major: [],
       });
+      setFilterRadio(0);
       setOpenFilter(false);
     };
 
@@ -223,7 +224,7 @@ export default function Products() {
           <img
             src={images.icons.menuClose}
             className="h-6 w-6"
-            onClick={() => setOpenFilter(false)}
+            onClick={clearFilter}
           />
         </div>
 
@@ -239,7 +240,7 @@ export default function Products() {
               key={0}
               className="w-full"
               showArrow={false}
-              header={renderHeaderCollapse(filterData[3].title)}
+              header={renderHeaderCollapse(filterData[2].title)}
               extra={
                 <img
                   src={
@@ -251,9 +252,9 @@ export default function Products() {
                 />
               }
             >
-              {renderDescCollapse(filterData[3] as filterType, true)}
+              {renderDescCollapse(filterData[2] as filterType, true)}
             </Panel>
-            {filterData.slice(0, 3).map((item, index) => (
+            {filterData.slice(0, 2).map((item, index) => (
               <Panel
                 className="w-full"
                 showArrow={false}
