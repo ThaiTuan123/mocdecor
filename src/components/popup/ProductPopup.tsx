@@ -1,13 +1,13 @@
 //ProductPopup.tsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { CURRENCY_SYMBOL } from '@/configs/constants/constants';
 import languages from '@/configs/languages';
 import CancelButton from '@/components/button/CancelButton';
 import QuantitySelector from '@/components/inputs/QuantitySelectorInput';
 import ProductCarousel from '@/components/carousel/ProductCarousel';
-import { TITLE_MAX_LENGTH } from '@/utils/constants';
+import { INTERACTIVE_ELEMENTS, TITLE_MAX_LENGTH } from '@/utils/constants';
 import { updateCart } from '@/services/api';
 import { getOrCreateBrowserId } from '@/utils/browserId';
 import { useRecoilState } from 'recoil';
@@ -26,6 +26,7 @@ interface skuObjectType {
 }
 
 const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
+  const popupRef = useRef<HTMLDivElement>(null);
   const [selectedSize, setSelectedSize] = useState<Record<string, string>>({});
   const [formattedOutput, setFormattedOutput] = useState<skuObjectType[]>();
   const [quantity, setQuantity] = useState<number>(1);
@@ -37,6 +38,26 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [browserId, setBrowserId] = useState<string | null>(null);
   const [skuSelected, setSkuSelected] = useState<any>(null);
   const [cartGlobal, setCartGlobal] = useRecoilState<CartItem[]>(cartState);
+  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false); // State for showing SuccessPopup
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+      if (
+        event.target instanceof HTMLElement &&
+        !INTERACTIVE_ELEMENTS.includes(event.target.tagName)
+      ) {
+        onClose();
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     const id = getOrCreateBrowserId();
     setBrowserId(id);
@@ -167,10 +188,12 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
               attributeValue: string[];
             }) => (
               <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
-                <p className="w-16 content-center text-sm font-medium md:w-20 md:text-lg">
-                  {attributeName}
-                </p>
-                <div className="mt-2 flex max-h-40 max-w-52 flex-wrap gap-2 overflow-y-auto md:max-h-48 md:max-w-96">
+                <div className="flex w-18 content-center">
+                  <p className="content-center text-sm font-medium md:text-lg">
+                    {attributeName}
+                  </p>
+                </div>
+                <div className="mt-2 flex max-h-40 w-[220px] max-w-52 flex-wrap gap-2 overflow-y-auto md:max-h-48 md:w-[350px] md:max-w-96">
                   {attributeValue.map((value: any) => (
                     <button
                       key={value}
@@ -234,6 +257,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         return [...prev, cartUpdateObj];
       }
     });
+    setShowSuccessPopup(true); // Show SuccessPopup after adding to cart
+    setTimeout(() => {
+      setShowSuccessPopup(false); // Close SuccessPopup after 3 seconds
+    }, 3000);
     onClose();
   };
 
@@ -267,10 +294,15 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {renderSizeButtons()}
 
           <div className="center flex flex-row gap-4 md:gap-6">
-            <p className="font-raleway w-18 content-center text-sm font-medium md:w-20 md:text-lg">
-              {languages.get('popup.text.quantity')}
-            </p>
-            <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+            <div className="flex w-18 content-center">
+              <p className="font-raleway w-18 content-center text-sm font-medium md:w-20 md:text-lg">
+                {languages.get('popup.text.quantity')}
+              </p>
+            </div>
+
+            <div className="w-[220px]">
+              <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+            </div>
           </div>
         </div>
       </div>
@@ -315,24 +347,28 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      {/* TODO Show SuccessPopup.tsx here */}
       {renderFullScreenImage()}
-      <div className="relative mx-6 flex h-[95%] w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6">
+      <div
+        ref={popupRef}
+        className="relative mx-6 flex h-[95%] w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
+      >
         <CancelButton onClick={onClose} />
         <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
-          <div className="relative flex w-full flex-col justify-between lg:w-412">
+          <div className="flex w-full flex-col">
             <Image
               //src={product.image}
               src={selectedImage}
               alt={product.product.name}
               width={300}
               height={300}
-              className={`h-327 w-full cursor-zoom-in object-fill lg:h-[550px] lg:w-412 ${
+              className={`h-327 w-full cursor-zoom-in object-fill lg:h-[450px] lg:w-[450px] ${
                 imageLoading ? 'blur-md' : 'blur-0'
               }`}
               onLoad={handleImageLoad}
               onClick={toggleFullScreen}
             />
-            <div className="h-32 w-full overflow-hidden pt-4 lg:w-412 lg:pt-6">
+            <div className="h-[140px] w-full overflow-hidden pt-4 lg:h-[150px] lg:w-[450px] lg:pt-6">
               <ProductCarousel
                 images={imagesSku}
                 onImageSelect={setSelectedImage}

@@ -1,5 +1,3 @@
-//ProductCarousel.tsx
-
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from 'react-icons/md';
@@ -43,13 +41,15 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
 
   return (
     <div className="relative">
-      {/* Scroll buttons */}
-      <button
-        className="absolute left-0 top-1/2 -translate-y-1/2 transform bg-opacity-50 p-2"
-        onClick={scrollLeft}
-      >
-        <MdOutlineNavigateBefore size={24} color="white" />
-      </button>
+      {/* Hiển thị nút scroll chỉ khi có hơn 4 ảnh */}
+      {displayImages.length > 4 && (
+        <button
+          className="absolute left-0 top-1/2 -translate-y-1/2 transform bg-alto bg-opacity-40 px-0.5 py-2"
+          onClick={scrollLeft}
+        >
+          <MdOutlineNavigateBefore size={24} color="#3A2A11" />
+        </button>
+      )}
 
       <div className="flex overflow-hidden whitespace-nowrap" ref={carouselRef}>
         {/* Display images with horizontal scroll */}
@@ -71,12 +71,14 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
         ))}
       </div>
 
-      <button
-        className="-opacity-50 absolute right-0 top-1/2 -translate-y-1/2 transform p-2"
-        onClick={scrollRight}
-      >
-        <MdOutlineNavigateNext size={24} color="white" />
-      </button>
+      {displayImages.length > 4 && (
+        <button
+          className="absolute right-0 top-1/2 -translate-y-1/2 transform bg-alto bg-opacity-40 px-0.5 py-2"
+          onClick={scrollRight}
+        >
+          <MdOutlineNavigateNext size={24} color="#3A2A11" />
+        </button>
+      )}
     </div>
   );
 };
