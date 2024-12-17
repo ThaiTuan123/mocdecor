@@ -38,14 +38,21 @@ export default function Products() {
   const [openFilter, setOpenFilter] = useState(false);
   const [collapseActive, setCollapseActive] = useState<string | string[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const { listProduct = [] } = useListProducts({ categorySlug: categorySlug });
+  const slugId = cateDetail.subCategories?.find(
+    it => it.slug == pathname.split('/')[3]
+  )?.id;
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    if (listProduct) {
-      setProducts(listProduct.products);
+    if (slugId) {
+      setFilterTags(prev => ({ ...prev, major: [slugId] }));
+      fetchListProducts({ categorySlug: categorySlug, typeIds: [slugId] }).then(
+        data => {
+          setProducts(data.products);
+        }
+      );
     }
-  }, [listProduct]);
+  }, [slugId]);
 
   useEffect(() => {
     if (
@@ -69,10 +76,25 @@ export default function Products() {
       fetchListProducts(param).then(data => {
         setProducts(data.products);
       });
-    } else {
-      setProducts(listProduct.products);
+    } else if (slugId) {
+      const param = {
+        categorySlug: categorySlug,
+        priceFrom:
+          filterTags.range.length > 0
+            ? mergePriceArr(filterTags.range).split('-')[0]
+            : 0,
+        priceTo:
+          filterTags.range.length > 0
+            ? mergePriceArr(filterTags.range).split('-')[1]
+            : 0,
+        typeIds: [slugId],
+        sortBy: filterRadio,
+      };
+      fetchListProducts(param).then(data => {
+        setProducts(data.products);
+      });
     }
-  }, [filterTags, filterRadio]);
+  }, [filterTags, filterRadio, slugId]);
 
   useEffect(() => {
     if (cateDetail?.subCategories) {
