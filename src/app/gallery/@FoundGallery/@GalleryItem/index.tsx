@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef } from 'react';
 import LabelValueProductDetail from '@/components/texts/LabelValueProductDetail';
 import languages from '@/configs/languages';
