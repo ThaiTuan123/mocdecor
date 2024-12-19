@@ -1,5 +1,5 @@
 //src/app/gallery/@FoundGallery/pages.tsx
-
+'use client';
 import React from 'react';
 import GalleryCategory from '@/app/gallery/@FoundGallery/@GalleryCategory';
 import GalleryItem from '@/app/gallery/@FoundGallery/@GalleryItem';
