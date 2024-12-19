@@ -1,3 +1,5 @@
+// CustomerCard.tsx
+
 import React from 'react';
 import Image from 'next/image';
 import images from '@/configs/images';
@@ -9,12 +11,14 @@ interface CardCustomerProps {
   imageCustomerUrl: string;
   textDescription?: string;
   nameCustomer?: string;
+  isAboveFold?: boolean;
 }
 
 const CustomerCard: React.FC<CardCustomerProps> = ({
   imageCustomerUrl,
   textDescription,
   nameCustomer,
+  isAboveFold = false,
 }) => {
   const [isImageLoaded, setIsImageLoaded] = useRecoilState(isImageLoadedState);
 
@@ -28,14 +32,15 @@ const CustomerCard: React.FC<CardCustomerProps> = ({
           <Image
             src={imageCustomerUrl}
             alt="Customer Background"
-            fill={true}
+            fill
             className={`object-cover transition-opacity duration-500 ${
               isImageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             quality={75} // Adjust image quality
-            loading="lazy" // Enable lazy loading
+            priority={isAboveFold}
             onLoad={() => setIsImageLoaded(true)} // Set image loaded state
             onError={() => setIsImageLoaded(true)} // Fallback in case of errors
+            sizes="(max-width: 768px) 327px, 412px" // Define sizes for responsive widths
           />
         </div>
         <div className="absolute inset-0 flex h-full flex-col items-start justify-end px-6 pb-7">

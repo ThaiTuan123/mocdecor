@@ -416,6 +416,7 @@ const FeedbackScrollableSection: React.FC = () => {
           imageCustomerUrl={data.imageCustomerUrl}
           textDescription={data.textDescription}
           nameCustomer={data.nameCustomer}
+          isAboveFold={index < 4}
         />
       ))}
     </motion.div>
