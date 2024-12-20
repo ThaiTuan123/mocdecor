@@ -32,13 +32,6 @@ export default function RootLayout({
       lang="vi"
       className={`${raleway.variable} ${playfairDisplay.variable}`}
     >
-      <head>
-        <title>Mộc Decor</title>
-        <meta
-          name="description"
-          content="Mộc Decor specializes in high-quality photo printing and exquisite handmade crafts, offering unique and personalized decor solutions for your home and business."
-        />
-      </head>
       <body className="w-full !scroll-smooth">
         <DisableAnimations>
           <RecoilRoot>
