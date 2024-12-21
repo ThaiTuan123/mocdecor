@@ -1,8 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mộc Decor Website
+
+This is the official website for [Mộc Decor](https://mocdecor.vercel.app/), a platform dedicated to photo printing and
+handmade crafts.
+
+![Mộc Decor](https://mocdecor.vercel.app/assets/imgs/pictures/og-image.png)
 
 ## Getting Started
 
-First, run the development server:
+To set up the development environment, follow these steps:
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Node.js
+- npm, yarn, pnpm, or bun (package managers)
+
+### Development Server
+
+Run the development server with one of the following commands:
 
 ```bash
 npm run dev
@@ -14,23 +30,50 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The page auto-updates as you make changes to `app/page.tsx` or other files.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Font Optimization
+
+This project utilizes [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to optimize and load
+Inter, a custom Google Font.
+
+## Project Overview
+
+Mộc Decor is a modern, user-friendly website showcasing:
+
+- **Photo Printing Services**: High-quality custom prints for various occasions.
+- **Handmade Crafts**: Unique and beautifully crafted items.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about the technologies used in this project, refer to the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs): In-depth information about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn): Interactive tutorial for beginners.
+- [Next.js GitHub Repository](https://github.com/vercel/next.js): Explore the source code and contribute.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+The project is deployed on the [Vercel Platform](https://vercel.com), which ensures fast and seamless delivery. Visit
+the live site at [https://mocdecor.vercel.app/](https://mocdecor.vercel.app/).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For more information about deploying Next.js applications, see
+the [Next.js Deployment Documentation](https://nextjs.org/docs/deployment).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+### Screenshot
+
+![Mộc Decor Screenshot]![Mộc Decor](https://mocdecor.vercel.app/assets/imgs/pictures/og-image.png)
+
+---
+
+### Contributions
+
+We welcome feedback and contributions! Feel free to open issues or submit pull requests.
+
+---
+
+**Author**: Mộc Decor Team
