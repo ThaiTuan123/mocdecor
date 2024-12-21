@@ -7,7 +7,7 @@ export type filterType = {
   }[];
 };
 
-export type FilterKeys = 'range' | 'major';
+export type FilterKeys = 'major';
 
 export const filterData = [
   {
@@ -16,15 +16,15 @@ export const filterData = [
     menu: [
       {
         label: '0 Đ - 100.000 Đ',
-        value: '0-100000',
+        value: 1,
       },
       {
         label: '100.000 Đ - 500.000 Đ',
-        value: '100000-500000',
+        value: 2,
       },
       {
-        label: '500.000 Đ - 1000.000 Đ',
-        value: '500000-1000000',
+        label: 'Trên 500.000 Đ',
+        value: 3,
       },
     ],
   },

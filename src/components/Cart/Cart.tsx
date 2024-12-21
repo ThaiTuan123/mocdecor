@@ -11,7 +11,7 @@ import CancelButton from '../button/CancelButton';
 import { useRecoilState } from 'recoil';
 import { cartState } from '@/recoil/atoms/cartAtom';
 import { CartItem } from '@/types/cartType';
-import { updateCart } from '@/services/api';
+import { addCart, removeCart, updateCart } from '@/services/api';
 
 interface cartProps {
   setIsShowCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,6 +33,7 @@ const Cart = ({
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   useEffect(() => {
+    console.log(cart);
     setCartGlobal(cart);
   }, [cart]);
 
@@ -50,7 +51,7 @@ const Cart = ({
   const getTotalPrice = () => {
     if (cartGlobal) {
       const price = cartGlobal.reduce((total, item) => {
-        return total + item.quantity * item.originalPrice;
+        return total + item.quantity * item.retail_price;
       }, 0);
       return String(price);
     }
@@ -59,16 +60,15 @@ const Cart = ({
 
   const handleDeleteCart = (item: CartItem) => {
     const newCart = cart.filter(
-      (it: CartItem) => it.skuId != item.skuId && it.mainId != item.mainId
+      (it: CartItem) => it.id != item.id && it.mainId != item.mainId
     );
     setCartGlobal(newCart);
     if (browserId && cartGlobal) {
       const body = {
         product: {
-          mainId: item.mainId,
-          skuId: item.skuId,
+          id: item.id,
+          quantity: 0,
         },
-        action: 'remove',
       };
 
       updateCart(browserId, body);
@@ -77,13 +77,13 @@ const Cart = ({
 
   const setQuantity = (
     quantity: number,
-    skuId: string,
+    id: string,
     mainId: string,
     operation?: string
   ) => {
     setCartGlobal(prevCart =>
       prevCart.map(item =>
-        item.skuId === skuId && item.mainId === mainId
+        item.id === id && item.mainId === mainId
           ? {
               ...item,
               quantity:
@@ -98,25 +98,23 @@ const Cart = ({
     );
     if (browserId && cartGlobal) {
       let body;
-      if (operation === '+' || operation === '-') {
+      if (operation === '+') {
         body = {
           product: {
-            mainId: mainId,
-            skuId: skuId,
+            id: id,
+            quantity: 0,
           },
-          action: operation === '+' ? 'add' : 'remove',
         };
-      } else {
+        addCart(browserId, body);
+      } else if (operation === '-') {
         body = {
           product: {
-            mainId: mainId,
-            skuId: skuId,
-            quantity: quantity,
+            id: id,
+            quantity: 0,
           },
         };
+        removeCart(browserId, body);
       }
-
-      updateCart(browserId, body);
     }
   };
 
@@ -170,7 +168,7 @@ const Cart = ({
                 key={index}
               >
                 <div className="p-3">
-                  <Image src={item.skuImage} alt="" width={70} height={70} />
+                  <Image src={item.image} alt="" width={70} height={70} />
                 </div>
                 <div className="flex flex-1 flex-col gap-3">
                   <div className="flex justify-between">
@@ -191,12 +189,7 @@ const Cart = ({
                     <div className="flex items-center">
                       <button
                         onClick={() =>
-                          setQuantity(
-                            item.quantity,
-                            item.skuId,
-                            item.mainId,
-                            '-'
-                          )
+                          setQuantity(item.quantity, item.id, item.mainId, '-')
                         }
                         className={`rounded-l border px-2 py-1 md:px-4 md:py-2 ${
                           item.quantity === 1
@@ -212,19 +205,14 @@ const Cart = ({
                         onChange={e => {
                           const value = parseInt(e.target.value, 10);
                           if (!isNaN(value) && value >= 1 && value <= 999) {
-                            setQuantity(value, item.skuId, item.mainId);
+                            setQuantity(value, item.id, item.mainId);
                           }
                         }}
                         className="font-raleway w-6 py-1 text-center md:w-12 md:py-2"
                       />
                       <button
                         onClick={() =>
-                          setQuantity(
-                            item.quantity,
-                            item.skuId,
-                            item.mainId,
-                            '+'
-                          )
+                          setQuantity(item.quantity, item.id, item.mainId, '+')
                         }
                         className="rounded-r border bg-white px-2 py-1 text-black hover:scale-100 md:px-4 md:py-2"
                       >
@@ -233,7 +221,7 @@ const Cart = ({
                     </div>
                     <span className="text-2lg text-caption">
                       {formatVietnameseCurrency(
-                        String(item.originalPrice * item.quantity)
+                        String(item.retail_price * item.quantity)
                       )}
                     </span>
                   </div>
