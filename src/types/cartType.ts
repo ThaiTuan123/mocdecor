@@ -1,10 +1,10 @@
 export type CartItem = {
   mainId: any;
   quantity: number;
-  skuId: any;
-  originalPrice: any;
+  id: any;
+  retail_price: any;
   productName: string;
   sellerSku: string;
-  skuImage?: any;
+  image?: any;
   skuName?: string;
 };

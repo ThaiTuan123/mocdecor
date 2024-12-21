@@ -106,11 +106,10 @@ export const fetchListProducts = async (param: any) => {
     typeIds = [],
     limit = 20,
     page = 1,
-    priceFrom = 0,
-    priceTo = 0,
+    price = 0,
     sortBy = 'desc',
   } = param;
-  const url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=${limit}&page=${page}&orderBy=_id&sort=${sortBy}&typeIds=${typeIds}&priceFrom=${priceFrom}&priceTo=${priceTo}`;
+  const url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=${limit}&page=${page}&orderBy=_id&sortBy=${sortBy}&typeIds=${typeIds}&price=${price}`;
   return apiRequest(url);
 };
 
@@ -122,7 +121,25 @@ export const fetchCart = async (browserId: string) => {
 
 //update cart
 export const updateCart = async (browserId: string, body: any) => {
-  const url = `${API.CART}/${browserId}`;
+  const url = `${API.CART}/${browserId}/update`;
+  return apiRequest(url, {
+    method: 'POST',
+    body: body,
+  });
+};
+
+//add cart
+export const addCart = async (browserId: string, body: any) => {
+  const url = `${API.CART}/${browserId}/add`;
+  return apiRequest(url, {
+    method: 'POST',
+    body: body,
+  });
+};
+
+//remove cart
+export const removeCart = async (browserId: string, body: any) => {
+  const url = `${API.CART}/${browserId}/remove`;
   return apiRequest(url, {
     method: 'POST',
     body: body,

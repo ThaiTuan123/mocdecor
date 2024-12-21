@@ -16,8 +16,12 @@ import useCategoryDetail from '@/recoil/hooks/useCategoryDetail';
 import { fetchListProducts } from '@/services/api';
 
 interface filtersCheckboxType {
-  range: string[];
   major: string[];
+}
+
+interface filtersRadioType {
+  price: number;
+  sort: number;
 }
 
 const { Panel } = Collapse;
@@ -27,10 +31,12 @@ export default function Products() {
   const paginationArray = new Array(3).fill(0).map((_, i) => i + 1);
   const [paginationActive, setPaginationActive] = useState(1);
   const [filterTags, setFilterTags] = useState<filtersCheckboxType>({
-    range: [],
     major: [],
   });
-  const [filterRadio, setFilterRadio] = useState<number>();
+  const [filterRadio, setFilterRadio] = useState<filtersRadioType>({
+    price: 0,
+    sort: 0,
+  });
   const [hoverFilter, setHoverFilter] = useState('');
   const pathname = usePathname();
   const categorySlug = pathname.split('/')[2];
@@ -55,23 +61,12 @@ export default function Products() {
   }, [slugId]);
 
   useEffect(() => {
-    if (
-      filterTags.range.length > 0 ||
-      filterTags.major.length > 0 ||
-      filterRadio
-    ) {
+    if (filterTags.major.length > 0 || filterRadio.price || filterRadio.sort) {
       const param = {
         categorySlug: categorySlug,
-        priceFrom:
-          filterTags.range.length > 0
-            ? mergePriceArr(filterTags.range).split('-')[0]
-            : 0,
-        priceTo:
-          filterTags.range.length > 0
-            ? mergePriceArr(filterTags.range).split('-')[1]
-            : 0,
+        price: filterRadio.price,
         typeIds: filterTags.major,
-        sortBy: filterRadio,
+        sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
       };
       fetchListProducts(param).then(data => {
         setProducts(data.products);
@@ -79,16 +74,9 @@ export default function Products() {
     } else if (slugId) {
       const param = {
         categorySlug: categorySlug,
-        priceFrom:
-          filterTags.range.length > 0
-            ? mergePriceArr(filterTags.range).split('-')[0]
-            : 0,
-        priceTo:
-          filterTags.range.length > 0
-            ? mergePriceArr(filterTags.range).split('-')[1]
-            : 0,
+        price: 0,
         typeIds: [slugId],
-        sortBy: filterRadio,
+        sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
       };
       fetchListProducts(param).then(data => {
         setProducts(data.products);
@@ -105,27 +93,6 @@ export default function Products() {
       filterData[1].menu = updatedMenu;
     }
   }, [JSON.stringify(cateDetail?.subCategories)]);
-
-  const mergePriceArr = (ranges: string[]) => {
-    const convertToNumber = (value: string) => {
-      if (value.endsWith('k')) return parseInt(value.replace('k', '')) * 1000;
-      if (value.endsWith('m'))
-        return parseInt(value.replace('m', '')) * 1000000;
-      return parseInt(value);
-    };
-
-    const startValues = ranges.map(range =>
-      convertToNumber(range.split('-')[0])
-    );
-    const endValues = ranges.map(range => convertToNumber(range.split('-')[1]));
-
-    const minValue = Math.min(...startValues);
-    const maxValue = Math.max(...endValues);
-
-    const mergedRange = `${minValue}-${maxValue}`;
-
-    return mergedRange;
-  };
 
   const renderHero = () => {
     return (
@@ -153,7 +120,7 @@ export default function Products() {
     return (
       <div className="hidden justify-between border-b px-36 py-8 md:flex md:px-10 lg:px-36">
         <div className="flex gap-20">
-          {filterData.slice(0, 2).map((item, index) => (
+          {filterData.slice(0, 1).map((item, index) => (
             <div
               className="relative flex cursor-pointer items-center gap-2"
               key={index}
@@ -163,7 +130,20 @@ export default function Products() {
               <span className="text-lg text-doveGray">{item.title}</span>
               <Image src={images.icons.ic_down} height={24} width={24} alt="" />
               {hoverFilter === item.title &&
-                renderSubFilter(item as filterType, 'checkbox')}
+                renderSubFilter(item as filterType, 'radio', 'price', false)}
+            </div>
+          ))}
+          {filterData.slice(1, 2).map((item, index) => (
+            <div
+              className="relative flex cursor-pointer items-center gap-2"
+              key={index}
+              onMouseEnter={() => setHoverFilter(item.title)}
+              onMouseLeave={() => setHoverFilter('')}
+            >
+              <span className="text-lg text-doveGray">{item.title}</span>
+              <Image src={images.icons.ic_down} height={24} width={24} alt="" />
+              {hoverFilter === item.title &&
+                renderSubFilter(item as filterType, 'checkbox', 'sort', true)}
             </div>
           ))}
         </div>
@@ -175,7 +155,7 @@ export default function Products() {
           <span className="text-lg text-doveGray">{filterData[2].title}</span>
           <Image src={images.icons.ic_down} height={10} width={13} alt="" />
           {hoverFilter === filterData[2].title &&
-            renderSubFilter(filterData[2] as filterType, 'radio')}
+            renderSubFilter(filterData[2] as filterType, 'radio', 'sort', true)}
         </div>
       </div>
     );
@@ -192,10 +172,12 @@ export default function Products() {
 
     const clearFilter = () => {
       setFilterTags({
-        range: [],
         major: [],
       });
-      setFilterRadio(0);
+      setFilterRadio({
+        price: 0,
+        sort: 0,
+      });
       setOpenFilter(false);
     };
 
@@ -207,13 +189,17 @@ export default function Products() {
       );
     };
 
-    const renderDescCollapse = (item: filterType, radio: boolean = false) => {
+    const renderDescCollapse = (
+      item: filterType,
+      radio: boolean = false,
+      typeRadio: keyof filtersRadioType
+    ) => {
       return (
         <>
           {radio ? (
             <Radio.Group
-              onChange={onChangeRadio}
-              value={filterRadio}
+              onChange={e => onChangeRadio(e, typeRadio)}
+              value={filterRadio[typeRadio]}
               className="flex flex-col gap-4"
             >
               {item.menu.map((item: any, index: number) => (
@@ -274,9 +260,9 @@ export default function Products() {
                 />
               }
             >
-              {renderDescCollapse(filterData[2] as filterType, true)}
+              {renderDescCollapse(filterData[2] as filterType, true, 'sort')}
             </Panel>
-            {filterData.slice(0, 2).map((item, index) => (
+            {filterData.slice(0, 1).map((item, index) => (
               <Panel
                 className="w-full"
                 showArrow={false}
@@ -293,7 +279,27 @@ export default function Products() {
                   />
                 }
               >
-                {renderDescCollapse(item as filterType)}
+                {renderDescCollapse(item as filterType, true, 'price')}
+              </Panel>
+            ))}
+            {filterData.slice(1, 2).map((item, index) => (
+              <Panel
+                className="w-full"
+                showArrow={false}
+                header={renderHeaderCollapse(item.title)}
+                key={index + 2}
+                extra={
+                  <img
+                    src={
+                      collapseActive.includes((index + 1).toString())
+                        ? images.icons.ic_down
+                        : images.icons.ic_dropdown_right
+                    }
+                    className="h-6 w-6 transition-transform duration-300"
+                  />
+                }
+              >
+                {renderDescCollapse(item as filterType, undefined, 'sort')}
               </Panel>
             ))}
           </Collapse>
@@ -316,8 +322,14 @@ export default function Products() {
     );
   };
 
-  const onChangeRadio = (event: RadioChangeEvent) => {
-    setFilterRadio(event.target.value);
+  const onChangeRadio = (
+    event: RadioChangeEvent,
+    filter: keyof filtersRadioType
+  ) => {
+    setFilterRadio(prev => ({
+      ...prev,
+      [filter]: event.target.value as number,
+    }));
   };
 
   const onChangeCheckbox = (list: any[], value: FilterKeys) => {
@@ -335,7 +347,7 @@ export default function Products() {
     });
     const filterCategoryValue = value as FilterKeys;
     const newTags = filterTags[filterCategoryValue].filter(
-      item => item !== tag
+      (item: any) => item !== tag
     );
     setFilterTags(prev => ({ ...prev, [value]: newTags }));
   };
@@ -356,11 +368,16 @@ export default function Products() {
     return String(price);
   };
 
-  const renderSubFilter = (item: filterType, typeInput: string) => {
+  const renderSubFilter = (
+    item: filterType,
+    typeInput: string,
+    typeRadio: keyof filtersRadioType,
+    positionRight?: boolean
+  ) => {
     return (
       <div
         className={`absolute top-14 w-64 border bg-white p-6 ${
-          typeInput === 'checkbox' ? 'left-0' : 'right-0'
+          typeInput === 'checkbox' || !positionRight ? 'left-0' : 'right-0'
         } gap-4 shadow-lg`}
       >
         <div className="absolute left-0 right-0 top-u-40 h-10 w-full bg-transparent"></div>
@@ -373,8 +390,8 @@ export default function Products() {
           ></Checkbox.Group>
         ) : (
           <Radio.Group
-            onChange={onChangeRadio}
-            value={filterRadio}
+            onChange={e => onChangeRadio(e, typeRadio)}
+            value={filterRadio[typeRadio]}
             className="flex flex-col gap-4"
           >
             {item.menu.map((item: any, index: number) => (
@@ -449,11 +466,11 @@ export default function Products() {
   };
 
   const renderFilterTag = () => {
-    const mergeFilters = (range: string[], major: string[]) => {
-      return [...range, ...major];
+    const mergeFilters = (major: string[]) => {
+      return [...major];
     };
 
-    const mergeArr = mergeFilters(filterTags.range, filterTags.major);
+    const mergeArr = mergeFilters(filterTags.major);
 
     const labelTag = (tag: string) => {
       let label;

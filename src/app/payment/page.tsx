@@ -105,7 +105,7 @@ export default function Payment() {
 
   const getTotalPrice = () => {
     const price = cart.reduce(
-      (result, item) => result + Number(item.originalPrice) * item.quantity,
+      (result, item) => result + Number(item.retail_price) * item.quantity,
       0
     );
     return String(price);
@@ -315,7 +315,7 @@ export default function Payment() {
             <div className="flex items-center gap-4 py-5 pr-5">
               <div className="px-0 lg:p-3">
                 <Image
-                  src={item.skuImage}
+                  src={item.image}
                   alt={item.productName || 'product image'}
                   width={70}
                   height={70}
@@ -331,7 +331,7 @@ export default function Payment() {
                 <div className="flex items-end gap-1">
                   <span className="text-2lg text-caption">
                     {formatVietnameseCurrency(
-                      String(item.originalPrice * item.quantity)
+                      String(item.retail_price * item.quantity)
                     )}
                   </span>
                   <span className="text-1.25sm text-doveGray">

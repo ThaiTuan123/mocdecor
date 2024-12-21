@@ -2,12 +2,12 @@ const API_PROVINCE = 'https://vapi.vnappmob.com';
 
 export const fetchCities = async () => {
   try {
-    const response = await fetch(`${API_PROVINCE}/api/province/`);
+    const response = await fetch('https://pos.pages.fm/api/v1/geo/provinces');
     const data = await response.json();
-    const transformedData = data.results.map((item: any) => ({
-      label: item.province_name,
-      value: item.province_id,
-      province_name: item.province_name,
+    const transformedData = data.data.map((item: any) => ({
+      label: item.name,
+      value: item.id,
+      province_name: item.name,
     }));
     return transformedData;
   } catch (error) {
@@ -18,12 +18,15 @@ export const fetchCities = async () => {
 
 export const fetchDistricts = async (id: string) => {
   try {
-    const response = await fetch(`${API_PROVINCE}/api/province/district/${id}`);
+    const response = await fetch(
+      `https://pos.pages.fm/api/v1/geo/districts?province_id=${id}`
+    );
     const data = await response.json();
-    const transformedData = data.results.map((item: any) => ({
-      label: item.district_name,
-      value: item.district_id,
-      district_type: item.district_type,
+    console.log(data);
+    const transformedData = data.data.map((item: any) => ({
+      label: item.name,
+      value: item.id,
+      district_type: item.id,
       province_id: item.province_id,
     }));
     return transformedData;
@@ -35,13 +38,15 @@ export const fetchDistricts = async (id: string) => {
 
 export const fetchWards = async (id: string) => {
   try {
-    const response = await fetch(`${API_PROVINCE}/api/province/ward/${id}`);
+    const response = await fetch(
+      `https://pos.pages.fm/api/v1/geo/communes?district_id=${id}`
+    );
     const data = await response.json();
-    const transformedData = data.results.map((item: any) => ({
-      label: item.ward_name,
-      value: item.ward_id,
-      district_id: item.district_id,
-      ward_type: item.ward_type,
+    const transformedData = data.data.map((item: any) => ({
+      label: item.name,
+      value: item.id,
+      district_id: item.id,
+      ward_type: item.province_id,
     }));
     return transformedData;
   } catch (error) {

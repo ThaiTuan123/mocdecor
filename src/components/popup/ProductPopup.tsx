@@ -221,8 +221,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     if (browserId && product) {
       const body = {
         product: {
-          mainId: product.mainId,
-          skuId: skuSelected.skuId,
+          id: skuSelected.id,
           quantity: quantity,
         },
       };
