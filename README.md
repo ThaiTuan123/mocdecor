@@ -3,7 +3,7 @@
 This is the official website for [Mộc Decor](https://mocdecor.vercel.app/), a platform dedicated to photo printing and
 handmade crafts.
 
-![Mộc Decor](https://mocdecor.vercel.app/assets/imgs/pictures/og-image.png)
+![Mộc Decor](https://raw.githubusercontent.com/ThaiTuan123/mocdecor/refs/heads/main/public/assets/imgs/pictures/og-image.png)
 
 ## Getting Started
 
