@@ -231,11 +231,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     const cartUpdateObj = {
       mainId: product.id,
       quantity: quantity,
-      skuId: skuSelected.id,
-      originalPrice: skuSelected.retail_price,
+      id: skuSelected.id,
+      retail_price: skuSelected.retail_price,
       productName: product.product.name,
       sellerSku: 'TTT-19x24-Xanh Dương',
-      skuImage: skuSelected.images[0],
+      image: skuSelected.images[0],
       skuName:
         skuSelected.fields.length > 1
           ? skuSelected.fields[0]?.name + '-' + skuSelected.fields[1]?.name
@@ -244,8 +244,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     setCartGlobal(prev => {
       const existingItem = prev.findIndex(
         item =>
-          item.skuId == cartUpdateObj.skuId &&
-          item.mainId == cartUpdateObj.mainId
+          item.id == cartUpdateObj.id && item.mainId == cartUpdateObj.mainId
       );
 
       if (existingItem !== -1) {
