@@ -33,8 +33,7 @@ const Cart = ({
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   useEffect(() => {
-    console.log(cart);
-    setCartGlobal(cart);
+    if (cart.products && cart.products.length > 0) setCartGlobal(cart.products);
   }, [cart]);
 
   const getCountCart = () => {
@@ -59,9 +58,7 @@ const Cart = ({
   };
 
   const handleDeleteCart = (item: CartItem) => {
-    const newCart = cart.filter(
-      (it: CartItem) => it.id != item.id && it.mainId != item.mainId
-    );
+    const newCart = cart.filter((it: CartItem) => it.id != item.id);
     setCartGlobal(newCart);
     if (browserId && cartGlobal) {
       const body = {
