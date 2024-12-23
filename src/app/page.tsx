@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://mocdecor.com',
     languages: {
-      vi: 'https://mocdecor.com/vi',
+      'vi-VN': '/vi-VN',
     },
   },
 };

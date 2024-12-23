@@ -11,7 +11,6 @@ import { usePathname } from 'next/navigation';
 import './style.css';
 import CustomButton from '../../../../components/button/CustomButton';
 import ProductPopup from '@/components/popup/ProductPopup';
-import useListProducts from '@/recoil/hooks/useListProducts';
 import useCategoryDetail from '@/recoil/hooks/useCategoryDetail';
 import { fetchListProducts } from '@/services/api';
 
@@ -356,17 +355,17 @@ export default function Products() {
     setPaginationActive(page);
   };
 
-  const getPriceProduct = (product: any) => {
-    let price = 0;
-    if (product.sku && product.sku.length > 0) {
-      price = product.sku.reduce(
-        (min: number, item: any) =>
-          Number(item.price) < min ? item.price : min,
-        product.sku[0].price
-      );
-    }
-    return String(price);
-  };
+  // const getPriceProduct = (product: any) => {
+  //   let price = 0;
+  //   if (product.sku && product.sku.length > 0) {
+  //     price = product.sku.reduce(
+  //       (min: number, item: any) =>
+  //         Number(item.price) < min ? item.price : min,
+  //       product.sku[0].price
+  //     );
+  //   }
+  //   return String(price);
+  // };
 
   const renderSubFilter = (
     item: filterType,

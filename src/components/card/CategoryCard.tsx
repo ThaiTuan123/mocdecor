@@ -18,7 +18,7 @@ const hoverAnimation = {
   transition: { duration: 0.3, ease: 'easeInOut' },
 };
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ category, index }) => {
+const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   const [hovered, setHovered] = useState(false);
 
   const checkImage = (url: string) => {

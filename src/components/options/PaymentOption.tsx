@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import React from 'react';
 
 interface PaymentOptionProps {
   item: {
@@ -28,7 +29,7 @@ const PaymentOption: React.FC<PaymentOptionProps> = ({
           onChange={onChange}
         />
         <span
-          className={`flex h-5 w-5 items-center justify-center rounded-full border-2 transition-all ${
+          className={`flex h-5 w-5 items-center justify-center rounded-full border-[5px] transition-all ${
             isChecked ? 'border-primary bg-primary' : 'border-gray-300'
           }`}
         >
@@ -44,7 +45,13 @@ const PaymentOption: React.FC<PaymentOptionProps> = ({
         </span>
       </div>
       <div className="hidden w-full justify-center lg:flex">
-        <Image src={item.image} alt={item.title} width={138} height={128} />
+        <Image
+          className="md:h-[70px] md:w-[80px] lg:h-[128px] lg:w-[138px]"
+          src={item.image}
+          alt={item.title}
+          width={138}
+          height={128}
+        />
       </div>
     </label>
   );
