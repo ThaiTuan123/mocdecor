@@ -53,7 +53,6 @@ export default function Payment() {
     paymentType: 1,
   });
   const [isShowModalSuccess, setIsShowModalSuccess] = useState(false);
-  const [countdown, setCountdown] = useState(5);
   const priceFee = 30000;
   const [browserId, setBrowserId] = useState<string | null>(null);
 

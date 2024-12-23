@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useIsMobile } from '@/utils/useIsMobile';
 import Link from 'next/link';
 
 interface CommonButtonProps {
@@ -24,7 +23,6 @@ const CommonButton: React.FC<CommonButtonProps> = ({
   cancelButton = false,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const isMobile = useIsMobile();
 
   // Base styles for all buttons
   const baseStyles = `md:px-20 md:py-3 px-8 py-3 text-base rounded border-2 border-primary ${className}`;
