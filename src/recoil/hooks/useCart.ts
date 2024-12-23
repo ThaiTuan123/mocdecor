@@ -12,8 +12,11 @@ const useCart = (browserId: string): { cart: any; loading: boolean } => {
       setLoading(true);
       try {
         const data = await fetchCart(browserId);
-        console.log(data);
-        setCart(data);
+        if (data.products && data.products.length > 0) {
+          setCart(data.products);
+        } else {
+          setCart([]);
+        }
       } catch (error) {
         console.error('Failed to fetch categories:', error);
       } finally {

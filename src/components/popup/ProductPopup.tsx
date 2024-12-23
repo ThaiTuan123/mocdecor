@@ -242,6 +242,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           : skuSelected.fields[0]?.name,
     };
     setCartGlobal(prev => {
+      if (prev.length == 0 || !prev) {
+        return [...prev, cartUpdateObj];
+      }
       const existingItem = prev.findIndex(
         item =>
           item.id == cartUpdateObj.id && item.mainId == cartUpdateObj.mainId
