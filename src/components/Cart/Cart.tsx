@@ -38,7 +38,7 @@ const Cart = ({
   }, [cart]);
 
   const getCountCart = () => {
-    if (cartGlobal) {
+    if (cartGlobal && cartGlobal.length > 0) {
       const count = cartGlobal.reduce(
         (result: number, item: any) => result + item.quantity,
         0
@@ -49,7 +49,7 @@ const Cart = ({
   };
 
   const getTotalPrice = () => {
-    if (cartGlobal) {
+    if (cartGlobal && cartGlobal.length > 0) {
       const price = cartGlobal.reduce((total, item) => {
         return total + item.quantity * item.retail_price;
       }, 0);

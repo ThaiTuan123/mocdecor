@@ -35,7 +35,7 @@ const Header = () => {
   }, []);
 
   const getCountCart = () => {
-    if (cartGlobal) {
+    if (cartGlobal && cartGlobal.length > 0) {
       const count = cartGlobal.reduce(
         (result: number, item: any) => result + item.quantity,
         0
