@@ -14,11 +14,13 @@ import { CartItem } from '@/types/cartType';
 import { addCart, removeCart, updateCart } from '@/services/api';
 
 interface cartProps {
+  totalCart: number;
   setIsShowCart: React.Dispatch<React.SetStateAction<boolean>>;
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isShowCart: boolean;
   browserId: string;
   isCartMobile: boolean;
+  isShowCartMobile: boolean;
 }
 
 const Cart = ({
@@ -27,6 +29,8 @@ const Cart = ({
   isShowCart,
   browserId,
   isCartMobile,
+  totalCart,
+  isShowCartMobile,
 }: cartProps) => {
   const router = useRouter();
   const { cart, loading } = useCart(browserId);
@@ -35,17 +39,6 @@ const Cart = ({
   useEffect(() => {
     if (cart.products && cart.products.length > 0) setCartGlobal(cart.products);
   }, [cart]);
-
-  const getCountCart = () => {
-    if (cartGlobal && cartGlobal.length > 0) {
-      const count = cartGlobal.reduce(
-        (result: number, item: any) => result + item.quantity,
-        0
-      );
-      return count;
-    }
-    return 0;
-  };
 
   const getTotalPrice = () => {
     if (cartGlobal && cartGlobal.length > 0) {
@@ -255,7 +248,7 @@ const Cart = ({
             <h2 className="text-2.25lg text-primary">
               {languages.get('cart.title')}
             </h2>
-            <span className="text-sm">({getCountCart()})</span>
+            <span className="text-sm">({totalCart})</span>
           </div>
           <img
             src={images.icons.menuClose}
@@ -263,7 +256,7 @@ const Cart = ({
             onClick={() => setCartOpen(false)}
           />
         </div>
-        {getCountCart() > 0 ? renderCartHaveProduct() : renderCartEmpty()}
+        {totalCart > 0 ? renderCartHaveProduct() : renderCartEmpty()}
       </div>
     );
   };
@@ -281,7 +274,7 @@ const Cart = ({
                 <h2 className="text-4lg font-bold text-primary">
                   {languages.get('cart.title')}
                 </h2>
-                <span className="text-2lg">({getCountCart()})</span>
+                <span className="text-2lg">({totalCart})</span>
               </div>
               {browserId ? (
                 <p className="text-gray-100">
@@ -299,13 +292,13 @@ const Cart = ({
               absolute={false}
             />
           </div>
-          {getCountCart() > 0 ? renderCartHaveProduct() : renderCartEmpty()}
+          {totalCart > 0 ? renderCartHaveProduct() : renderCartEmpty()}
         </div>
       </LayoutOpacity>
     );
   };
 
-  return isCartMobile ? renderCartMobile() : renderCart();
+  return isCartMobile ? isShowCartMobile && renderCartMobile() : renderCart();
 };
 
 export default Cart;
