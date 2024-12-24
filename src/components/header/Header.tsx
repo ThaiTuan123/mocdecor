@@ -21,6 +21,7 @@ const Header = () => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [totalCart, setTotalCart] = useState<number>(0);
   const [hoveredLabelKey, setHoveredLabelKey] = useState<string>('');
   const [isShowCart, setIsShowCart] = useState(false);
   const [browserId, setBrowserId] = useState<string | null>(null);
@@ -34,16 +35,15 @@ const Header = () => {
     console.log('Current Browser ID:', id);
   }, []);
 
-  const getCountCart = () => {
+  useEffect(() => {
     if (cartGlobal && cartGlobal.length > 0) {
       const count = cartGlobal.reduce(
         (result: number, item: any) => result + item.quantity,
         0
       );
-      return count;
+      setTotalCart(count);
     }
-    return 0;
-  };
+  }, [cartGlobal]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -322,7 +322,7 @@ const Header = () => {
               <Icon src={images.icons.cart} alt="Cart Toggle" />
               <div className="absolute right-[-2px] top-[-2px] flex h-[14px] w-[14px] items-center justify-center rounded-2xl bg-primary">
                 <span className="translate-y-[1px] text-center text-0.8x text-white">
-                  {getCountCart()}
+                  {totalCart}
                 </span>
               </div>
             </button>
@@ -374,7 +374,7 @@ const Header = () => {
                 />
                 <div className="absolute right-[-2px] top-[-2px] flex h-[14px] w-[14px] items-center justify-center rounded-2xl bg-primary">
                   <span className="translate-y-[1px] text-center text-0.8x text-white">
-                    {getCountCart()}
+                    {totalCart}
                   </span>
                 </div>
               </div>
@@ -396,20 +396,24 @@ const Header = () => {
             ))}
           </div>
         )}
-        {cartOpen && browserId && (
+        {browserId && (
           <Cart
+            totalCart={totalCart}
             setIsShowCart={setIsShowCart}
             setCartOpen={setCartOpen}
             isShowCart={isShowCart}
+            isShowCartMobile={cartOpen}
             browserId={browserId}
             isCartMobile={true}
           />
         )}
         {browserId && (
           <Cart
+            totalCart={totalCart}
             setIsShowCart={setIsShowCart}
             setCartOpen={setCartOpen}
             isShowCart={isShowCart}
+            isShowCartMobile={cartOpen}
             browserId={browserId}
             isCartMobile={false}
           />
