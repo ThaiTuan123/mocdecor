@@ -33,6 +33,7 @@ import useTopPosProductCategory from '@/recoil/hooks/useTopProductCategories';
 import { useRecoilState } from 'recoil';
 import { isImageLoadedState } from '@/recoil/atoms/imageLoadAtom';
 import CategoryProductTab from '@/components/tab/CategoryTab';
+import { renderScrollSection } from '@/utils/helpers/renderScrollSection';
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -629,62 +630,38 @@ const HomePage = () => {
   console.log(topPosProductCategory);
 
   const sectionsData =
-    topPosProductCategory?.category?.map((category, index) => {
-      return {
-        title: category.name,
-        subTitle: category.description,
-        backgroundClass: category.banner,
-        backgroundMobileClass: category.banner,
-        tabComponent: <CategoryProductTab category={category} index={index} />,
-      };
-    }) || [];
+    topPosProductCategory?.category?.map((category, index) => ({
+      title: category.name,
+      subTitle: category.description,
+      backgroundClass: category.banner,
+      backgroundMobileClass: category.banner,
+      tabComponent: <CategoryProductTab category={category} index={index} />,
+    })) || [];
+
   return (
     <>
       <Carousel />
-      <ScrollAnimation>
-        <CategorySection />
-      </ScrollAnimation>
+      {renderScrollSection(CategorySection)}
+      {renderScrollSection(AboutSection)}
 
-      <ScrollAnimation>
-        <AboutSection />
-      </ScrollAnimation>
+      {sectionsData.map((section, index) => (
+        <ScrollAnimation key={index}>
+          <BackgroundSection
+            title={section.title}
+            subTitle={section.subTitle}
+            backgroundDesktop={section.backgroundClass}
+            backgroundMobile={section.backgroundMobileClass}
+          />
+          {section.tabComponent}
+        </ScrollAnimation>
+      ))}
 
-      {sectionsData.length > 0 &&
-        sectionsData.map((section, index) => (
-          <ScrollAnimation key={index}>
-            <BackgroundSection
-              title={section.title}
-              subTitle={section.subTitle}
-              backgroundDesktop={section.backgroundClass}
-              backgroundMobile={section.backgroundMobileClass}
-            />
-            {section.tabComponent}
-          </ScrollAnimation>
-        ))}
-
-      <ScrollAnimation>
-        <OtherProductsSection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <StorySection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <GiftSection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <FeedbackSection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <ServiceSection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <CoopClientsSection />
-      </ScrollAnimation>
+      {renderScrollSection(OtherProductsSection)}
+      {renderScrollSection(StorySection)}
+      {renderScrollSection(GiftSection)}
+      {renderScrollSection(FeedbackSection)}
+      {renderScrollSection(ServiceSection)}
+      {renderScrollSection(CoopClientsSection)}
     </>
   );
 };
