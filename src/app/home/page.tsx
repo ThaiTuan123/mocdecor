@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
   cardServiceData,
@@ -34,6 +34,8 @@ import { useRecoilState } from 'recoil';
 import { isImageLoadedState } from '@/recoil/atoms/imageLoadAtom';
 import CategoryProductTab from '@/components/tab/CategoryTab';
 import { renderScrollSection } from '@/utils/helpers/renderScrollSection';
+import { fetchProducts } from '@/services/fetchProducts';
+import { Product } from '@/types/product';
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -624,44 +626,104 @@ const CoopClientsSection: React.FC = () => {
   );
 };
 
+type tabActiveType = {
+  category: string;
+  subCategory: string;
+};
+
 const HomePage = () => {
   const { topPosProductCategory } = useTopPosProductCategory();
+  const [tabActive, setTabActive] = useState<tabActiveType[]>([]);
+  const [products, setProduct] = useState<Product[][]>([]);
   console.log('CategorySection');
   console.log(topPosProductCategory);
 
-  const sectionsData =
-    topPosProductCategory?.category?.map((category, index) => ({
-      title: category.name,
-      subTitle: category.description,
-      backgroundClass: category.banner,
-      backgroundMobileClass: category.banner,
-      tabComponent: <CategoryProductTab category={category} index={index} />,
-    })) || [];
+  useEffect(() => {
+    if (
+      topPosProductCategory.category &&
+      topPosProductCategory.category.length > 0
+    ) {
+      const newTabActive = [...tabActive];
+      topPosProductCategory.category.forEach((it, idx) => {
+        if (!newTabActive[idx]) {
+          newTabActive[idx] = { category: '', subCategory: '' };
+        }
+        newTabActive[idx].category = it?.slug;
+        newTabActive[idx].subCategory = it?.subCategories[0]?.slug;
+      });
+      setTabActive(newTabActive);
+    }
+    console.log(tabActive);
+  }, [topPosProductCategory]);
+
+  const onChangeTab = (index: number, value: string) => {
+    const newTabActive = [...tabActive];
+    newTabActive[index].subCategory = value;
+    setTabActive(newTabActive);
+  };
+
+  const callApis = async () => {
+    const requests = tabActive.map((item, index) => {
+      return fetchProducts({
+        category: tabActive[index].category,
+        subCategory: tabActive[index].subCategory,
+      });
+    });
+
+    try {
+      const responses = await Promise.all(requests);
+      const results = await Promise.all(responses.map(response => response));
+      setProduct(results);
+    } catch (error) {
+      console.error('Error calling APIs:', error);
+    }
+  };
+
+  useEffect(() => {
+    console.log(tabActive);
+    if (tabActive) {
+      callApis();
+    }
+  }, [tabActive]);
+
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
 
   return (
     <>
-      <Carousel />
+      {/* <Carousel />
       {renderScrollSection(CategorySection)}
-      {renderScrollSection(AboutSection)}
+      {renderScrollSection(AboutSection)} */}
 
-      {sectionsData.map((section, index) => (
-        <ScrollAnimation key={index}>
-          <BackgroundSection
-            title={section.title}
-            subTitle={section.subTitle}
-            backgroundDesktop={section.backgroundClass}
-            backgroundMobile={section.backgroundMobileClass}
-          />
-          {section.tabComponent}
-        </ScrollAnimation>
-      ))}
+      {tabActive &&
+        tabActive.map((section, index) => (
+          <>
+            <div className="" key={index}>
+              {section.category}
+            </div>
+            <div className="flex">
+              {topPosProductCategory.category[index].subCategories.map(
+                (tab, idx) => (
+                  <div
+                    className=""
+                    key={idx}
+                    onClick={() => onChangeTab(index, tab.slug)}
+                  >
+                    {tab.text}
+                  </div>
+                )
+              )}
+            </div>
+          </>
+        ))}
 
-      {renderScrollSection(OtherProductsSection)}
+      {/* {renderScrollSection(OtherProductsSection)}
       {renderScrollSection(StorySection)}
       {renderScrollSection(GiftSection)}
       {renderScrollSection(FeedbackSection)}
       {renderScrollSection(ServiceSection)}
-      {renderScrollSection(CoopClientsSection)}
+      {renderScrollSection(CoopClientsSection)} */}
     </>
   );
 };
