@@ -30,9 +30,10 @@ import CategoryCard from '@/components/card/CategoryCard';
 import Carousel from '@/components/carousel/Carousel';
 import useMenu from '@/recoil/hooks/useMenu';
 import useTopPosProductCategory from '@/recoil/hooks/useTopProductCategories';
-import CategoryProductTab from '@/components/tab/TabPrint';
 import { useRecoilState } from 'recoil';
 import { isImageLoadedState } from '@/recoil/atoms/imageLoadAtom';
+import CategoryProductTab from '@/components/tab/CategoryTab';
+import { renderScrollSection } from '@/utils/helpers/renderScrollSection';
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -629,88 +630,38 @@ const HomePage = () => {
   console.log(topPosProductCategory);
 
   const sectionsData =
-    topPosProductCategory?.category?.map((category, index) => {
-      return {
-        title: category.name,
-        subTitle: category.description,
-        backgroundClass: category.banner,
-        /*TODO add category banner here*/
-        backgroundMobileClass: category.banner,
-        tabComponent: <CategoryProductTab category={category} index={index} />,
-      };
-    }) || [];
-
-  //   const sectionsData = [
-  //     {
-  //       title: languages.get("home.title.background.print"),
-  //       subTitle: languages.get("home.subTitle.background.print"),
-  //       backgroundClass: images.homeBackgroundPrint,
-  //       backgroundMobileClass: images.homeBackgroundPrintMobile,
-  //       tabComponent: <TabPrint />,
-  //     },
-  //     {
-  //       title: languages.get("home.title.background.frame"),
-  //       subTitle: languages.get("home.subTitle.background.frame"),
-  //       backgroundClass: images.homeBackgroundFrame,
-  //       backgroundMobileClass: images.homeBackgroundFrameMobile,
-  //       tabComponent: <TabFrame />,
-  //     },
-  //     {
-  //       title: languages.get("home.title.background.album"),
-  //       subTitle: languages.get("home.subTitle.background.album"),
-  //       backgroundClass: images.homeBackgroundAlbum,
-  //       backgroundMobileClass: images.homeBackgroundAlbumMobile,
-  //       tabComponent: <TabPrint />,
-  //     },
-  //   ];
+    topPosProductCategory?.category?.map((category, index) => ({
+      title: category.name,
+      subTitle: category.description,
+      backgroundClass: category.banner,
+      backgroundMobileClass: category.banner,
+      tabComponent: <CategoryProductTab category={category} index={index} />,
+    })) || [];
 
   return (
     <>
       <Carousel />
-      <ScrollAnimation>
-        <CategorySection />
-      </ScrollAnimation>
+      {renderScrollSection(CategorySection)}
+      {renderScrollSection(AboutSection)}
 
-      <ScrollAnimation>
-        <AboutSection />
-      </ScrollAnimation>
+      {sectionsData.map((section, index) => (
+        <ScrollAnimation key={index}>
+          <BackgroundSection
+            title={section.title}
+            subTitle={section.subTitle}
+            backgroundDesktop={section.backgroundClass}
+            backgroundMobile={section.backgroundMobileClass}
+          />
+          {section.tabComponent}
+        </ScrollAnimation>
+      ))}
 
-      {sectionsData.length > 0 &&
-        sectionsData.map((section, index) => (
-          <ScrollAnimation key={index}>
-            <BackgroundSection
-              title={section.title}
-              subTitle={section.subTitle}
-              backgroundDesktop={section.backgroundClass}
-              backgroundMobile={section.backgroundMobileClass}
-            />
-            {section.tabComponent}
-          </ScrollAnimation>
-        ))}
-
-      <ScrollAnimation>
-        <OtherProductsSection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <StorySection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <GiftSection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <FeedbackSection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <ServiceSection />
-      </ScrollAnimation>
-
-      <ScrollAnimation>
-        <CoopClientsSection />
-      </ScrollAnimation>
+      {renderScrollSection(OtherProductsSection)}
+      {renderScrollSection(StorySection)}
+      {renderScrollSection(GiftSection)}
+      {renderScrollSection(FeedbackSection)}
+      {renderScrollSection(ServiceSection)}
+      {renderScrollSection(CoopClientsSection)}
     </>
   );
 };
