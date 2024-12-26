@@ -10,7 +10,7 @@ export interface Product {
   };
   //   images: string[]; // Carousel images
 
-  displayId: string;
+  display_id: string;
   fields: Array<{
     id: string;
     keyValue: string;

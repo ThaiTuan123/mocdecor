@@ -36,6 +36,7 @@ import CategoryProductTab from '@/components/tab/CategoryTab';
 import { renderScrollSection } from '@/utils/helpers/renderScrollSection';
 import { fetchProducts } from '@/services/fetchProducts';
 import { Product } from '@/types/product';
+import ProductSection from './component/ProductSection';
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -626,97 +627,14 @@ const CoopClientsSection: React.FC = () => {
   );
 };
 
-type tabActiveType = {
-  category: string;
-  subCategory: string;
-};
-
 const HomePage = () => {
-  const { topPosProductCategory } = useTopPosProductCategory();
-  const [tabActive, setTabActive] = useState<tabActiveType[]>([]);
-  const [products, setProduct] = useState<Product[][]>([]);
-  console.log('CategorySection');
-  console.log(topPosProductCategory);
-
-  useEffect(() => {
-    if (
-      topPosProductCategory.category &&
-      topPosProductCategory.category.length > 0
-    ) {
-      const newTabActive = [...tabActive];
-      topPosProductCategory.category.forEach((it, idx) => {
-        if (!newTabActive[idx]) {
-          newTabActive[idx] = { category: '', subCategory: '' };
-        }
-        newTabActive[idx].category = it?.slug;
-        newTabActive[idx].subCategory = it?.subCategories[0]?.slug;
-      });
-      setTabActive(newTabActive);
-    }
-    console.log(tabActive);
-  }, [topPosProductCategory]);
-
-  const onChangeTab = (index: number, value: string) => {
-    const newTabActive = [...tabActive];
-    newTabActive[index].subCategory = value;
-    setTabActive(newTabActive);
-  };
-
-  const callApis = async () => {
-    const requests = tabActive.map((item, index) => {
-      return fetchProducts({
-        category: tabActive[index].category,
-        subCategory: tabActive[index].subCategory,
-      });
-    });
-
-    try {
-      const responses = await Promise.all(requests);
-      const results = await Promise.all(responses.map(response => response));
-      setProduct(results);
-    } catch (error) {
-      console.error('Error calling APIs:', error);
-    }
-  };
-
-  useEffect(() => {
-    console.log(tabActive);
-    if (tabActive) {
-      callApis();
-    }
-  }, [tabActive]);
-
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
-
   return (
     <>
       {/* <Carousel />
       {renderScrollSection(CategorySection)}
       {renderScrollSection(AboutSection)} */}
 
-      {tabActive &&
-        tabActive.map((section, index) => (
-          <>
-            <div className="" key={index}>
-              {section.category}
-            </div>
-            <div className="flex">
-              {topPosProductCategory.category[index].subCategories.map(
-                (tab, idx) => (
-                  <div
-                    className=""
-                    key={idx}
-                    onClick={() => onChangeTab(index, tab.slug)}
-                  >
-                    {tab.text}
-                  </div>
-                )
-              )}
-            </div>
-          </>
-        ))}
+      <ProductSection />
 
       {/* {renderScrollSection(OtherProductsSection)}
       {renderScrollSection(StorySection)}
