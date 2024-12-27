@@ -43,9 +43,9 @@ const CategorySection = () => {
       <p className="mb-1 text-2lg font-normal text-brown-500 md:mb-8 md:text-4lg">
         {languages.get('home.subTitle.category')}
       </p>
-      <h2 className="font-playfairBold text-2xl font-bold uppercase text-brown-500 text-opacity-70 md:mb-8 md:text-7xl">
+      <h1 className="font-playfairBold text-2xl font-bold uppercase text-brown-500 text-opacity-70 md:mb-8 md:text-7xl">
         {languages.get('home.title.category')}
-      </h2>
+      </h1>
       <div className="flex flex-col content-center items-center justify-center gap-0 md:flex-row md:gap-2 lg:justify-between xl:justify-center">
         {menu?.types?.length > 0 &&
           menu?.types?.map((category, index) => (
