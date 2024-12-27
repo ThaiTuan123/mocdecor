@@ -184,6 +184,8 @@ class Languages {
       'home.complete.description': 'Sản phẩm được hoàn thiện chỉnh chu, tỉ mỉ',
       'home.consultant': 'HỖ TRỢ TƯ VẤN',
       'home.consultant.description': 'Hotline: 037 866 3309',
+      'home.update.productSystem':
+        'Chúng tôi đang trong quá trình cập nhật sản phẩm. Nếu cần có thể liên hệ trực tiếp với chúng tôi.',
 
       //button
       'button.viewMore': 'xem thêm',

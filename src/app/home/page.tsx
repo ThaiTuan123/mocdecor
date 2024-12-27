@@ -10,11 +10,9 @@ import {
 } from '@/app/home/constant';
 import images from '@/configs/images';
 import { motion } from 'framer-motion';
-import BackgroundSection from '@/components/banners/BackgroundSection';
 import IconSocialLink from '@/components/icons/IconSocialLink';
 import RightArrowButton from '@/components/button/RightArrowButton';
 import DiscoverButton from '@/components/button/DiscoverButton';
-import ScrollAnimation from '@/components/animations/ScrollAnimation';
 import TitleText from '@/components/texts/TitleText';
 import MotionImageCard from '@/components/card/MotionImageCar';
 import SeparatorAbout from '@/components/shape/SeparatorAbout';
@@ -29,11 +27,10 @@ import MobileArrowButton from '@/components/button/MobileArrowButton';
 import CategoryCard from '@/components/card/CategoryCard';
 import Carousel from '@/components/carousel/Carousel';
 import useMenu from '@/recoil/hooks/useMenu';
-import useTopPosProductCategory from '@/recoil/hooks/useTopProductCategories';
 import { useRecoilState } from 'recoil';
 import { isImageLoadedState } from '@/recoil/atoms/imageLoadAtom';
-import CategoryProductTab from '@/components/tab/CategoryTab';
 import { renderScrollSection } from '@/utils/helpers/renderScrollSection';
+import ProductSection from './component/ProductSection';
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -46,9 +43,9 @@ const CategorySection = () => {
       <p className="mb-1 text-2lg font-normal text-brown-500 md:mb-8 md:text-4lg">
         {languages.get('home.subTitle.category')}
       </p>
-      <h2 className="font-playfairBold text-2xl font-bold uppercase text-brown-500 text-opacity-70 md:mb-8 md:text-7xl">
+      <h1 className="font-playfairBold text-2xl font-bold uppercase text-brown-500 text-opacity-70 md:mb-8 md:text-7xl">
         {languages.get('home.title.category')}
-      </h2>
+      </h1>
       <div className="flex flex-col content-center items-center justify-center gap-0 md:flex-row md:gap-2 lg:justify-between xl:justify-center">
         {menu?.types?.length > 0 &&
           menu?.types?.map((category, index) => (
@@ -625,37 +622,12 @@ const CoopClientsSection: React.FC = () => {
 };
 
 const HomePage = () => {
-  const { topPosProductCategory } = useTopPosProductCategory();
-  console.log('CategorySection');
-  console.log(topPosProductCategory);
-
-  const sectionsData =
-    topPosProductCategory?.category?.map((category, index) => ({
-      title: category.name,
-      subTitle: category.description,
-      backgroundClass: category.banner,
-      backgroundMobileClass: category.banner,
-      tabComponent: <CategoryProductTab category={category} index={index} />,
-    })) || [];
-
   return (
     <>
       <Carousel />
       {renderScrollSection(CategorySection)}
       {renderScrollSection(AboutSection)}
-
-      {sectionsData.map((section, index) => (
-        <ScrollAnimation key={index}>
-          <BackgroundSection
-            title={section.title}
-            subTitle={section.subTitle}
-            backgroundDesktop={section.backgroundClass}
-            backgroundMobile={section.backgroundMobileClass}
-          />
-          {section.tabComponent}
-        </ScrollAnimation>
-      ))}
-
+      {renderScrollSection(ProductSection)}
       {renderScrollSection(OtherProductsSection)}
       {renderScrollSection(StorySection)}
       {renderScrollSection(GiftSection)}
