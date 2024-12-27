@@ -93,7 +93,7 @@ const Section = React.memo(
         </div>
 
         <div
-          className={`${isSpecialTab ? 'bg-image-gradient-frame' : background}`}
+          className={`${isSpecialTab ? 'bg-image-gradient-frame bg-cover' : background}`}
         >
           {/* Tab Style */}
           <div>
