@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 import Image from 'next/image';
 import {
   cardServiceData,
@@ -10,11 +10,9 @@ import {
 } from '@/app/home/constant';
 import images from '@/configs/images';
 import { motion } from 'framer-motion';
-import BackgroundSection from '@/components/banners/BackgroundSection';
 import IconSocialLink from '@/components/icons/IconSocialLink';
 import RightArrowButton from '@/components/button/RightArrowButton';
 import DiscoverButton from '@/components/button/DiscoverButton';
-import ScrollAnimation from '@/components/animations/ScrollAnimation';
 import TitleText from '@/components/texts/TitleText';
 import MotionImageCard from '@/components/card/MotionImageCar';
 import SeparatorAbout from '@/components/shape/SeparatorAbout';
@@ -29,13 +27,9 @@ import MobileArrowButton from '@/components/button/MobileArrowButton';
 import CategoryCard from '@/components/card/CategoryCard';
 import Carousel from '@/components/carousel/Carousel';
 import useMenu from '@/recoil/hooks/useMenu';
-import useTopPosProductCategory from '@/recoil/hooks/useTopProductCategories';
 import { useRecoilState } from 'recoil';
 import { isImageLoadedState } from '@/recoil/atoms/imageLoadAtom';
-import CategoryProductTab from '@/components/tab/CategoryTab';
 import { renderScrollSection } from '@/utils/helpers/renderScrollSection';
-import { fetchProducts } from '@/services/fetchProducts';
-import { Product } from '@/types/product';
 import ProductSection from './component/ProductSection';
 
 const CategorySection = () => {
@@ -630,18 +624,16 @@ const CoopClientsSection: React.FC = () => {
 const HomePage = () => {
   return (
     <>
-      {/* <Carousel />
+      <Carousel />
       {renderScrollSection(CategorySection)}
-      {renderScrollSection(AboutSection)} */}
-
-      <ProductSection />
-
-      {/* {renderScrollSection(OtherProductsSection)}
+      {renderScrollSection(AboutSection)}
+      {renderScrollSection(ProductSection)}
+      {renderScrollSection(OtherProductsSection)}
       {renderScrollSection(StorySection)}
       {renderScrollSection(GiftSection)}
       {renderScrollSection(FeedbackSection)}
       {renderScrollSection(ServiceSection)}
-      {renderScrollSection(CoopClientsSection)} */}
+      {renderScrollSection(CoopClientsSection)}
     </>
   );
 };
