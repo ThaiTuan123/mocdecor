@@ -1,7 +1,19 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useTopPosProductCategory from '@/recoil/hooks/useTopProductCategories';
 import { fetchProducts } from '@/services/fetchProducts';
 import { Product } from '@/types/product';
+import Image from 'next/image';
+import TextContent from '@/components/texts/TextContent';
+import ProductCard from '@/components/product/ProductCard';
+import { useRecoilState } from 'recoil';
+import { selectedProductState } from '@/recoil/atoms/productAtom';
+import ProductPopup from '@/components/popup/ProductPopup';
+
+type CategoryType = {
+  title: string;
+  subTitle: string;
+  banner: string;
+};
 
 type TabActiveType = {
   category: string;
@@ -14,33 +26,121 @@ type SectionProps = {
   onChangeTab: (index: number, value: string) => void;
   products: Product[] | null;
   subCategories: { slug: string; text: string }[];
+  bannerCategory?: CategoryType;
+  background?: string;
+  textColor?: string;
+  textColorInactive?: string;
+  borderActive?: string;
+  hoverButton?: string;
+  hoverBorder?: string;
 };
 
 const Section = React.memo(
-  ({ section, index, onChangeTab, products, subCategories }: SectionProps) => {
+  ({
+    section,
+    index,
+    onChangeTab,
+    products,
+    subCategories,
+    bannerCategory,
+    background = 'bg-white',
+    textColor = 'text-brown-900',
+    textColorInactive = 'text-gray-500',
+    borderActive = 'border-brown-900',
+    hoverButton = 'hover:text-brown-900',
+    hoverBorder = 'hover:border-brown-900',
+  }: SectionProps) => {
     console.log(`Render Section ${index}`);
+
+    const [selectedProduct, setSelectedProduct] =
+      useRecoilState<Product | null>(selectedProductState);
+
+    const showViewMoreButton = Array.isArray(products) && products.length > 0;
+
+    const handleProductClick = (product: Product) => {
+      setSelectedProduct(product);
+    };
+
+    const handleClosePopup = () => {
+      setSelectedProduct(null);
+    };
+
     return (
       <div>
-        {/* TODO style hero */}
-        <div className="">{section.category}</div>
-        {/* TODO style tab */}
-        <div className="flex gap-3">
-          {subCategories.map((tab, idx) => (
-            <div
-              className=""
-              key={idx}
-              onClick={() => onChangeTab(index, tab.slug)}
-            >
-              {tab.text}
-            </div>
-          ))}
+        {/* TODO Hero Section */}
+        <div className="relative flex h-252 items-center justify-start 2xl:container md:h-327 lg:h-430 lg:max-h-430 2xl:mx-auto">
+          <div className="absolute inset-0">
+            <Image
+              src={bannerCategory?.banner || '/default-banner.jpg'}
+              alt="Background"
+              fill={true}
+              className="object-cover"
+              quality={75}
+              priority // Ensure faster loading for above-the-fold content
+            />
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10 w-4/5 content-center px-6 md:w-3/5 lg:w-2/5 lg:pl-36">
+            <h2 className="uppercase text-primary">{bannerCategory?.title}</h2>
+            <TextContent
+              className="my-2"
+              text={bannerCategory?.subTitle || ''}
+            />
+          </div>
         </div>
-        <div>
-          {/* TODO style list product */}
-          {products &&
-            products.map((product, idx) => (
-              <div key={idx}>{product.display_id}</div>
-            ))}
+
+        {/* TODO style tab */}
+        <div className="flex">
+          <div className="overflow-x-auto">
+            <div className="ml-0 flex overflow-x-scroll whitespace-nowrap border-b border-stroke px-6 pt-3 no-scrollbar 2xl:container md:pt-7 lg:ml-6 lg:px-28 2xl:mx-auto">
+              <div>
+                {subCategories.map((tab, idx) => (
+                  <button
+                    className={`px-5 pb-16px-plus-2px pt-3 transition-colors duration-300 ease-in-out focus:outline-none md:px-6 lg:px-8 ${
+                      section.subCategory === tab.slug
+                        ? `border-b-2 ${borderActive} ${textColor}`
+                        : `${textColorInactive} ${hoverButton} hover:border-b-2 ${hoverBorder}`
+                    } ${index < subCategories.length - 1 ? 'mr-6' : ''}`}
+                    key={idx}
+                    onClick={() => onChangeTab(index, tab.slug)}
+                  >
+                    {tab.text}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* TODO style list product */}
+        <div className="px-6 py-7 2xl:container md:px-6 md:py-14 lg:px-20 lg:py-16 xl:px-36 2xl:mx-auto 3xl:px-80">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+            {showViewMoreButton ? (
+              products &&
+              products.map((product, idx) => (
+                <ProductCard
+                  key={`${product.product_id}-${index}`}
+                  {...product}
+                  onClick={() => handleProductClick(product)}
+                />
+              ))
+            ) : (
+              <div className="col-span-2 md:col-span-3 lg:col-span-4">
+                <p className="text-xl">
+                  Chúng tôi đang trong quá trình cập nhật sản phẩm {} . Nếu cần,
+                  có thể liên hệ trực tiếp với chúng tôi.
+                </p>
+              </div>
+            )}
+          </div>
+          {/* Show the popup if a product is selected */}
+          {selectedProduct && (
+            <ProductPopup
+              product={selectedProduct}
+              onClose={handleClosePopup}
+            />
+          )}
         </div>
       </div>
     );
@@ -101,25 +201,33 @@ const ProductSection = () => {
   useEffect(() => {
     tabActive.forEach((_, index) => {
       if (products[index] === null) {
-        fetchProductForTab(index);
+        fetchProductForTab(index).then(r => console.log(r));
       }
     });
   }, [tabActive, products]);
 
   return (
     <div>
-      {tabActive.map((section, index) => (
-        <Section
-          key={index}
-          section={section}
-          index={index}
-          onChangeTab={onChangeTab}
-          products={products[index]}
-          subCategories={
-            topPosProductCategory.category[index]?.subCategories || []
-          }
-        />
-      ))}
+      {tabActive.map((section, index) => {
+        const category = topPosProductCategory.category[index];
+        const bannerCategory: CategoryType = {
+          title: category?.name || '',
+          subTitle: category?.description || '',
+          banner: category?.banner || '',
+        };
+
+        return (
+          <Section
+            key={index}
+            section={section}
+            index={index}
+            onChangeTab={onChangeTab}
+            products={products[index]}
+            subCategories={category?.subCategories || []}
+            bannerCategory={bannerCategory}
+          />
+        );
+      })}
     </div>
   );
 };
