@@ -154,3 +154,9 @@ export const submitPayment = async (browserId: string, body: any) => {
     body: body,
   });
 };
+
+//get order
+export const getOrder = async (orderId: string) => {
+  const url = `${API.POS_ORDER}/${orderId}`;
+  return apiRequest(url);
+};
