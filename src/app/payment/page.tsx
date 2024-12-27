@@ -52,9 +52,13 @@ export default function Payment() {
     note: '',
     paymentType: 1,
   });
+  const [visibleCity, setVisibleCity] = useState(false);
+  const [visibleDistrict, setVisibleDistrict] = useState(false);
+  const [visibleWard, setVisibleWard] = useState(false);
   const [isShowModalSuccess, setIsShowModalSuccess] = useState(false);
   const priceFee = 30000;
   const [browserId, setBrowserId] = useState<string | null>(null);
+  const [orderId, setOrderId] = useState('');
 
   const cart = useRecoilValue(cartState); // <--- Changed here
 
@@ -78,10 +82,17 @@ export default function Payment() {
       },
     };
     if (browserId) {
-      submitPayment(browserId, body);
-      setIsShowModalSuccess(true);
+      submitPayment(browserId, body).then(data => {
+        setOrderId(data.orderId);
+      });
     }
   };
+
+  useEffect(() => {
+    if (orderId) {
+      setIsShowModalSuccess(true);
+    }
+  }, [orderId]);
 
   // Use the custom hook
   const timeRemaining = usePopupSuccess(isShowModalSuccess, () => {
@@ -252,6 +263,8 @@ export default function Payment() {
               option={cities}
               value={formValue.city}
               disable={false}
+              visible={visibleCity}
+              setVisible={setVisibleCity}
             />,
           ])}
 
@@ -266,6 +279,8 @@ export default function Payment() {
               option={districts}
               value={formValue.district}
               disable={!formValue.city}
+              visible={visibleDistrict}
+              setVisible={setVisibleDistrict}
             />,
             <SelectCustom
               key="ward"
@@ -275,6 +290,8 @@ export default function Payment() {
               option={wards}
               value={formValue.ward}
               disable={!formValue.district}
+              visible={visibleWard}
+              setVisible={setVisibleWard}
             />,
           ])}
 
@@ -403,7 +420,7 @@ export default function Payment() {
           title="Payment Successful"
           description="Your payment has been processed successfully."
           imageSrc={images.paymentSuccess}
-          orderCode="ORD123456" // Example order code
+          orderCode={orderId}
         />
       </LayoutOpacity>
     </div>
