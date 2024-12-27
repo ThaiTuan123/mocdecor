@@ -26,7 +26,7 @@ const TextInput: React.FC<TextInputProps> = ({
       name={name} // Bind name prop
       value={value} // Bind value prop
       onChange={onChange} // Bind onChange handler
-      className="mt-1 block w-full rounded-md border border-stroke p-3"
+      className="mt-1 block w-full rounded-md border border-stroke p-3 placeholder-gray-400"
       placeholder={placeholder}
       required={required} // Bind required prop
     />
