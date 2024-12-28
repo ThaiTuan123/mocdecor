@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import Image from 'next/image';
 import {
   cardServiceData,
@@ -14,7 +14,6 @@ import IconSocialLink from '@/components/icons/IconSocialLink';
 import RightArrowButton from '@/components/button/RightArrowButton';
 import DiscoverButton from '@/components/button/DiscoverButton';
 import TitleText from '@/components/texts/TitleText';
-import MotionImageCard from '@/components/card/MotionImageCar';
 import SeparatorAbout from '@/components/shape/SeparatorAbout';
 import Heading2 from '@/components/texts/Heading2';
 import CustomerCard from '@/components/card/CustomerCard';
@@ -31,6 +30,9 @@ import { useRecoilState } from 'recoil';
 import { isImageLoadedState } from '@/recoil/atoms/imageLoadAtom';
 import { renderScrollSection } from '@/utils/helpers/renderScrollSection';
 import ProductSection from './component/ProductSection';
+import BlogList from '@/components/blog/BlogList';
+import { fetchBlogs } from '@/services/api';
+import { blogsState } from '@/recoil/atoms/blogAtom';
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -234,83 +236,107 @@ const OtherProductsSection: React.FC = () => {
   );
 };
 
-const StorySection: React.FC = () => {
+// const StorySection: React.FC = () => {
+//   return (
+//     <section className="h-896 2xl:container lg:h-946 2xl:mx-auto">
+//       <div className="relative">
+//         {/* Background image section */}
+//         <div className="relative h-218 md:h-80">
+//           <Image
+//             src={images.imageProductStory} // Replace with your actual image path
+//             alt="Product Story Background"
+//             fill={true}
+//             quality={75} // Optimize image quality
+//             className={'object-cover'}
+//             priority={true}
+//           />
+//           <div className="absolute inset-0 z-10"></div>
+//           {/* Optional overlay */}
+//           <div className="relative z-20 flex w-full flex-col px-7 pt-16 md:px-0">
+//             <TitleText
+//               firstText={languages.get('home.title.firstText.story')}
+//               secondText={languages.get('home.title.secondText.story')}
+//             />
+//             <Heading2
+//               className="mb-6 md:mb-8"
+//               text={languages.get('home.title.header2.story')}
+//             />
+//           </div>
+//         </div>
+//
+//         {/* Content section */}
+//         <div
+//           id="content"
+//           className="absolute inset-0 z-30 mx-auto mt-44 md:mt-52 lg:max-w-7xl"
+//         >
+//           <div className="flex w-full md:h-[600]">
+//             {/* Left side background image */}
+//             <div className="relative hidden w-full items-end justify-between rounded px-8 py-8 md:flex md:w-3/5">
+//               <Image
+//                 src={images.imageStoryHome1}
+//                 alt="Story Background"
+//                 fill={true}
+//                 className="rounded object-cover" // Optional styling
+//                 quality={75}
+//                 priority
+//               />
+//               <div className="z-10">
+//                 {' '}
+//                 {/* Content over the image */}
+//                 <Heading3
+//                   size={'text-2xl'}
+//                   text={languages.get('home.title.header3.itemStory1')}
+//                 />
+//                 {/* TODO: Add button when blogs are available */}
+//                 {/* <SolidButton text={languages.get('button.readMore')} href="/your-target-page" /> */}
+//               </div>
+//             </div>
+//             {/* Right side motion cards */}
+//             <div className="flex w-full flex-col gap-4 px-6 md:w-2/5 md:px-0 md:pl-4">
+//               <MotionImageCard
+//                 src={images.homeStory1}
+//                 alt="Other Image 1"
+//                 text={languages.get('home.title.p.itemStory1')}
+//                 className={'visible md:hidden'}
+//               />
+//               <MotionImageCard
+//                 src={images.homeStory2}
+//                 alt="Other Image 2"
+//                 text={languages.get('home.title.p.itemStory2')}
+//               />
+//               <MotionImageCard
+//                 src={images.homeStory3}
+//                 alt="Other Image 3"
+//                 text={languages.get('home.title.p.itemStory3')}
+//               />
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+const BlogSection = () => {
+  const [blogs, setBlogs] = useRecoilState(blogsState);
+
+  useEffect(() => {
+    const loadBlogs = async () => {
+      try {
+        const data = await fetchBlogs();
+        console.log(blogs);
+        setBlogs(data.contents.slice(0, 3)); // Hiển thị 3 bài post đầu tiên
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadBlogs().then(r => r);
+  }, [setBlogs]);
+
   return (
     <section className="h-896 2xl:container lg:h-946 2xl:mx-auto">
-      <div className="relative">
-        {/* Background image section */}
-        <div className="relative h-218 md:h-80">
-          <Image
-            src={images.imageProductStory} // Replace with your actual image path
-            alt="Product Story Background"
-            fill={true}
-            quality={75} // Optimize image quality
-            className={'object-cover'}
-            priority={true}
-          />
-          <div className="absolute inset-0 z-10"></div>
-          {/* Optional overlay */}
-          <div className="relative z-20 flex w-full flex-col px-7 pt-16 md:px-0">
-            <TitleText
-              firstText={languages.get('home.title.firstText.story')}
-              secondText={languages.get('home.title.secondText.story')}
-            />
-            <Heading2
-              className="mb-6 md:mb-8"
-              text={languages.get('home.title.header2.story')}
-            />
-          </div>
-        </div>
-
-        {/* Content section */}
-        <div
-          id="content"
-          className="absolute inset-0 z-30 mx-auto mt-44 md:mt-52 lg:max-w-7xl"
-        >
-          <div className="flex w-full md:h-[600]">
-            {/* Left side background image */}
-            <div className="relative hidden w-full items-end justify-between rounded px-8 py-8 md:flex md:w-3/5">
-              <Image
-                src={images.imageStoryHome1}
-                alt="Story Background"
-                fill={true}
-                className="rounded object-cover" // Optional styling
-                quality={75}
-                priority
-              />
-              <div className="z-10">
-                {' '}
-                {/* Content over the image */}
-                <Heading3
-                  size={'text-2xl'}
-                  text={languages.get('home.title.header3.itemStory1')}
-                />
-                {/* TODO: Add button when blogs are available */}
-                {/* <SolidButton text={languages.get('button.readMore')} href="/your-target-page" /> */}
-              </div>
-            </div>
-            {/* Right side motion cards */}
-            <div className="flex w-full flex-col gap-4 px-6 md:w-2/5 md:px-0 md:pl-4">
-              <MotionImageCard
-                src={images.homeStory1}
-                alt="Other Image 1"
-                text={languages.get('home.title.p.itemStory1')}
-                className={'visible md:hidden'}
-              />
-              <MotionImageCard
-                src={images.homeStory2}
-                alt="Other Image 2"
-                text={languages.get('home.title.p.itemStory2')}
-              />
-              <MotionImageCard
-                src={images.homeStory3}
-                alt="Other Image 3"
-                text={languages.get('home.title.p.itemStory3')}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <BlogList blogs={blogs} />
     </section>
   );
 };
@@ -629,7 +655,7 @@ const HomePage = () => {
       {renderScrollSection(AboutSection)}
       {renderScrollSection(ProductSection)}
       {renderScrollSection(OtherProductsSection)}
-      {renderScrollSection(StorySection)}
+      {renderScrollSection(BlogSection)}
       {renderScrollSection(GiftSection)}
       {renderScrollSection(FeedbackSection)}
       {renderScrollSection(ServiceSection)}

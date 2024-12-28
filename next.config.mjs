@@ -38,6 +38,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'content.pancake.vn',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.microcms-assets.io',
+      },
     ],
   },
 };
