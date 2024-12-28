@@ -13,10 +13,8 @@ import {
 import Image from 'next/image';
 import images from '@/configs/images';
 import { formatVietnameseCurrency } from '@/utils';
-import { radioData } from './constants';
 import { LayoutOpacity } from '@/components';
 import { redirect } from 'next/navigation';
-import PaymentOption from '@/components/options/PaymentOption';
 
 // Import Recoil and cartState atom
 import { useRecoilValue } from 'recoil';
@@ -193,22 +191,22 @@ export default function Payment() {
     }));
   };
 
-  const renderInfoTypePayment = () => {
-    return (
-      <div className="flex flex-col gap-6 lg:flex-row">
-        {radioData.map((item, index) => (
-          <PaymentOption
-            key={index}
-            item={item}
-            isChecked={formValue.paymentType === item.value}
-            onChange={() =>
-              setFormValue(prev => ({ ...prev, paymentType: item.value }))
-            }
-          />
-        ))}
-      </div>
-    );
-  };
+  // const renderInfoTypePayment = () => {
+  //   return (
+  //     <div className="flex flex-col gap-6 lg:flex-row">
+  //       {radioData.map((item, index) => (
+  //         <PaymentOption
+  //           key={index}
+  //           item={item}
+  //           isChecked={formValue.paymentType === item.value}
+  //           onChange={() =>
+  //             setFormValue(prev => ({ ...prev, paymentType: item.value }))
+  //           }
+  //         />
+  //       ))}
+  //     </div>
+  //   );
+  // };
 
   const renderInfoPayment = () => {
     const renderInputRow = (inputs: JSX.Element[]) => (
@@ -317,12 +315,13 @@ export default function Payment() {
             }
           />
 
-          <p className="text-2lg font-semibold text-primary">
-            {languages.get('payment.type.title')}
-          </p>
+          {/*<p className="text-2lg font-semibold text-primary">*/}
+          {/*  {languages.get('payment.type.title')}*/}
+          {/*</p>*/}
 
-          {renderInfoTypePayment()}
+          {/*{renderInfoTypePayment()}*/}
 
+          {/*TODO thanh toán chuyển qua màn hình update ảnh */}
           <CustomButton
             className="hidden w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary lg:block"
             text={languages.get('payment.info.form.button')}

@@ -231,7 +231,7 @@ class Languages {
       'payment.info.input.address.label': 'Địa chỉ',
       'payment.info.input.address.placeholder':
         'Nhập địa chỉ cụ thể. Số nhà, tên đường...',
-      'payment.info.form.button': 'THANH TOÁN',
+      'payment.info.form.button': 'ĐẶT HÀNG',
       'payment.type.title': 'PHƯƠNG THỨC THANH TOÁN',
       'payment.type.1': 'Thanh toán khi nhận hàng',
       'payment.type.2': 'Quét mã QR để thanh toán',
