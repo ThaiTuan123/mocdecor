@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FocusEventHandler } from 'react';
 
 interface TextInputProps {
   label: string;
@@ -7,6 +7,7 @@ interface TextInputProps {
   name?: string; // Add name prop
   value?: string; // Add value prop
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Add onChange prop
+  onBlur?: FocusEventHandler<HTMLInputElement>;
   required?: boolean; // Add optional required prop
 }
 
@@ -18,6 +19,7 @@ const TextInput: React.FC<TextInputProps> = ({
   value,
   onChange,
   required = false,
+  onBlur,
 }) => (
   <div className="w-full">
     <label className="block text-smLh font-medium text-doveGray">{label}</label>
@@ -29,6 +31,7 @@ const TextInput: React.FC<TextInputProps> = ({
       className="mt-1 block w-full rounded-md border border-stroke p-3 placeholder-gray-400"
       placeholder={placeholder}
       required={required} // Bind required prop
+      onBlur={onBlur}
     />
   </div>
 );

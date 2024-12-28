@@ -240,9 +240,13 @@ export default function Payment() {
               )}
               type="text"
               value={formValue.phone}
-              onChange={e =>
-                setFormValue(prev => ({ ...prev, phone: e.target.value }))
-              }
+              onChange={e => {
+                const value = e.target.value;
+                if (/^\d*$/.test(value)) {
+                  // Chỉ chấp nhận số
+                  setFormValue(prev => ({ ...prev, phone: value }));
+                }
+              }}
             />,
           ])}
 
@@ -254,6 +258,12 @@ export default function Payment() {
                 'payment.info.input.email.placeholder'
               )}
               type="email"
+              onBlur={e => {
+                const value = e.target.value;
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                  alert('Vui lòng nhập địa chỉ email!!!');
+                }
+              }}
             />,
             <SelectCustom
               key="city"

@@ -39,4 +39,5 @@ export class API {
   static TOP_POS_PRODUCT_CATEGORY =
     BASE_URL + '/public/pos-product-categories/top';
   static POS_PRODUCT = BASE_URL + '/public/pos-products';
+  static POS_ORDER = BASE_URL + '/pos-orders';
 }
