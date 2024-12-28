@@ -160,3 +160,11 @@ export const getOrder = async (orderId: string) => {
   const url = `${API.POS_ORDER}/${orderId}`;
   return apiRequest(url);
 };
+
+export const uploadSingle = async (body: any) => {
+  const url = API.UPLOAD_IMAGE;
+  return apiRequest(url, {
+    method: 'POST',
+    body: body,
+  });
+};

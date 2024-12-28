@@ -298,7 +298,8 @@ class Languages {
       'product.filter.mobile.button.clear.text': 'XÓA BỘ LỌC',
 
       // product detail fond gallery
-      'product.detail.title': 'THÔNG TIN ĐƠN HÀNG',
+      'product.info.title': 'THÔNG TIN ĐƠN HÀNG',
+      'product.detail.title': 'CHI TIẾT SẢN PHẨM',
       'product.detail.orderId': 'Mã đơn hàng',
       'product.detail.orderDate': 'Ngày đặt',
       'product.detail.status': 'Trạng thái',
