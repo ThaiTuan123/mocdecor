@@ -8,6 +8,7 @@ import Icon from '@/components/icons/Icon';
 import Line from '@/components/shape/Lines';
 import { footerIcons, socialIcons } from '@/components/footer/constant';
 import Link from 'next/link';
+import useMenu from '@/recoil/hooks/useMenu';
 
 const FooterTop = () => (
   <div className="bg-punga px-6 py-8 text-white md:py-1 2xl:px-96">
@@ -84,29 +85,40 @@ interface FooterLinksProps {
   className?: string;
 }
 
-const FooterLinks = ({ className }: FooterLinksProps) => (
-  <div
-    className={`container mx-auto ml-0 flex w-1/3 flex-col justify-between px-6 py-0 md:px-2 md:py-6 lg:px-16 ${className}`}
-  >
-    <h3 className="font-playfairBold text-2xl font-bold">
-      {languages.get('whatMocHas')}
-    </h3>
-    <p className="text-l font-raleway pt-4 font-normal">
-      {languages.get('flowerFrame')}
-    </p>
-    <p className="text-l font-raleway font-normal">
-      {languages.get('handmadeFrame')}
-    </p>
-    <h3 className="font-raleway mt-4 pt-0 text-lg font-bold md:pt-7">
-      {languages.get('connectWithMoc')}
-    </h3>
-    <div className="mb-8 mt-2 flex space-x-4 md:mb-0">
-      {socialIcons.map(icon => (
-        <Icon key={icon.key} src={icon.src} alt={icon.alt} size="small" />
-      ))}
+const FooterLinks = ({ className }: FooterLinksProps) => {
+  const { menu } = useMenu();
+
+  return (
+    <div
+      className={`container mx-auto ml-0 flex w-1/3 flex-col justify-between px-6 py-0 md:px-2 md:py-6 lg:px-16 ${className}`}
+    >
+      <h3 className="font-playfairBold text-2xl font-bold">
+        {languages.get('whatMocHas')}
+      </h3>
+
+      {menu?.otherType?.slice(0, 2).map((subItem, subIndex) => {
+        return (
+          <Link
+            key={subIndex}
+            className={`text-l font-raleway pt-2 font-normal hover:text-gray-300`}
+            href={`/products/${subItem.parentSlug}/${subItem.slug}`}
+          >
+            {subItem.text}
+          </Link>
+        );
+      })}
+
+      <h3 className="font-raleway mt-4 pt-0 text-lg font-bold md:pt-7">
+        {languages.get('connectWithMoc')}
+      </h3>
+      <div className="mb-8 mt-2 flex space-x-4 md:mb-0">
+        {socialIcons.map(icon => (
+          <Icon key={icon.key} src={icon.src} alt={icon.alt} size="small" />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const FooterMiddle = () => (
   <div className="bg-primary text-white 2xl:px-96">
