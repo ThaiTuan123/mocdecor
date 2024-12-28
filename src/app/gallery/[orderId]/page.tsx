@@ -10,6 +10,7 @@ import { useGallery } from '@/recoil/hooks/useGallery';
 import Empty from '@/app/gallery/@Empty/Pages';
 import { getOrder } from '@/services/api';
 import { usePathname, useSearchParams } from 'next/navigation';
+import FooterDiscover from '@/components/footer/FooterDiscover';
 
 // Reusable Hero Section Component
 const HeroSection: React.FC<{
@@ -153,7 +154,8 @@ const Page: React.FC = () => {
         onKeyPress={handleKeyPress}
         onButtonClick={onClickSearch}
       />
-      {renderGallery()}
+      <div className="found-gallery-container">{renderGallery()}</div>
+      <FooterDiscover />
     </div>
   );
 };
