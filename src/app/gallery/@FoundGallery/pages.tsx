@@ -1,29 +1,37 @@
+'use client';
+
 import GalleryCategory from '@/app/gallery/@FoundGallery/@GalleryCategory';
 import GalleryItem from '@/app/gallery/@FoundGallery/@GalleryItem';
 import { useEffect, useRef, useState } from 'react';
-import data from '../mock.json';
 
-export default function FoundGallery() {
+interface FoundGalleryProps {
+  orderData: any;
+  setOrderData: React.Dispatch<React.SetStateAction<{}>>;
+}
+
+export default function FoundGallery({
+  orderData,
+  setOrderData,
+}: FoundGalleryProps) {
   const isFirstLoad = useRef(true);
-  const [dataGallery, setDataGallery] = useState([]);
   const [uploadState, setUploadState] = useState<any>([]);
   const [selectedUpload, setSelectedUpload] = useState('');
 
   useEffect(() => {
-    const initState = data.flatMap(item =>
-      Array.from({ length: item.quantity }, (_, index) => ({
-        id: `${item.id}-${index + 1}`,
-        input: [],
-        name: item.variation_info.name,
-        image: item.images[0],
-        type: item.variation_info.fields[0].value,
-        color: item.variation_info.fields[1].value,
-        size: item.variation_info.fields[2].value,
-        countSelected: 0,
-      }))
-    );
-    setUploadState(initState);
-  }, []);
+    if (orderData && orderData.items && orderData.items.length > 0) {
+      const initState = orderData.items.flatMap((item: any) =>
+        Array.from({ length: item.quantity }, (_, index) => ({
+          id: `${item.id}-${index + 1}`,
+          input: [],
+          name: item.variationInfo.name,
+          // image: item.images[0],
+          field: item.variationInfo.fields,
+          countSelected: 0,
+        }))
+      );
+      setUploadState(initState);
+    }
+  }, [orderData]);
 
   useEffect(() => {
     if (uploadState.length && isFirstLoad.current) {
@@ -47,6 +55,7 @@ export default function FoundGallery() {
         setUploadState={setUploadState}
         setSelectedUpload={setSelectedUpload}
         selectedUpload={selectedUpload}
+        orderData={orderData}
       />
     </div>
   );

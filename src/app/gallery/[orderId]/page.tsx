@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import images from '@/configs/images';
 import languages from '@/configs/languages';
 import Image from 'next/image';
@@ -8,6 +8,8 @@ import NotFoundGallery from '@/app/gallery/@Notfound/Pages';
 import FoundGallery from '@/app/gallery/@FoundGallery/pages';
 import { useGallery } from '@/recoil/hooks/useGallery';
 import Empty from '@/app/gallery/@Empty/Pages';
+import { getOrder } from '@/services/api';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 // Reusable Hero Section Component
 const HeroSection: React.FC<{
@@ -99,11 +101,42 @@ const Page: React.FC = () => {
   const heroTitle = languages.get('galley.hero.title');
   const heroButtonText = languages.get('galley.hero.button.text');
   const heroDescText = languages.get('galley.hero.desc');
+  const path = usePathname();
+  const orderId = path.split('/')[2];
+  const [orderData, setOrderData] = useState<any>({});
+
+  useEffect(() => {
+    console.log(orderId);
+    if (orderId) {
+      getOrder(orderId).then(data => setOrderData(data));
+    }
+  }, [orderId]);
+
+  const onClickSearch = () => {
+    if (inputValue) {
+      getOrder(inputValue)
+        .then(data => {
+          setOrderData(data);
+        })
+        .catch(err => {
+          if (
+            err.message ==
+            'UI!!! Đã có lỗi gì đó...{"statusCode":404,"message":"Order not found","error":"Not Found"}'
+          ) {
+            setOrderData({});
+          }
+        });
+    }
+  };
 
   const renderGallery = () => {
-    if (isFound === null) return <Empty />;
-    if (isFound) return <FoundGallery />;
-    return <NotFoundGallery />;
+    if (orderData && orderData?.items && orderData?.items.length > 0) {
+      console.log(1);
+      return <FoundGallery orderData={orderData} setOrderData={setOrderData} />;
+    } else {
+      console.log(2);
+      return <Empty />;
+    }
   };
 
   return (
@@ -118,7 +151,7 @@ const Page: React.FC = () => {
         inputValue={inputValue}
         onInputChange={handleInputChange}
         onKeyPress={handleKeyPress}
-        onButtonClick={handleButtonClick}
+        onButtonClick={onClickSearch}
       />
       {renderGallery()}
     </div>

@@ -17,7 +17,7 @@ import { LayoutOpacity } from '@/components';
 import { redirect } from 'next/navigation';
 
 // Import Recoil and cartState atom
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { cartState } from '@/recoil/atoms/cartAtom';
 import PaymentSuccessPopup from '@/components/popup/PaymentSuccessPopup';
 import usePopupSuccess from '@/recoil/hooks/usePopupSuccess';
@@ -57,6 +57,7 @@ export default function Payment() {
   const priceFee = 30000;
   const [browserId, setBrowserId] = useState<string | null>(null);
   const [orderId, setOrderId] = useState('');
+  const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   const cart = useRecoilValue(cartState); // <--- Changed here
 
@@ -88,6 +89,7 @@ export default function Payment() {
 
   useEffect(() => {
     if (orderId) {
+      setCartGlobal([]);
       setIsShowModalSuccess(true);
     }
   }, [orderId]);
@@ -100,7 +102,7 @@ export default function Payment() {
   useEffect(() => {
     if (timeRemaining === 0 && !isShowModalSuccess) {
       // Redirect to the desired page
-      redirect('/gallery');
+      redirect(`/gallery/${orderId}`);
     }
   }, [timeRemaining, isShowModalSuccess]);
 

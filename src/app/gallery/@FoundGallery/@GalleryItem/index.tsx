@@ -1,28 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import LabelValueProductDetail from '@/components/texts/LabelValueProductDetail';
 import languages from '@/configs/languages';
-import useImageManager from '@/recoil/hooks/useImageManager';
 import AddImageButton from '@/components/button/AddImageButton';
-import { initialImages } from '@/app/gallery/initialImages';
+import RemoveImageButton from '@/components/button/RemoveImageButton';
+import Image from 'next/image';
 
 interface GalleryItemProps {
   uploadState: any;
   setUploadState: React.Dispatch<any>;
-  selectedUpload: string;
+  selectedUpload: any;
+  setSelectedUpload: Dispatch<SetStateAction<any>>;
+  orderData: any;
 }
 
 export default function GalleryItem({
-                                      uploadState,
-                                      setUploadState,
-                                      selectedUpload,
-                                    }: GalleryItemProps) {
-  const { handleAddImage } = useImageManager(initialImages);
+  uploadState,
+  setUploadState,
+  selectedUpload,
+}: GalleryItemProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [selectedItem, setSelectedItem] = useState({});
-  const [images, setImages] = useState([]);
+  const [selectedItem, setSelectedItem] = useState<any>({});
 
   const handleAddImageClick = () => {
     if (fileInputRef.current) {
+      fileInputRef.current.value = '';
       fileInputRef.current.click();
     }
   };
@@ -34,23 +41,27 @@ export default function GalleryItem({
     }
   }, [selectedUpload]);
 
-  // TODO removeImage @Lâm
   const removeImage = (index: number) => {
-    setSelectedItem((prev) => {
-      const updatedInput = prev.input.filter((_, i) => i !== index);
-      const updatedItem = { ...prev, input: updatedInput, countSelected: updatedInput.length };
+    setSelectedItem((prev: any) => {
+      const updatedInput = prev.input.filter(
+        (_: any, i: number) => i !== index
+      );
+      const updatedItem = {
+        ...prev,
+        input: updatedInput,
+        countSelected: updatedInput.length,
+      };
 
-      setUploadState((uploadStatePrev) =>
-        uploadStatePrev.map((item) =>
-          item.id === updatedItem.id ? updatedItem : item,
-        ),
+      setUploadState((uploadStatePrev: any) =>
+        uploadStatePrev.map((item: any) =>
+          item.id === updatedItem.id ? updatedItem : item
+        )
       );
 
       return updatedItem;
     });
   };
 
-  /*TODO check handle File >5*/
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
 
@@ -61,15 +72,14 @@ export default function GalleryItem({
       return;
     }
 
-    /*    TODO uploadSingle @Lâm*/
     const newImages: string[] = [];
-    Array.from(files).forEach((file) => {
+    Array.from(files).forEach(file => {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
           newImages.push(reader.result as string);
           if (newImages.length === files.length) {
-            setSelectedItem((prev) => {
+            setSelectedItem((prev: any) => {
               const updatedInput = [...(prev.input || []), ...newImages];
               if (updatedInput.length > 40) {
                 alert('Bạn chỉ được tải lên tối đa 40 hình.');
@@ -80,10 +90,10 @@ export default function GalleryItem({
                 input: updatedInput,
                 countSelected: updatedInput.length,
               };
-              setUploadState((prev) =>
-                prev.map((item) =>
-                  item.id === updatedItem.id ? updatedItem : item,
-                ),
+              setUploadState((prev: any) =>
+                prev.map((item: any) =>
+                  item.id === updatedItem.id ? updatedItem : item
+                )
               );
               return updatedItem;
             });
@@ -92,10 +102,9 @@ export default function GalleryItem({
       };
       reader.readAsDataURL(file);
     });
-  }
-
-  const handleUploadImage = async () => {
   };
+
+  const handleUploadImage = async () => {};
 
   return (
     <div className="ml-0 w-full rounded border border-stroke bg-white lg:ml-4 lg:w-2/3">
@@ -106,25 +115,23 @@ export default function GalleryItem({
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="flex flex-col justify-between lg:gap-4">
-            <LabelValueProductDetail
-              label={languages.get('product.detail.status.classify')}
-              value="Set nguyên liệu tự trang trí"
-            />
-            <LabelValueProductDetail
-              label={languages.get('product.detail.status.color')}
-              value="Xanh dương"
-            />
-            <LabelValueProductDetail
-              label={languages.get('product.detail.status.size')}
-              value="22x22cm (15x15cm khung)"
-            />
+            {selectedItem &&
+              selectedItem?.field &&
+              selectedItem?.field.length > 0 &&
+              selectedItem?.field.map((item: any, index: number) => (
+                <LabelValueProductDetail
+                  key={index}
+                  label={item?.name}
+                  value={item?.value}
+                />
+              ))}
           </div>
-          <div className="ml-0 lg:ml-16">
+          {/* <div className="ml-0 lg:ml-16">
             <LabelValueProductDetail
               label={languages.get('product.detail.status.quantity')}
               value="10"
             />
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -135,22 +142,21 @@ export default function GalleryItem({
         </h3>
         <div className="grid grid-cols-3 gap-4 bg-gray-200 px-3 py-4 lg:p-5">
           {/*TODO @lam */}
-          {selectedItem && selectedItem.input &&
-            selectedItem.input.map((image, index) => (
+          {selectedItem &&
+            selectedItem.input &&
+            selectedItem.input.map((image: string, index: number) => (
               <div key={index} className="relative">
                 <Image
                   width={200}
                   height={150}
                   src={image}
                   alt={`Uploaded image ${index}`}
-                  className="w-full h-100 lg:h-150 object-cover rounded"
+                  className="h-100 w-full rounded object-cover lg:h-150"
                 />
-                //TODO RemoveImageButton @Lâm
                 <RemoveImageButton onClick={() => removeImage(index)} />
               </div>
             ))}
-          <div
-            className="relative flex h-100 w-full items-center justify-center rounded border-2 border-dashed border-gray-400 lg:h-150">
+          <div className="relative flex h-100 w-full items-center justify-center rounded border-2 border-dashed border-gray-400 lg:h-150">
             <AddImageButton onClick={handleAddImageClick} />
           </div>
         </div>
@@ -195,5 +201,4 @@ export default function GalleryItem({
       </div>
     </div>
   );
-};
 }
