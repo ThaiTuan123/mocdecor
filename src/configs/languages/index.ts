@@ -16,7 +16,7 @@ class Languages {
       contactInfo: 'Thông tin liên hệ',
       newsletterText: 'Nhận thông tin mới nhất từ Mộc',
       emailPlaceholder: 'Nhập địa chỉ email',
-      whatMocHas: 'Mộc có gì',
+      whatMocHas: 'Dòng sản phẩm',
       flowerFrame: 'Khung hoa',
       handmadeFrame: 'Khung handmade 3D',
       connectWithMoc: 'Kết nối với Mộc',
