@@ -18,3 +18,16 @@ export const footerLinks = [
   { href: '/products/anh-in/anh-in', text: 'Ảnh in' },
   { href: '/products/khung-anh/khung-anh', text: 'Khung ảnh' },
 ];
+
+export const socialLinksDiscover = [
+  {
+    href: 'https://www.instagram.com/mocdecor99/',
+    imgSrc: images.icons.instagramColor,
+    altText: 'Instagram',
+  },
+  {
+    href: 'https://www.tiktok.com/@_mocdecor99_?lang=vi-VN',
+    imgSrc: images.icons.tiktokColor,
+    altText: 'TikTok',
+  },
+];

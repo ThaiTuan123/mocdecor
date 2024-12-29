@@ -1,11 +1,11 @@
 // app/blog/page.tsx
 
+import React from 'react';
 import { fetchBlogs } from '@/services/api';
 import Link from 'next/link';
 import Image from 'next/image';
 import images from '@/configs/images';
 import languages from '@/configs/languages';
-import React from 'react';
 import { CategoryColors } from '@/configs/colors/categoryColors';
 
 export default async function BlogPage() {
