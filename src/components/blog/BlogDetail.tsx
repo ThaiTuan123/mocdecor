@@ -1,42 +1,49 @@
 'use client';
 
 import { Blog } from '@/types/blogTypes';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import parse from 'html-react-parser';
 import Image from 'next/image';
 import Link from 'next/link';
 import { fetchBlogs } from '@/services/api';
+import { useQuery } from '@/recoil/hooks/useQuery';
+import { formatDate } from '@/utils/dateTimeFormat';
 
 interface BlogDetailProps {
   blog: Blog;
 }
 
 const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
-  const [relatedBlogs, setRelatedBlogs] = useState<Blog[]>([]);
-
-  useEffect(() => {
-    const fetchRelatedBlogs = async () => {
-      try {
-        const data = await fetchBlogs();
-        const filteredBlogs = data.contents.filter(
-          (item: Blog) =>
-            item.id !== blog.id && item.category?.id === blog.category?.id
-        );
-        setRelatedBlogs(filteredBlogs.slice(0, 3));
-      } catch (error) {
-        console.error('Error fetching related blogs:', error);
-      }
-    };
-
-    fetchRelatedBlogs();
+  const {
+    data: relatedBlogs,
+    isLoading,
+    error,
+  } = useQuery<Blog[]>(async () => {
+    const data = await fetchBlogs();
+    return data.contents
+      .filter(
+        (item: Blog) =>
+          item.id !== blog.id && item.category?.id === blog.category?.id
+      )
+      .slice(0, 3);
   }, [blog]);
 
-  const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString('vi-VN', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
+  if (isLoading) {
+    return (
+      <div className="mx-auto max-w-3xl rounded-lg bg-white px-4 py-6 sm:px-6 lg:px-8">
+        <div className="animate-pulse space-y-4">
+          <div className="h-48 w-full rounded-lg bg-gray-200"></div>
+          <div className="h-6 w-2/3 rounded bg-gray-200"></div>
+          <div className="h-4 w-1/3 rounded bg-gray-200"></div>
+          <div className="h-4 w-full rounded bg-gray-200"></div>
+          <div className="h-4 w-full rounded bg-gray-200"></div>
+          <div className="h-4 w-5/6 rounded bg-gray-200"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) return <p>Error loading blogs: {error.message}</p>;
 
   return (
     <div className="mx-auto max-w-3xl rounded-lg bg-white px-4 py-6 sm:px-6 lg:px-8">
@@ -65,7 +72,8 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
         {parse(blog.content)}
       </div>
 
-      {relatedBlogs.length > 0 && (
+      {/*Bài viết liên quan*/}
+      {relatedBlogs && relatedBlogs.length > 0 && (
         <div className="mt-12">
           <p className="mb-4 text-xl font-bold text-gray-900">
             Bài viết liên quan
