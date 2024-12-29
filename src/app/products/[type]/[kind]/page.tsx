@@ -415,7 +415,7 @@ export default function Products() {
               onClick={() => setSelectedProduct(item)}
             >
               <Image
-                className="xl:h-268 mt-4 h-28 w-full object-contain md:h-64"
+                className="mt-4 h-28 w-full object-contain md:h-64 xl:h-268"
                 src={item.images[0]}
                 alt=""
                 width={300}

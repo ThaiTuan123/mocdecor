@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
       className="transform cursor-pointer rounded bg-white p-1 ring-1 ring-stroke transition-transform duration-300 ease-in-out hover:outline-4 hover:ring-caption md:p-4"
       onClick={onClick}
     >
-      <div className="xl:h-238 relative h-44 w-full md:h-52 lg:h-220">
+      <div className="relative h-44 w-full md:h-52 lg:h-220 xl:h-238">
         {isLoading ? (
           // Skeleton Loader for Image
           <div className="absolute inset-0 animate-pulse rounded bg-gray-200"></div>
