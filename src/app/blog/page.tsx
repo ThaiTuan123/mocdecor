@@ -59,7 +59,9 @@ export default async function BlogPage() {
             return (
               <Link key={blog.id} href={`/blog/${blog.id}`}>
                 <div className="cursor-pointer rounded-lg border p-4 transition-shadow lg:h-[340px]">
-                  <img
+                  <Image
+                    width={blog.eyecatch.width}
+                    height={blog.eyecatch.height}
                     src={blog.eyecatch.url}
                     alt={blog.title}
                     className="mb-4 h-48 w-full rounded-lg object-cover"
