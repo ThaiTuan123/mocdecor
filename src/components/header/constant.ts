@@ -5,7 +5,6 @@ const menuLinks = [
   { href: '#', labelKey: 'products' },
   { href: '/contact', labelKey: 'contact' },
   { href: '/policy', labelKey: 'policy' },
-  { href: '/gallery/1234', labelKey: 'gallery' },
   { href: '/blog', labelKey: 'blog' },
   { href: '/gallery/1234', labelKey: 'gallery' },
 ];
