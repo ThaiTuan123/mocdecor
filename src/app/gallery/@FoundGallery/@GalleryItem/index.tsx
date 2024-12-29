@@ -137,9 +137,9 @@ export default function GalleryItem({
 
       {/* Image Upload Section */}
       <div className="overflow-y-auto px-6 py-8 lg:max-h-540 lg:px-8">
-        <h3 className="mb-4 text-sm font-medium">
+        <p className="mb-4 text-sm font-medium">
           {languages.get('product.detail.status.upload')}
-        </h3>
+        </p>
         <div className="grid grid-cols-3 gap-4 bg-gray-200 px-3 py-4 lg:p-5">
           {/*TODO @lam */}
           {selectedItem &&
@@ -180,9 +180,9 @@ export default function GalleryItem({
 
         {/* Notes Section */}
         <div className="mt-6">
-          <h3 className="mb-4 text-sm font-medium uppercase">
+          <p className="mb-4 text-sm font-medium uppercase">
             {languages.get('product.detail.status.message')}
-          </h3>
+          </p>
           <textarea
             placeholder={languages.get('product.detail.status.messageDetail')}
             className="w-full resize-none rounded border p-2"
