@@ -16,6 +16,7 @@
     "@vercel/speed-insights": "1.1.0",
     "antd": "5.22.4",
     "framer-motion": "11.14.4",
+    "html-react-parser": "^5.2.2",
     "next": "14.2.20",
     "react": "^18",
     "react-dom": "^18",

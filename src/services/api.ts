@@ -168,3 +168,20 @@ export const uploadSingle = async (body: any) => {
     body: body,
   });
 };
+
+export const fetchBlogs = async () => {
+  const apiKey = process.env.NEXT_PUBLIC_MICROCMS_API_KEY;
+  if (!apiKey) {
+    throw new Error('API Key is not defined');
+  }
+
+  const response = await fetch('https://mocdecor.microcms.io/api/v1/blogs', {
+    headers: { 'X-MICROCMS-API-KEY': apiKey },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch blogs');
+  }
+
+  return response.json();
+};

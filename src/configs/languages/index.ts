@@ -5,6 +5,7 @@ class Languages {
       about: 'Giới thiệu',
       products: 'Dòng sản phẩm',
       contact: 'Liên hệ',
+      blog: 'Bài viết',
       policy: 'Chính sách',
       terms: 'Điều khoản',
       allRightsReserved: 'All right reserved MOC Decor, LLC2024',
