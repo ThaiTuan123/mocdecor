@@ -12,3 +12,9 @@ export const socialIcons = [
   { src: images.icons.instagramLight, alt: 'Instagram', key: 'instagram' },
   { src: images.icons.tiktokLight, alt: 'Linkedin', key: 'linkedin' },
 ];
+
+export const footerLinks = [
+  { href: '/products/album-anh/album-anh', text: 'Album ảnh' },
+  { href: '/products/anh-in/anh-in', text: 'Ảnh in' },
+  { href: '/products/khung-anh/khung-anh', text: 'Khung ảnh' },
+];

@@ -1,3 +1,5 @@
+// blog/[id]/page.tsx
+
 import { fetchBlogs } from '@/services/api';
 import { Blog } from '@/types/blogTypes';
 import BlogDetail from '@/components/blog/BlogDetail';

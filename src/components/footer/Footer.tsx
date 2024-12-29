@@ -6,7 +6,11 @@ import Image from 'next/image';
 import IconWithText from '@/components/icons/IconWithText';
 import Icon from '@/components/icons/Icon';
 import Line from '@/components/shape/Lines';
-import { footerIcons, socialIcons } from '@/components/footer/constant';
+import {
+  footerIcons,
+  footerLinks,
+  socialIcons,
+} from '@/components/footer/constant';
 import Link from 'next/link';
 import useMenu from '@/recoil/hooks/useMenu';
 
@@ -96,17 +100,27 @@ const FooterLinks = ({ className }: FooterLinksProps) => {
         {languages.get('whatMocHas')}
       </h3>
 
-      {menu?.otherType?.slice(0, 2).map((subItem, subIndex) => {
-        return (
+      <div className="flex flex-row space-x-4 md:flex-col md:space-x-0 xl:flex-row xl:space-x-4">
+        {menu?.otherType?.slice(0, 2).map((subItem, subIndex) => (
           <Link
             key={subIndex}
-            className={`text-l font-raleway pt-2 font-normal hover:text-gray-300`}
+            className="text-l font-raleway pt-2 font-normal hover:text-gray-300"
             href={`/products/${subItem.parentSlug}/${subItem.slug}`}
           >
             {subItem.text}
           </Link>
-        );
-      })}
+        ))}
+      </div>
+
+      <div className="flex flex-row space-x-4 md:flex-col md:space-x-0 xl:flex-row xl:space-x-4">
+        {footerLinks.map((link, index) => (
+          <Link key={index} href={link.href}>
+            <p className="text-l font-raleway pt-2 font-normal hover:text-gray-300">
+              {link.text}
+            </p>
+          </Link>
+        ))}
+      </div>
 
       <h3 className="font-raleway mt-4 pt-0 text-lg font-bold md:pt-7">
         {languages.get('connectWithMoc')}
