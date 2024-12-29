@@ -68,6 +68,7 @@ export default function Payment() {
   }, []);
 
   const handleSubmit = () => {
+    setCartGlobal([]);
     const body = {
       paymentMethod: formValue.paymentType,
       recipientAddress: {
@@ -101,7 +102,6 @@ export default function Payment() {
 
   useEffect(() => {
     if (timeRemaining === 0 && !isShowModalSuccess) {
-      // Redirect to the desired page
       redirect(`/gallery/${orderId}`);
     }
   }, [timeRemaining, isShowModalSuccess]);
