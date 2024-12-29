@@ -1,4 +1,5 @@
 // src/utils/useIsMobile.ts
+'use client';
 
 import { useEffect, useState } from 'react';
 
