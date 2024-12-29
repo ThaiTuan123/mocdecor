@@ -42,6 +42,8 @@ const Header = () => {
         0
       );
       setTotalCart(count);
+    } else {
+      setTotalCart(0);
     }
   }, [cartGlobal]);
 
