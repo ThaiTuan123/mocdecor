@@ -57,6 +57,7 @@ export default function Products() {
         }
       );
     }
+    console.log(123);
   }, [slugId]);
 
   useEffect(() => {

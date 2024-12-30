@@ -109,6 +109,11 @@ const Cart = ({
   };
 
   const renderCartEmpty = () => {
+    const onClickButton = () => {
+      setIsShowCart(false);
+      setCartOpen(false);
+    };
+
     return (
       <div className="flex w-full flex-col items-center px-6 pt-44 md:px-8">
         <p className="text-center text-lg font-bold text-primary md:text-2lg">
@@ -119,20 +124,20 @@ const Cart = ({
         </span>
         <div className="flex w-full flex-col gap-6">
           <CustomButton
-            href={'/products/khung-anh/khung-dep'}
-            onClick={() => setIsShowCart(false)}
+            href={'/products/khung-anh/khung-anh-chung-nhan'}
+            onClick={onClickButton}
             text={languages.get('cart.empty.button.frame')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
-            href={'/products/anh-in/anh-in-6-9'}
-            onClick={() => setIsShowCart(false)}
+            href={'/products/anh-in/anh-bo-goc'}
+            onClick={onClickButton}
             text={languages.get('cart.empty.button.print')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
-            href={'/products/album-anh/anh-in-6x9'}
-            onClick={() => setIsShowCart(false)}
+            href={'/products/album-anh/album-photobooth'}
+            onClick={onClickButton}
             text={languages.get('cart.empty.button.album')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
