@@ -28,7 +28,6 @@ export default function FoundGallery({
           image: item.productImage,
           field: item.variationInfo.fields,
           countSelected: 0,
-          insertedAt: item.insertedAt,
         }))
       );
       setUploadState(initState);
@@ -53,6 +52,7 @@ export default function FoundGallery({
           orderId={orderData.id}
           orderStatus={orderData.status}
           insertedAt={orderData.insertedAt}
+          linkConfirmOrder={orderData.link_confirm_order}
         />
       )}
 

@@ -17,6 +17,7 @@ interface GalleryCategoryProps {
   orderId: String;
   orderStatus: 0 | 1 | 2 | 3 | 4 | 8 | 9;
   insertedAt: string;
+  linkConfirmOrder: string
 }
 
 const statusText = {
@@ -36,6 +37,7 @@ export default function GalleryCategory({
   orderId,
   orderStatus,
   insertedAt,
+  linkConfirmOrder
 }: GalleryCategoryProps) {
   return (
     <div className="w-full rounded bg-white lg:w-1/3 lg:border lg:border-stroke">
@@ -61,24 +63,24 @@ export default function GalleryCategory({
           <div className="flex w-full flex-row items-center justify-between">
             <p className="font-raleway text-sm text-brown-900">Thanh toán</p>
             <div className="flex gap-2">
-              {/*/!* Copy Icon *!/*/}
-              {/*<div className="group relative">*/}
-              {/*  <button*/}
-              {/*    className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"*/}
-              {/*    onClick={() => navigator.clipboard.writeText(PAYMENT_LINK)}*/}
-              {/*  >*/}
-              {/*    <FiCopy className="h-5 w-5 text-black" />*/}
-              {/*  </button>*/}
-              {/*  <div className="absolute left-1/2 top-full z-10 hidden w-max -translate-x-1/2 translate-y-2 rounded-md bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100">*/}
-              {/*    Copy link thanh toán*/}
-              {/*  </div>*/}
-              {/*</div>*/}
+              {/* Copy Icon */}
+              <div className="group relative">
+                <button
+                  className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
+                  onClick={() => navigator.clipboard.writeText(linkConfirmOrder)}
+                >
+                  <FiCopy className="h-5 w-5 text-black" />
+                </button>
+                <div className="absolute left-1/2 top-full z-10 hidden w-max -translate-x-1/2 translate-y-2 rounded-md bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100">
+                  Copy link thanh toán
+                </div>
+              </div>
 
               {/* Buy Icon */}
               <div className="group relative">
                 <button
                   className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
-                  onClick={() => window.open(PAYMENT_LINK, '_blank')}
+                  onClick={() => window.open(linkConfirmOrder, '_blank')}
                 >
                   <BsCashCoin className="h-5 w-5 text-black" />
                 </button>
