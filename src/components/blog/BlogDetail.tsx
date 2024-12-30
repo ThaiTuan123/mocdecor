@@ -68,9 +68,8 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog }) => {
         )}
       </div>
 
-      <div className="prose prose-sm sm:prose lg:prose-lg">
-        {parse(blog.content)}
-      </div>
+      {/*Content blog detail*/}
+      <div>{parse(blog.content)}</div>
 
       {/*Bài viết liên quan*/}
       {relatedBlogs && relatedBlogs.length > 0 && (
