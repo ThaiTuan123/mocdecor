@@ -8,14 +8,26 @@ import { OrderList } from '@/types/order';
 import orderListData from '@/app/data/orderListData.json';
 import { BsCashCoin } from 'react-icons/bs';
 import { PAYMENT_LINK } from '@/utils/constants';
+import { formatDate } from '@/utils/dateTimeFormat';
 
 interface GalleryCategoryProps {
   uploadState: any;
   setUploadState: React.Dispatch<any>;
   setSelectedUpload: React.Dispatch<React.SetStateAction<string>>;
   orderId: String;
-  orderStatus: Number;
+  orderStatus: 0 | 1 | 2 | 3 | 4 | 8 | 9;
+  insertedAt: string;
 }
+
+const statusText = {
+  0: languages.get('product.detail.status.new'),
+  1: languages.get('product.detail.status.confirmed'),
+  2: languages.get('product.detail.status.gived'),
+  3: languages.get('product.detail.status.received'),
+  4: languages.get('product.detail.status.backed'),
+  8: languages.get('product.detail.status.packed'),
+  9: languages.get('product.detail.status.shipping'),
+};
 
 export default function GalleryCategory({
   uploadState,
@@ -23,9 +35,8 @@ export default function GalleryCategory({
   setSelectedUpload,
   orderId,
   orderStatus,
+  insertedAt,
 }: GalleryCategoryProps) {
-  const orders: OrderList = orderListData; // Typing the imported data
-
   return (
     <div className="w-full rounded bg-white lg:w-1/3 lg:border lg:border-stroke">
       <div className="px-7 pt-5">
@@ -39,11 +50,11 @@ export default function GalleryCategory({
           />
           <LabelValue
             label={languages.get('product.detail.orderDate')}
-            value="12/07/2024"
+            value={formatDate(insertedAt)}
           />
           <LabelValue
             label={languages.get('product.detail.status')}
-            value={orderStatus.toString()}
+            value={statusText[orderStatus]}
             isStatus={true}
           />
           {/*TODO add link thanh toán*/}
