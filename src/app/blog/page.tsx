@@ -7,6 +7,7 @@ import Image from 'next/image';
 import images from '@/configs/images';
 import languages from '@/configs/languages';
 import { CategoryColors } from '@/configs/colors/categoryColors';
+import { formatDate } from '@/utils/dateTimeFormat';
 
 export default async function BlogPage() {
   const data = await fetchBlogs();
@@ -70,11 +71,7 @@ export default async function BlogPage() {
                     {blog.title}
                   </p>
                   <p className="mt-2 text-sm text-gray-600">
-                    {new Date(blog.publishedAt).toLocaleDateString('vi-VN', {
-                      day: '2-digit',
-                      month: '2-digit',
-                      year: 'numeric',
-                    })}
+                    {formatDate(blog.publishedAt)}
                   </p>
                   {blog.category && (
                     <span
