@@ -512,7 +512,7 @@ const ServiceSection: React.FC = () => {
             <div className="flex w-full items-center justify-center lg:w-2/5">
               <div className="relative w-full">
                 <Suspense fallback={<p>Loading video...</p>}>
-                  <div className="aspect-w-16 aspect-h-9 relative w-full">
+                  <div className="aspect-h-9 aspect-w-16 relative w-full">
                     <video
                       preload="none"
                       autoPlay
@@ -534,7 +534,7 @@ const ServiceSection: React.FC = () => {
             <div className="order-2 flex w-full items-center justify-center lg:order-none lg:w-2/5">
               <div className="relative w-full">
                 <Suspense fallback={<p>Loading video...</p>}>
-                  <div className="aspect-w-16 aspect-h-9 relative w-full">
+                  <div className="aspect-h-9 aspect-w-16 relative w-full">
                     <video
                       preload="none"
                       autoPlay
