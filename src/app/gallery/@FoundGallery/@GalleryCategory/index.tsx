@@ -13,12 +13,16 @@ interface GalleryCategoryProps {
   uploadState: any;
   setUploadState: React.Dispatch<any>;
   setSelectedUpload: React.Dispatch<React.SetStateAction<string>>;
+  orderId: String;
+  orderStatus: Number;
 }
 
 export default function GalleryCategory({
   uploadState,
   setUploadState,
   setSelectedUpload,
+  orderId,
+  orderStatus,
 }: GalleryCategoryProps) {
   const orders: OrderList = orderListData; // Typing the imported data
 
@@ -31,7 +35,7 @@ export default function GalleryCategory({
         <div className="mb-4 flex flex-col gap-y-4">
           <LabelValue
             label={languages.get('product.detail.orderId')}
-            value="4353434535362"
+            value={orderId}
           />
           <LabelValue
             label={languages.get('product.detail.orderDate')}
@@ -39,7 +43,7 @@ export default function GalleryCategory({
           />
           <LabelValue
             label={languages.get('product.detail.status')}
-            value={languages.get('product.detail.status.confirmed')}
+            value={orderStatus.toString()}
             isStatus={true}
           />
           {/*TODO add link thanh toán*/}

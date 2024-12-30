@@ -132,10 +132,8 @@ const Page: React.FC = () => {
 
   const renderGallery = () => {
     if (orderData && orderData?.items && orderData?.items.length > 0) {
-      console.log(1);
       return <FoundGallery orderData={orderData} setOrderData={setOrderData} />;
     } else {
-      console.log(2);
       return <Empty />;
     }
   };
