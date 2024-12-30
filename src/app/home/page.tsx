@@ -512,15 +512,14 @@ const ServiceSection: React.FC = () => {
             <div className="flex w-full items-center justify-center lg:w-2/5">
               <div className="relative w-full">
                 <Suspense fallback={<p>Loading video...</p>}>
-                  <div
-                    className="relative w-full"
-                    style={{
-                      height: 0,
-                      position: 'relative',
-                      paddingBottom: '56.25%',
-                    }}
-                  >
-                    <video preload="none" autoPlay loop muted>
+                  <div className="aspect-w-16 aspect-h-9 relative w-full">
+                    <video
+                      preload="none"
+                      autoPlay
+                      loop
+                      muted
+                      className="absolute inset-0 h-full w-full object-cover"
+                    >
                       <source src="/assets/videos/1.webm" type="video/webm" />
                       Your browser does not support the video tag.
                     </video>
@@ -535,15 +534,14 @@ const ServiceSection: React.FC = () => {
             <div className="order-2 flex w-full items-center justify-center lg:order-none lg:w-2/5">
               <div className="relative w-full">
                 <Suspense fallback={<p>Loading video...</p>}>
-                  <div
-                    className="relative w-full"
-                    style={{
-                      height: 0,
-                      position: 'relative',
-                      paddingBottom: '56.25%',
-                    }}
-                  >
-                    <video preload="none" autoPlay loop muted>
+                  <div className="aspect-w-16 aspect-h-9 relative w-full">
+                    <video
+                      preload="none"
+                      autoPlay
+                      loop
+                      muted
+                      className="absolute inset-0 h-full w-full object-cover"
+                    >
                       <source src="/assets/videos/2.webm" type="video/webm" />
                       Your browser does not support the video tag.
                     </video>

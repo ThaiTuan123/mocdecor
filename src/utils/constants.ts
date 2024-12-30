@@ -28,6 +28,9 @@ export const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube.com/embed/';
 export const API_PRODUCT =
   process.env.FAKE_API_PRODUCT || 'https://fakestoreapi.com';
 
+// Payment Link
+export const PAYMENT_LINK = 'https://pke.gg/y304xv9z';
+
 export class API {
   static PRODUCT_CATEGORIES = BASE_URL + '/public/product-management/category';
   static LIST_PRODUCT = BASE_URL + '/public/pos-products';

@@ -12,6 +12,7 @@
   "dependencies": {
     "@next/env": "15.1.2",
     "@nextui-org/react": "^2.4.6",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@vercel/analytics": "1.4.1",
     "@vercel/speed-insights": "1.1.0",
     "antd": "5.22.4",
