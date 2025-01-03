@@ -58,10 +58,16 @@ export default function Policy() {
         /(\+?\d{1,4}[\s-]?\(?\d{1,3}\)?[\s-]?\d{1,4}[\s-]?\d{1,4}[\s-]?\d{1,9})|((http|https):\/\/[^\s]+)/g;
 
       const highlightPhoneNumbers = (text: string) => {
-        return text.replace(
-          combinedRegex,
-          '<span class="text-primary">$&</span>'
-        );
+        return text.replace(combinedRegex, match => {
+          if (
+            match.match(
+              /^(\+?\d{1,4}[\s-]?\(?\d{1,3}\)?[\s-]?\d{1,4}[\s-]?\d{1,4}[\s-]?\d{1,9})/
+            )
+          ) {
+            return `<a href="tel:${match.replace(/\D/g, '')}" class="text-primary hover:underline hover:text-brown-400">${match}</a>`;
+          }
+          return `<span class="text-primary">${match}</span>`;
+        });
       };
 
       return (
@@ -97,6 +103,7 @@ export default function Policy() {
             key={index}
             extra={
               <img
+                alt={item.header}
                 src={
                   collapseActive.includes(index.toString())
                     ? images.icons.ic_minus
