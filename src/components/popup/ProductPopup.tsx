@@ -14,6 +14,13 @@ import { useRecoilState } from 'recoil';
 import { cartState } from '@/recoil/atoms/cartAtom';
 import { CartItem } from '@/types/cartType';
 import { formatCurrency } from '@/utils/formatCurrency';
+import { AiOutlineCheck, AiOutlineLoading3Quarters } from 'react-icons/ai';
+import {
+  errorState,
+  loadingState,
+  successState,
+} from '@/recoil/atoms/cartStatusAtom';
+import ToastMessage from '@/components/toast/ToastMessage';
 
 interface ProductPopupProps {
   product: any;
@@ -38,7 +45,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [browserId, setBrowserId] = useState<string | null>(null);
   const [skuSelected, setSkuSelected] = useState<any>(null);
   const [cartGlobal, setCartGlobal] = useRecoilState<CartItem[]>(cartState);
-  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false); // State for showing SuccessPopup
+  const [loading, setLoading] = useRecoilState(loadingState);
+  const [success, setSuccess] = useRecoilState(successState);
+  const [error, setError] = useRecoilState(errorState);
+  const [showToast, setShowToast] = useState(false);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
@@ -145,6 +155,24 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       </div>
     );
 
+  const renderButtonContent = () => {
+    if (loading) {
+      return (
+        <AiOutlineLoading3Quarters className="animate-spin content-center text-lg" />
+      );
+    }
+
+    if (success) {
+      return (
+        <div className="flex h-6 w-6 animate-bounce items-center justify-center rounded-full bg-green-400">
+          <AiOutlineCheck className="text-lg text-white" />
+        </div>
+      );
+    }
+
+    return languages.get('popup.button.addCard');
+  };
+
   const processDataSku = () => {
     const attributesMap: Record<string, { value: string }[]> = {};
 
@@ -217,7 +245,18 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     );
   };
 
-  const onAddToCart = () => {
+  // const onAddToCart = () => {
+  //   if (browserId && product) {
+  //     const body = {
+  //       product: {
+  //         id: skuSelected.id,
+  //         quantity: quantity,
+  //       },
+  //     };
+  //     updateCart(browserId, body);
+  //   }
+
+  const onAddToCart = async () => {
     if (browserId && product) {
       const body = {
         product: {
@@ -225,7 +264,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           quantity: quantity,
         },
       };
-      updateCart(browserId, body);
+
+      await handleUpdateCart(browserId, body);
     }
 
     const cartUpdateObj = {
@@ -241,31 +281,55 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           ? skuSelected.fields[0]?.name + '-' + skuSelected.fields[1]?.name
           : skuSelected.fields[0]?.name,
     };
+
     setCartGlobal(prev => {
-      if (prev.length == 0 || !prev) {
+      if (!prev || prev.length === 0) {
         return [...prev, cartUpdateObj];
       }
-      const existingItem = prev.findIndex(
+
+      const existingItemIndex = prev.findIndex(
         item =>
-          item.id == cartUpdateObj.id && item.mainId == cartUpdateObj.mainId
+          item.id === cartUpdateObj.id && item.mainId === cartUpdateObj.mainId
       );
 
-      if (existingItem !== -1) {
+      if (existingItemIndex !== -1) {
         const updatedCart = [...prev];
-        updatedCart[existingItem] = {
-          ...updatedCart[existingItem],
-          quantity: updatedCart[existingItem].quantity + cartUpdateObj.quantity,
+        updatedCart[existingItemIndex] = {
+          ...updatedCart[existingItemIndex],
+          quantity:
+            updatedCart[existingItemIndex].quantity + cartUpdateObj.quantity,
         };
         return updatedCart;
       } else {
         return [...prev, cartUpdateObj];
       }
     });
-    setShowSuccessPopup(true); // Show SuccessPopup after adding to cart
-    setTimeout(() => {
-      setShowSuccessPopup(false); // Close SuccessPopup after 3 seconds
-    }, 3000);
-    onClose();
+
+    // Nếu thành công, hiển thị Toast
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  const handleUpdateCart = async (browserId: string, body: any) => {
+    try {
+      setLoading(true); // Bắt đầu trạng thái loading
+      setError(null); // Reset trạng thái lỗi
+      setSuccess(false); // Reset trạng thái thành công
+
+      await updateCart(browserId, body); // Gọi API
+
+      // Nếu thành công
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        onClose(); // Tự động đóng popup sau 1 giây
+      }, 1000);
+    } catch (error) {
+      console.error('Error updating cart:', error); // Log lỗi để debug
+      setError('Failed to update cart. Please try again.'); // Thông báo lỗi
+    } finally {
+      setLoading(false); // Đặt lại trạng thái loading
+    }
   };
 
   const renderAccordionSection = (title: string, content: string) => (
@@ -339,51 +403,60 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {languages.get('popup.button.return')}
         </button>
         <button
-          disabled={!skuSelected}
-          onClick={() => onAddToCart()}
-          className="w-full transform rounded bg-brown-700 px-2 py-4 text-sm text-white transition-all duration-300 hover:scale-105 hover:bg-brown-800 md:text-lg lg:w-1/2"
+          disabled={loading || !skuSelected}
+          onClick={onAddToCart}
+          className={`flex w-full transform items-center justify-center rounded bg-brown-700 px-2 py-4 text-sm text-white transition-all duration-300 hover:scale-105 hover:bg-brown-800 md:text-lg lg:w-1/2 ${
+            error ? 'bg-red-500' : ''
+          }`}
         >
-          {languages.get('popup.button.addCard')}
+          {renderButtonContent()}
         </button>
       </div>
     </div>
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      {/* TODO Show SuccessPopup.tsx here */}
-      {renderFullScreenImage()}
-      <div
-        ref={popupRef}
-        className="relative mx-6 flex h-[95%] w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
-      >
-        <CancelButton onClick={onClose} />
-        <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
-          <div className="flex w-full flex-col">
-            <Image
-              //src={product.image}
-              src={selectedImage}
-              alt={product.product.name}
-              width={300}
-              height={300}
-              className={`h-327 w-full cursor-zoom-in object-fill lg:h-[450px] lg:w-[450px] ${
-                imageLoading ? 'blur-md' : 'blur-0'
-              }`}
-              onLoad={handleImageLoad}
-              onClick={toggleFullScreen}
-            />
-            <div className="h-[140px] w-full overflow-hidden pt-4 lg:h-[150px] lg:w-[450px] lg:pt-6">
-              <ProductCarousel
-                images={imagesSku}
-                onImageSelect={setSelectedImage}
-                onImageHover={setSelectedImage}
+    <>
+      {showToast && (
+        <ToastMessage
+          message="Thành công thêm giỏ hàng !"
+          onClose={() => setShowToast(false)}
+        />
+      )}
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        {renderFullScreenImage()}
+        <div
+          ref={popupRef}
+          className="relative mx-6 flex h-[95%] w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
+        >
+          <CancelButton onClick={onClose} />
+          <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
+            <div className="flex w-full flex-col">
+              <Image
+                //src={product.image}
+                src={selectedImage}
+                alt={product.product.name}
+                width={300}
+                height={300}
+                className={`h-327 w-full cursor-zoom-in object-fill lg:h-[450px] lg:w-[450px] ${
+                  imageLoading ? 'blur-md' : 'blur-0'
+                }`}
+                onLoad={handleImageLoad}
+                onClick={toggleFullScreen}
               />
+              <div className="h-[140px] w-full overflow-hidden pt-4 lg:h-[150px] lg:w-[450px] lg:pt-6">
+                <ProductCarousel
+                  images={imagesSku}
+                  onImageSelect={setSelectedImage}
+                  onImageHover={setSelectedImage}
+                />
+              </div>
             </div>
+            {renderProductDetails()}
           </div>
-          {renderProductDetails()}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
