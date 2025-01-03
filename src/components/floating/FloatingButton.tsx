@@ -49,6 +49,8 @@ const FloatingButtons: React.FC = () => {
           altText={buttonConfig.altText}
         />
       ))}
+      {/*TODO using the same LanguageSwitcher component*/}
+      {/*<LanguageSwitcher />*/}
     </div>
   );
 };
