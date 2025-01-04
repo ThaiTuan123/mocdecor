@@ -5,7 +5,7 @@ export interface Product {
   //   category: string; // Added if needed for your application
   reviewCount: number;
   rating: {
-    rate: number;
+    rating: number;
     count: number;
   };
   //   images: string[]; // Carousel images
