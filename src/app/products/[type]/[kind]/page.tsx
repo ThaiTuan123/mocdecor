@@ -426,8 +426,10 @@ export default function Products() {
                   {item.product.name}
                 </p>
                 <div className="flex items-center gap-2">
-                  {renderStar(4)}
-                  <span className="text-sm text-doveGray">(699)</span>
+                  {renderStar(item.rating.rating)}
+                  <span className="text-sm text-doveGray">
+                    ({item.rating.count})
+                  </span>
                 </div>
                 <span className="text-2lg text-caption">
                   {formatVietnameseCurrency(item.retail_price)}

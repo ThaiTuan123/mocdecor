@@ -12,10 +12,9 @@ interface ProductCardProps extends Product {
 const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { images, product_id, reviewCount, rating, retail_price } = product;
-  const { rate = 4, count = 100 } = rating || {};
   const renderStars = () =>
     [...Array(5)].map((_, i) =>
-      i < rate ? (
+      i < rating.rating ? (
         <FaStar key={i} className="text-rating" size={16} />
       ) : (
         <FaRegStar key={i} className="text-gray-300" size={16} />
@@ -62,7 +61,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
             <div className="mt-2 flex items-center justify-start">
               <div className="flex items-start">{renderStars()}</div>
               <span className="font-raleway ml-2 text-sm font-medium text-gray-100">
-                {count}
+                {rating.count}
               </span>
             </div>
             <p className="font-raleway mt-2 text-sm font-normal text-orange-600 md:text-xl">
