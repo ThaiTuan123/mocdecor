@@ -410,16 +410,16 @@ export default function Products() {
         {products?.length > 0 &&
           products.map((item: any, index: number) => (
             <div
-              className="flex cursor-pointer flex-col rounded border ring-1 ring-stroke hover:ring-caption md:rounded-lg"
+              className="flex cursor-pointer flex-col rounded border p-1 ring-1 ring-stroke hover:ring-caption md:rounded-lg md:p-4"
               key={index}
               onClick={() => setSelectedProduct(item)}
             >
               <Image
-                className="mt-4 h-28 w-full object-contain md:h-64 xl:h-268"
+                className="h-full w-full rounded-t object-fill transition-all duration-300"
                 src={item.images[0]}
-                alt=""
-                width={300}
-                height={300}
+                alt={item.product.name}
+                width={238}
+                height={238}
               />
               <div className="flex flex-col gap-2 p-4">
                 <p className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold text-karaka md:text-2lg">
