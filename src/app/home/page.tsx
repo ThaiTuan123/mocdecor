@@ -518,7 +518,8 @@ const ServiceSection: React.FC = () => {
                       autoPlay
                       loop
                       muted
-                      className="absolute inset-0 h-full w-full object-cover"
+                      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                      controlsList="nodownload nofullscreen noremoteplayback"
                     >
                       <source src="/assets/videos/1.webm" type="video/webm" />
                       Your browser does not support the video tag.
@@ -540,7 +541,8 @@ const ServiceSection: React.FC = () => {
                       autoPlay
                       loop
                       muted
-                      className="absolute inset-0 h-full w-full object-cover"
+                      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                      controlsList="nodownload nofullscreen noremoteplayback"
                     >
                       <source src="/assets/videos/2.webm" type="video/webm" />
                       Your browser does not support the video tag.
