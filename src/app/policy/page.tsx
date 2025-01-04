@@ -66,7 +66,7 @@ export default function Policy() {
           ) {
             return `<a href="tel:${match.replace(/\D/g, '')}" class="text-primary hover:underline hover:text-brown-400">${match}</a>`;
           }
-          return `<span class="text-primary">${match}</span>`;
+          return `<span class="text-primary leading-6">${match}</span>`;
         });
       };
 
@@ -78,7 +78,7 @@ export default function Policy() {
                 {item?.title}
               </p>
               <span
-                className="font-raleway whitespace-pre-line text-sm text-karaka sm:text-1.25lg"
+                className="font-raleway whitespace-pre-line text-justify text-sm leading-6 text-karaka sm:text-1.25lg"
                 dangerouslySetInnerHTML={{
                   __html: highlightPhoneNumbers(item?.desc),
                 }}
