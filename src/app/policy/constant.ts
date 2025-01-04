@@ -14,9 +14,9 @@ const collapseData = [
           '🪵 Phí giao hàng: Đơn hàng từ 200.000đ được miễn phí giao hàng toàn quốc.\n' +
           '- Đà Nẵng - Quảng Nam: 20.000đ\n' +
           '- Khu vực miền Trung: 20.000đ\n' +
-          '- Khu vực miền Nam và miền Bắc: 25.000đ\n' +
-          '🪵 Thời gian nhận hàng: 3-5 ngày sau khi đặt hàng (nếu quá trình vận chuyển không gặp sự cố).\n' +
-          '- Đối với sản phẩm có thiết kế theo yêu cầu riêng, thời gian nhận hàng cộng thêm 1-2 ngày hoặc sẽ tính từ thời điểm quý khách chốt thiết kế phác thảo.\n' +
+          '- Khu vực miền Nam và miền Bắc: 20.000đ\n\n' +
+          '🪵 Thời gian nhận hàng: 3-5 ngày sau khi đặt hàng (nếu quá trình vận chuyển không gặp sự cố).\n\n' +
+          '🪵 Đối với sản phẩm có thiết kế theo yêu cầu riêng, thời gian nhận hàng cộng thêm 1-2 ngày hoặc sẽ tính từ thời điểm quý khách chốt thiết kế phác thảo.\n\n' +
           '🪵 Nếu quý khách cần gấp, shop sẽ tính thêm phí phát sinh. Hãy liên hệ trực tiếp qua Fanpage hoặc hotline:\n' +
           '- 037 866 3309\n' +
           '- 0965 920 507\n',
@@ -28,15 +28,15 @@ const collapseData = [
     desc: [
       {
         title: 'I. Mua hàng qua Shopee, Tiktok',
-        desc: '🪵Quý khách có thể lựa chọn phương thức thanh toán: thanh toán trực tuyến hoặc trả tiền mặt khi nhận hàng.',
+        desc: '🪵 Quý khách có thể lựa chọn phương thức thanh toán: thanh toán trực tuyến hoặc trả tiền mặt khi nhận hàng.',
       },
       {
         title: 'II. Mua hàng qua Fanpage',
         desc:
-          '🪵 Đối với sản phẩm thiết kế theo yêu cầu, quý khách vui lòng cọc trước 50% giá trị sản phẩm. Phần còn lại sẽ thanh toán khi nhận hàng cho người vận chuyển. \n' +
-          '🪵 Đối với mẫu sản phẩm có sẵn, quý khách không cần thanh toán trước, chỉ cần thanh toán khi nhận hàng. \n' +
-          '🪵 Hình thức chuyển khoản: \n' +
-          'Vietcombank: 1013282511 (Nguyễn Văn Hiếu) \n' +
+          '🪵 Đối với sản phẩm thiết kế theo yêu cầu, quý khách vui lòng cọc trước 50% giá trị sản phẩm. Phần còn lại sẽ thanh toán khi nhận hàng cho người vận chuyển. \n\n' +
+          '🪵 Đối với mẫu sản phẩm có sẵn, quý khách không cần thanh toán trước, chỉ cần thanh toán khi nhận hàng. \n \n' +
+          '🪵 Hình thức chuyển khoản: \n\n' +
+          'Vietcombank: 1013282511 (Nguyễn Văn Hiếu) \n\n' +
           '🪵 Shop sẽ gọi xác nhận trong vòng 24h sau khi nhận được tiền chuyển khoản. Hàng sẽ được giao trong vòng 3-5 ngày (tùy địa điểm).',
       },
     ],
@@ -51,7 +51,7 @@ const collapseData = [
       {
         title: 'II. Mua hàng qua Fanpage',
         desc:
-          '🪵 Quý khách sẽ nhắn tin trực tiếp cho shop, sau đó shop sẽ tư vấn mẫu và hướng dẫn đặt hàng.' +
+          '🪵 Quý khách sẽ nhắn tin trực tiếp cho shop, sau đó shop sẽ tư vấn mẫu và hướng dẫn đặt hàng.\n' +
           '\n🪵 Liên hệ trực tiếp qua Hotline:' +
           '\n📞 037 866 3309' +
           '\n📞 0965 920 507',
