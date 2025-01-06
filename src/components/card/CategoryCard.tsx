@@ -50,7 +50,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
         <h3 className="font-playfairBold my-4 text-center text-2xl font-bold uppercase text-white md:text-5lg">
           {category.name}
         </h3>
-        <Link href={`/products/${category.slug}/${category.slug}`}>
+        <Link href={`/products/${category.slug}/all`}>
           <motion.div
             className="hidden w-14 flex-col items-center rounded bg-white md:flex"
             initial={hoverAnimation.initial}
@@ -66,7 +66,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
         <h3 className="font-playfairBold my-4 ml-8 text-center text-2xl font-bold uppercase text-white">
           {category.name}
         </h3>
-        <Link href={`/products/${category.slug}/${category.slug}`}>
+        <Link href={`/products/${category.slug}/all`}>
           <div className="mr-8 mt-4 flex w-14 flex-col content-center items-center rounded bg-white transition duration-700 ease-in-out">
             <span className="text-2xl text-primary">{ARROW_RIGHT}</span>
           </div>

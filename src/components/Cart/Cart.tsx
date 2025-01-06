@@ -119,19 +119,19 @@ const Cart = ({
         </span>
         <div className="flex w-full flex-col gap-6">
           <CustomButton
-            href={'/products/khung-anh/khung-dep'}
+            href={'/products/khung-anh/all'}
             onClick={() => setIsShowCart(false)}
             text={languages.get('cart.empty.button.frame')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
-            href={'/products/anh-in/anh-in-6-9'}
+            href={'/products/anh-in/all'}
             onClick={() => setIsShowCart(false)}
             text={languages.get('cart.empty.button.print')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
-            href={'/products/album-anh/anh-in-6x9'}
+            href={'/products/album-anh/all'}
             onClick={() => setIsShowCart(false)}
             text={languages.get('cart.empty.button.album')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"

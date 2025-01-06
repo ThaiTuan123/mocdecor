@@ -43,9 +43,11 @@ export default function Products() {
   const [openFilter, setOpenFilter] = useState(false);
   const [collapseActive, setCollapseActive] = useState<string | string[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const slugId = cateDetail.subCategories?.find(
-    it => it.slug == pathname.split('/')[3]
-  )?.id;
+  const slugId =
+    pathname.split('/')[3] == 'all'
+      ? ''
+      : cateDetail.subCategories?.find(it => it.slug == pathname.split('/')[3])
+          ?.id;
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -56,6 +58,10 @@ export default function Products() {
           setProducts(data.products);
         }
       );
+    } else if (pathname.split('/')[3] == 'all') {
+      fetchListProducts({ categorySlug: categorySlug }).then(data => {
+        setProducts(data.products);
+      });
     }
   }, [slugId]);
 

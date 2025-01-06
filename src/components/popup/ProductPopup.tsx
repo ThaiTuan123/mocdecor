@@ -49,6 +49,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [success, setSuccess] = useRecoilState(successState);
   const [error, setError] = useRecoilState(errorState);
   const [showToast, setShowToast] = useState(false);
+  const [showToastError, setShowToastError] = useState(false);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
@@ -125,6 +126,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           );
         });
       });
+
+      if (skuSelectedObj) {
+        setSelectedImage(skuSelectedObj.images[0]);
+      }
 
       setSkuSelected(skuSelectedObj || null); // Gán null nếu không tìm thấy
       getTotalPrice();
@@ -257,6 +262,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   //   }
 
   const onAddToCart = async () => {
+    if (!skuSelected) {
+      setShowToastError(true);
+      setTimeout(() => setShowToastError(false), 3000);
+      return;
+    }
     if (browserId && product) {
       const body = {
         product: {
@@ -403,7 +413,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {languages.get('popup.button.return')}
         </button>
         <button
-          disabled={loading || !skuSelected}
           onClick={onAddToCart}
           className={`flex w-full transform items-center justify-center rounded bg-brown-700 px-2 py-4 text-sm text-white transition-all duration-300 hover:scale-105 hover:bg-brown-800 md:text-lg lg:w-1/2 ${
             error ? 'bg-red-500' : ''
@@ -421,6 +430,13 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         <ToastMessage
           message="Thành công thêm giỏ hàng !"
           onClose={() => setShowToast(false)}
+        />
+      )}
+      {showToastError && (
+        <ToastMessage
+          isError
+          message="Hãy chọn loại hàng!!!"
+          onClose={() => setShowToastError(false)}
         />
       )}
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
