@@ -100,7 +100,7 @@ const Header = () => {
                     className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
                     onClick={() => {
                       setHoveredLabelKey('');
-                      router.push('/products/anh-in/anh-bo-goc');
+                      router.push('/products/anh-in/all');
                     }}
                   >
                     <span className="text-lg text-karaka">
@@ -156,7 +156,7 @@ const Header = () => {
                     className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
                     onClick={() => {
                       setHoveredLabelKey('');
-                      router.push('/products/khac/den-dom-dom');
+                      router.push('/products/khac/all');
                     }}
                   >
                     <span className="text-lg text-karaka">
@@ -177,7 +177,7 @@ const Header = () => {
           className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
           onClick={() => {
             setHoveredLabelKey('');
-            router.push('/products/album-anh/album-photobooth');
+            router.push('/products/album-anh/all');
           }}
         >
           <span className="text-lg text-karaka">
