@@ -174,7 +174,6 @@ const Cart = ({
                       onClick={() => handleDeleteCart(item)}
                     />
                   </div>
-                  <span className="text-sm text-doveGray">description</span>
                   <div className="flex items-end justify-between">
                     <div className="flex items-center">
                       <button
