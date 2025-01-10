@@ -354,7 +354,6 @@ export default function Payment() {
                     ? `${item.productName.slice(0, 45)}...`
                     : item.productName}
                 </p>
-                <span className="text-sm text-doveGray">{'description'}</span>
                 <div className="flex items-end gap-1">
                   <span className="text-2lg text-caption">
                     {formatVietnameseCurrency(
