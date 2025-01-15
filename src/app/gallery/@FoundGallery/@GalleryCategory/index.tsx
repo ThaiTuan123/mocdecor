@@ -6,7 +6,7 @@ import LabelValue from '@/components/texts/LabelValue';
 import OrderItemCard from '@/components/card/OrderItemCard';
 import { OrderList } from '@/types/order';
 import orderListData from '@/app/data/orderListData.json';
-import { FiCopy, FiShare2 } from 'react-icons/fi';
+import { MdOutlinePayments } from 'react-icons/md';
 import { PAYMENT_LINK } from '@/utils/constants';
 
 interface GalleryCategoryProps {
@@ -46,26 +46,26 @@ export default function GalleryCategory({
           <div className="flex w-full flex-row items-center justify-between">
             <p className="font-raleway text-sm text-brown-900">Thanh toán</p>
             <div className="flex gap-2">
-              {/* Copy Icon */}
-              <div className="group relative">
-                <button
-                  className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
-                  onClick={() => navigator.clipboard.writeText(PAYMENT_LINK)}
-                >
-                  <FiCopy className="h-5 w-5 text-black" />
-                </button>
-                <div className="absolute left-1/2 top-full z-10 hidden w-max -translate-x-1/2 translate-y-2 rounded-md bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100">
-                  Copy link thanh toán
-                </div>
-              </div>
+              {/*/!* Copy Icon *!/*/}
+              {/*<div className="group relative">*/}
+              {/*  <button*/}
+              {/*    className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"*/}
+              {/*    onClick={() => navigator.clipboard.writeText(PAYMENT_LINK)}*/}
+              {/*  >*/}
+              {/*    <FiCopy className="h-5 w-5 text-black" />*/}
+              {/*  </button>*/}
+              {/*  <div className="absolute left-1/2 top-full z-10 hidden w-max -translate-x-1/2 translate-y-2 rounded-md bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100">*/}
+              {/*    Copy link thanh toán*/}
+              {/*  </div>*/}
+              {/*</div>*/}
 
-              {/* Share Icon */}
+              {/* Buy Icon */}
               <div className="group relative">
                 <button
                   className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
                   onClick={() => window.open(PAYMENT_LINK, '_blank')}
                 >
-                  <FiShare2 className="h-5 w-5 text-black" />
+                  <MdOutlinePayments className="h-5 w-5 text-black" />
                 </button>
                 <div className="absolute left-1/2 top-full z-10 hidden w-max -translate-x-1/2 translate-y-2 rounded-md bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100">
                   Link thanh toán
