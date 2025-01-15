@@ -251,20 +251,20 @@ export default function Payment() {
           ])}
 
           {renderInputRow([
-            <TextInput
-              key="email"
-              label={languages.get('payment.info.input.email.label')}
-              placeholder={languages.get(
-                'payment.info.input.email.placeholder'
-              )}
-              type="email"
-              onBlur={e => {
-                const value = e.target.value;
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                  alert('Vui lòng nhập địa chỉ email!!!');
-                }
-              }}
-            />,
+            // <TextInput
+            //   key="email"
+            //   label={languages.get('payment.info.input.email.label')}
+            //   placeholder={languages.get(
+            //     'payment.info.input.email.placeholder'
+            //   )}
+            //   type="email"
+            //   onBlur={e => {
+            //     const value = e.target.value;
+            //     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            //       alert('Vui lòng nhập địa chỉ email!!!');
+            //     }
+            //   }}
+            // />,
             <SelectCustom
               key="city"
               label={languages.get('payment.info.input.city.label')}

@@ -221,8 +221,6 @@ class Languages {
       'payment.info.input.name.placeholder': 'Nhập họ và tên',
       'payment.info.input.phone.label': 'Số điện thoại',
       'payment.info.input.phone.placeholder': 'Nhập số điện thoại',
-      'payment.info.input.email.label': 'Email',
-      'payment.info.input.email.placeholder': 'Nhập địa chỉ email',
       'payment.info.input.city.label': 'Chọn thành phố',
       'payment.info.input.city.placeholder': 'Thành phố',
       'payment.info.input.district.label': 'Quận/Huyện',
