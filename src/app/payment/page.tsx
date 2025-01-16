@@ -413,7 +413,7 @@ export default function Payment() {
         <CustomButton
           className="mt-6 block w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary lg:hidden"
           text={languages.get('payment.info.form.button')}
-          // show PaymentSuccessPopup when onClick
+          onClick={handleSubmit}
         />
       </div>
     );
