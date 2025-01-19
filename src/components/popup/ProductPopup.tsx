@@ -426,24 +426,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
   return (
     <>
-      {showToast && (
-        <ToastMessage
-          message="Thành công thêm giỏ hàng !"
-          onClose={() => setShowToast(false)}
-        />
-      )}
-      {showToastError && (
-        <ToastMessage
-          isError
-          message="Hãy chọn loại hàng!!!"
-          onClose={() => setShowToastError(false)}
-        />
-      )}
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         {renderFullScreenImage()}
         <div
           ref={popupRef}
-          className="relative mx-6 flex h-[95%] w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
+          className="relative mx-6 flex h-auto w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
         >
           <CancelButton onClick={onClose} />
           <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
@@ -472,6 +459,19 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           </div>
         </div>
       </div>
+      {showToast && (
+        <ToastMessage
+          message="Thành công thêm giỏ hàng !"
+          onClose={() => setShowToast(false)}
+        />
+      )}
+      {showToastError && (
+        <ToastMessage
+          isError
+          message="Hãy chọn loại hàng!!!"
+          onClose={() => setShowToastError(false)}
+        />
+      )}
     </>
   );
 };
