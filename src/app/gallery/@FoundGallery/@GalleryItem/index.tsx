@@ -18,14 +18,21 @@ interface GalleryItemProps {
   setSelectedUpload: Dispatch<SetStateAction<any>>;
   orderData: any;
 }
-
 export default function GalleryItem({
   uploadState,
   setUploadState,
   selectedUpload,
+  orderData,
 }: GalleryItemProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedItem, setSelectedItem] = useState<any>({});
+  const [previewImages, setPreviewImages] = useState<
+    { id: string; file: File; url: string }[]
+  >([]); // Lưu các ảnh được chọn kèm ID và URL preview
+  const [uploadStatuses, setUploadStatuses] = useState<Record<string, boolean>>(
+    {}
+  ); // Trạng thái upload của từng ảnh, key là id của ảnh
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]); // Lưu URL ảnh sau khi upload thành công
 
   const handleAddImageClick = () => {
     if (fileInputRef.current) {
@@ -36,75 +43,105 @@ export default function GalleryItem({
 
   useEffect(() => {
     if (selectedUpload) {
-      const item = uploadState.find((it: any) => it.id == selectedUpload);
+      const item = uploadState.find((it: any) => it.id === selectedUpload);
       setSelectedItem(item);
     }
   }, [selectedUpload]);
 
-  const removeImage = (index: number) => {
+  const removeImage = (id: string) => {
+    // Loại bỏ ảnh khỏi danh sách preview
+    setPreviewImages(prev => prev.filter(image => image.id !== id));
+
+    // Loại bỏ trạng thái upload
+    setUploadStatuses(prev => {
+      const { [id]: _, ...rest } = prev; // Loại bỏ trạng thái của ảnh bị xoá
+      return rest;
+    });
+  };
+
+  const uploadFiles = async (
+    files: { id: string; file: File; url: string }[]
+  ) => {
+    const urls: string[] = [];
+
+    for (const fileObject of files) {
+      const { id, file } = fileObject;
+      const formData = new FormData();
+      formData.append('file', file);
+
+      setUploadStatuses(prev => ({ ...prev, [id]: true })); // Đánh dấu đang upload
+
+      try {
+        const response = await fetch('https://cdn.mocdecor.org/multi', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          urls.push(result.paths); // Giả định server trả về URL ảnh
+        } else {
+          console.error(
+            `Tải lên thất bại cho file: ${file.name}`,
+            response.statusText
+          );
+          alert(`Tải lên thất bại cho file: ${file.name}`);
+        }
+      } catch (error) {
+        console.error(`Lỗi khi tải lên file: ${file.name}`, error);
+        alert(`Lỗi khi tải lên file: ${file.name}`);
+      } finally {
+        setUploadStatuses(prev => ({ ...prev, [id]: false })); // Upload xong (hoặc thất bại)
+      }
+    }
+
+    return urls;
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+
+    if (!files || files.length === 0) return;
+
+    // Tạo danh sách file và URL preview
+    const newPreviews = Array.from(files).map(file => ({
+      id: `${file.name}-${Date.now()}`, // Tạo ID duy nhất
+      file,
+      url: URL.createObjectURL(file),
+    }));
+
+    // Thêm ảnh mới vào cuối danh sách preview
+    setPreviewImages(prev => [...prev, ...newPreviews]);
+
+    // Upload các file được chọn
+    const uploadedUrls = await uploadFiles(newPreviews);
+
+    // Thêm URL ảnh vào state `selectedItem` và `uploadedImages`
     setSelectedItem((prev: any) => {
-      const updatedInput = prev.input.filter(
-        (_: any, i: number) => i !== index
-      );
+      const updatedInput = [...(prev.input || []), ...uploadedUrls];
+      if (updatedInput.length > 40) {
+        alert('Bạn chỉ được tải lên tối đa 40 hình.');
+        return prev;
+      }
+
       const updatedItem = {
         ...prev,
         input: updatedInput,
         countSelected: updatedInput.length,
       };
 
-      setUploadState((uploadStatePrev: any) =>
-        uploadStatePrev.map((item: any) =>
+      setUploadState((prev: any) =>
+        prev.map((item: any) =>
           item.id === updatedItem.id ? updatedItem : item
         )
       );
-
       return updatedItem;
     });
+
+    setUploadedImages(prev => [...prev, ...uploadedUrls]); // Lưu danh sách URL ảnh sau khi upload
   };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-
-    if (!files || files.length === 0) return;
-
-    if (files.length > 5) {
-      alert('Bạn chỉ được tải lên tối đa 5 hình cùng một lúc.');
-      return;
-    }
-
-    const newImages: string[] = [];
-    Array.from(files).forEach(file => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.result) {
-          newImages.push(reader.result as string);
-          if (newImages.length === files.length) {
-            setSelectedItem((prev: any) => {
-              const updatedInput = [...(prev.input || []), ...newImages];
-              if (updatedInput.length > 40) {
-                alert('Bạn chỉ được tải lên tối đa 40 hình.');
-                return prev;
-              }
-              const updatedItem = {
-                ...prev,
-                input: updatedInput,
-                countSelected: updatedInput.length,
-              };
-              setUploadState((prev: any) =>
-                prev.map((item: any) =>
-                  item.id === updatedItem.id ? updatedItem : item
-                )
-              );
-              return updatedItem;
-            });
-          }
-        }
-      };
-      reader.readAsDataURL(file);
-    });
-  };
-
-  const handleUploadImage = async () => {};
 
   return (
     <div className="ml-0 w-full rounded border border-stroke bg-white lg:ml-4 lg:w-2/3">
@@ -113,55 +150,37 @@ export default function GalleryItem({
         <h2 className="mb-4 text-xl font-semibold text-primary">
           {languages.get('product.detail.title')}
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="flex flex-col justify-between lg:gap-4">
-            {selectedItem &&
-              selectedItem?.field &&
-              selectedItem?.field.length > 0 &&
-              selectedItem?.field.map((item: any, index: number) => (
-                <LabelValueProductDetail
-                  key={index}
-                  label={item?.name}
-                  value={item?.value}
-                />
-              ))}
-          </div>
-          {/* <div className="ml-0 lg:ml-16">
-            <LabelValueProductDetail
-              label={languages.get('product.detail.status.quantity')}
-              value="10"
-            />
-          </div> */}
-        </div>
       </div>
 
       {/* Image Upload Section */}
       <div className="overflow-y-auto px-6 py-8 lg:max-h-540 lg:px-8">
-        <p className="mb-4 text-sm font-medium">
-          {languages.get('product.detail.status.upload')}
-        </p>
         <div className="grid grid-cols-3 gap-4 bg-gray-200 px-3 py-4 lg:p-5">
-          {/*TODO @lam */}
-          {selectedItem &&
-            selectedItem.input &&
-            selectedItem.input.map((image: string, index: number) => (
-              <div key={index} className="relative">
-                <Image
-                  width={200}
-                  height={150}
-                  src={image}
-                  alt={`Uploaded image ${index}`}
-                  className="h-100 w-full rounded object-cover lg:h-150"
-                />
-                <RemoveImageButton onClick={() => removeImage(index)} />
-              </div>
-            ))}
+          {previewImages.map(image => (
+            <div key={image.id} className="relative">
+              <Image
+                width={200}
+                height={150}
+                src={image.url}
+                alt={`Preview image`}
+                className="h-100 w-full rounded object-cover lg:h-150"
+              />
+              {uploadStatuses[image.id] && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
+                  <span
+                    className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-gray-300 border-t-primary"
+                    aria-label="Loading"
+                  ></span>
+                </div>
+              )}
+              <RemoveImageButton onClick={() => removeImage(image.id)} />
+            </div>
+          ))}
           <div className="relative flex h-100 w-full items-center justify-center rounded border-2 border-dashed border-gray-400 lg:h-150">
             <AddImageButton onClick={handleAddImageClick} />
           </div>
         </div>
 
-        {/*TODO Hidden File Input */}
+        {/* Hidden File Input */}
         <input
           type="file"
           accept="image/*"
@@ -170,34 +189,6 @@ export default function GalleryItem({
           multiple
           onChange={handleFileChange}
         />
-
-        <p className="mt-2 text-lg text-gray-100">
-          <strong className="text-black">
-            {languages.get('product.detail.status.note')}
-          </strong>{' '}
-          {languages.get('product.detail.status.noteDetail')}
-        </p>
-
-        {/* Notes Section */}
-        <div className="mt-6">
-          <p className="mb-4 text-sm font-medium uppercase">
-            {languages.get('product.detail.status.message')}
-          </p>
-          <textarea
-            placeholder={languages.get('product.detail.status.messageDetail')}
-            className="w-full resize-none rounded border p-2"
-            rows={4}
-          />
-        </div>
-      </div>
-
-      <div className="border-t border-stroke px-8 py-8">
-        <button
-          className="w-full rounded bg-black-50 px-6 py-2 uppercase text-black-300 hover:bg-gray-400"
-          onClick={handleUploadImage}
-        >
-          {languages.get('product.detail.status.buttonDone')}
-        </button>
       </div>
     </div>
   );
