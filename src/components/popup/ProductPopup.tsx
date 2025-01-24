@@ -220,13 +220,16 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
               attributeName: string;
               attributeValue: string[];
             }) => (
-              <div className="flex flex-row gap-4 md:gap-6" key={attributeName}>
-                <div className="flex w-18 content-center">
+              <div
+                className="flex flex-col md:flex-row md:gap-6"
+                key={attributeName}
+              >
+                <div className="flex w-full content-center md:w-18">
                   <p className="content-center text-sm font-medium md:text-lg">
                     {attributeName}
                   </p>
                 </div>
-                <div className="mt-2 flex max-h-40 w-[220px] max-w-52 flex-wrap gap-2 overflow-y-auto md:max-h-48 md:w-[350px] md:max-w-96">
+                <div className="mt-2 flex max-h-40 w-full flex-wrap gap-2 overflow-y-auto md:max-h-48 md:w-[350px] md:max-w-96">
                   {attributeValue.map((value: any) => (
                     <button
                       key={value}
@@ -365,14 +368,28 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             ? `${product.product.name.substring(0, TITLE_MAX_LENGTH)}...`
             : product.product.name}
         </h2>
-        <p className="font-raleway mt-3 text-xl text-orange-600 md:text-2xl">
-          {getTotalPrice()} {CURRENCY_SYMBOL}
-        </p>
-        <div className="mt-4 flex flex-col gap-3 rounded bg-brown-50 px-4 py-2 md:gap-4 md:py-3 lg:px-4 lg:py-4">
+        {/*<p className="font-raleway mt-3 text-xl text-orange-600 md:text-2xl">*/}
+        {/*  {getTotalPrice()} {CURRENCY_SYMBOL}*/}
+        {/*</p>*/}
+        <div className="mt-4 flex flex-col gap-3 rounded bg-brown-50 px-4 py-3 md:gap-4 md:py-3 lg:px-4 lg:py-4">
+          {/*TODO this display only mobile*/}
+          <div className="sticky top-0 z-10 flex w-full flex-row gap-3 bg-bright-main md:hidden">
+            <Image
+              src={selectedImage}
+              alt={product.product.name}
+              width={300}
+              height={300}
+              className={`h-20 w-20 cursor-zoom-in object-fill`}
+              onLoad={handleImageLoad}
+              onClick={toggleFullScreen}
+            />
+            <p className="font-raleway mt-3 text-xl text-orange-600 md:text-2xl">
+              {getTotalPrice()} {CURRENCY_SYMBOL}
+            </p>
+          </div>
           {renderSizeButtons()}
-
-          <div className="center flex flex-row gap-4 md:gap-6">
-            <div className="flex w-18 content-center">
+          <div className="center flex flex-col gap-4 md:flex-row md:gap-6">
+            <div className="flex w-full content-center md:w-18">
               <p className="font-raleway w-18 content-center text-sm font-medium md:w-20 md:text-lg">
                 {languages.get('popup.text.quantity')}
               </p>
@@ -432,11 +449,12 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           ref={popupRef}
           className="relative mx-6 flex h-auto w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
         >
-          <CancelButton onClick={onClose} />
+          <div className="flex justify-end py-2">
+            <CancelButton onClick={onClose} />
+          </div>
           <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
             <div className="flex w-full flex-col">
               <Image
-                //src={product.image}
                 src={selectedImage}
                 alt={product.product.name}
                 width={300}
