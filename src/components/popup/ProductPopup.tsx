@@ -368,9 +368,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             ? `${product.product.name.substring(0, TITLE_MAX_LENGTH)}...`
             : product.product.name}
         </h2>
-        {/*<p className="font-raleway mt-3 text-xl text-orange-600 md:text-2xl">*/}
-        {/*  {getTotalPrice()} {CURRENCY_SYMBOL}*/}
-        {/*</p>*/}
+        <p className="font-raleway mt-3 hidden text-xl text-orange-600 md:flex md:text-2xl">
+          {getTotalPrice()} {CURRENCY_SYMBOL}
+        </p>
         <div className="mt-4 flex flex-col gap-3 rounded bg-brown-50 px-4 py-3 md:gap-4 md:py-3 lg:px-4 lg:py-4">
           {/*TODO this display only mobile*/}
           <div className="sticky top-0 z-10 flex w-full flex-row gap-3 bg-bright-main md:hidden">
@@ -383,9 +383,14 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
               onLoad={handleImageLoad}
               onClick={toggleFullScreen}
             />
-            <p className="font-raleway mt-3 text-xl text-orange-600 md:text-2xl">
-              {getTotalPrice()} {CURRENCY_SYMBOL}
-            </p>
+            <div className="my-3">
+              <p className="font-raleway text-xl text-orange-600 md:text-2xl">
+                {getTotalPrice()} {CURRENCY_SYMBOL}
+              </p>
+              <p className="font-raleway text-smLh accent-gray-300">
+                {Object.values(selectedSize).join(' - ') || 'Chọn loại hàng'}
+              </p>
+            </div>
           </div>
           {renderSizeButtons()}
           <div className="center flex flex-col gap-4 md:flex-row md:gap-6">
@@ -402,7 +407,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         </div>
       </div>
 
-      <div className="order-2 mt-4 lg:order-none">
+      <div className="order-2 mt-4 pb-16 lg:order-none">
         {renderAccordionSection(
           languages.get('popup.text.orderNotes'),
           languages.get('popup.description.noOrderNotes')
@@ -421,8 +426,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             languages.get('popup.description.noProductInfo')
         )}
       </div>
-
-      <div className="order-1 mt-4 flex gap-3 p-0 md:gap-5 lg:order-none lg:pb-1 lg:pt-16">
+      <div className="sticky bottom-0 order-1 mb-8 flex gap-3 bg-white p-0 py-3 md:my-8 md:gap-5 md:py-8 lg:order-none">
+        {/*<div className="order-1 mt-4 flex gap-3 p-0 md:gap-5 lg:order-none lg:pb-1 lg:pt-16">*/}
         <button
           onClick={onClose}
           className="hidden w-1/2 transform rounded border border-brown-700 bg-white px-4 py-4 text-sm text-brown-700 transition-all duration-300 hover:scale-105 md:text-lg lg:block"
@@ -431,7 +436,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         </button>
         <button
           onClick={onAddToCart}
-          className={`flex w-full transform items-center justify-center rounded bg-brown-700 px-2 py-4 text-sm text-white transition-all duration-300 hover:scale-105 hover:bg-brown-800 md:text-lg lg:w-1/2 ${
+          className={`flex w-full transform items-center justify-center rounded bg-brown-700 px-2 py-4 text-sm text-white transition-all duration-300 hover:rounded hover:bg-brown-800 md:text-lg md:hover:scale-105 lg:w-1/2 ${
             error ? 'bg-red-500' : ''
           }`}
         >
@@ -447,7 +452,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         {renderFullScreenImage()}
         <div
           ref={popupRef}
-          className="relative mx-6 flex h-auto w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
+          className="relative flex h-auto w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
         >
           <div className="flex justify-end py-2">
             <CancelButton onClick={onClose} />
