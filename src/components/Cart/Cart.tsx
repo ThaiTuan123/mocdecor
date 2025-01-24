@@ -160,7 +160,7 @@ const Cart = ({
                 <div className="p-3">
                   <Image src={item.image} alt="" width={70} height={70} />
                 </div>
-                <div className="flex flex-1 flex-col gap-3">
+                <div className="flex flex-1 flex-col">
                   <div className="flex justify-between">
                     <p className="inline-block w-1 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
                       {item.productName}
@@ -174,7 +174,9 @@ const Cart = ({
                       onClick={() => handleDeleteCart(item)}
                     />
                   </div>
-                  <div className="flex items-end justify-between">
+                  {/*TODO get value from ProductPopup */}
+                  <span className="text-sm text-doveGray"> Đợi API </span>
+                  <div className="flex items-end justify-between pt-1">
                     <div className="flex items-center">
                       <button
                         onClick={() =>
