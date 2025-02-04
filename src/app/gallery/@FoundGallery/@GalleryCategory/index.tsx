@@ -6,6 +6,7 @@ import LabelValue from '@/components/texts/LabelValue';
 import OrderItemCard from '@/components/card/OrderItemCard';
 import { OrderList } from '@/types/order';
 import orderListData from '@/app/data/orderListData.json';
+import { FiCopy } from 'react-icons/fi';
 import { BsCashCoin } from 'react-icons/bs';
 import { PAYMENT_LINK } from '@/utils/constants';
 import { formatDate } from '@/utils/dateTimeFormat';
@@ -14,6 +15,7 @@ interface GalleryCategoryProps {
   uploadState: any;
   setUploadState: React.Dispatch<any>;
   setSelectedUpload: React.Dispatch<React.SetStateAction<string>>;
+  selectedUpload: string;
   orderId: String;
   orderStatus: 0 | 1 | 2 | 3 | 4 | 8 | 9;
   insertedAt: string;
@@ -34,6 +36,7 @@ export default function GalleryCategory({
   uploadState,
   setUploadState,
   setSelectedUpload,
+  selectedUpload,
   orderId,
   orderStatus,
   insertedAt,
@@ -110,9 +113,10 @@ export default function GalleryCategory({
               key={order.id}
               imageSrc={order.image}
               title={order.name}
+              detail={order.detail}
               selectedCount={order.countSelected}
               totalCount={40}
-              status={'click'}
+              status={order.id === selectedUpload ? 'active' : 'click'}
               onClick={() => setSelectedUpload(order.id)}
             />
           ))}

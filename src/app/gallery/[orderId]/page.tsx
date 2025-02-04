@@ -8,7 +8,7 @@ import NotFoundGallery from '@/app/gallery/@Notfound/Pages';
 import FoundGallery from '@/app/gallery/@FoundGallery/pages';
 import { useGallery } from '@/recoil/hooks/useGallery';
 import Empty from '@/app/gallery/@Empty/Pages';
-import { getOrder } from '@/services/api';
+import { getOrder, getProduct } from '@/services/api';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import FooterDiscover from '@/components/footer/FooterDiscover';
 
@@ -110,7 +110,16 @@ const Page: React.FC = () => {
   useEffect(() => {
     console.log(orderId);
     if (orderId) {
-      getOrder(orderId).then(data => setOrderData(data));
+      getOrder(orderId).then(data => {
+        console.log(data);
+        const items = data.items;
+        items.forEach((item: any) => {
+          const product = getProduct(item.variationId);
+          item.product = product;
+        });
+        data.items = items;
+        setOrderData(data);
+      });
     }
   }, [orderId]);
 

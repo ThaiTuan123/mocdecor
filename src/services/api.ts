@@ -166,6 +166,12 @@ export const getOrder = async (orderId: string) => {
   return apiRequest(url);
 };
 
+//get product detail
+export const getProduct = async (productId: string) => {
+  const url = `${API.POS_PRODUCT}/detail/${productId}`;
+  return apiRequest(url);
+};
+
 export const uploadSingle = async (body: any) => {
   const url = API.UPLOAD_IMAGE;
   return apiRequest(url, {

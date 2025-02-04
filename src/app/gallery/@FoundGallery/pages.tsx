@@ -27,6 +27,8 @@ export default function FoundGallery({
           name: item.variationInfo.name,
           image: item.productImage,
           field: item.variationInfo.fields,
+          variationId: item.variationId,
+          detail: item.variationInfo.detail,
           countSelected: 0,
         }))
       );
@@ -49,6 +51,7 @@ export default function FoundGallery({
           uploadState={uploadState}
           setUploadState={setUploadState}
           setSelectedUpload={setSelectedUpload}
+          selectedUpload={selectedUpload}
           orderId={orderData.id}
           orderStatus={orderData.status}
           insertedAt={orderData.insertedAt}
@@ -63,6 +66,7 @@ export default function FoundGallery({
         setSelectedUpload={setSelectedUpload}
         selectedUpload={selectedUpload}
         orderData={orderData}
+        orderId={orderData.id}
       />
     </div>
   );
