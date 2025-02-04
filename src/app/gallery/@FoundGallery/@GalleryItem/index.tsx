@@ -18,6 +18,7 @@ interface GalleryItemProps {
   setSelectedUpload: Dispatch<SetStateAction<any>>;
   orderData: any;
 }
+
 export default function GalleryItem({
   uploadState,
   setUploadState,
@@ -28,11 +29,13 @@ export default function GalleryItem({
   const [selectedItem, setSelectedItem] = useState<any>({});
   const [previewImages, setPreviewImages] = useState<
     { id: string; file: File; url: string }[]
-  >([]); // Lưu các ảnh được chọn kèm ID và URL preview
-  const [uploadStatuses, setUploadStatuses] = useState<Record<string, boolean>>(
-    {}
-  ); // Trạng thái upload của từng ảnh, key là id của ảnh
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]); // Lưu URL ảnh sau khi upload thành công
+  >([]);
+  const [uploadStatuses, setUploadStatuses] = useState<
+    Record<string, boolean | 'error'>
+  >({});
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+
+  const MAX_BATCH_SIZE = 5; // Số lượng ảnh tối đa mỗi lần upload
 
   const handleAddImageClick = () => {
     if (fileInputRef.current) {
@@ -58,40 +61,39 @@ export default function GalleryItem({
       return rest;
     });
   };
-
-  const uploadFiles = async (
-    files: { id: string; file: File; url: string }[]
-  ) => {
+  const uploadBatch = async (batch: { id: string; file: File }[]) => {
     const urls: string[] = [];
 
-    for (const fileObject of files) {
-      const { id, file } = fileObject;
+    for (const { id, file } of batch) {
       const formData = new FormData();
       formData.append('file', file);
-
-      setUploadStatuses(prev => ({ ...prev, [id]: true })); // Đánh dấu đang upload
+      setUploadStatuses(prev => ({ ...prev, [id]: true }));
 
       try {
-        const response = await fetch('https://cdn.mocdecor.org/multi', {
+        // Upload từng file
+        const response = await fetch('http://localhost:3005/single', {
           method: 'POST',
           body: formData,
         });
 
         if (response.ok) {
           const result = await response.json();
-          urls.push(result.paths); // Giả định server trả về URL ảnh
+          urls.push(result.path);
         } else {
-          console.error(
-            `Tải lên thất bại cho file: ${file.name}`,
-            response.statusText
-          );
-          alert(`Tải lên thất bại cho file: ${file.name}`);
+          console.error('Tải lên thất bại', response.statusText);
+          alert('Có lỗi xảy ra khi tải lên file.');
+          setUploadStatuses(prev => ({ ...prev, [id]: 'error' }));
         }
       } catch (error) {
-        console.error(`Lỗi khi tải lên file: ${file.name}`, error);
-        alert(`Lỗi khi tải lên file: ${file.name}`);
+        console.error('Lỗi khi tải lên file', error);
+        setUploadStatuses(prev => ({ ...prev, [id]: 'error' }));
       } finally {
-        setUploadStatuses(prev => ({ ...prev, [id]: false })); // Upload xong (hoặc thất bại)
+        setUploadStatuses(prev => {
+          if (prev[id] !== 'error') {
+            return { ...prev, [id]: false };
+          }
+          return prev;
+        });
       }
     }
 
@@ -105,42 +107,42 @@ export default function GalleryItem({
 
     if (!files || files.length === 0) return;
 
-    // Tạo danh sách file và URL preview
     const newPreviews = Array.from(files).map(file => ({
-      id: `${file.name}-${Date.now()}`, // Tạo ID duy nhất
+      id: `${file.name}-${Date.now()}`,
       file,
       url: URL.createObjectURL(file),
     }));
 
-    // Thêm ảnh mới vào cuối danh sách preview
     setPreviewImages(prev => [...prev, ...newPreviews]);
 
-    // Upload các file được chọn
-    const uploadedUrls = await uploadFiles(newPreviews);
+    let remainingImages = [...newPreviews];
+    while (remainingImages.length > 0) {
+      const currentBatch = remainingImages.slice(0, MAX_BATCH_SIZE); // Lấy nhóm 5 ảnh đầu tiên
+      console.log('currentBatch', currentBatch);
+      const uploadedUrls = await uploadBatch(currentBatch); // Upload nhóm ảnh
 
-    // Thêm URL ảnh vào state `selectedItem` và `uploadedImages`
-    setSelectedItem((prev: any) => {
-      const updatedInput = [...(prev.input || []), ...uploadedUrls];
-      if (updatedInput.length > 40) {
-        alert('Bạn chỉ được tải lên tối đa 40 hình.');
-        return prev;
-      }
+      setUploadedImages(prev => [...prev, ...uploadedUrls]);
 
-      const updatedItem = {
-        ...prev,
-        input: updatedInput,
-        countSelected: updatedInput.length,
-      };
+      // Cập nhật `selectedItem.input`
+      setSelectedItem((prev: any) => {
+        const updatedInput = [...(prev.input || []), ...uploadedUrls];
+        const updatedItem = {
+          ...prev,
+          input: updatedInput,
+          countSelected: updatedInput.length,
+        };
 
-      setUploadState((prev: any) =>
-        prev.map((item: any) =>
-          item.id === updatedItem.id ? updatedItem : item
-        )
-      );
-      return updatedItem;
-    });
+        setUploadState((uploadStatePrev: any) =>
+          uploadStatePrev.map((item: any) =>
+            item.id === updatedItem.id ? updatedItem : item
+          )
+        );
+        return updatedItem;
+      });
 
-    setUploadedImages(prev => [...prev, ...uploadedUrls]); // Lưu danh sách URL ảnh sau khi upload
+      // Loại bỏ nhóm đã upload khỏi danh sách
+      remainingImages = remainingImages.slice(MAX_BATCH_SIZE);
+    }
   };
 
   return (
@@ -164,12 +166,22 @@ export default function GalleryItem({
                 alt={`Preview image`}
                 className="h-100 w-full rounded object-cover lg:h-150"
               />
-              {uploadStatuses[image.id] && (
+              {uploadStatuses[image.id] === true && (
                 <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
                   <span
                     className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-gray-300 border-t-primary"
                     aria-label="Loading"
                   ></span>
+                </div>
+              )}
+              {uploadStatuses[image.id] === 'error' && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-90">
+                  <span
+                    className="inline-block text-2xl text-red-900"
+                    aria-label="Error"
+                  >
+                    !
+                  </span>
                 </div>
               )}
               <RemoveImageButton onClick={() => removeImage(image.id)} />
