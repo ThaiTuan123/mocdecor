@@ -8,8 +8,8 @@ import NotFoundGallery from '@/app/gallery/@Notfound/Pages';
 import FoundGallery from '@/app/gallery/@FoundGallery/pages';
 import { useGallery } from '@/recoil/hooks/useGallery';
 import Empty from '@/app/gallery/@Empty/Pages';
-import { getOrder } from '@/services/api';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { getOrder, getProduct } from '@/services/api';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import FooterDiscover from '@/components/footer/FooterDiscover';
 
 // Reusable Hero Section Component
@@ -105,37 +105,34 @@ const Page: React.FC = () => {
   const path = usePathname();
   const orderId = path.split('/')[2];
   const [orderData, setOrderData] = useState<any>({});
+  const router = useRouter();
 
   useEffect(() => {
     console.log(orderId);
     if (orderId) {
-      getOrder(orderId).then(data => setOrderData(data));
+      getOrder(orderId).then(data => {
+        console.log(data);
+        const items = data.items;
+        items.forEach((item: any) => {
+          const product = getProduct(item.variationId);
+          item.product = product;
+        });
+        data.items = items;
+        setOrderData(data);
+      });
     }
   }, [orderId]);
 
   const onClickSearch = () => {
     if (inputValue) {
-      getOrder(inputValue)
-        .then(data => {
-          setOrderData(data);
-        })
-        .catch(err => {
-          if (
-            err.message ==
-            'UI!!! Đã có lỗi gì đó...{"statusCode":404,"message":"Order not found","error":"Not Found"}'
-          ) {
-            setOrderData({});
-          }
-        });
+      router.push(`/gallery/${inputValue}`);
     }
   };
 
   const renderGallery = () => {
     if (orderData && orderData?.items && orderData?.items.length > 0) {
-      console.log(1);
       return <FoundGallery orderData={orderData} setOrderData={setOrderData} />;
     } else {
-      console.log(2);
       return <Empty />;
     }
   };

@@ -109,6 +109,11 @@ const Cart = ({
   };
 
   const renderCartEmpty = () => {
+    const onClickButton = () => {
+      setIsShowCart(false);
+      setCartOpen(false);
+    };
+
     return (
       <div className="flex w-full flex-col items-center px-6 pt-44 md:px-8">
         <p className="text-center text-lg font-bold text-primary md:text-2lg">

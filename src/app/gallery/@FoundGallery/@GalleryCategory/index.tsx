@@ -6,22 +6,42 @@ import LabelValue from '@/components/texts/LabelValue';
 import OrderItemCard from '@/components/card/OrderItemCard';
 import { OrderList } from '@/types/order';
 import orderListData from '@/app/data/orderListData.json';
+import { FiCopy } from 'react-icons/fi';
 import { BsCashCoin } from 'react-icons/bs';
 import { PAYMENT_LINK } from '@/utils/constants';
+import { formatDate } from '@/utils/dateTimeFormat';
 
 interface GalleryCategoryProps {
   uploadState: any;
   setUploadState: React.Dispatch<any>;
   setSelectedUpload: React.Dispatch<React.SetStateAction<string>>;
+  selectedUpload: string;
+  orderId: String;
+  orderStatus: 0 | 1 | 2 | 3 | 4 | 8 | 9;
+  insertedAt: string;
+  linkConfirmOrder: string;
 }
+
+const statusText = {
+  0: languages.get('product.detail.status.new'),
+  1: languages.get('product.detail.status.confirmed'),
+  2: languages.get('product.detail.status.gived'),
+  3: languages.get('product.detail.status.received'),
+  4: languages.get('product.detail.status.backed'),
+  8: languages.get('product.detail.status.packed'),
+  9: languages.get('product.detail.status.shipping'),
+};
 
 export default function GalleryCategory({
   uploadState,
   setUploadState,
   setSelectedUpload,
+  selectedUpload,
+  orderId,
+  orderStatus,
+  insertedAt,
+  linkConfirmOrder,
 }: GalleryCategoryProps) {
-  const orders: OrderList = orderListData; // Typing the imported data
-
   return (
     <div className="w-full rounded bg-white lg:w-1/3 lg:border lg:border-stroke">
       <div className="px-7 pt-5">
@@ -31,39 +51,41 @@ export default function GalleryCategory({
         <div className="mb-4 flex flex-col gap-y-4">
           <LabelValue
             label={languages.get('product.detail.orderId')}
-            value="4353434535362"
+            value={orderId}
           />
           <LabelValue
             label={languages.get('product.detail.orderDate')}
-            value="12/07/2024"
+            value={formatDate(insertedAt)}
           />
           <LabelValue
             label={languages.get('product.detail.status')}
-            value={languages.get('product.detail.status.confirmed')}
+            value={statusText[orderStatus]}
             isStatus={true}
           />
           {/*TODO add link thanh toán*/}
           <div className="flex w-full flex-row items-center justify-between">
             <p className="font-raleway text-sm text-brown-900">Thanh toán</p>
             <div className="flex gap-2">
-              {/*/!* Copy Icon *!/*/}
-              {/*<div className="group relative">*/}
-              {/*  <button*/}
-              {/*    className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"*/}
-              {/*    onClick={() => navigator.clipboard.writeText(PAYMENT_LINK)}*/}
-              {/*  >*/}
-              {/*    <FiCopy className="h-5 w-5 text-black" />*/}
-              {/*  </button>*/}
-              {/*  <div className="absolute left-1/2 top-full z-10 hidden w-max -translate-x-1/2 translate-y-2 rounded-md bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100">*/}
-              {/*    Copy link thanh toán*/}
-              {/*  </div>*/}
-              {/*</div>*/}
+              {/* Copy Icon */}
+              <div className="group relative">
+                <button
+                  className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
+                  onClick={() =>
+                    navigator.clipboard.writeText(linkConfirmOrder)
+                  }
+                >
+                  <FiCopy className="h-5 w-5 text-black" />
+                </button>
+                <div className="absolute left-1/2 top-full z-10 hidden w-max -translate-x-1/2 translate-y-2 rounded-md bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:block group-hover:opacity-100">
+                  Copy link thanh toán
+                </div>
+              </div>
 
               {/* Buy Icon */}
               <div className="group relative">
                 <button
                   className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
-                  onClick={() => window.open(PAYMENT_LINK, '_blank')}
+                  onClick={() => window.open(linkConfirmOrder, '_blank')}
                 >
                   <BsCashCoin className="h-5 w-5 text-black" />
                 </button>
@@ -91,9 +113,10 @@ export default function GalleryCategory({
               key={order.id}
               imageSrc={order.image}
               title={order.name}
+              detail={order.detail}
               selectedCount={order.countSelected}
               totalCount={40}
-              status={'click'}
+              status={order.id === selectedUpload ? 'active' : 'click'}
               onClick={() => setSelectedUpload(order.id)}
             />
           ))}

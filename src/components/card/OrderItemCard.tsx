@@ -5,6 +5,7 @@ import Image from 'next/image';
 interface OrderItemCardProps {
   imageSrc: string;
   title: string;
+  detail: string;
   selectedCount: number;
   totalCount: number;
   status: string; // Define possible statuses
@@ -14,6 +15,7 @@ interface OrderItemCardProps {
 const OrderItemCard: React.FC<OrderItemCardProps> = ({
   imageSrc,
   title,
+  detail,
   selectedCount,
   totalCount,
   status,
@@ -23,6 +25,9 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
   let errorIconElement = null;
 
   switch (status) {
+    case 'active':
+      bgColorClass = 'bg-blue-100'; // Thêm màu nền cho trạng thái active
+      break;
     case 'click':
       bgColorClass = 'bg-brown-50';
       break;
@@ -54,6 +59,7 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
       />
       <div className="ml-3 flex h-24 w-full flex-col justify-between">
         <p className="font-raleway text-sm font-semibold">{title}</p>
+        <p className="font-raleway text-sm">{detail}</p>
         <div className="flex items-center">
           <p className="text-xs text-gray-600">
             Ảnh đã chọn:{' '}
