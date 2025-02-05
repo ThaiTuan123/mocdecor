@@ -10,6 +10,9 @@ import RemoveImageButton from '@/components/button/RemoveImageButton';
 import Image from 'next/image';
 import languages from '@/configs/languages';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 interface PreviewImage {
   id: string;
   file: File | null;
@@ -53,7 +56,6 @@ export default function GalleryItem({
   >([]);
   const [totalUploadedImages, setTotalUploadedImages] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
 
   const MAX_BATCH_SIZE = 5;
   const MAX_UPLOAD_LIMIT = 40;
@@ -81,13 +83,13 @@ export default function GalleryItem({
     const validFiles = Array.from(files).filter(file => {
       const fileType = file.type.toLowerCase();
       if (!['image/jpeg', 'image/jpg', 'image/png'].includes(fileType)) {
-        alert(
+        toast.error(
           `File ${file.name} không phải là ảnh hợp lệ. Chỉ chấp nhận các định dạng jpg, jpeg, png.`
         );
         return false;
       }
       if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        alert(`File ${file.name} vượt quá giới hạn 60MB.`);
+        toast.error(`File ${file.name} vượt quá giới hạn 60MB.`);
         return false;
       }
       return true;
@@ -95,7 +97,7 @@ export default function GalleryItem({
 
     const totalSelectedImages = previewImages.length + validFiles.length;
     if (totalSelectedImages > MAX_UPLOAD_LIMIT) {
-      alert(`Bạn chỉ được chọn tối đa ${MAX_UPLOAD_LIMIT} ảnh.`);
+      toast.error(`Bạn chỉ được chọn tối đa ${MAX_UPLOAD_LIMIT} ảnh.`);
       return;
     }
 
@@ -172,7 +174,6 @@ export default function GalleryItem({
       }
     }
     setIsUploading(false);
-    showPopup && setShowPopup(false);
   };
 
   const updateImageStatus = (
@@ -243,7 +244,7 @@ export default function GalleryItem({
     );
 
     if (!allItemsComplete) {
-      alert(
+      toast.error(
         'Bạn cần upload đầy đủ ảnh cho tất cả các sản phẩm trước khi xác nhận.'
       );
       return;
@@ -254,7 +255,7 @@ export default function GalleryItem({
     );
 
     if (anyImageUploading) {
-      setShowPopup(true);
+      toast.info('Chúng tôi đang xử lý ảnh của bạn. Vui lòng chờ...');
       return;
     }
 
@@ -373,13 +374,7 @@ export default function GalleryItem({
         </button>
       </div>
 
-      {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
-          <div className="rounded bg-white p-4 shadow-lg">
-            <p>Chúng tôi đang xử lý ảnh của bạn. Vui lòng chờ...</p>
-          </div>
-        </div>
-      )}
+      <ToastContainer />
     </div>
   );
 }
