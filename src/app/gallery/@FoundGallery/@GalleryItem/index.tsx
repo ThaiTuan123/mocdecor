@@ -56,7 +56,6 @@ export default function GalleryItem({
   >([]);
   const [totalUploadedImages, setTotalUploadedImages] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
 
   const MAX_BATCH_SIZE = 5;
   const MAX_UPLOAD_LIMIT = 40;
@@ -175,7 +174,6 @@ export default function GalleryItem({
       }
     }
     setIsUploading(false);
-    showPopup && setShowPopup(false);
   };
 
   const updateImageStatus = (
