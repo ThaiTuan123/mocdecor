@@ -3,15 +3,16 @@
 import images from '@/configs/images';
 import Image from 'next/image';
 import languages from '@/configs/languages';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BsCashCoin } from 'react-icons/bs';
 import { SiZalo } from 'react-icons/si';
 import { IoLogoFacebook } from 'react-icons/io';
 import { useSearchParams } from 'next/navigation';
 
-export default function Finish() {
+function FinishContent() {
   const searchParams = useSearchParams();
   const orderCode = searchParams.get('orderId') || 'N/A';
+
   return (
     <div>
       <div className="flex flex-col items-center justify-center lg:flex-row">
@@ -48,13 +49,13 @@ export default function Finish() {
                   navigator.clipboard.writeText('https://moc.com.vn')
                 }
               >
-                <IoLogoFacebook className="text-facebook h-5 w-5" />
+                <IoLogoFacebook className="h-5 w-5 text-facebook" />
               </button>
               <button
                 className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
                 onClick={() => window.open('https://moc.com.vn', '_blank')}
               >
-                <SiZalo className="text-zalo h-5 w-5" />
+                <SiZalo className="h-5 w-5 text-zalo" />
               </button>
             </div>
 
@@ -77,5 +78,13 @@ export default function Finish() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Finish() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <FinishContent />
+    </Suspense>
   );
 }
