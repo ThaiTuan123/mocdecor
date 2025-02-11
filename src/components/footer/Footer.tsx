@@ -127,7 +127,14 @@ const FooterLinks = ({ className }: FooterLinksProps) => {
       </h3>
       <div className="mb-8 mt-2 flex space-x-4 md:mb-0">
         {socialIcons.map(icon => (
-          <Icon key={icon.key} src={icon.src} alt={icon.alt} size="small" />
+          <Link
+            key={icon.key}
+            href={icon.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon src={icon.src} alt={icon.alt} size="small" />
+          </Link>
         ))}
       </div>
     </div>
