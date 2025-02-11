@@ -8,9 +8,24 @@ export const footerIcons = [
 ];
 
 export const socialIcons = [
-  { src: images.icons.facebookLight, alt: 'Facebook', key: 'facebook' },
-  { src: images.icons.instagramLight, alt: 'Instagram', key: 'instagram' },
-  { src: images.icons.tiktokLight, alt: 'Linkedin', key: 'linkedin' },
+  {
+    src: images.icons.facebookLight,
+    alt: 'Facebook',
+    key: 'facebook',
+    href: 'https://www.facebook.com/mocdecor99',
+  },
+  {
+    src: images.icons.instagramLight,
+    alt: 'Instagram',
+    key: 'instagram',
+    href: 'https://www.instagram.com/mocdecor99/',
+  },
+  {
+    src: images.icons.tiktokLight,
+    alt: 'Tiktok',
+    key: 'tiktok',
+    href: 'https://www.tiktok.com/@_mocdecor99_',
+  },
 ];
 
 export const footerLinks = [
