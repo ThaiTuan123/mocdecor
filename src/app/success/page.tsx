@@ -46,14 +46,18 @@ function FinishContent() {
               <button
                 className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
                 onClick={() =>
-                  navigator.clipboard.writeText('https://moc.com.vn')
+                  navigator.clipboard.writeText(
+                    'https://www.facebook.com/mocdecor99'
+                  )
                 }
               >
                 <IoLogoFacebook className="h-5 w-5 text-facebook" />
               </button>
               <button
                 className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
-                onClick={() => window.open('https://moc.com.vn', '_blank')}
+                onClick={() =>
+                  window.open('https://zalo.me/0378663309', '_blank')
+                }
               >
                 <SiZalo className="h-5 w-5 text-zalo" />
               </button>
