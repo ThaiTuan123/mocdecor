@@ -10,8 +10,9 @@ import RemoveImageButton from '@/components/button/RemoveImageButton';
 import Image from 'next/image';
 import languages from '@/configs/languages';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
 
 interface PreviewImage {
   id: string;
@@ -43,6 +44,7 @@ export default function GalleryItem({
   setSelectedUpload,
   orderId,
 }: GalleryItemProps) {
+  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedItem, setSelectedItem] = useState<SelectedItem>({
     input: [],
@@ -281,7 +283,7 @@ export default function GalleryItem({
 
       if (response.ok) {
         console.log('Order submitted successfully');
-        // router.push('/success');
+        router.push(`/success?orderId=${orderId}`);
       } else {
         console.error('Failed to submit order', response.statusText);
       }
