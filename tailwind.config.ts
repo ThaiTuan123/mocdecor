@@ -62,6 +62,8 @@ const config: Config = {
                 'done-background': '#F0F6FF',
                 'loading-text': '#FF7F37',
                 'loading-background': '#FFF3E5',
+                'facebook': '#3B5998',
+                'zalo': '#0068ff',
                 'brown': {
                     50: '#EEEBE8',
                     100: '#C9C2B7',

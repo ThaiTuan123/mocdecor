@@ -54,6 +54,9 @@ const images = {
   logoWhite: '/assets/imgs/pictures/logo-white.png',
   image404: '/assets/imgs/pictures/404.png',
 
+  //success
+  successShopping: '/assets/imgs/pictures/shopping2.webp',
+
   // sub nav
   heroSubNav: '/assets/imgs/pictures/hero_sub_nav.webp',
 
