@@ -125,19 +125,19 @@ const Cart = ({
         <div className="flex w-full flex-col gap-6">
           <CustomButton
             href={'/products/khung-anh/all'}
-            onClick={() => setIsShowCart(false)}
+            onClick={() => onClickButton()}
             text={languages.get('cart.empty.button.frame')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
             href={'/products/anh-in/all'}
-            onClick={() => setIsShowCart(false)}
+            onClick={() => onClickButton()}
             text={languages.get('cart.empty.button.print')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
             href={'/products/album-anh/all'}
-            onClick={() => setIsShowCart(false)}
+            onClick={() => onClickButton()}
             text={languages.get('cart.empty.button.album')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
