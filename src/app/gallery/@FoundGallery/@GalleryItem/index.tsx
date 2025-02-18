@@ -1,10 +1,4 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import AddImageButton from '@/components/button/AddImageButton';
 import RemoveImageButton from '@/components/button/RemoveImageButton';
 import Image from 'next/image';
@@ -69,7 +63,10 @@ export default function GalleryItem({
   useEffect(() => {
     console.log('orderData');
     console.log(orderData);
-    if (orderData?.statusClient === 1 && orderData?.allowResendImage === true || orderData?.statusClient === 0) {
+    if (
+      (orderData?.statusClient === 1 && orderData?.allowResendImage === true) ||
+      orderData?.statusClient === 0
+    ) {
       setIsAllowSubmit(true);
     } else {
       setIsAllowSubmit(false);
@@ -137,10 +134,10 @@ export default function GalleryItem({
       prev.map(item =>
         item.id === selectedItem.id
           ? {
-            ...item,
-            input: [...item.input, ...newPreviews],
-            countSelected: item.countSelected + newPreviews.length,
-          }
+              ...item,
+              input: [...item.input, ...newPreviews],
+              countSelected: item.countSelected + newPreviews.length,
+            }
           : item
       )
     );
@@ -220,7 +217,7 @@ export default function GalleryItem({
                 url: string;
                 status: string;
               }) =>
-                image.id === id ? { ...image, status, remoteUrl } : image
+                image.id === id ? { ...image, status, remoteUrl }, : image
             ),
           }
           : item
@@ -379,18 +376,16 @@ export default function GalleryItem({
         </div>
       </div>
 
-      {
-        isAllowSubmit && (
-          <div className="border-t border-stroke px-8 py-8">
-            <button
-              className="w-full rounded bg-black-50 px-6 py-2 uppercase text-black-300 hover:bg-gray-400 disabled:bg-gray-300 disabled:text-gray-500"
-              onClick={submitOrder}
-            >
-              {languages.get('product.detail.status.buttonDone')}
-            </button>
-          </div>
-        )
-      }
+      {isAllowSubmit && (
+        <div className="border-t border-stroke px-8 py-8">
+          <button
+            className="w-full rounded bg-black-50 px-6 py-2 uppercase text-black-300 hover:bg-gray-400 disabled:bg-gray-300 disabled:text-gray-500"
+            onClick={submitOrder}
+          >
+            {languages.get('product.detail.status.buttonDone')}
+          </button>
+        </div>
+      )}
 
       <ToastContainer />
     </div>

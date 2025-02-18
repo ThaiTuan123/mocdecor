@@ -57,10 +57,11 @@ const Header = () => {
   const renderSubNav = (labelKey: string) => {
     return (
       <div
-        className={`duration-600 fixed bottom-0 left-0 right-0 top-72px h-451 w-full bg-pampas pt-9 transition-opacity ease-linear md:pl-9 lg:pl-36 ${hoveredLabelKey === 'products' && labelKey == 'products'
+        className={`duration-600 fixed bottom-0 left-0 right-0 top-72px h-451 w-full bg-pampas pt-9 transition-opacity ease-linear md:pl-9 lg:pl-36 ${
+          hoveredLabelKey === 'products' && labelKey == 'products'
             ? 'visible opacity-100'
             : 'invisible opacity-0'
-          }`}
+        }`}
         onMouseEnter={() => setHoveredLabelKey('products')}
         onMouseLeave={() => setHoveredLabelKey('')}
       >
