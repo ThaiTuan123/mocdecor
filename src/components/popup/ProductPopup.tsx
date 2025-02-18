@@ -63,6 +63,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   };
 
   useEffect(() => {
+    console.log('ProductPopup mounted');
+    console.log(product);
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -289,10 +291,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       productName: product.product.name,
       sellerSku: 'TTT-19x24-Xanh Dương',
       image: skuSelected.images[0],
-      skuName:
-        skuSelected.fields.length > 1
-          ? skuSelected.fields[0]?.name + '-' + skuSelected.fields[1]?.name
-          : skuSelected.fields[0]?.name,
+      skuName: skuSelected?.fields
+        .map((field: any) => `${field.name}: ${field.value}`)
+        .join('; '),
     };
 
     setCartGlobal(prev => {
@@ -345,7 +346,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     }
   };
 
-  const renderAccordionSection = (title: string, content: string) => (
+  const renderAccordionSection = (title: string, content: React.ReactNode) => (
     <div className="border-b border-gray-200">
       <button
         onClick={() => toggleAccordion(title)}
@@ -410,11 +411,11 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       <div className="order-2 mt-4 pb-16 lg:order-none">
         {renderAccordionSection(
           languages.get('popup.text.orderNotes'),
-          languages.get('popup.description.noOrderNotes')
+          product?.note
         )}
         {renderAccordionSection(
           languages.get('popup.text.setOfIngredients'),
-          languages.get('popup.description.noSetOfIngredients')
+          product?.material
         )}
         {renderAccordionSection(
           languages.get('popup.text.shipping'),
@@ -422,8 +423,13 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         )}
         {renderAccordionSection(
           languages.get('popup.text.productInfo'),
-          product.description ||
+          product?.product?.note_product ? (
+            <div
+              dangerouslySetInnerHTML={{ __html: product.product.note_product }}
+            />
+          ) : (
             languages.get('popup.description.noProductInfo')
+          )
         )}
       </div>
       <div className="sticky bottom-0 order-1 mb-8 flex gap-3 bg-white p-0 py-3 md:my-8 md:gap-5 md:py-8 lg:order-none">

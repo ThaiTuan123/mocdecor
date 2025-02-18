@@ -1,10 +1,4 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import AddImageButton from '@/components/button/AddImageButton';
 import RemoveImageButton from '@/components/button/RemoveImageButton';
 import Image from 'next/image';
@@ -13,6 +7,7 @@ import languages from '@/configs/languages';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
+import { BASE_URL } from '@/utils/constants';
 
 interface PreviewImage {
   id: string;
@@ -42,6 +37,7 @@ export default function GalleryItem({
   setUploadState,
   selectedUpload,
   setSelectedUpload,
+  orderData,
   orderId,
 }: GalleryItemProps) {
   const router = useRouter();
@@ -58,10 +54,24 @@ export default function GalleryItem({
   >([]);
   const [totalUploadedImages, setTotalUploadedImages] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [isAllowSubmit, setIsAllowSubmit] = useState(false);
 
   const MAX_BATCH_SIZE = 5;
   const MAX_UPLOAD_LIMIT = 40;
   const MAX_FILE_SIZE_MB = 60;
+
+  useEffect(() => {
+    console.log('orderData');
+    console.log(orderData);
+    if (
+      (orderData?.statusClient === 1 && orderData?.allowResendImage === true) ||
+      orderData?.statusClient === 0
+    ) {
+      setIsAllowSubmit(true);
+    } else {
+      setIsAllowSubmit(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (selectedUpload) {
@@ -163,9 +173,8 @@ export default function GalleryItem({
         if (response.ok) {
           const result = await response.json();
           updateImageStatus(id, 'done', result.paths, tabId);
-          console.log('Upload successful', result);
         } else {
-          console.error('Upload failed', response.statusText);
+          // console.error('Upload failed', response.statusText);
           updateImageStatus(id, 'error', null, tabId);
         }
       } catch (error) {
@@ -200,17 +209,17 @@ export default function GalleryItem({
       prev.map(item =>
         item.id === tabId
           ? {
-              ...item,
-              input: item.input.map(
-                (image: {
-                  id: string;
-                  file: File | null;
-                  url: string;
-                  status: string;
-                }) =>
-                  image.id === id ? { ...image, status, remoteUrl } : image
-              ),
-            }
+            ...item,
+            input: item.input.map(
+              (image: {
+                id: string;
+                file: File | null;
+                url: string;
+                status: string;
+              }) =>
+                image.id === id ? { ...image, status, remoteUrl }, : image
+            ),
+          }
           : item
       )
     );
@@ -227,10 +236,10 @@ export default function GalleryItem({
       prev.map(item =>
         item.id === selectedItem.id
           ? {
-              ...item,
-              input: item.input.filter((image: any) => image.id !== id),
-              countSelected: item.countSelected - 1,
-            }
+            ...item,
+            input: item.input.filter((image: any) => image.id !== id),
+            countSelected: item.countSelected - 1,
+          }
           : item
       )
     );
@@ -270,7 +279,7 @@ export default function GalleryItem({
     const payload = { items };
     try {
       const response = await fetch(
-        `https://api.mocdecor.org/pos-orders/${orderId}/upload-images`,
+        `${BASE_URL}/pos-orders/${orderId}/upload-images`,
         {
           method: 'POST',
           headers: {
@@ -367,14 +376,16 @@ export default function GalleryItem({
         </div>
       </div>
 
-      <div className="border-t border-stroke px-8 py-8">
-        <button
-          className="w-full rounded bg-black-50 px-6 py-2 uppercase text-black-300 hover:bg-gray-400 disabled:bg-gray-300 disabled:text-gray-500"
-          onClick={submitOrder}
-        >
-          {languages.get('product.detail.status.buttonDone')}
-        </button>
-      </div>
+      {isAllowSubmit && (
+        <div className="border-t border-stroke px-8 py-8">
+          <button
+            className="w-full rounded bg-black-50 px-6 py-2 uppercase text-black-300 hover:bg-gray-400 disabled:bg-gray-300 disabled:text-gray-500"
+            onClick={submitOrder}
+          >
+            {languages.get('product.detail.status.buttonDone')}
+          </button>
+        </div>
+      )}
 
       <ToastContainer />
     </div>

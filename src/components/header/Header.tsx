@@ -37,11 +37,7 @@ const Header = () => {
 
   useEffect(() => {
     if (cartGlobal && cartGlobal.length > 0) {
-      const count = cartGlobal.reduce(
-        (result: number, item: any) => result + item.quantity,
-        0
-      );
-      setTotalCart(count);
+      setTotalCart(cartGlobal.length);
     } else {
       setTotalCart(0);
     }

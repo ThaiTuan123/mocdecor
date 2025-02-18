@@ -108,10 +108,8 @@ const Page: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(orderId);
     if (orderId) {
       getOrder(orderId).then(data => {
-        console.log(data);
         const items = data.items;
         items.forEach((item: any) => {
           const product = getProduct(item.variationId);

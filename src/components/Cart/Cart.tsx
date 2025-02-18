@@ -37,8 +37,8 @@ const Cart = ({
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   useEffect(() => {
-    if (cart.products && cart.products.length > 0) setCartGlobal(cart.products);
-  }, [cart]);
+    if (cart && cart.length > 0) setCartGlobal(cart);
+  }, [browserId, cart]);
 
   const getTotalPrice = () => {
     if (cartGlobal && cartGlobal.length > 0) {
@@ -180,7 +180,10 @@ const Cart = ({
                     />
                   </div>
                   {/*TODO get value from ProductPopup */}
-                  <span className="text-sm text-doveGray"> Đợi API </span>
+                  <span className="text-sm text-doveGray">
+                    {' '}
+                    {item.skuName}{' '}
+                  </span>
                   <div className="flex items-end justify-between pt-1">
                     <div className="flex items-center">
                       <button
