@@ -37,8 +37,8 @@ const Cart = ({
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   useEffect(() => {
-    if (cart.products && cart.products.length > 0) setCartGlobal(cart.products);
-  }, [cart]);
+    if (cart && cart.length > 0) setCartGlobal(cart);
+  }, [browserId, cart]);
 
   const getTotalPrice = () => {
     if (cartGlobal && cartGlobal.length > 0) {
@@ -75,14 +75,14 @@ const Cart = ({
       prevCart.map(item =>
         item.id === id && item.mainId === mainId
           ? {
-              ...item,
-              quantity:
-                operation === '+'
-                  ? quantity + 1
-                  : operation === '-'
-                    ? quantity - 1
-                    : quantity,
-            }
+            ...item,
+            quantity:
+              operation === '+'
+                ? quantity + 1
+                : operation === '-'
+                  ? quantity - 1
+                  : quantity,
+          }
           : item
       )
     );
@@ -180,18 +180,17 @@ const Cart = ({
                     />
                   </div>
                   {/*TODO get value from ProductPopup */}
-                  <span className="text-sm text-doveGray"> Đợi API </span>
+                  <span className="text-sm text-doveGray"> {item.skuName} </span>
                   <div className="flex items-end justify-between pt-1">
                     <div className="flex items-center">
                       <button
                         onClick={() =>
                           setQuantity(item.quantity, item.id, item.mainId, '-')
                         }
-                        className={`rounded-l border px-2 py-1 md:px-4 md:py-2 ${
-                          item.quantity === 1
+                        className={`rounded-l border px-2 py-1 md:px-4 md:py-2 ${item.quantity === 1
                             ? 'cursor-not-allowed bg-gray-50 text-stroke'
                             : 'bg-white text-black hover:scale-100'
-                        }`}
+                          }`}
                         disabled={item.quantity === 1}
                       >
                         -

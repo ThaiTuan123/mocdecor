@@ -68,7 +68,6 @@ export default function Payment() {
   }, []);
 
   const handleSubmit = () => {
-    setCartGlobal([]);
     const body = {
       paymentMethod: formValue.paymentType,
       recipientAddress: {
@@ -90,7 +89,6 @@ export default function Payment() {
 
   useEffect(() => {
     if (orderId) {
-      setCartGlobal([]);
       setIsShowModalSuccess(true);
     }
   }, [orderId]);
@@ -102,6 +100,7 @@ export default function Payment() {
 
   useEffect(() => {
     if (timeRemaining === 0 && !isShowModalSuccess) {
+      setCartGlobal([]);
       redirect(`/gallery/${orderId}`);
     }
   }, [timeRemaining, isShowModalSuccess]);

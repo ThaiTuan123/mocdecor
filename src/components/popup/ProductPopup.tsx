@@ -292,9 +292,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       sellerSku: 'TTT-19x24-Xanh Dương',
       image: skuSelected.images[0],
       skuName:
-        skuSelected.fields.length > 1
-          ? skuSelected.fields[0]?.name + '-' + skuSelected.fields[1]?.name
-          : skuSelected.fields[0]?.name,
+        skuSelected?.fields
+        .map((field: any) => `${field.name}: ${field.value}`)
+        .join('; ')
     };
 
     setCartGlobal(prev => {
