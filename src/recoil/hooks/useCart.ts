@@ -26,10 +26,9 @@ const useCart = (browserId: string | null) => {
     }
   }, [browserId, setCart]);
 
-
   useEffect(() => {
     if (browserId) {
-      loadCart(); 
+      loadCart();
     }
   }, [browserId, loadCart]);
 

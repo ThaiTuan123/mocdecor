@@ -291,10 +291,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       productName: product.product.name,
       sellerSku: 'TTT-19x24-Xanh Dương',
       image: skuSelected.images[0],
-      skuName:
-        skuSelected?.fields
+      skuName: skuSelected?.fields
         .map((field: any) => `${field.name}: ${field.value}`)
-        .join('; ')
+        .join('; '),
     };
 
     setCartGlobal(prev => {
@@ -425,7 +424,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         {renderAccordionSection(
           languages.get('popup.text.productInfo'),
           product?.product?.note_product ? (
-            <div dangerouslySetInnerHTML={{ __html: product.product.note_product }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: product.product.note_product }}
+            />
           ) : (
             languages.get('popup.description.noProductInfo')
           )
