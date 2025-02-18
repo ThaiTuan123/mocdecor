@@ -9,6 +9,7 @@ interface TextInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Add onChange prop
   onBlur?: FocusEventHandler<HTMLInputElement>;
   required?: boolean; // Add optional required prop
+  error?: string;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -20,6 +21,7 @@ const TextInput: React.FC<TextInputProps> = ({
   onChange,
   required = false,
   onBlur,
+  error,
 }) => (
   <div className="w-full">
     <label className="block text-smLh font-medium text-doveGray">{label}</label>
@@ -33,6 +35,7 @@ const TextInput: React.FC<TextInputProps> = ({
       required={required} // Bind required prop
       onBlur={onBlur}
     />
+    {error && <span className="mt-2 block text-red-400">{error}</span>}
   </div>
 );
 

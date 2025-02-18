@@ -10,6 +10,7 @@ interface SelectCustomProps {
   disable: boolean;
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  error?: string;
 }
 
 const SelectCustom: React.FC<SelectCustomProps> = ({
@@ -21,6 +22,7 @@ const SelectCustom: React.FC<SelectCustomProps> = ({
   disable,
   visible,
   setVisible,
+  error,
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -75,6 +77,7 @@ const SelectCustom: React.FC<SelectCustomProps> = ({
           </div>
         )}
       </div>
+      {error && <span className="mt-2 block text-red-400">{error}</span>}
     </div>
   );
 };
