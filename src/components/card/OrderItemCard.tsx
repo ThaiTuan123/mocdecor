@@ -58,8 +58,10 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
         className="size-24 rounded object-cover"
       />
       <div className="ml-3 flex h-24 w-full flex-col justify-between">
-        <p className="font-raleway text-sm font-semibold">{title}</p>
-        <p className="font-raleway text-sm">{detail}</p>
+        <div className="flex flex-col gap-2">
+          <p className="font-raleway text-sm font-semibold">{title}</p>
+          <p className="font-raleway text-sm">{detail}</p>
+        </div>
         <div className="flex items-center">
           <p className="text-xs text-gray-600">
             Ảnh đã chọn:{' '}
