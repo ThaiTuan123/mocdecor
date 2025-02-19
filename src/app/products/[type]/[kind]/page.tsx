@@ -43,9 +43,11 @@ export default function Products() {
   const [openFilter, setOpenFilter] = useState(false);
   const [collapseActive, setCollapseActive] = useState<string | string[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const slugId = cateDetail.subCategories?.find(
-    it => it.slug == pathname.split('/')[3]
-  )?.id;
+  const slugId =
+    pathname.split('/')[3] == 'all'
+      ? ''
+      : cateDetail.subCategories?.find(it => it.slug == pathname.split('/')[3])
+          ?.id;
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -56,7 +58,12 @@ export default function Products() {
           setProducts(data.products);
         }
       );
+    } else if (pathname.split('/')[3] == 'all') {
+      fetchListProducts({ categorySlug: categorySlug }).then(data => {
+        setProducts(data.products);
+      });
     }
+    console.log(123);
   }, [slugId]);
 
   useEffect(() => {
@@ -406,28 +413,30 @@ export default function Products() {
 
   const renderProduct = () => {
     return (
-      <div className="mt-8 grid min-h-52 grid-cols-2 gap-2 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+      <div className="mt-8 grid min-h-52 grid-cols-2 gap-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
         {products?.length > 0 &&
           products.map((item: any, index: number) => (
             <div
-              className="flex cursor-pointer flex-col rounded border ring-1 ring-stroke hover:ring-caption md:rounded-lg"
+              className="flex cursor-pointer flex-col rounded border p-1 ring-1 ring-stroke hover:ring-caption md:rounded-lg md:p-4"
               key={index}
               onClick={() => setSelectedProduct(item)}
             >
               <Image
-                className="h-28 w-full object-contain md:h-64"
+                className="h-full w-full rounded-t object-fill transition-all duration-300"
                 src={item.images[0]}
-                alt=""
-                width={300}
-                height={300}
+                alt={item.product.name}
+                width={238}
+                height={238}
               />
-              <div className="flex flex-col gap-2 p-4">
+              <div className="flex flex-col gap-2 p-2 md:p-4">
                 <p className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold text-karaka md:text-2lg">
                   {item.product.name}
                 </p>
-                <div className="flex items-center gap-2">
-                  {renderStar(4)}
-                  <span className="text-sm text-doveGray">(699)</span>
+                <div className="flex items-center justify-between gap-2 md:justify-normal">
+                  {renderStar(item.rating.rating)}
+                  <span className="text-sm text-doveGray">
+                    ({item.rating.count})
+                  </span>
                 </div>
                 <span className="text-2lg text-caption">
                   {formatVietnameseCurrency(item.retail_price)}
@@ -441,7 +450,7 @@ export default function Products() {
 
   const renderStar = (rate = 4) => {
     return (
-      <div className="flex gap-1">
+      <div className="flex gap-[1px] md:gap-1">
         {starArray.slice(0, rate).map((_, index) => (
           <Image
             width={16}

@@ -37,11 +37,9 @@ const Header = () => {
 
   useEffect(() => {
     if (cartGlobal && cartGlobal.length > 0) {
-      const count = cartGlobal.reduce(
-        (result: number, item: any) => result + item.quantity,
-        0
-      );
-      setTotalCart(count);
+      setTotalCart(cartGlobal.length);
+    } else {
+      setTotalCart(0);
     }
   }, [cartGlobal]);
 
@@ -98,7 +96,7 @@ const Header = () => {
                     className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
                     onClick={() => {
                       setHoveredLabelKey('');
-                      router.push('/products/anh-in/anh-bo-goc');
+                      router.push('/products/anh-in/all');
                     }}
                   >
                     <span className="text-lg text-karaka">
@@ -154,7 +152,7 @@ const Header = () => {
                     className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
                     onClick={() => {
                       setHoveredLabelKey('');
-                      router.push('/products/khac/den-dom-dom');
+                      router.push('/products/khac/all');
                     }}
                   >
                     <span className="text-lg text-karaka">
@@ -175,7 +173,7 @@ const Header = () => {
           className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
           onClick={() => {
             setHoveredLabelKey('');
-            router.push('/products/album-anh/album-photobooth');
+            router.push('/products/album-anh/all');
           }}
         >
           <span className="text-lg text-karaka">
@@ -291,24 +289,23 @@ const Header = () => {
   return (
     <>
       <header className="font-raleway fixed left-0 right-0 top-0 z-40 bg-white py-3 shadow-md">
-        <div className="relative flex h-12 items-center justify-between px-6 lg:container lg:mx-auto 2xl:px-16">
-          <Link href="/" legacyBehavior>
-            <a
-              className="flex items-center text-2xl font-bold md:order-2 md:mx-0"
-              onClick={() => {
-                setMenuOpen(false);
-                setSubNavMobile(false);
-              }}
-            >
-              <Image
-                src={images.logo}
-                width={80}
-                height={48}
-                alt="MOC DECOR LOGO"
-                className="h-12 w-auto object-contain md:hover:scale-110"
-                priority={true}
-              />
-            </a>
+        <div className="relative flex h-12 items-center justify-between px-6 lg:container md:px-12 lg:mx-auto xl:px-16 2xl:px-16">
+          <Link
+            href="/"
+            className="flex items-center text-2xl font-bold md:order-2 md:mx-0"
+            onClick={() => {
+              setMenuOpen(false);
+              setSubNavMobile(false);
+            }}
+          >
+            <Image
+              src={images.logo}
+              width={80}
+              height={48}
+              alt="MOC DECOR LOGO"
+              className="h-12 w-auto object-contain md:hover:scale-110"
+              priority={true}
+            />
           </Link>
           <div className="ml-auto flex items-center gap-3 md:hidden">
             <button
@@ -333,6 +330,7 @@ const Header = () => {
               />
             </button>
           </div>
+          {/*Menu left*/}
           <div className="hidden items-center space-x-0 md:order-1 md:flex md:space-x-6 lg:space-x-20">
             {menuLinks.slice(0, 3).map(({ href, labelKey }) => (
               <div
@@ -354,6 +352,7 @@ const Header = () => {
               </div>
             ))}
           </div>
+          {/*Menu right*/}
           <div className="hidden items-center space-x-0 md:order-3 md:flex md:space-x-6 lg:space-x-20">
             {menuLinks.slice(3).map(({ href, labelKey }) => (
               <MenuLink
@@ -363,7 +362,8 @@ const Header = () => {
               />
             ))}
           </div>
-          <div className="hidden space-x-4 md:order-4 md:flex">
+          {/*Giỏ hàng*/}
+          <div className="absolute right-0 top-2.5 hidden space-x-4 md:right-3 md:order-4 md:flex">
             {icons.map(({ src, alt, value }) => (
               <div className="relative">
                 <Icon
@@ -372,6 +372,7 @@ const Header = () => {
                   alt={alt}
                   onClick={() => handleClickIcon(value)}
                 />
+                {/*TODO animation*/}
                 <div className="absolute right-[-2px] top-[-2px] flex h-[14px] w-[14px] items-center justify-center rounded-2xl bg-primary">
                   <span className="translate-y-[1px] text-center text-0.8x text-white">
                     {totalCart}

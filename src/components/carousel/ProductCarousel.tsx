@@ -44,7 +44,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
       {/* Hiển thị nút scroll chỉ khi có hơn 4 ảnh */}
       {displayImages.length > 4 && (
         <button
-          className="absolute left-0 top-1/2 -translate-y-1/2 transform bg-alto bg-opacity-40 px-0.5 py-2"
+          className="absolute left-0 top-1/2 -translate-y-1/2 transform bg-alto bg-opacity-40 px-0.5 py-2 hover:bg-opacity-100"
           onClick={scrollLeft}
         >
           <MdOutlineNavigateBefore size={24} color="#3A2A11" />
@@ -56,7 +56,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
         {displayImages.map((image, index) => (
           <div
             key={index}
-            className="w-1/4 flex-shrink-0 cursor-pointer p-1 md:w-1/5 lg:w-1/4"
+            className="mx-0.5 flex-shrink-0 cursor-pointer rounded-lg p-0.5 hover:bg-primary"
             onClick={() => onImageSelect(image)}
             onMouseEnter={() => onImageHover(image)}
           >
@@ -65,7 +65,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
               alt={`Product image ${index + 1}`}
               width={100}
               height={100}
-              className="h-24 w-24 object-cover"
+              className="h-24 w-24 rounded object-cover"
             />
           </div>
         ))}
@@ -73,7 +73,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
 
       {displayImages.length > 4 && (
         <button
-          className="absolute right-0 top-1/2 -translate-y-1/2 transform bg-alto bg-opacity-40 px-0.5 py-2"
+          className="absolute right-0 top-1/2 -translate-y-1/2 transform bg-alto bg-opacity-40 px-0.5 py-2 hover:bg-opacity-100"
           onClick={scrollRight}
         >
           <MdOutlineNavigateNext size={24} color="#3A2A11" />

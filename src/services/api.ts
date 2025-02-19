@@ -30,7 +30,7 @@ const apiRequest = async (url: string, options: RequestOptions = {}) => {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
-    cache: 'force-cache',
+    cache: 'no-cache',
   });
 
   return handleResponse(response);
@@ -103,13 +103,18 @@ export const fetchProductTypeByCategory = async (slug: string) => {
 export const fetchListProducts = async (param: any) => {
   const {
     categorySlug,
-    typeIds = [],
+    typeIds,
     limit = 20,
     page = 1,
     price = 0,
     sortBy = 'desc',
   } = param;
-  const url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=${limit}&page=${page}&orderBy=_id&sortBy=${sortBy}&typeIds=${typeIds}&price=${price}`;
+  let url = '';
+  if (typeIds && typeIds.length > 0) {
+    url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=${limit}&page=${page}&orderBy=_id&sortBy=${sortBy}&typeIds=${typeIds}&price=${price}`;
+  } else {
+    url = `${API.LIST_PRODUCT}/category/${categorySlug}?limit=${limit}&page=${page}&orderBy=_id&sortBy=${sortBy}&price=${price}`;
+  }
   return apiRequest(url);
 };
 
@@ -159,4 +164,35 @@ export const submitPayment = async (browserId: string, body: any) => {
 export const getOrder = async (orderId: string) => {
   const url = `${API.POS_ORDER}/${orderId}`;
   return apiRequest(url);
+};
+
+//get product detail
+export const getProduct = async (productId: string) => {
+  const url = `${API.POS_PRODUCT}/detail/${productId}`;
+  return apiRequest(url);
+};
+
+export const uploadSingle = async (body: any) => {
+  const url = API.UPLOAD_IMAGE;
+  return apiRequest(url, {
+    method: 'POST',
+    body: body,
+  });
+};
+
+export const fetchBlogs = async () => {
+  const apiKey = process.env.NEXT_PUBLIC_MICROCMS_API_KEY;
+  if (!apiKey) {
+    throw new Error('API Key is not defined');
+  }
+
+  const response = await fetch('https://mocdecor.microcms.io/api/v1/blogs', {
+    headers: { 'X-MICROCMS-API-KEY': apiKey },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch blogs');
+  }
+
+  return response.json();
 };

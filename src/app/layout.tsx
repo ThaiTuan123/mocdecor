@@ -1,7 +1,7 @@
 // src/app/layout.tsx or src/app/RootLayout.tsx
 'use client';
 import './app.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { Footer, Header } from '@/components';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -9,6 +9,10 @@ import DisableAnimations from '@/components/disableAnimationMobile/DisableAnimat
 import FloatingButtons from '@/components/floating/FloatingButton';
 import { RecoilRoot } from 'recoil'; // Import RecoilRoot
 import { Playfair_Display, Raleway } from 'next/font/google';
+import Hotjar from '@hotjar/browser';
+
+const siteId = 5253633;
+const hotjarVersion = 6;
 
 const raleway = Raleway({
   subsets: ['latin'],
@@ -27,6 +31,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  useEffect(() => {
+    Hotjar.init(siteId, hotjarVersion);
+  }, []);
   return (
     <html
       lang="vi"

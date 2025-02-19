@@ -12,6 +12,11 @@ interface TextInputProps {
   error?: string;
 }
 
+const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  e.target.setAttribute('readonly', 'true'); // Hack để kích hoạt bàn phím
+  e.target.removeAttribute('readonly');
+};
+
 const TextInput: React.FC<TextInputProps> = ({
   label,
   placeholder,
@@ -30,10 +35,11 @@ const TextInput: React.FC<TextInputProps> = ({
       name={name} // Bind name prop
       value={value} // Bind value prop
       onChange={onChange} // Bind onChange handler
-      className="mt-1 block w-full rounded-md border border-stroke p-3 placeholder-gray-400"
+      className="mt-1 block w-full rounded-md border border-stroke p-3 placeholder-gray-400 focus:outline-none focus:ring"
       placeholder={placeholder}
       required={required} // Bind required prop
       onBlur={onBlur}
+      onFocus={handleFocus}
     />
     {error && <span className="mt-2 block text-red-400">{error}</span>}
   </div>

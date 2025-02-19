@@ -11,26 +11,26 @@ const config: Config = {
     theme: {
         extend: {
             backgroundImage: {
-                'image-footer-policy': "url('/assets/imgs/backgrounds/footer-policy.webp')",
-                'image-hero-policy': "url('/assets/imgs/backgrounds/hero-policy.webp')",
-                'image-hero-contact': "url('/assets/imgs/backgrounds/hero-contact.webp')",
-                'image-left-error': "url('/assets/imgs/backgrounds/left-404.webp')",
-                'image-hero-gallery': "url('/assets/imgs/backgrounds/hero-gallery-bg.webp')",
+                'image-footer-policy': 'url(\'/assets/imgs/backgrounds/footer-policy.webp\')',
+                'image-hero-policy': 'url(\'/assets/imgs/backgrounds/hero-policy.webp\')',
+                'image-hero-contact': 'url(\'/assets/imgs/backgrounds/hero-contact.webp\')',
+                'image-left-error': 'url(\'/assets/imgs/backgrounds/left-404.webp\')',
+                'image-hero-gallery': 'url(\'/assets/imgs/backgrounds/hero-gallery-bg.webp\')',
 
                 // Home Page
-                'image-bracelet-home': "url('/assets/imgs/backgrounds/bracelet-home.webp')",
-                'image-calendar-home': "url('/assets/imgs/backgrounds/calendar-home.webp')",
-                'image-notebook-home': "url('/assets/imgs/backgrounds/notebook-home.webp')",
-                'image-wooden-pen-home': "url('/assets/imgs/backgrounds/wooden-pen-home.webp')",
+                'image-bracelet-home': 'url(\'/assets/imgs/backgrounds/bracelet-home.webp\')',
+                'image-calendar-home': 'url(\'/assets/imgs/backgrounds/calendar-home.webp\')',
+                'image-notebook-home': 'url(\'/assets/imgs/backgrounds/notebook-home.webp\')',
+                'image-wooden-pen-home': 'url(\'/assets/imgs/backgrounds/wooden-pen-home.webp\')',
 
-                'image-vong-tay-home-mobile': "url('/assets/imgs/backgrounds/bg-vong-tay-mobile-1.webp')",
-                'image-lich-go-mobile': "url('/assets/imgs/backgrounds/bg-lich-go-mobile-1.webp')",
+                'image-vong-tay-home-mobile': 'url(\'/assets/imgs/backgrounds/bg-vong-tay-mobile-1.webp\')',
+                'image-lich-go-mobile': 'url(\'/assets/imgs/backgrounds/bg-lich-go-mobile-1.webp\')',
 
                 //// frame
-                'image-gradient-frame': "url('/assets/imgs/backgrounds/bg-gradient-frame.webp')",
+                'image-gradient-frame': 'url(\'/assets/imgs/backgrounds/bg-gradient-frame.webp\')',
 
                 // payment
-                'hero-payment': "url('/assets/imgs/backgrounds/hero-payment.webp')",
+                'hero-payment': 'url(\'/assets/imgs/backgrounds/hero-payment.webp\')',
 
             },
             colors: {
@@ -62,6 +62,8 @@ const config: Config = {
                 'done-background': '#F0F6FF',
                 'loading-text': '#FF7F37',
                 'loading-background': '#FFF3E5',
+                'facebook': '#3B5998',
+                'zalo': '#0068ff',
                 'brown': {
                     50: '#EEEBE8',
                     100: '#C9C2B7',
@@ -151,6 +153,10 @@ const config: Config = {
                 '218': '13.625rem',
                 '379': '23.6875rem',
                 '540': '33.75rem',
+                '238': '14.875rem',
+                '256': '16rem',
+                '268': '16.75rem',
+                '172.5': '10.8125rem',
             },
             maxHeight: {
                 '430': '26.875rem',
@@ -200,6 +206,8 @@ const config: Config = {
         },
     },
     plugins: [
+        require('@tailwindcss/aspect-ratio'),
+
         function({ addUtilities }: { addUtilities: PluginAPI['addUtilities'] }) {
             addUtilities({
                 '.no-scrollbar': {

@@ -49,6 +49,8 @@ const FloatingButtons: React.FC = () => {
           altText={buttonConfig.altText}
         />
       ))}
+      {/*TODO using the same LanguageSwitcher component*/}
+      {/*<LanguageSwitcher />*/}
     </div>
   );
 };
@@ -66,10 +68,16 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
 }) => (
   <button
     onClick={onClick}
-    className="rounded-full bg-caption p-3 text-white shadow-lg hover:bg-captionHover focus:outline-none"
+    className="rounded-full bg-caption p-2 text-white shadow-lg hover:bg-captionHover focus:outline-none md:p-3"
     aria-label={altText}
   >
-    <Image src={imageSrc} alt={altText} width={30} height={30} />
+    <Image
+      className="h-6 w-6 md:h-8 md:w-8"
+      src={imageSrc}
+      alt={altText}
+      width={30}
+      height={30}
+    />
   </button>
 );
 

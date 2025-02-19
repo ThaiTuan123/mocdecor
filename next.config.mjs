@@ -24,6 +24,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'cdn.mocdecor.org',
+      },
+      {
+        protocol: 'https',
         hostname: 'picsum.photos',
       },
       {
@@ -37,6 +41,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'content.pancake.vn',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.microcms-assets.io',
       },
     ],
   },

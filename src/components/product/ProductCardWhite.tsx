@@ -16,11 +16,10 @@ const ProductCardWhite: React.FC<ProductCardProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { images, product_id, reviewCount, rating, retail_price } = product;
-  const { rate = 5, count = 100 } = rating || {};
   // Helper function to render star icons
   const renderStars = () =>
     [...Array(5)].map((_, i) =>
-      i < rate ? (
+      i < rating.rating ? (
         <FaStar key={i} className="text-rating" size={16} />
       ) : (
         <FaRegStar key={i} className="text-gray-300" size={16} />

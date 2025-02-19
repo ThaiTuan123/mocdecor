@@ -1,109 +1,361 @@
-'use client';
-
-import React, { useRef } from 'react';
-import LabelValueProductDetail from '@/components/texts/LabelValueProductDetail';
-import languages from '@/configs/languages';
-import useImageManager from '@/recoil/hooks/useImageManager';
-import RemoveImageButton from '@/components/button/RemoveImageButton';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import AddImageButton from '@/components/button/AddImageButton';
-import { initialImages } from '@/app/gallery/initialImages';
+import RemoveImageButton from '@/components/button/RemoveImageButton';
 import Image from 'next/image';
+import languages from '@/configs/languages';
 
-export default function GalleryItem() {
-  const { images, removeImage, handleAddImage } =
-    useImageManager(initialImages);
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
+import { BASE_URL } from '@/utils/constants';
+
+interface PreviewImage {
+  id: string;
+  file: File | null;
+  url: string;
+  status: string;
+  remoteUrl: string | null;
+}
+
+interface SelectedItem {
+  id?: string;
+  input: PreviewImage[];
+  countSelected: number;
+}
+
+interface GalleryItemProps {
+  uploadState: any;
+  setUploadState: React.Dispatch<any>;
+  selectedUpload: any;
+  setSelectedUpload: Dispatch<SetStateAction<any>>;
+  orderData: any;
+  orderId: string;
+}
+
+export default function GalleryItem({
+  uploadState,
+  setUploadState,
+  selectedUpload,
+  setSelectedUpload,
+  orderData,
+  orderId,
+}: GalleryItemProps) {
+  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedItem, setSelectedItem] = useState<SelectedItem>({
+    input: [],
+    countSelected: 0,
+  });
+  const [previewImages, setPreviewImages] = useState<
+    { id: string; file: File | null; url: string; status: string }[]
+  >([]);
+  const [uploadQueue, setUploadQueue] = useState<
+    { id: string; file: File; tabId: string }[]
+  >([]);
+  const [totalUploadedImages, setTotalUploadedImages] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isAllowSubmit, setIsAllowSubmit] = useState(false);
 
-  const handleAddImageClick = () => {
-    // Trigger the file input click event
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+  const MAX_BATCH_SIZE = 5;
+  const MAX_UPLOAD_LIMIT = 40;
+  const MAX_FILE_SIZE_MB = 60;
+
+  useEffect(() => {
+    console.log('orderData');
+    console.log(orderData);
+    if (
+      (orderData?.statusClient === 1 && orderData?.allowResendImage === true) ||
+      orderData?.statusClient === 0
+    ) {
+      setIsAllowSubmit(true);
+    } else {
+      setIsAllowSubmit(false);
     }
-  };
+  }, []);
 
-  /*TODO check handle File >5*/
+  useEffect(() => {
+    if (selectedUpload) {
+      const item = uploadState.find((it: any) => it.id === selectedUpload);
+      setSelectedItem(item || { input: [], countSelected: 0 });
+      setPreviewImages(item?.input || []);
+    }
+  }, [selectedUpload, uploadState]);
+
+  useEffect(() => {
+    if (uploadQueue.length > 0 && !isUploading) {
+      const batch = uploadQueue.slice(0, MAX_BATCH_SIZE);
+      uploadBatch(batch);
+    }
+  }, [uploadQueue, isUploading]);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-
-    // Kiểm tra nếu không có file nào được chọn
     if (!files || files.length === 0) return;
 
-    // Kiểm tra nếu số lượng file vượt quá giới hạn
-    if (files.length > 5) {
-      alert('Bạn chỉ được tải lên tối đa 5 hình cùng một lúc.');
+    const validFiles = Array.from(files).filter(file => {
+      const fileType = file.type.toLowerCase();
+      if (!['image/jpeg', 'image/jpg', 'image/png'].includes(fileType)) {
+        toast.error(
+          `File ${file.name} không phải là ảnh hợp lệ. Chỉ chấp nhận các định dạng jpg, jpeg, png.`
+        );
+        return false;
+      }
+      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        toast.error(`File ${file.name} vượt quá giới hạn 60MB.`);
+        return false;
+      }
+      return true;
+    });
+
+    const totalSelectedImages = previewImages.length + validFiles.length;
+    if (totalSelectedImages > MAX_UPLOAD_LIMIT) {
+      toast.error(`Bạn chỉ được chọn tối đa ${MAX_UPLOAD_LIMIT} ảnh.`);
       return;
     }
 
-    // Xử lý file nếu số lượng hợp lệ
-    Array.from(files).forEach(file => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.result) {
-          handleAddImage(reader.result as string);
+    const newPreviews = Array.from(files).map(file => ({
+      id: `${file.name}-${Date.now()}`,
+      file: file,
+      url: URL.createObjectURL(file),
+      remoteUrl: null,
+      status: 'loading',
+    }));
+
+    setPreviewImages(prev => [...prev, ...newPreviews]);
+    const totalImages = previewImages.length + files.length;
+    setTotalUploadedImages(totalImages);
+
+    setSelectedItem((prev: any) => ({
+      ...prev,
+      input: [...prev.input, ...newPreviews],
+      countSelected: prev.countSelected + newPreviews.length,
+    }));
+    setUploadState((prev: any[]) =>
+      prev.map(item =>
+        item.id === selectedItem.id
+          ? {
+              ...item,
+              input: [...item.input, ...newPreviews],
+              countSelected: item.countSelected + newPreviews.length,
+            }
+          : item
+      )
+    );
+
+    setUploadQueue(prev => [
+      ...prev,
+      ...newPreviews.map(({ id, file }) => ({
+        id,
+        file,
+        tabId: selectedUpload,
+      })),
+    ]);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const uploadBatch = async (
+    batch: { id: string; file: File; tabId: string }[]
+  ) => {
+    setIsUploading(true);
+    for (const { id, file, tabId } of batch) {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('https://cdn.mocdecor.org/single', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          updateImageStatus(id, 'done', result.paths, tabId);
+        } else {
+          // console.error('Upload failed', response.statusText);
+          updateImageStatus(id, 'error', null, tabId);
         }
-      };
-      reader.readAsDataURL(file);
-    });
+      } catch (error) {
+        console.error('Error uploading file', error);
+        updateImageStatus(id, 'error', null, tabId);
+      } finally {
+        setUploadQueue(prev => prev.filter(item => item.id !== id));
+      }
+    }
+    setIsUploading(false);
+  };
+
+  const updateImageStatus = (
+    id: string,
+    status: string,
+    remoteUrl: string | null = null,
+    tabId: string
+  ) => {
+    setPreviewImages(prev =>
+      prev.map(image =>
+        image.id === id ? { ...image, status, remoteUrl } : image
+      )
+    );
+    setSelectedItem(prev => ({
+      ...prev,
+      input: prev.input.map(image =>
+        image.id === id ? { ...image, status, remoteUrl } : image
+      ),
+    }));
+
+    setUploadState((prev: any[]) =>
+      prev.map(item =>
+        item.id === tabId
+          ? {
+              ...item,
+              input: item.input.map(
+                (image: {
+                  id: string;
+                  file: File | null;
+                  url: string;
+                  status: string;
+                }) =>
+                  image.id === id ? { ...image, status, remoteUrl } : image
+              ),
+            }
+          : item
+      )
+    );
+  };
+
+  const removeImage = (id: string) => {
+    setPreviewImages(prev => prev.filter(image => image.id !== id));
+    setSelectedItem((prev: SelectedItem) => ({
+      ...prev,
+      input: prev.input.filter((image: any) => image.id !== id),
+      countSelected: prev.countSelected - 1,
+    }));
+    setUploadState((prev: any[]) =>
+      prev.map(item =>
+        item.id === selectedItem.id
+          ? {
+              ...item,
+              input: item.input.filter((image: any) => image.id !== id),
+              countSelected: item.countSelected - 1,
+            }
+          : item
+      )
+    );
+  };
+
+  const handleProductClick = (productId: string) => {
+    setSelectedUpload(productId);
+  };
+
+  const submitOrder = async () => {
+    const allItemsComplete = uploadState.every(
+      (item: any) => item.countSelected === MAX_UPLOAD_LIMIT
+    );
+
+    if (!allItemsComplete) {
+      toast.error(
+        'Bạn cần upload đầy đủ ảnh cho tất cả các sản phẩm trước khi xác nhận.'
+      );
+      return;
+    }
+
+    const anyImageUploading = uploadState.some((item: any) =>
+      item.input.some((image: any) => image.status === 'loading')
+    );
+
+    if (anyImageUploading) {
+      toast.info('Chúng tôi đang xử lý ảnh của bạn. Vui lòng chờ...');
+      return;
+    }
+
+    const items = uploadState.map((item: any) => ({
+      variation_id: item.variationId,
+      images: item.input
+        .filter((image: any) => image.status === 'done')
+        .map((image: any) => image.remoteUrl),
+    }));
+    const payload = { items };
+    try {
+      const response = await fetch(
+        `${BASE_URL}/pos-orders/${orderId}/upload-images`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            accept: '*/*',
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (response.ok) {
+        console.log('Order submitted successfully');
+        router.push(`/success?orderId=${orderId}`);
+      } else {
+        console.error('Failed to submit order', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting order', error);
+    }
   };
 
   return (
     <div className="ml-0 w-full rounded border border-stroke bg-white lg:ml-4 lg:w-2/3">
-      {/* Header */}
       <div className="border-b border-stroke px-6 py-5 lg:px-7">
-        <p className="mb-4 text-xl font-semibold text-primary">
-          {languages.get('product.detail.title')}
-        </p>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="flex flex-col justify-between lg:gap-4">
-            <LabelValueProductDetail
-              label={languages.get('product.detail.status.classify')}
-              value="Set nguyên liệu tự trang trí"
-            />
-            <LabelValueProductDetail
-              label={languages.get('product.detail.status.color')}
-              value="Xanh dương"
-            />
-            <LabelValueProductDetail
-              label={languages.get('product.detail.status.size')}
-              value="22x22cm (15x15cm khung)"
-            />
-          </div>
-          <div className="ml-0 lg:ml-16">
-            <LabelValueProductDetail
-              label={languages.get('product.detail.status.quantity')}
-              value="10"
-            />
-          </div>
-        </div>
+        <h2 className="mb-4 text-xl font-semibold text-primary">
+          Chi tiết sản phẩm
+        </h2>
       </div>
 
-      {/* Image Upload Section */}
       <div className="overflow-y-auto px-6 py-8 lg:max-h-540 lg:px-8">
-        <h3 className="mb-4 text-sm font-medium">
-          {languages.get('product.detail.status.upload')}
-        </h3>
         <div className="grid grid-cols-3 gap-4 bg-gray-200 px-3 py-4 lg:p-5">
-          {images.map((image, index) => (
-            <div key={index} className="relative">
+          {previewImages.map(image => (
+            <div key={image.id} className="relative">
               <Image
                 width={200}
                 height={150}
-                src={image}
-                alt={`Uploaded image ${index}`}
+                src={image.url}
+                alt={`Preview ${image.id}`}
                 className="h-100 w-full rounded object-cover lg:h-150"
               />
-              <RemoveImageButton onClick={() => removeImage(index)} />
+              {image.status === 'loading' && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
+                  <span
+                    className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-gray-300 border-t-primary"
+                    aria-label="Loading"
+                  ></span>
+                </div>
+              )}
+              {image.status === 'error' && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-90">
+                  <span
+                    className="inline-block text-2xl text-red-900"
+                    aria-label="Error"
+                  >
+                    !
+                  </span>
+                </div>
+              )}
+              <RemoveImageButton onClick={() => removeImage(image.id)} />
             </div>
           ))}
-          <div className="relative flex h-100 w-full items-center justify-center rounded border-2 border-dashed border-gray-400 lg:h-150">
-            <AddImageButton onClick={handleAddImageClick} />
-          </div>
+          {selectedItem.countSelected < MAX_UPLOAD_LIMIT && (
+            <div className="relative flex h-100 w-full items-center justify-center rounded border-2 border-dashed border-gray-400 lg:h-150">
+              <AddImageButton onClick={() => fileInputRef.current?.click()} />
+            </div>
+          )}
         </div>
-
-        {/*TODO Hidden File Input */}
         <input
           type="file"
-          accept="image/*"
+          accept=".jpg,.jpeg,.png"
           ref={fileInputRef}
           className="hidden"
           multiple
@@ -130,11 +382,18 @@ export default function GalleryItem() {
         </div>
       </div>
 
-      <div className="border-t border-stroke px-8 py-8">
-        <button className="w-full rounded bg-black-50 px-6 py-2 uppercase text-black-300 hover:bg-gray-400">
-          {languages.get('product.detail.status.buttonDone')}
-        </button>
-      </div>
+      {isAllowSubmit && (
+        <div className="border-t border-stroke px-8 py-8">
+          <button
+            className="w-full rounded bg-black-50 px-6 py-2 uppercase text-black-300 hover:bg-gray-400 disabled:bg-gray-300 disabled:text-gray-500"
+            onClick={submitOrder}
+          >
+            {languages.get('product.detail.status.buttonDone')}
+          </button>
+        </div>
+      )}
+
+      <ToastContainer />
     </div>
   );
 }

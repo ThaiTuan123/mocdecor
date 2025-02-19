@@ -34,7 +34,7 @@ const PaymentSuccessPopup: React.FC<PaymentSuccessPopupProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-1/3 rounded-lg bg-white p-6 shadow-lg">
+      <div className="w-4/5 rounded-lg bg-white p-4 shadow-lg md:w-1/3 md:p-6">
         <Image
           src={imageSrc}
           width={184}

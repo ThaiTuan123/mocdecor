@@ -37,8 +37,8 @@ const Cart = ({
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   useEffect(() => {
-    if (cart.products && cart.products.length > 0) setCartGlobal(cart.products);
-  }, [cart]);
+    if (cart && cart.length > 0) setCartGlobal(cart);
+  }, [browserId, cart]);
 
   const getTotalPrice = () => {
     if (cartGlobal && cartGlobal.length > 0) {
@@ -109,6 +109,11 @@ const Cart = ({
   };
 
   const renderCartEmpty = () => {
+    const onClickButton = () => {
+      setIsShowCart(false);
+      setCartOpen(false);
+    };
+
     return (
       <div className="flex w-full flex-col items-center px-6 pt-44 md:px-8">
         <p className="text-center text-lg font-bold text-primary md:text-2lg">
@@ -119,20 +124,20 @@ const Cart = ({
         </span>
         <div className="flex w-full flex-col gap-6">
           <CustomButton
-            href={'/products/khung-anh/khung-dep'}
-            onClick={() => setIsShowCart(false)}
+            href={'/products/khung-anh/all'}
+            onClick={() => onClickButton()}
             text={languages.get('cart.empty.button.frame')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
-            href={'/products/anh-in/anh-in-6-9'}
-            onClick={() => setIsShowCart(false)}
+            href={'/products/anh-in/all'}
+            onClick={() => onClickButton()}
             text={languages.get('cart.empty.button.print')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
           <CustomButton
-            href={'/products/album-anh/anh-in-6x9'}
-            onClick={() => setIsShowCart(false)}
+            href={'/products/album-anh/all'}
+            onClick={() => onClickButton()}
             text={languages.get('cart.empty.button.album')}
             className="w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary"
           />
@@ -160,7 +165,7 @@ const Cart = ({
                 <div className="p-3">
                   <Image src={item.image} alt="" width={70} height={70} />
                 </div>
-                <div className="flex flex-1 flex-col gap-3">
+                <div className="flex flex-1 flex-col">
                   <div className="flex justify-between">
                     <p className="inline-block w-1 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
                       {item.productName}
@@ -174,8 +179,12 @@ const Cart = ({
                       onClick={() => handleDeleteCart(item)}
                     />
                   </div>
-                  <span className="text-sm text-doveGray">description</span>
-                  <div className="flex items-end justify-between">
+                  {/*TODO get value from ProductPopup */}
+                  <span className="text-sm text-doveGray">
+                    {' '}
+                    {item.skuName}{' '}
+                  </span>
+                  <div className="flex items-end justify-between pt-1">
                     <div className="flex items-center">
                       <button
                         onClick={() =>

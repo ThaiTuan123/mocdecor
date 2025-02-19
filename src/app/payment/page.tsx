@@ -13,13 +13,11 @@ import {
 import Image from 'next/image';
 import images from '@/configs/images';
 import { formatVietnameseCurrency } from '@/utils';
-import { radioData } from './constants';
 import { LayoutOpacity } from '@/components';
 import { redirect } from 'next/navigation';
-import PaymentOption from '@/components/options/PaymentOption';
 
 // Import Recoil and cartState atom
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { cartState } from '@/recoil/atoms/cartAtom';
 import PaymentSuccessPopup from '@/components/popup/PaymentSuccessPopup';
 import usePopupSuccess from '@/recoil/hooks/usePopupSuccess';
@@ -67,6 +65,7 @@ export default function Payment() {
     name: '',
     phone: '',
   });
+  const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   const cart = useRecoilValue(cartState); // <--- Changed here
 
@@ -112,8 +111,8 @@ export default function Payment() {
 
   useEffect(() => {
     if (timeRemaining === 0 && !isShowModalSuccess) {
-      // Redirect to the desired page
-      redirect('/gallery');
+      setCartGlobal([]);
+      redirect(`/gallery/${orderId}`);
     }
   }, [timeRemaining, isShowModalSuccess]);
 
@@ -204,22 +203,22 @@ export default function Payment() {
     }));
   };
 
-  const renderInfoTypePayment = () => {
-    return (
-      <div className="flex flex-col gap-6 lg:flex-row">
-        {radioData.map((item, index) => (
-          <PaymentOption
-            key={index}
-            item={item}
-            isChecked={formValue.paymentType === item.value}
-            onChange={() =>
-              setFormValue(prev => ({ ...prev, paymentType: item.value }))
-            }
-          />
-        ))}
-      </div>
-    );
-  };
+  // const renderInfoTypePayment = () => {
+  //   return (
+  //     <div className="flex flex-col gap-6 lg:flex-row">
+  //       {radioData.map((item, index) => (
+  //         <PaymentOption
+  //           key={index}
+  //           item={item}
+  //           isChecked={formValue.paymentType === item.value}
+  //           onChange={() =>
+  //             setFormValue(prev => ({ ...prev, paymentType: item.value }))
+  //           }
+  //         />
+  //       ))}
+  //     </div>
+  //   );
+  // };
 
   const validateForm = () => {
     const errors = { ...formError };
@@ -307,20 +306,20 @@ export default function Payment() {
           ])}
 
           {renderInputRow([
-            <TextInput
-              key="email"
-              label={languages.get('payment.info.input.email.label')}
-              placeholder={languages.get(
-                'payment.info.input.email.placeholder'
-              )}
-              type="email"
-              onBlur={e => {
-                const value = e.target.value;
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                  alert('Vui lòng nhập địa chỉ email!!!');
-                }
-              }}
-            />,
+            // <TextInput
+            //   key="email"
+            //   label={languages.get('payment.info.input.email.label')}
+            //   placeholder={languages.get(
+            //     'payment.info.input.email.placeholder'
+            //   )}
+            //   type="email"
+            //   onBlur={e => {
+            //     const value = e.target.value;
+            //     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            //       alert('Vui lòng nhập địa chỉ email!!!');
+            //     }
+            //   }}
+            // />,
             <SelectCustom
               key="city"
               label={languages.get('payment.info.input.city.label')}
@@ -377,12 +376,13 @@ export default function Payment() {
             error={formError.address}
           />
 
-          <p className="text-2lg font-semibold text-primary">
-            {languages.get('payment.type.title')}
-          </p>
+          {/*<p className="text-2lg font-semibold text-primary">*/}
+          {/*  {languages.get('payment.type.title')}*/}
+          {/*</p>*/}
 
-          {renderInfoTypePayment()}
+          {/*{renderInfoTypePayment()}*/}
 
+          {/*TODO thanh toán chuyển qua màn hình update ảnh */}
           <CustomButton
             className="hidden w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary lg:block"
             text={languages.get('payment.info.form.button')}
@@ -413,7 +413,6 @@ export default function Payment() {
                     ? `${item.productName.slice(0, 45)}...`
                     : item.productName}
                 </p>
-                <span className="text-sm text-doveGray">{'description'}</span>
                 <div className="flex items-end gap-1">
                   <span className="text-2lg text-caption">
                     {formatVietnameseCurrency(
@@ -473,7 +472,7 @@ export default function Payment() {
         <CustomButton
           className="mt-6 block w-full bg-primary py-3 font-semibold text-white hover:bg-white hover:text-primary lg:hidden"
           text={languages.get('payment.info.form.button')}
-          // show PaymentSuccessPopup when onClick
+          onClick={handleSubmit}
         />
       </div>
     );

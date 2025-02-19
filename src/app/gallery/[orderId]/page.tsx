@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import images from '@/configs/images';
 import languages from '@/configs/languages';
 import Image from 'next/image';
@@ -8,6 +8,9 @@ import NotFoundGallery from '@/app/gallery/@Notfound/Pages';
 import FoundGallery from '@/app/gallery/@FoundGallery/pages';
 import { useGallery } from '@/recoil/hooks/useGallery';
 import Empty from '@/app/gallery/@Empty/Pages';
+import { getOrder, getProduct } from '@/services/api';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import FooterDiscover from '@/components/footer/FooterDiscover';
 
 // Reusable Hero Section Component
 const HeroSection: React.FC<{
@@ -99,11 +102,37 @@ const Page: React.FC = () => {
   const heroTitle = languages.get('galley.hero.title');
   const heroButtonText = languages.get('galley.hero.button.text');
   const heroDescText = languages.get('galley.hero.desc');
+  const path = usePathname();
+  const orderId = path.split('/')[2];
+  const [orderData, setOrderData] = useState<any>({});
+  const router = useRouter();
+
+  useEffect(() => {
+    if (orderId) {
+      getOrder(orderId).then(data => {
+        const items = data.items;
+        items.forEach((item: any) => {
+          const product = getProduct(item.variationId);
+          item.product = product;
+        });
+        data.items = items;
+        setOrderData(data);
+      });
+    }
+  }, [orderId]);
+
+  const onClickSearch = () => {
+    if (inputValue) {
+      router.push(`/gallery/${inputValue}`);
+    }
+  };
 
   const renderGallery = () => {
-    if (isFound === null) return <Empty />;
-    if (isFound) return <FoundGallery />;
-    return <NotFoundGallery />;
+    if (orderData && orderData?.items && orderData?.items.length > 0) {
+      return <FoundGallery orderData={orderData} setOrderData={setOrderData} />;
+    } else {
+      return <Empty />;
+    }
   };
 
   return (
@@ -118,9 +147,10 @@ const Page: React.FC = () => {
         inputValue={inputValue}
         onInputChange={handleInputChange}
         onKeyPress={handleKeyPress}
-        onButtonClick={handleButtonClick}
+        onButtonClick={onClickSearch}
       />
-      {renderGallery()}
+      <div className="found-gallery-container">{renderGallery()}</div>
+      <FooterDiscover />
     </div>
   );
 };

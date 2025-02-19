@@ -12,10 +12,9 @@ interface ProductCardProps extends Product {
 const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { images, product_id, reviewCount, rating, retail_price } = product;
-  const { rate = 4, count = 100 } = rating || {};
   const renderStars = () =>
     [...Array(5)].map((_, i) =>
-      i < rate ? (
+      i < rating.rating ? (
         <FaStar key={i} className="text-rating" size={16} />
       ) : (
         <FaRegStar key={i} className="text-gray-300" size={16} />
@@ -27,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
       className="transform cursor-pointer rounded bg-white p-1 ring-1 ring-stroke transition-transform duration-300 ease-in-out hover:outline-4 hover:ring-caption md:p-4"
       onClick={onClick}
     >
-      <div className="relative h-44 w-full md:h-52 lg:h-220 xl:h-269">
+      <div className="aspect-h-1 aspect-w-1 relative w-full">
         {isLoading ? (
           // Skeleton Loader for Image
           <div className="absolute inset-0 animate-pulse rounded bg-gray-200"></div>
@@ -35,8 +34,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
         <Image
           src={images?.[0]}
           alt={product.product.name}
-          width={212}
-          height={269}
+          width={238}
+          height={238}
           className={`h-full w-full rounded-t object-fill transition-all duration-300 ${
             isLoading ? 'blur-sm' : 'blur-0'
           }`}
@@ -62,7 +61,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
             <div className="mt-2 flex items-center justify-start">
               <div className="flex items-start">{renderStars()}</div>
               <span className="font-raleway ml-2 text-sm font-medium text-gray-100">
-                {count}
+                {rating.count}
               </span>
             </div>
             <p className="font-raleway mt-2 text-sm font-normal text-orange-600 md:text-xl">
