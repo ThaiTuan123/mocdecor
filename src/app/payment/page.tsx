@@ -57,6 +57,14 @@ export default function Payment() {
   const priceFee = 30000;
   const [browserId, setBrowserId] = useState<string | null>(null);
   const [orderId, setOrderId] = useState('');
+  const [formError, setFormError] = useState({
+    city: '',
+    district: '',
+    ward: '',
+    address: '',
+    name: '',
+    phone: '',
+  });
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
 
   const cart = useRecoilValue(cartState); // <--- Changed here
@@ -68,6 +76,9 @@ export default function Payment() {
   }, []);
 
   const handleSubmit = () => {
+    if (!validateForm()) {
+      return;
+    }
     const body = {
       paymentMethod: formValue.paymentType,
       recipientAddress: {
@@ -209,6 +220,49 @@ export default function Payment() {
   //   );
   // };
 
+  const validateForm = () => {
+    const errors = { ...formError };
+
+    if (!formValue.city) {
+      errors.city = 'Chọn thành phố là bắt buộc';
+    } else {
+      errors.city = '';
+    }
+
+    if (!formValue.district) {
+      errors.district = 'Chọn quận/huyện là bắt buộc';
+    } else {
+      errors.district = '';
+    }
+
+    if (!formValue.ward) {
+      errors.ward = 'Chọn phường/xã là bắt buộc';
+    } else {
+      errors.ward = '';
+    }
+
+    if (!formValue.address) {
+      errors.address = 'Địa chỉ là bắt buộc';
+    } else {
+      errors.address = '';
+    }
+
+    if (!formValue.name) {
+      errors.name = 'Tên là bắt buộc';
+    } else {
+      errors.name = '';
+    }
+
+    if (!formValue.phone) {
+      errors.phone = 'Số điện thoại là bắt buộc';
+    } else {
+      errors.phone = '';
+    }
+
+    setFormError(errors);
+    return !Object.values(errors).some(error => error);
+  };
+
   const renderInfoPayment = () => {
     const renderInputRow = (inputs: JSX.Element[]) => (
       <div className="flex flex-col gap-6 lg:flex-row">{inputs}</div>
@@ -230,6 +284,7 @@ export default function Payment() {
               onChange={e =>
                 setFormValue(prev => ({ ...prev, name: e.target.value }))
               }
+              error={formError.name}
             />,
             <TextInput
               key="phone"
@@ -246,6 +301,7 @@ export default function Payment() {
                   setFormValue(prev => ({ ...prev, phone: value }));
                 }
               }}
+              error={formError.phone}
             />,
           ])}
 
@@ -274,6 +330,7 @@ export default function Payment() {
               disable={false}
               visible={visibleCity}
               setVisible={setVisibleCity}
+              error={formError.city}
             />,
           ])}
 
@@ -290,6 +347,7 @@ export default function Payment() {
               disable={!formValue.city}
               visible={visibleDistrict}
               setVisible={setVisibleDistrict}
+              error={formError.district}
             />,
             <SelectCustom
               key="ward"
@@ -301,6 +359,7 @@ export default function Payment() {
               disable={!formValue.district}
               visible={visibleWard}
               setVisible={setVisibleWard}
+              error={formError.ward}
             />,
           ])}
 
@@ -314,6 +373,7 @@ export default function Payment() {
             onChange={e =>
               setFormValue(prev => ({ ...prev, address: e.target.value }))
             }
+            error={formError.address}
           />
 
           {/*<p className="text-2lg font-semibold text-primary">*/}
