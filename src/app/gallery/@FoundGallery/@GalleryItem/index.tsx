@@ -1,4 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import AddImageButton from '@/components/button/AddImageButton';
 import RemoveImageButton from '@/components/button/RemoveImageButton';
 import Image from 'next/image';
@@ -209,17 +215,17 @@ export default function GalleryItem({
       prev.map(item =>
         item.id === tabId
           ? {
-            ...item,
-            input: item.input.map(
-              (image: {
-                id: string;
-                file: File | null;
-                url: string;
-                status: string;
-              }) =>
-                image.id === id ? { ...image, status, remoteUrl }, : image
-            ),
-          }
+              ...item,
+              input: item.input.map(
+                (image: {
+                  id: string;
+                  file: File | null;
+                  url: string;
+                  status: string;
+                }) =>
+                  image.id === id ? { ...image, status, remoteUrl } : image
+              ),
+            }
           : item
       )
     );
@@ -236,10 +242,10 @@ export default function GalleryItem({
       prev.map(item =>
         item.id === selectedItem.id
           ? {
-            ...item,
-            input: item.input.filter((image: any) => image.id !== id),
-            countSelected: item.countSelected - 1,
-          }
+              ...item,
+              input: item.input.filter((image: any) => image.id !== id),
+              countSelected: item.countSelected - 1,
+            }
           : item
       )
     );
