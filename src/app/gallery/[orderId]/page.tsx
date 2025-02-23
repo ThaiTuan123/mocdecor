@@ -4,12 +4,11 @@ import React, { useEffect, useState } from 'react';
 import images from '@/configs/images';
 import languages from '@/configs/languages';
 import Image from 'next/image';
-import NotFoundGallery from '@/app/gallery/@Notfound/Pages';
 import FoundGallery from '@/app/gallery/@FoundGallery/pages';
 import { useGallery } from '@/recoil/hooks/useGallery';
 import Empty from '@/app/gallery/@Empty/Pages';
 import { getOrder, getProduct } from '@/services/api';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import FooterDiscover from '@/components/footer/FooterDiscover';
 
 // Reusable Hero Section Component
@@ -47,7 +46,7 @@ const HeroSection: React.FC<{
         <h1 className="text-center text-2xl font-bold uppercase md:text-6lg">
           {title}
         </h1>
-        <div className="order-2 my-4 flex h-16 w-full items-center rounded bg-white px-4 lg:order-1">
+        <div className="order-2 my-4 flex h-16 w-full items-center rounded bg-white px-4 2xl:container lg:order-1">
           <img
             src={images.icons.search}
             className="mr-2 size-5"
@@ -149,7 +148,7 @@ const Page: React.FC = () => {
         onKeyPress={handleKeyPress}
         onButtonClick={onClickSearch}
       />
-      <div className="found-gallery-container">{renderGallery()}</div>
+      {renderGallery()}
       <FooterDiscover />
     </div>
   );

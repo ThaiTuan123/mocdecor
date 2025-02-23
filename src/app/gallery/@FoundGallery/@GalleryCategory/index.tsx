@@ -4,11 +4,8 @@ import React from 'react';
 import languages from '@/configs/languages';
 import LabelValue from '@/components/texts/LabelValue';
 import OrderItemCard from '@/components/card/OrderItemCard';
-import { OrderList } from '@/types/order';
-import orderListData from '@/app/data/orderListData.json';
 import { FiCopy } from 'react-icons/fi';
 import { BsCashCoin } from 'react-icons/bs';
-import { PAYMENT_LINK } from '@/utils/constants';
 import { formatDate } from '@/utils/dateTimeFormat';
 
 interface GalleryCategoryProps {
@@ -106,7 +103,7 @@ export default function GalleryCategory({
       </div>
 
       {/* Order List */}
-      <div className="h-[630px] overflow-y-auto">
+      <div className="h-3/4 overflow-y-auto">
         {uploadState.length &&
           uploadState.map((order: any) => (
             <OrderItemCard
