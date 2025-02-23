@@ -17,19 +17,42 @@ export default function FoundGallery({
   const [uploadState, setUploadState] = useState<any>([]);
   const [selectedUpload, setSelectedUpload] = useState('');
 
+  // useEffect(() => {
+  //   if (orderData && orderData.items && orderData.items.length > 0) {
+  //     const initState = orderData.items.flatMap((item: any) =>
+  //       Array.from({ length: item.quantity }, (_, index) => ({
+  //         id: `${item.id}-${index + 1}`,
+  //         input: item.images ?? [],
+  //         name: item.variationInfo.name,
+  //         image: item.productImage,
+  //         field: item.variationInfo.fields,
+  //         variationId: item.variationId,
+  //         detail: item.variationInfo.detail,
+  //         countSelected: item.images?.length || 0,
+  //       }))
+  //     );
+  //     setUploadState(initState);
+  //   }
+  // }, [orderData]);
+
   useEffect(() => {
-    console.log(orderData);
     if (orderData && orderData.items && orderData.items.length > 0) {
       const initState = orderData.items.flatMap((item: any) =>
         Array.from({ length: item.quantity }, (_, index) => ({
           id: `${item.id}-${index + 1}`,
-          input: [],
+          input: (item.images ?? []).map((img: string, imgIndex: number) => ({
+            id: `${item.id}-${index + 1}-${imgIndex}`,
+            file: null,
+            url: img,
+            status: 'done',
+            remoteUrl: img,
+          })),
           name: item.variationInfo.name,
           image: item.productImage,
           field: item.variationInfo.fields,
           variationId: item.variationId,
           detail: item.variationInfo.detail,
-          countSelected: 0,
+          countSelected: item.images?.length || 0,
         }))
       );
       setUploadState(initState);
