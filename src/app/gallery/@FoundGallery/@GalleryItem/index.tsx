@@ -58,7 +58,6 @@ export default function GalleryItem({
   const [uploadQueue, setUploadQueue] = useState<
     { id: string; file: File; tabId: string }[]
   >([]);
-  const [totalUploadedImages, setTotalUploadedImages] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [isAllowSubmit, setIsAllowSubmit] = useState(false);
 
@@ -67,17 +66,17 @@ export default function GalleryItem({
   const MAX_FILE_SIZE_MB = 60;
 
   useEffect(() => {
-    console.log('orderData');
-    console.log(orderData);
-    if (
-      (orderData?.statusClient === 1 && orderData?.allowResendImage === true) ||
-      orderData?.statusClient === 0
-    ) {
-      setIsAllowSubmit(true);
-    } else {
-      setIsAllowSubmit(false);
+    if (orderData) {
+      if (
+        (orderData.statusClient === 1 && orderData.allowResendImage === true) ||
+        orderData.statusClient === 0
+      ) {
+        setIsAllowSubmit(true);
+      } else {
+        setIsAllowSubmit(false);
+      }
     }
-  }, []);
+  }, [orderData]);
 
   useEffect(() => {
     if (selectedUpload) {
@@ -128,9 +127,6 @@ export default function GalleryItem({
     }));
 
     setPreviewImages(prev => [...prev, ...newPreviews]);
-    const totalImages = previewImages.length + files.length;
-    setTotalUploadedImages(totalImages);
-
     setSelectedItem((prev: any) => ({
       ...prev,
       input: [...prev.input, ...newPreviews],
@@ -251,10 +247,6 @@ export default function GalleryItem({
     );
   };
 
-  const handleProductClick = (productId: string) => {
-    setSelectedUpload(productId);
-  };
-
   const submitOrder = async () => {
     const allItemsComplete = uploadState.every(
       (item: any) => item.countSelected === MAX_UPLOAD_LIMIT
@@ -344,7 +336,9 @@ export default function GalleryItem({
                   </span>
                 </div>
               )}
-              <RemoveImageButton onClick={() => removeImage(image.id)} />
+              {isAllowSubmit && (
+                <RemoveImageButton onClick={() => removeImage(image.id)} />
+              )}
             </div>
           ))}
           {selectedItem.countSelected < MAX_UPLOAD_LIMIT && (
