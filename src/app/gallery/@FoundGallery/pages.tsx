@@ -67,7 +67,7 @@ export default function FoundGallery({
   }, [uploadState]);
 
   return (
-    <div className="flex flex-col lg:flex-row lg:px-20 lg:py-9 2xl:px-36">
+    <div className="flex flex-col lg:flex-row lg:px-20 lg:py-9 2xl:px-52 3xl:px-96 4xl:mx-auto 4xl:max-w-7xl 4xl:px-0">
       {/* Left Section - Gallery Category */}
       {orderData && (
         <GalleryCategory
