@@ -60,9 +60,10 @@ export default function GalleryItem({
   >([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isAllowSubmit, setIsAllowSubmit] = useState(false);
+  const [maxUploadLimit, setMaxUploadLimit] = useState(1);
+  const [currentUploadLimit, setCurrentUploadLimit] = useState(1);
 
   const MAX_BATCH_SIZE = 5;
-  const MAX_UPLOAD_LIMIT = 40;
   const MAX_FILE_SIZE_MB = 60;
 
   useEffect(() => {
@@ -82,6 +83,8 @@ export default function GalleryItem({
     if (selectedUpload) {
       const item = uploadState.find((it: any) => it.id === selectedUpload);
       setSelectedItem(item || { input: [], countSelected: 0 });
+      setMaxUploadLimit(item?.imageLimit);
+      setCurrentUploadLimit(item?.imageLimit);
       setPreviewImages(item?.input || []);
     }
   }, [selectedUpload, uploadState]);
@@ -113,8 +116,8 @@ export default function GalleryItem({
     });
 
     const totalSelectedImages = previewImages.length + validFiles.length;
-    if (totalSelectedImages > MAX_UPLOAD_LIMIT) {
-      toast.error(`Bạn chỉ được chọn tối đa ${MAX_UPLOAD_LIMIT} ảnh.`);
+    if (totalSelectedImages > maxUploadLimit) {
+      toast.error(`Bạn chỉ được chọn tối đa ${maxUploadLimit} ảnh.`);
       return;
     }
 
@@ -248,8 +251,10 @@ export default function GalleryItem({
   };
 
   const submitOrder = async () => {
+    const note = (document.getElementById('note') as HTMLTextAreaElement)
+      ?.value;
     const allItemsComplete = uploadState.every(
-      (item: any) => item.countSelected === MAX_UPLOAD_LIMIT
+      (item: any) => item.input.length === maxUploadLimit
     );
 
     if (!allItemsComplete) {
@@ -267,14 +272,30 @@ export default function GalleryItem({
       toast.info('Chúng tôi đang xử lý ảnh của bạn. Vui lòng chờ...');
       return;
     }
+    const mergedItemsMap = new Map<string, string[][]>();
 
-    const items = uploadState.map((item: any) => ({
-      variation_id: item.variationId,
-      images: item.input
+    uploadState.forEach((item: any) => {
+      const variationId = item.variationId;
+      const images = item.input
         .filter((image: any) => image.status === 'done')
-        .map((image: any) => image.remoteUrl),
-    }));
-    const payload = { items };
+        .map((image: any) => image.remoteUrl);
+
+      if (mergedItemsMap.has(variationId)) {
+        const existingImages = mergedItemsMap.get(variationId) || [];
+        mergedItemsMap.set(variationId, [...existingImages, images]);
+      } else {
+        mergedItemsMap.set(variationId, [images]);
+      }
+    });
+
+    const items = Array.from(mergedItemsMap.entries()).map(
+      ([variation_id, images]) => ({
+        variation_id,
+        images: images.length === 1 ? images[0] : images,
+      })
+    );
+
+    const payload = { items, note };
     try {
       const response = await fetch(
         `${BASE_URL}/pos-orders/${orderId}/upload-images`,
@@ -341,9 +362,12 @@ export default function GalleryItem({
               )}
             </div>
           ))}
-          {selectedItem.countSelected < MAX_UPLOAD_LIMIT && (
+          {previewImages.length < maxUploadLimit && (
             <div className="relative flex h-100 w-full items-center justify-center rounded border-2 border-dashed border-gray-400 lg:h-150">
-              <AddImageButton onClick={() => fileInputRef.current?.click()} />
+              <AddImageButton
+                onClick={() => fileInputRef.current?.click()}
+                imageLimit={currentUploadLimit}
+              />
             </div>
           )}
         </div>
@@ -369,6 +393,7 @@ export default function GalleryItem({
             {languages.get('product.detail.status.message')}
           </p>
           <textarea
+            id="note"
             placeholder={languages.get('product.detail.status.messageDetail')}
             className="w-full resize-none rounded border p-2"
             rows={4}

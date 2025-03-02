@@ -108,13 +108,16 @@ const Page: React.FC = () => {
 
   useEffect(() => {
     if (orderId) {
-      getOrder(orderId).then(data => {
-        const items = data.items;
-        items.forEach((item: any) => {
-          const product = getProduct(item.variationId);
-          item.product = product;
-        });
-        data.items = items;
+      getOrder(orderId).then(async data => {
+        let items = data.items;
+        items = await Promise.all(
+          items.map(async (item: any) => {
+            const product = await getProduct(item.variationId);
+
+            item.product = product;
+            return item;
+          })
+        );
         setOrderData(data);
       });
     }
