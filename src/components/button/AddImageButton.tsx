@@ -6,7 +6,10 @@ interface AddImageButtonProps {
   imageLimit?: number;
 }
 
-const AddImageButton: React.FC<AddImageButtonProps> = ({ onClick, imageLimit }) => {
+const AddImageButton: React.FC<AddImageButtonProps> = ({
+  onClick,
+  imageLimit,
+}) => {
   return (
     <button
       onClick={onClick}
