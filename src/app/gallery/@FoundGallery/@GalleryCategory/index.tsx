@@ -25,6 +25,7 @@ const statusText = {
   2: languages.get('product.detail.status.gived'),
   3: languages.get('product.detail.status.received'),
   4: languages.get('product.detail.status.backed'),
+  6: languages.get('product.detail.status.cancel'),
   8: languages.get('product.detail.status.packed'),
   9: languages.get('product.detail.status.shipping'),
 };
@@ -105,18 +106,21 @@ export default function GalleryCategory({
       {/* Order List */}
       <div className="h-3/4 overflow-y-auto">
         {uploadState.length &&
-          uploadState.map((order: any) => (
-            <OrderItemCard
-              key={order.id}
-              imageSrc={order.image}
-              title={order.name}
-              detail={order.detail}
-              selectedCount={order.countSelected}
-              totalCount={40}
-              status={order.id === selectedUpload ? 'active' : 'click'}
-              onClick={() => setSelectedUpload(order.id)}
-            />
-          ))}
+          uploadState.map(
+            (order: any) =>
+              order?.imageLimit > 0 && (
+                <OrderItemCard
+                  key={order?.id}
+                  imageSrc={order?.image}
+                  title={order?.name}
+                  detail={order?.detail}
+                  selectedCount={order?.input?.length}
+                  totalCount={order?.imageLimit}
+                  status={order?.id === selectedUpload ? 'active' : 'click'}
+                  onClick={() => setSelectedUpload(order?.id)}
+                />
+              )
+          )}
       </div>
     </div>
   );

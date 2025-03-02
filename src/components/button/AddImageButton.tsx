@@ -3,9 +3,10 @@ import imagesIcons from '@/configs/images';
 
 interface AddImageButtonProps {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  imageLimit?: number;
 }
 
-const AddImageButton: React.FC<AddImageButtonProps> = ({ onClick }) => {
+const AddImageButton: React.FC<AddImageButtonProps> = ({ onClick, imageLimit }) => {
   return (
     <button
       onClick={onClick}
@@ -17,7 +18,7 @@ const AddImageButton: React.FC<AddImageButtonProps> = ({ onClick }) => {
         alt={''}
       />
       <span className="px-1 text-x text-update group-hover:text-done-text lg:text-sm">
-        Upload tối đa (40) ảnh (kích thước tối đa 60mb/ảnh)
+        Upload tối đa ({imageLimit}) ảnh (kích thước tối đa 60mb/ảnh)
       </span>
     </button>
   );

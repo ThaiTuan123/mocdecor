@@ -307,6 +307,7 @@ class Languages {
       'product.detail.status.gived': 'Đã gửi hàng',
       'product.detail.status.received': 'Đã nhận hàng',
       'product.detail.status.backed': 'Đã trả hàng',
+      'product.detail.status.cancel': 'Đã hủy',
       'product.detail.status.packed': 'Đang đóng hàng',
       'product.detail.status.shipping': 'Đang chuyển hàng',
       'product.detail.status.classify': 'Phân loại',
