@@ -254,7 +254,7 @@ export default function GalleryItem({
     const note = (document.getElementById('note') as HTMLTextAreaElement)
       ?.value;
     const allItemsComplete = uploadState.every(
-      (item: any) => item.input.length === maxUploadLimit
+      (item: any) => item.input.length === item.imageLimit
     );
 
     if (!allItemsComplete) {
@@ -397,6 +397,7 @@ export default function GalleryItem({
             placeholder={languages.get('product.detail.status.messageDetail')}
             className="w-full resize-none rounded border p-2"
             rows={4}
+            defaultValue={orderData?.note || ''}
           />
         </div>
       </div>
