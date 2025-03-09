@@ -254,7 +254,7 @@ export default function GalleryItem({
     const note = (document.getElementById('note') as HTMLTextAreaElement)
       ?.value;
     const allItemsComplete = uploadState.every(
-      (item: any) => item.input.length === maxUploadLimit
+      (item: any) => item.input.length === item.imageLimit
     );
 
     if (!allItemsComplete) {
