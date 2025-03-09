@@ -23,7 +23,7 @@ const apiRequest = async (url: string, options: RequestOptions = {}) => {
   const {
     method = 'GET',
     body = null,
-    headers = { 'Content-Type': 'application/json' },
+    headers = { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
   } = options;
 
   const response = await fetch(url, {

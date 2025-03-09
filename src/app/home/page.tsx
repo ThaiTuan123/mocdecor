@@ -324,7 +324,6 @@ const BlogSection = () => {
     const loadBlogs = async () => {
       try {
         const data = await fetchBlogs();
-        console.log(blogs);
         setBlogs(data.contents.slice(0, 3)); // Hiển thị 3 bài post đầu tiên
       } catch (error) {
         console.error(error);

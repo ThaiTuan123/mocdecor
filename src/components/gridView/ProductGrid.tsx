@@ -24,7 +24,7 @@ const ProductGrid: React.FC<{ category: string; subCategory: string }> = ({
         // Reset products with new data instead of appending
         setProducts([...productsData]);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         console.error('Failed to load products:', error);
       }
     };

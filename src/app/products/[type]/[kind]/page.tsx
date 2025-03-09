@@ -63,7 +63,6 @@ export default function Products() {
         setProducts(data.products);
       });
     }
-    console.log(123);
   }, [slugId]);
 
   useEffect(() => {

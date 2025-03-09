@@ -53,8 +53,6 @@ const Section = React.memo(
     hoverButton = 'hover:text-brown-900',
     hoverBorder = 'hover:border-brown-900',
   }: SectionProps) => {
-    console.log(`Render Section ${index}`);
-
     const [selectedProduct, setSelectedProduct] =
       useRecoilState<Product | null>(selectedProductState);
 

@@ -22,7 +22,6 @@ export const fetchDistricts = async (id: string) => {
       `https://pos.pages.fm/api/v1/geo/districts?province_id=${id}`
     );
     const data = await response.json();
-    console.log(data);
     const transformedData = data.data.map((item: any) => ({
       label: item.name,
       value: item.id,

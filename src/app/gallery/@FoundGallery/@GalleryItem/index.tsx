@@ -310,7 +310,6 @@ export default function GalleryItem({
       );
 
       if (response.ok) {
-        console.log('Order submitted successfully');
         router.push(`/success?orderId=${orderId}`);
       } else {
         console.error('Failed to submit order', response.statusText);
