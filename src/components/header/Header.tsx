@@ -32,7 +32,7 @@ const Header = () => {
   useEffect(() => {
     const id = getOrCreateBrowserId();
     setBrowserId(id);
-    console.log('Current Browser ID:', id);
+    // console.log('Current Browser ID:', id);
   }, []);
 
   useEffect(() => {

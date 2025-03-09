@@ -63,8 +63,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   };
 
   useEffect(() => {
-    console.log('ProductPopup mounted');
-    console.log(product);
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);

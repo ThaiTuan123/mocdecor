@@ -18,7 +18,6 @@ export default function FoundGallery({
   const [selectedUpload, setSelectedUpload] = useState('');
 
   useEffect(() => {
-    console.log('orderData.items', orderData.items);
     if (orderData && orderData.items && orderData.items.length > 0) {
       const itemsInitState: any = [];
       orderData.items.map((item: any, idx: number) => {
