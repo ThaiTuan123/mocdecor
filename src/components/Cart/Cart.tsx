@@ -285,7 +285,7 @@ const Cart = ({
                 </h2>
                 <span className="text-2lg">({totalCart})</span>
               </div>
-              {browserId ? (
+              {/* {browserId ? (
                 <p className="text-gray-100">
                   {languages.get('header.id.customer')}
                   {browserId}
@@ -294,7 +294,7 @@ const Cart = ({
                 <p className="text-gray-100">
                   {languages.get('header.loading')}
                 </p>
-              )}
+              )} */}
             </div>
             <CancelButton
               onClick={() => setIsShowCart(false)}
