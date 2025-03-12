@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FaCopy } from 'react-icons/fa'; // Import the copy icon from react-icons
 import usePopupSuccess from '@/recoil/hooks/usePopupSuccess';
+import { toast, ToastContainer } from 'react-toastify';
 
 interface PaymentSuccessPopupProps {
   isVisible: boolean;
@@ -27,7 +28,7 @@ const PaymentSuccessPopup: React.FC<PaymentSuccessPopupProps> = ({
   // Function to handle copy action
   const handleCopy = () => {
     navigator.clipboard.writeText(orderCode); // Copy order code to clipboard
-    alert('Mã đơn hàng đã được sao chép!'); // Optional: Display a confirmation message
+    toast.info('Mã đơn hàng đã được sao chép!');
   };
 
   if (!isVisible) return null;
@@ -59,6 +60,7 @@ const PaymentSuccessPopup: React.FC<PaymentSuccessPopupProps> = ({
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

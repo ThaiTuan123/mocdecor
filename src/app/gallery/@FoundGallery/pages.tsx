@@ -17,39 +17,37 @@ export default function FoundGallery({
   const [uploadState, setUploadState] = useState<any>([]);
   const [selectedUpload, setSelectedUpload] = useState('');
 
+  function checkArrayFormat(arr: any[]): number {
+    const isStringArray = arr.every(item => typeof item === 'string');
+    if (isStringArray) {
+      return 1;
+    }
+
+    const isStringArrayOfArrays = arr.every(
+      item =>
+        Array.isArray(item) &&
+        item.every(subItem => typeof subItem === 'string')
+    );
+    if (isStringArrayOfArrays) {
+      return 2;
+    }
+
+    if (arr.length === 0) {
+      return 0;
+    }
+
+    return -1;
+  }
+
   useEffect(() => {
     if (orderData && orderData.items && orderData.items.length > 0) {
       const itemsInitState: any = [];
       orderData.items.map((item: any, idx: number) => {
         if (item.images.length === 0) {
-          const data = {
-            id: `${item.id}-${idx + 1}`,
-            input: [],
-            name: item.variationInfo.name,
-            image: item.productImage,
-            field: item.variationInfo.fields,
-            variationId: item.variationId,
-            imageLimit: item.product?.imagesLimit || -1,
-            detail: item.variationInfo.detail,
-            countSelected: item.images?.length || 0,
-          };
-          if (item.product?.imagesLimit) {
-            itemsInitState.push(data);
-          }
-        } else {
-          item.images.flatMap((img: any, index: number) => {
-            const input = img.map((im: any, imgIndex: number) => {
-              return {
-                id: `${item.id}-${index + 1}-${imgIndex}`,
-                file: null,
-                url: im,
-                status: 'done',
-                remoteUrl: im,
-              };
-            });
+          Array.from({ length: item.quantity || 0 }).map((_, index) => {
             const data = {
               id: `${item.id}-${index + 1}`,
-              input,
+              input: [],
               name: item.variationInfo.name,
               image: item.productImage,
               field: item.variationInfo.fields,
@@ -62,6 +60,59 @@ export default function FoundGallery({
               itemsInitState.push(data);
             }
           });
+        } else {
+          const imageArrType = checkArrayFormat(item.images);
+          if (imageArrType === 1) {
+            const input = item.images.map((img: any, index: number) => {
+              return {
+                id: `${item.id}-${index + 1}-0`,
+                file: null,
+                url: img,
+                status: 'done',
+                remoteUrl: img,
+              };
+            });
+            const data = {
+              id: `${item.id}-1`,
+              input,
+              name: item.variationInfo.name,
+              image: item.productImage,
+              field: item.variationInfo.fields,
+              variationId: item.variationId,
+              imageLimit: item.product?.imagesLimit || -1,
+              detail: item.variationInfo.detail,
+              countSelected: item.images?.length || 0,
+            };
+            if (item.product?.imagesLimit) {
+              itemsInitState.push(data);
+            }
+          } else if (imageArrType === 2) {
+            item.images.flatMap((img: any, index: number) => {
+              const input = img.map((im: any, imgIndex: number) => {
+                return {
+                  id: `${item.id}-${index + 1}-${imgIndex}`,
+                  file: null,
+                  url: im,
+                  status: 'done',
+                  remoteUrl: im,
+                };
+              });
+              const data = {
+                id: `${item.id}-${index + 1}`,
+                input,
+                name: item.variationInfo.name,
+                image: item.productImage,
+                field: item.variationInfo.fields,
+                variationId: item.variationId,
+                imageLimit: item.product?.imagesLimit || -1,
+                detail: item.variationInfo.detail,
+                countSelected: item.images?.length || 0,
+              };
+              if (item.product?.imagesLimit) {
+                itemsInitState.push(data);
+              }
+            });
+          }
         }
       });
       setUploadState(itemsInitState);

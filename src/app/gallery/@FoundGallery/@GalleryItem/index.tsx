@@ -396,7 +396,7 @@ export default function GalleryItem({
             placeholder={languages.get('product.detail.status.messageDetail')}
             className="w-full resize-none rounded border p-2"
             rows={4}
-            defaultValue={orderData?.note || ''}
+            defaultValue={orderData.note.replace(/Ghi chú đơn hàng: /g, '')}
           />
         </div>
       </div>
