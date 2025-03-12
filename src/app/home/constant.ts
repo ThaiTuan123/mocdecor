@@ -4,17 +4,17 @@ import images from '@/configs/images';
 import { CustomerCardData } from '@/types/customerCardData';
 import languages from '@/configs/languages';
 
-// export const handleClickPictureFrame = () => {
-//   console.log('Picture Frame clicked!');
-// };
+export const handleClickPictureFrame = () => {
+  // console.log('Picture Frame clicked!');
+};
 
-// export const handleClickAlbum = () => {
-//   console.log('Album clicked!');
-// };
+export const handleClickAlbum = () => {
+  // console.log('Album clicked!');
+};
 
-// export const handleClickPrint = () => {
-//   console.log('Print clicked!');
-// };
+export const handleClickPrint = () => {
+  // console.log('Print clicked!');
+};
 
 const categories = [
   {
