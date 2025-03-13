@@ -74,13 +74,13 @@ export const fetchListCategory = async (
 
 // Fetch banner items
 export const fetchBannerItems = async () => {
-  const url = 'https://api.mocdecor.org/public/settings/banner';
+  const url = 'https://api.mocdecor99.com/public/settings/banner';
   return apiRequest(url);
 };
 
 // Submit contact form
 export const submitContactForm = async (formData: ContactFormModel) => {
-  const url = 'https://api.mocdecor.org/public/contact/submit';
+  const url = 'https://api.mocdecor99.com/public/contact/submit';
   return apiRequest(url, {
     method: 'POST',
     body: formData,

@@ -20,11 +20,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'api.mocdecor.org',
+        hostname: 'api.mocdecor99.com',
       },
       {
         protocol: 'https',
-        hostname: 'cdn.mocdecor.org',
+        hostname: 'cdn.mocdecor99.com',
       },
       {
         protocol: 'https',
