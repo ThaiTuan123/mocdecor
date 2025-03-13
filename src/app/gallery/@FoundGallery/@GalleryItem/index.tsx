@@ -170,7 +170,7 @@ export default function GalleryItem({
       formData.append('file', file);
 
       try {
-        const response = await fetch('https://cdn.mocdecor.org/single', {
+        const response = await fetch('https://cdn.mocdecor99.com/single', {
           method: 'POST',
           body: formData,
         });
