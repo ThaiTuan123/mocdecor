@@ -411,11 +411,25 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       <div className="order-2 mt-4 pb-16 lg:order-none">
         {renderAccordionSection(
           languages.get('popup.text.orderNotes'),
-          JSON.parse(product?.note)
+          (() => {
+            try {
+              return JSON.parse(product?.note);
+            } catch (e) {
+              console.error('Error parsing orderNotes JSON:', e);
+              return product?.note || ''; // Trả về dữ liệu gốc hoặc chuỗi rỗng nếu parse lỗi
+            }
+          })()
         )}
         {renderAccordionSection(
           languages.get('popup.text.setOfIngredients'),
-          JSON.parse(product?.ingredients)
+          (() => {
+            try {
+              return JSON.parse(product?.ingredients);
+            } catch (e) {
+              console.error('Error parsing ingredients JSON:', e);
+              return product?.ingredients || ''; // Trả về dữ liệu gốc hoặc chuỗi rỗng nếu parse lỗi
+            }
+          })()
         )}
         {renderAccordionSection(
           languages.get('popup.text.shipping'),
