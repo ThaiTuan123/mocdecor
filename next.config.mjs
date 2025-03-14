@@ -28,6 +28,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'mocdecor99.com',
+      },
+      {
+        protocol: 'https',
         hostname: 'picsum.photos',
       },
       {
