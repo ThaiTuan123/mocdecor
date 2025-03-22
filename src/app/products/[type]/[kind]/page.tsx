@@ -49,45 +49,32 @@ export default function Products() {
       : cateDetail.subCategories?.find(it => it.slug == pathname.split('/')[3])
           ?.id;
   const [products, setProducts] = useState([]);
+  const [totalProducts, setTotalProducts] = useState(0); // Add state to track total products
+  const [currentPage, setCurrentPage] = useState(1); // Add state to track current page
+
+  const PRODUCTS_PER_PAGE = 12; // Define the number of products per page
 
   useEffect(() => {
-    if (slugId) {
-      setFilterTags(prev => ({ ...prev, major: [slugId] }));
-      fetchListProducts({ categorySlug: categorySlug, typeIds: [slugId] }).then(
-        data => {
-          setProducts(data.products);
-        }
-      );
-    } else if (pathname.split('/')[3] == 'all') {
-      fetchListProducts({ categorySlug: categorySlug }).then(data => {
-        setProducts(data.products);
-      });
-    }
-  }, [slugId]);
-
-  useEffect(() => {
-    if (filterTags.major.length > 0 || filterRadio.price || filterRadio.sort) {
+    const fetchProducts = async (page: number) => {
       const param = {
         categorySlug: categorySlug,
         price: filterRadio.price,
         typeIds: filterTags.major,
         sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
+        page: page,
+        limit: PRODUCTS_PER_PAGE,
       };
-      fetchListProducts(param).then(data => {
-        setProducts(data.products);
-      });
-    } else if (slugId) {
-      const param = {
-        categorySlug: categorySlug,
-        price: 0,
-        typeIds: [slugId],
-        sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
-      };
-      fetchListProducts(param).then(data => {
-        setProducts(data.products);
-      });
-    }
-  }, [filterTags, filterRadio, slugId]);
+      const data = await fetchListProducts(param);
+      setProducts(data.products);
+      setTotalProducts(data.count); // Update total products
+    };
+
+    fetchProducts(currentPage);
+  }, [filterTags, filterRadio, slugId, currentPage]);
+
+  const onChangePagination = (page: number) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     if (cateDetail?.subCategories) {
@@ -357,10 +344,6 @@ export default function Products() {
     setFilterTags(prev => ({ ...prev, [value]: newTags }));
   };
 
-  const onChangePagination = (page: number) => {
-    setPaginationActive(page);
-  };
-
   // const getPriceProduct = (product: any) => {
   //   let price = 0;
   //   if (product.sku && product.sku.length > 0) {
@@ -512,28 +495,31 @@ export default function Products() {
   };
 
   const renderPagination = () => {
+    const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
+    if (totalPages <= 1) return null; // Hide pagination if only one page
+
     return (
       <div className="mt-5 flex items-center justify-center gap-7 md:gap-4">
         <span className="font-raleway text-lg text-doveGray">
           {languages.get('product.pagination.text')}
         </span>
         <div className="w-12 border border-doveGray"></div>
-        {paginationArray.map((item, index) => (
-          <span
-            onClick={() => onChangePagination(item)}
-            key={index}
-            className={`${
-              paginationActive === item
-                ? 'font-bold text-karaka'
-                : 'text-doveGray'
-            } font-raleway relative block cursor-pointer text-lg`}
-          >
-            {item}
-            {paginationActive === item && (
-              <div className="absolute w-full border border-primary"></div>
-            )}
-          </span>
-        ))}
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+          (item, index) => (
+            <span
+              onClick={() => onChangePagination(item)}
+              key={index}
+              className={`${
+                currentPage === item ? 'font-bold text-karaka' : 'text-doveGray'
+              } font-raleway relative block cursor-pointer text-lg`}
+            >
+              {item}
+              {currentPage === item && (
+                <div className="absolute w-full border border-primary"></div>
+              )}
+            </span>
+          )
+        )}
       </div>
     );
   };
