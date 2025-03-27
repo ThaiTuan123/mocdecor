@@ -80,6 +80,8 @@ export default function Payment() {
       return;
     }
     const body = {
+      cart,
+      priceFee,
       paymentMethod: formValue.paymentType,
       recipientAddress: {
         address: formValue.address,
@@ -416,9 +418,7 @@ export default function Payment() {
                 <span className="text-sm text-doveGray"> {item.skuName} </span>
                 <div className="flex items-end gap-1">
                   <span className="text-2lg text-caption">
-                    {formatVietnameseCurrency(
-                      String(item.retail_price * item.quantity)
-                    )}
+                    {formatVietnameseCurrency(String(item.retail_price))}
                   </span>
                   <span className="text-1.25sm text-doveGray">
                     x{item.quantity}
