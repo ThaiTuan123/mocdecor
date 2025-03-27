@@ -191,6 +191,7 @@ export const fetchBlogs = async () => {
 
   const response = await fetch('https://mocdecor.microcms.io/api/v1/blogs', {
     headers: { 'X-MICROCMS-API-KEY': apiKey },
+    cache: 'no-cache',
   });
 
   if (!response.ok) {
