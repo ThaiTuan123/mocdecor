@@ -93,7 +93,7 @@ const CarouselWrapper = ({
   const fallbackImageUrl = images.bannerHomeError;
 
   return (
-    <div className="relative h-584 overflow-hidden md:h-background-height">
+    <div className="relative aspect-[16/9] w-full overflow-hidden">
       {isLoading && (
         <Image
           src={fallbackImageUrl}
@@ -141,8 +141,8 @@ const CarouselIndicators = ({
   activeIndex: number;
   setActiveIndex: (index: number) => void;
 }) => (
-  <div className="absolute bottom-24 left-1/2 z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse">
-    <div className="flex flex-col space-y-10">
+  <div className="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 space-x-3 md:bottom-24 rtl:space-x-reverse">
+    <div className="flex flex-col space-y-2 md:space-y-10">
       <CommonButton
         className="text-xl"
         text={languages.get('home.button.carousel')}
