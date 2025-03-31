@@ -1,7 +1,8 @@
 // utils/constants.ts
 
 //API
-export const BASE_URL = process.env.BASE_URL || 'https://api.mocdecor99.com';
+export const BASE_URL = process.env.BASE_URL || 'http://localhost:4000';
+// export const BASE_URL = process.env.BASE_URL || 'https://api.mocdecor99.com';
 
 export const SCROLL_AMOUNT = 300; // Amount to scroll each interval
 export const REPEAT_INTERVAL = 5000; // Default scroll interval in milliseconds
@@ -44,4 +45,6 @@ export class API {
   static POS_PRODUCT = BASE_URL + '/public/pos-products';
   static POS_ORDER = BASE_URL + '/pos-orders';
   static UPLOAD_IMAGE = BASE_URL + '/single';
+  static MOC_CLIENT = BASE_URL + '/public/settings/clients'; // Đối tác của Mộc
+  static MOC_CUSTOMER_REVIEW = BASE_URL + '/public/settings/reviews'; // Đánh giá của khách hàng
 }
