@@ -57,6 +57,18 @@ export const fetchMenu = async () => {
   return apiRequest(url);
 };
 
+// Fetch Moc Client
+export const fetchMocClient = async () => {
+  const url = `${API.MOC_CLIENT}`;
+  return apiRequest(url);
+};
+
+// Fetch Moc Customer Review
+export const fetchMocCustomerReview = async () => {
+  const url = `${API.MOC_CUSTOMER_REVIEW}`;
+  return apiRequest(url);
+};
+
 // Fetch top pos product category
 export const fetchTopProductCategory = async () => {
   const url = `${API.TOP_POS_PRODUCT_CATEGORY}`;
@@ -74,7 +86,8 @@ export const fetchListCategory = async (
 
 // Fetch banner items
 export const fetchBannerItems = async () => {
-  const url = 'https://api.mocdecor99.com/public/settings/banner';
+  const url = 'http://localhost:4000/public/settings/banner';
+  // const url = 'https://api.mocdecor99.com/public/settings/banner';
   return apiRequest(url);
 };
 

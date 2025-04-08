@@ -33,6 +33,8 @@ import ProductSection from './component/ProductSection';
 import BlogList from '@/components/blog/BlogList';
 import { fetchBlogs } from '@/services/api';
 import { blogsState } from '@/recoil/atoms/blogAtom';
+import useMocClient from '@/recoil/hooks/useMocClient';
+import useMocCustomerReview from '@/recoil/hooks/useMocCustomerReview';
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -423,6 +425,10 @@ const GiftSection: React.FC = () => {
 };
 
 const FeedbackScrollableSection: React.FC = () => {
+  const { reviews } = useMocCustomerReview();
+  const reviewRenderData =
+    Array.isArray(reviews) && reviews.length > 0 ? reviews : customerData;
+
   return (
     <motion.div
       className="flex flex-row gap-6"
@@ -433,12 +439,12 @@ const FeedbackScrollableSection: React.FC = () => {
         repeat: Infinity,
       }}
     >
-      {customerData.concat(customerData).map((data, index) => (
+      {reviewRenderData.map((data, index) => (
         <CustomerCard
           key={index}
-          imageCustomerUrl={data.imageCustomerUrl}
-          textDescription={data.textDescription}
-          nameCustomer={data.nameCustomer}
+          imageCustomerUrl={data.image}
+          textDescription={data.message}
+          nameCustomer={data.name}
           isAboveFold={index < 4}
         />
       ))}
@@ -586,6 +592,10 @@ const ServiceSection: React.FC = () => {
 
 // Main section containing both scrolling components
 const CoopClientsSection: React.FC = () => {
+  const { client } = useMocClient();
+  const clientRenderData =
+    Array.isArray(client) && client.length > 0 ? client : clientData;
+
   return (
     <section className="mt-0 bg-gradient-to-b from-white to-just-right to-60%">
       <div
@@ -611,14 +621,14 @@ const CoopClientsSection: React.FC = () => {
               animate={{ x: ['0%', '-100%'] }}
               transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
             >
-              {[...clientData, ...clientData].map((client, index) => (
+              {clientRenderData.map((clients, index) => (
                 <Image
                   key={index}
                   className="h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10"
                   width={232.77}
                   height={142.9}
-                  src={client.src}
-                  alt={client.alt}
+                  src={clients.image}
+                  alt={clients.name}
                 />
               ))}
             </motion.div>
@@ -628,14 +638,14 @@ const CoopClientsSection: React.FC = () => {
               animate={{ x: ['-100%', '0%'] }}
               transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
             >
-              {[...clientData, ...clientData].map((client, index) => (
+              {clientRenderData.map((clients, index) => (
                 <Image
                   key={index}
                   className="h-16 w-32 gap-3 lg:h-32 lg:w-60 lg:gap-10"
                   width={232.77}
                   height={142.9}
-                  src={client.src}
-                  alt={client.alt}
+                  src={clients.image}
+                  alt={clients.name}
                 />
               ))}
             </motion.div>

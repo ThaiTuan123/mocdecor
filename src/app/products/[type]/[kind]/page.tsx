@@ -27,8 +27,6 @@ const { Panel } = Collapse;
 
 export default function Products() {
   const starArray = new Array(5).fill(0);
-  const paginationArray = new Array(3).fill(0).map((_, i) => i + 1);
-  const [paginationActive, setPaginationActive] = useState(1);
   const [filterTags, setFilterTags] = useState<filtersCheckboxType>({
     major: [],
   });
@@ -51,9 +49,18 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0); // Add state to track total products
   const [currentPage, setCurrentPage] = useState(1); // Add state to track current page
-
+  let firstInit = true;
   const PRODUCTS_PER_PAGE = 12; // Define the number of products per page
 
+  // Update filterTags when slugId changes
+  useEffect(() => {
+    setFilterTags(prev => ({
+      ...prev,
+      major: slugId ? [slugId] : [],
+    }));
+  }, [slugId]);
+
+  // Fetch products when filters or pagination change
   useEffect(() => {
     const fetchProducts = async (page: number) => {
       const param = {
@@ -68,13 +75,13 @@ export default function Products() {
       setProducts(data.products);
       setTotalProducts(data.count); // Update total products
     };
-
-    fetchProducts(currentPage);
-  }, [filterTags, filterRadio, slugId, currentPage]);
-
-  const onChangePagination = (page: number) => {
-    setCurrentPage(page);
-  };
+    if (filterTags.major.length > 0 && firstInit) {
+      fetchProducts(currentPage);
+      firstInit = false;
+    } else {
+      fetchProducts(currentPage);
+    }
+  }, [filterTags, filterRadio, currentPage, categorySlug]);
 
   useEffect(() => {
     if (cateDetail?.subCategories) {
