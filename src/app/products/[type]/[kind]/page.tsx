@@ -412,7 +412,7 @@ export default function Products() {
             >
               <Image
                 className="h-full w-full rounded-t object-fill transition-all duration-300"
-                src={item.images[0]}
+                src={JSON.parse(item.imagesIntroduction)?.[0] ? JSON.parse(item.imagesIntroduction)?.[0] : item.images[0]}
                 alt={item.product.name}
                 width={238}
                 height={238}

@@ -50,6 +50,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [error, setError] = useRecoilState(errorState);
   const [showToast, setShowToast] = useState(false);
   const [showToastError, setShowToastError] = useState(false);
+  const [introduceImages, setIntroduceImages] = useState<string[]>([]);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
@@ -80,8 +81,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     );
 
     const uniqueImages: string[] = Array.from(new Set(listImagesSku));
-    setImagesSku(uniqueImages);
-    setSelectedImage(uniqueImages?.[0]);
+    const introduceImages: string[] = JSON.parse(product.imagesIntroduction);
+    // const mergedImages = [...introduceImages, ...uniqueImages];
+    setImagesSku(introduceImages);
+    setSelectedImage(introduceImages?.[0]);
     processDataSku();
   }, []);
 
@@ -433,7 +436,14 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         )}
         {renderAccordionSection(
           languages.get('popup.text.shipping'),
-          languages.get('popup.description.shipping')
+          (() => {
+            try {
+              return JSON.parse(product?.delivery);
+            } catch (e) {
+              console.error('Error parsing delivery JSON:', e);
+              return product?.delivery || ''; // Trả về dữ liệu gốc hoặc chuỗi rỗng nếu parse lỗi
+            }
+          })()
         )}
         {renderAccordionSection(
           languages.get('popup.text.productInfo'),
