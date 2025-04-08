@@ -49,39 +49,43 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0); // Add state to track total products
   const [currentPage, setCurrentPage] = useState(1); // Add state to track current page
-  let firstInit = true;
   const PRODUCTS_PER_PAGE = 12; // Define the number of products per page
 
-  // Update filterTags when slugId changes
   useEffect(() => {
-    setFilterTags(prev => ({
-      ...prev,
-      major: slugId ? [slugId] : [],
-    }));
+    if (slugId) {
+      setFilterTags(prev => ({ ...prev, major: [slugId] }));
+      fetchListProducts({ categorySlug: categorySlug, typeIds: [slugId] }).then(
+        data => {
+          setTotalProducts(data.count);
+          setProducts(data.products);
+        }
+      );
+    } else if (pathname.split('/')[3] == 'all') {
+      fetchListProducts({ categorySlug: categorySlug }).then(data => {
+        setTotalProducts(data.count);
+        setProducts(data.products);
+      });
+    }
   }, [slugId]);
 
-  // Fetch products when filters or pagination change
   useEffect(() => {
-    const fetchProducts = async (page: number) => {
-      const param = {
-        categorySlug: categorySlug,
-        price: filterRadio.price,
-        typeIds: filterTags.major,
-        sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
-        page: page,
-        limit: PRODUCTS_PER_PAGE,
-      };
-      const data = await fetchListProducts(param);
-      setProducts(data.products);
-      setTotalProducts(data.count); // Update total products
+    const param = {
+      categorySlug: categorySlug,
+      price: filterRadio.price,
+      typeIds: filterTags.major,
+      sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
+      limit: PRODUCTS_PER_PAGE,
+      page: currentPage,
     };
-    if (filterTags.major.length > 0 && firstInit) {
-      fetchProducts(currentPage);
-      firstInit = false;
-    } else {
-      fetchProducts(currentPage);
-    }
-  }, [filterTags, filterRadio, currentPage, categorySlug]);
+    fetchListProducts(param).then(data => {
+      setTotalProducts(data.count);
+      setProducts(data.products);
+    });
+  }, [filterTags, filterRadio, currentPage]);
+
+  const onChangePagination = (page: number) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     if (cateDetail?.subCategories) {
@@ -349,6 +353,21 @@ export default function Products() {
       (item: any) => item !== tag
     );
     setFilterTags(prev => ({ ...prev, [value]: newTags }));
+
+    // const updatedFilterTags = { ...filterTags, [filterCategoryValue]: newTags };
+
+    // if (!updatedFilterTags.major.length) {
+    //   const param = {
+    //     categorySlug: categorySlug,
+    //     price: filterRadio.price,
+    //     sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
+    //   };
+    //   console.log('param', param);
+    //   fetchListProducts(param).then(data => {
+    //     setTotalProducts(data.count);
+    //     setProducts(data.products);
+    //   });
+    // }
   };
 
   // const getPriceProduct = (product: any) => {
@@ -412,7 +431,11 @@ export default function Products() {
             >
               <Image
                 className="h-full w-full rounded-t object-fill transition-all duration-300"
-                src={JSON.parse(item.imagesIntroduction)?.[0] ? JSON.parse(item.imagesIntroduction)?.[0] : item.images[0]}
+                src={
+                  JSON.parse(item.imagesIntroduction)?.[0]
+                    ? JSON.parse(item.imagesIntroduction)?.[0]
+                    : item.images[0]
+                }
                 alt={item.product.name}
                 width={238}
                 height={238}

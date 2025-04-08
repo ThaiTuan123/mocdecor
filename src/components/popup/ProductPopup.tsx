@@ -50,7 +50,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [error, setError] = useRecoilState(errorState);
   const [showToast, setShowToast] = useState(false);
   const [showToastError, setShowToastError] = useState(false);
-  const [introduceImages, setIntroduceImages] = useState<string[]>([]);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
@@ -83,8 +82,14 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     const uniqueImages: string[] = Array.from(new Set(listImagesSku));
     const introduceImages: string[] = JSON.parse(product.imagesIntroduction);
     // const mergedImages = [...introduceImages, ...uniqueImages];
-    setImagesSku(introduceImages);
-    setSelectedImage(introduceImages?.[0]);
+    if (introduceImages.length > 0) {
+      setImagesSku(introduceImages);
+      setSelectedImage(introduceImages?.[0]);
+    } else {
+      setImagesSku(uniqueImages);
+      setSelectedImage(uniqueImages?.[0]);
+    }
+
     processDataSku();
   }, []);
 
@@ -412,45 +417,85 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       </div>
 
       <div className="order-2 mt-4 pb-16 lg:order-none">
-        {renderAccordionSection(
-          languages.get('popup.text.orderNotes'),
+        {product?.note &&
           (() => {
             try {
-              return JSON.parse(product?.note);
+              const parsedNote = JSON.parse(product.note);
+              if (parsedNote && Object.keys(parsedNote).length > 0) {
+                return renderAccordionSection(
+                  languages.get('popup.text.orderNotes'),
+                  parsedNote
+                );
+              }
             } catch (e) {
               console.error('Error parsing orderNotes JSON:', e);
-              return product?.note || ''; // Trả về dữ liệu gốc hoặc chuỗi rỗng nếu parse lỗi
+              if (product.note.trim() !== '') {
+                return renderAccordionSection(
+                  languages.get('popup.text.orderNotes'),
+                  product.note
+                );
+              }
             }
-          })()
-        )}
-        {renderAccordionSection(
-          languages.get('popup.text.setOfIngredients'),
+            return null;
+          })()}
+        {product?.ingredients &&
           (() => {
             try {
-              return JSON.parse(product?.ingredients);
+              const parsedIngredients = JSON.parse(product.ingredients);
+              if (
+                parsedIngredients &&
+                Object.keys(parsedIngredients).length > 0
+              ) {
+                return renderAccordionSection(
+                  languages.get('popup.text.setOfIngredients'),
+                  parsedIngredients
+                );
+              }
             } catch (e) {
               console.error('Error parsing ingredients JSON:', e);
-              return product?.ingredients || ''; // Trả về dữ liệu gốc hoặc chuỗi rỗng nếu parse lỗi
+              if (product.ingredients.trim() !== '') {
+                return renderAccordionSection(
+                  languages.get('popup.text.setOfIngredients'),
+                  product.ingredients
+                );
+              }
             }
-          })()
-        )}
-        {renderAccordionSection(
-          languages.get('popup.text.shipping'),
+            return null;
+          })()}
+
+        {product?.delivery &&
           (() => {
             try {
-              return JSON.parse(product?.delivery);
+              const parsedDelivery = JSON.parse(product.delivery);
+              if (parsedDelivery && Object.keys(parsedDelivery).length > 0) {
+                return renderAccordionSection(
+                  languages.get('popup.text.shipping'),
+                  parsedDelivery
+                );
+              }
             } catch (e) {
               console.error('Error parsing delivery JSON:', e);
-              return product?.delivery || ''; // Trả về dữ liệu gốc hoặc chuỗi rỗng nếu parse lỗi
+              if (product.delivery.trim() !== '') {
+                return renderAccordionSection(
+                  languages.get('popup.text.shipping'),
+                  product.delivery
+                );
+              }
             }
-          })()
-        )}
-        {renderAccordionSection(
-          languages.get('popup.text.productInfo'),
-          product?.product?.note_product
-            ? product.product.note_product
-            : languages.get('popup.description.noProductInfo')
-        )}
+            return null;
+          })()}
+
+        {product?.product?.note_product &&
+          (() => {
+            const noteProduct = product.product.note_product.trim();
+            if (noteProduct !== '') {
+              return renderAccordionSection(
+                languages.get('popup.text.productInfo'),
+                noteProduct
+              );
+            }
+            return null;
+          })()}
       </div>
       <div className="sticky bottom-0 order-1 mb-8 flex gap-3 bg-white p-0 py-3 md:my-8 md:gap-5 md:py-8 lg:order-none">
         {/*<div className="order-1 mt-4 flex gap-3 p-0 md:gap-5 lg:order-none lg:pb-1 lg:pt-16">*/}
