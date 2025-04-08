@@ -24,6 +24,7 @@ import usePopupSuccess from '@/recoil/hooks/usePopupSuccess';
 import { CartItem } from '@/types/cartType';
 import { submitPayment } from '@/services/api';
 import { getOrCreateBrowserId } from '@/utils/browserId';
+import { isValidVietnamPhoneNumber } from '@/utils/validators';
 
 interface formType {
   city: string | null;
@@ -257,6 +258,8 @@ export default function Payment() {
 
     if (!formValue.phone) {
       errors.phone = 'Số điện thoại là bắt buộc';
+    } else if (!isValidVietnamPhoneNumber(formValue.phone)) {
+      errors.phone = 'Số điện thoại không hợp lệ';
     } else {
       errors.phone = '';
     }

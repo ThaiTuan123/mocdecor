@@ -22,6 +22,10 @@ export const INTERACTIVE_ELEMENTS = [
   'IMG',
 ];
 
+// Regex for validating Vietnamese phone numbers
+export const VIETNAM_PHONE_REGEX =
+  /^(?:\+84|0)(?:3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$/;
+
 //Youtube
 export const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube.com/embed/';
 
