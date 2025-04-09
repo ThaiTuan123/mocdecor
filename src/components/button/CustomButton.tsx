@@ -25,7 +25,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
   const [isHovered, setIsHovered] = useState(false);
 
   // Base styles for all buttons
-  const baseStyles = `md:px-20 md:py-3 px-8 py-3 text-base rounded border-2 border-primary ${className}`;
+  const baseStyles = `md:px-20 md:py-3 md:px-8 px-4 py-2 opacity-90 text-base rounded border-2 border-primary ${className}`;
 
   // Styles for desktop hover effect
   const desktopHoverStyles = `transition-all duration-300 ease-in-out transform ${cancelButton ? 'text-primary bg-red' : 'bg-primary text-white'} ${
@@ -56,7 +56,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
   return (
     <button
       type={type}
-      className={`!text-lg ${buttonClassNames}`}
+      className={`!text-sm md:!text-lg ${buttonClassNames}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}

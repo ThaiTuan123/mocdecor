@@ -384,11 +384,11 @@ const Header = () => {
         </div>
         {menuOpen && (
           // TODO mobile menu
-          <div className="flex h-896 flex-col items-start space-y-4 bg-white px-6 py-4 shadow-md md:hidden">
+          <div className="flex h-896 flex-col items-start bg-white px-6 py-4 shadow-md md:hidden">
             {menuLinks.map(({ href, labelKey }) => (
               <div
                 key={href}
-                className="w-full"
+                className="w-full pt-4"
                 onClick={() => handleClickMenuMobile(labelKey)}
               >
                 <MenuLink href={href} label={languages.get(labelKey)} />
