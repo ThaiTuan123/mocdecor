@@ -80,7 +80,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     );
 
     const uniqueImages: string[] = Array.from(new Set(listImagesSku));
-    const introduceImages: string[] = JSON.parse(product.imagesIntroduction);
+    const introduceImages: string[] =
+      product?.imagesIntroduction && product.imagesIntroduction.length > 0
+        ? JSON.parse(product.imagesIntroduction)
+        : uniqueImages;
     // const mergedImages = [...introduceImages, ...uniqueImages];
     if (introduceImages.length > 0) {
       setImagesSku(introduceImages);
