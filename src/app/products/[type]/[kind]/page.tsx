@@ -432,8 +432,11 @@ export default function Products() {
               <Image
                 className="h-full w-full rounded-t object-fill transition-all duration-300"
                 src={
-                  JSON.parse(item.imagesIntroduction)?.[0]
-                    ? JSON.parse(item.imagesIntroduction)?.[0]
+                  item?.imagesIntroduction &&
+                  typeof item?.imagesIntroduction === 'string' &&
+                  item?.imagesIntroduction.length > 0 &&
+                  item?.imagesIntroduction !== '[]'
+                    ? JSON.parse(item?.imagesIntroduction)?.[0]
                     : item.images[0]
                 }
                 alt={item.product.name}
@@ -534,8 +537,7 @@ export default function Products() {
           {languages.get('product.pagination.text')}
         </span>
         <div className="w-12 border border-doveGray"></div>
-        {
-          Array.from({ length: totalPages }, (_, index) => index + 1).map(
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (item, index) => (
             <span
               onClick={() => onChangePagination(item)}
