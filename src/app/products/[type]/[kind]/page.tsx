@@ -534,7 +534,8 @@ export default function Products() {
           {languages.get('product.pagination.text')}
         </span>
         <div className="w-12 border border-doveGray"></div>
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+        {
+          Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (item, index) => (
             <span
               onClick={() => onChangePagination(item)}

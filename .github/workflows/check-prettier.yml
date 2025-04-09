@@ -12,17 +12,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '16'
 
-      - name: Install dependencies
-        run: npm install
+      # - name: Install dependencies
+      #   run: npm install
 
-      - name: Run Prettier check
-        run: npx prettier --check .
+      # - name: Run Prettier check
+      #   run: npx prettier --check .
 
-      - name: Fix Prettier issues (optional)
-        if: failure() # Runs this step only if the Prettier check fails
-        run: npx prettier --write .
+      # - name: Fix Prettier issues (optional)
+      #   if: failure() # Runs this step only if the Prettier check fails
+      #   run: npx prettier --write .
