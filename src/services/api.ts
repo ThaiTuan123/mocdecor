@@ -86,8 +86,8 @@ export const fetchListCategory = async (
 
 // Fetch banner items
 export const fetchBannerItems = async () => {
-  const url = 'http://localhost:4000/public/settings/banner';
-  // const url = 'https://api.mocdecor99.com/public/settings/banner';
+  // const url = 'http://localhost:4000/public/settings/banner';
+  const url = 'https://api.mocdecor99.com/public/settings/banner';
   return apiRequest(url);
 };
 

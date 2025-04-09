@@ -24,7 +24,19 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
         hostname: 'cdn.mocdecor99.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.mocdecor.org',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.mocdecor.org',
       },
       {
         protocol: 'https',
