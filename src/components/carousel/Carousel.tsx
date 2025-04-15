@@ -93,41 +93,44 @@ const CarouselWrapper = ({
   const fallbackImageUrl = images.bannerHomeError;
 
   return (
-    <div className="relative aspect-[16/9] w-full overflow-hidden">
-      {isLoading && (
-        <Image
-          src={fallbackImageUrl}
-          alt="Loading"
-          fill={true}
-          className="absolute inset-0 block h-full w-full object-cover blur-md"
-          priority
-        />
-      )}
-      {items.map((item, index) => (
-        <div
-          key={item.id}
-          className={`absolute inset-0 transform transition-transform duration-700 ease-in-out ${
-            index === activeIndex ? 'translate-x-0' : 'translate-x-full'
-          }`}
-          style={{ transform: `translateX(${(index - activeIndex) * 100}%)` }}
-          data-carousel-item={index === activeIndex ? 'active' : ''}
-        >
+    <div className="relative w-full overflow-hidden">
+      <div className="pb-[56.25%] md:pb-[50%] lg:pb-[42%]"></div>
+      <div className="absolute bottom-0 left-0 right-0 top-0">
+        {isLoading && (
           <Image
-            fetchPriority={'high'}
-            src={item.imageUrl}
-            alt={item.title}
+            src={fallbackImageUrl}
+            alt="Loading"
             fill={true}
-            className={`block h-full w-full object-cover transition-opacity duration-500`}
-            blurDataURL={fallbackImageUrl}
-            loading="eager"
-            onLoad={() => {
-              const updatedLoaded = [...loaded];
-              updatedLoaded[index] = true;
-              setLoaded(updatedLoaded);
-            }}
+            className="absolute inset-0 block h-full w-full object-cover blur-md"
+            priority
           />
-        </div>
-      ))}
+        )}
+        {items.map((item, index) => (
+          <div
+            key={item.id}
+            className={`absolute inset-0 transform transition-transform duration-700 ease-in-out ${
+              index === activeIndex ? 'translate-x-0' : 'translate-x-full'
+            }`}
+            style={{ transform: `translateX(${(index - activeIndex) * 100}%)` }}
+            data-carousel-item={index === activeIndex ? 'active' : ''}
+          >
+            <Image
+              fetchPriority={'high'}
+              src={item.imageUrl}
+              alt={item.title}
+              fill={true}
+              className={`block h-full w-full object-cover transition-opacity duration-500`}
+              blurDataURL={fallbackImageUrl}
+              loading="eager"
+              onLoad={() => {
+                const updatedLoaded = [...loaded];
+                updatedLoaded[index] = true;
+                setLoaded(updatedLoaded);
+              }}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -141,14 +144,15 @@ const CarouselIndicators = ({
   activeIndex: number;
   setActiveIndex: (index: number) => void;
 }) => (
-  <div className="absolute bottom-24 left-1/2 z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse">
+  // Thay đổi từ 'bottom-24' thành các lớp responsive
+  <div className="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 space-x-3 sm:bottom-8 md:bottom-12 lg:bottom-24 rtl:space-x-reverse">
     <div className="flex flex-col space-y-10">
       <div id="indicatorsSlider" className="flex justify-center space-x-3">
         {items.map((_, index) => (
           <button
             key={index}
             type="button"
-            className={`h-3 w-3 transition-transform duration-300 ease-in-out ${
+            className={`h-2 w-2 transition-transform duration-300 ease-in-out md:h-3 md:w-3 ${
               index === activeIndex
                 ? 'scale-110 bg-brown-500 outline outline-white'
                 : 'bg-brown-200 hover:scale-110'
