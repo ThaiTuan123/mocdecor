@@ -86,14 +86,13 @@ export const fetchListCategory = async (
 
 // Fetch banner items
 export const fetchBannerItems = async () => {
-  // const url = 'http://localhost:4000/public/settings/banner';
-  const url = 'https://api.mocdecor99.com/public/settings/banner';
+  const url = `${API.BANNER}`;
   return apiRequest(url);
 };
 
 // Submit contact form
 export const submitContactForm = async (formData: ContactFormModel) => {
-  const url = 'https://api.mocdecor99.com/public/contact/submit';
+  const url = `${API.CONTACT}`;
   return apiRequest(url, {
     method: 'POST',
     body: formData,

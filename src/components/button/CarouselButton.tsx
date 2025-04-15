@@ -13,15 +13,15 @@ const CarouselButton: React.FC<CarouselButtonProps> = ({
   return (
     <button
       type="button"
-      className={`absolute top-0 ${type === 'prev' ? 'left-0' : 'right-0'} group z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none`}
+      className={`absolute top-0 ${type === 'prev' ? 'left-0' : 'right-0'} z-30 flex h-full cursor-pointer items-center justify-center px-4`}
       data-carousel={type}
       onClick={handleClick}
     >
       <span
-        className={`inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-400/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70`}
+        className={`inline-flex h-8 w-8 items-center justify-center rounded-full bg-white focus:border-transparent active:transform-none active:border-transparent group-hover:bg-gray-200 group-focus:ring-4 group-focus:ring-gray-300 sm:h-10 sm:w-10`}
       >
         <svg
-          className={`h-4 w-4 text-white dark:text-gray-800 ${type === 'prev' ? 'rtl:rotate-180' : ''}`}
+          className={`h-3 w-3 text-brown-700 sm:h-4 sm:w-4 ${type === 'prev' ? 'rtl:rotate-180' : ''}`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
