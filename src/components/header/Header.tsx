@@ -316,7 +316,13 @@ const Header = () => {
               }}
               className="relative text-black"
             >
-              <Icon src={images.icons.cart} alt="Cart Toggle" />
+              <div className="cart-icon-shake">
+                <Icon
+                  src={images.icons.cart}
+                  alt="Cart Toggle"
+                  className="cart-icon-size"
+                />
+              </div>
               <div className="absolute right-[-2px] top-[-2px] flex h-[14px] w-[14px] items-center justify-center rounded-2xl bg-primary">
                 <span className="translate-y-[1px] text-center text-0.8x text-white">
                   {totalCart}
@@ -365,19 +371,22 @@ const Header = () => {
           {/*Giỏ hàng*/}
           <div className="absolute right-0 top-2.5 hidden space-x-4 md:right-3 md:order-4 md:flex">
             {icons.map(({ src, alt, value }) => (
-              <div className="relative">
-                <Icon
-                  key={alt}
-                  src={src}
-                  alt={alt}
-                  onClick={() => handleClickIcon(value)}
-                />
-                {/*TODO animation*/}
-                <div className="absolute right-[-2px] top-[-2px] flex h-[14px] w-[14px] items-center justify-center rounded-2xl bg-primary">
-                  <span className="translate-y-[1px] text-center text-0.8x text-white">
-                    {totalCart}
-                  </span>
+              <div className="relative" key={alt}>
+                <div className={value === 'cart' ? 'cart-icon-shake' : ''}>
+                  <Icon
+                    src={src}
+                    alt={alt}
+                    onClick={() => handleClickIcon(value)}
+                    className={value === 'cart' ? 'cart-icon-size' : ''}
+                  />
                 </div>
+                {value === 'cart' && (
+                  <div className="absolute right-[-2px] top-[-2px] flex h-[14px] w-[14px] items-center justify-center rounded-2xl bg-primary">
+                    <span className="translate-y-[1px] text-center text-0.8x text-white">
+                      {totalCart}
+                    </span>
+                  </div>
+                )}
               </div>
             ))}
           </div>

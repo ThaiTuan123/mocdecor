@@ -123,12 +123,17 @@ const config: Config = {
                     '0%, 100%': { transform: 'translateY(0)' },
                     '50%': { transform: 'translateY(-10px)' },
                 },
+                drawCheck: {
+                    'from': { strokeDashoffset: '30' },
+                    'to': { strokeDashoffset: '0' },
+                },
             },
             animation: {
                 upDown: 'upDown 2s infinite ease-in-out',
                 fallIn: 'fallIn 0.8s ease-out forwards',
                 leftToRight: 'leftToRight 0.5s ease-in-out',
                 moveUpDown: 'moveUpDown 2s ease-in-out infinite',
+                'draw-check': 'drawCheck 0.5s ease-in-out forwards',
             },
             height: {
                 'background-height': '50rem', // or '932px'
