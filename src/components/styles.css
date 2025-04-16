@@ -14,7 +14,7 @@ div.hidden.md\:flex.md\:order-1.space-x-28.items-center
 }
 
 .cart-icon-shake {
-  animation: cartShake 3s ease-in-out infinite !important;
+  animation: cartShake 1s ease-in-out infinite !important;
   transform-origin: 50% 80%;
 }
 
