@@ -12,13 +12,15 @@ const Icon: React.FC<{
   alt: string;
   onClick?: () => void;
   className?: string;
-}> = ({ src, alt, onClick, className = '' }) => {
+  size?: 'small' | 'large';
+}> = ({ src, alt, onClick, className = '', size = 'large' }) => {
+  const sizeClass = size === 'large' ? 'h-8 w-8' : 'h-6 w-6';
   return (
     <img
       src={src}
       alt={alt}
       onClick={onClick}
-      className={`h-6 w-6 cursor-pointer ${className}`}
+      className={`${sizeClass} cursor-pointer ${className}`}
     />
   );
 };
