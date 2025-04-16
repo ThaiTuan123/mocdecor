@@ -37,3 +37,12 @@ div.hidden.md\:flex.md\:order-1.space-x-28.items-center
   stroke-dashoffset: 30;
   animation: drawCheck 0.5s ease-in-out forwards;
 }
+
+@keyframes tickAppear {
+  0% { opacity: 0; transform: scale(0.5); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-tick-appear {
+  animation: tickAppear 0.3s ease-out forwards;
+}

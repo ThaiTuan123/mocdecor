@@ -182,9 +182,14 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     if (success) {
       return (
         <div className="flex h-6 w-6 items-center justify-center">
-          <svg className="h-6 w-6" viewBox="0 0 24 24">
+          <svg
+            className="animate-tick-appear h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="white"
+            strokeWidth="2"
+          >
             <path
-              className="animate-draw-check fill-none stroke-white stroke-2"
               d="M5 13l4 4L19 7"
               strokeLinecap="round"
               strokeLinejoin="round"
