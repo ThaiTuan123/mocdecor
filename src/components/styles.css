@@ -4,3 +4,36 @@ div.hidden.md\:flex.md\:order-1.space-x-28.items-center
 .subnav {
   display: none;
 }
+
+@keyframes cartShake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.cart-icon-shake {
+  animation: cartShake 3s ease-in-out infinite !important;
+  transform-origin: 50% 80%;
+}
+
+.cart-icon-size {
+  width: 24px;
+  height: 24px;
+}
+
+@keyframes drawCheck {
+  from {
+    stroke-dashoffset: 30;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-draw-check {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: drawCheck 0.5s ease-in-out forwards;
+}

@@ -7,24 +7,19 @@ interface IconProps {
   onClick?: () => void; // Optional click handler
 }
 
-const Icon = ({ src, alt, size = 'small', onClick }: IconProps) => {
-  // Define size based on the 'size' prop
-  const dimensions = size === 'small' ? 24 : 48;
-
+const Icon: React.FC<{
+  src: string;
+  alt: string;
+  onClick?: () => void;
+  className?: string;
+}> = ({ src, alt, onClick, className = '' }) => {
   return (
-    <div
-      className={`inline-block cursor-pointer hover:opacity-85`}
+    <img
+      src={src}
+      alt={alt}
       onClick={onClick}
-      style={{ width: dimensions, height: dimensions }}
-    >
-      <Image
-        src={src} // Optimized image path
-        alt={alt} // Alt text
-        width={dimensions} // Width based on size
-        height={dimensions} // Height based on size
-        className="object-contain" // Ensures image fits without distortion
-      />
-    </div>
+      className={`h-6 w-6 cursor-pointer ${className}`}
+    />
   );
 };
 

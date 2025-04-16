@@ -21,6 +21,7 @@ import {
   successState,
 } from '@/recoil/atoms/cartStatusAtom';
 import ToastMessage from '@/components/toast/ToastMessage';
+import '../styles.css';
 
 interface ProductPopupProps {
   product: any;
@@ -180,8 +181,15 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
     if (success) {
       return (
-        <div className="flex h-6 w-6 animate-bounce items-center justify-center rounded-full bg-green-400">
-          <AiOutlineCheck className="text-lg text-white" />
+        <div className="flex h-6 w-6 items-center justify-center">
+          <svg className="h-6 w-6" viewBox="0 0 24 24">
+            <path
+              className="animate-draw-check fill-none stroke-white stroke-2"
+              d="M5 13l4 4L19 7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       );
     }
