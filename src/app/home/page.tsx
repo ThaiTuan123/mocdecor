@@ -519,14 +519,20 @@ const ServiceSection: React.FC = () => {
                 <Suspense fallback={<p>Loading video...</p>}>
                   <div className="aspect-h-9 aspect-w-16 relative w-full">
                     <video
-                      preload="none"
+                      preload="metadata"
                       autoPlay
                       loop
                       muted
+                      playsInline
+                      disablePictureInPicture
+                      webkit-playsinline="true"
                       className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-                      controlsList="nodownload nofullscreen noremoteplayback"
+                      style={{
+                        objectFit: 'cover',
+                      }}
                     >
                       <source src="/assets/videos/1.webm" type="video/webm" />
+                      <source src="/assets/videos/1.mp4" type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>
@@ -542,14 +548,20 @@ const ServiceSection: React.FC = () => {
                 <Suspense fallback={<p>Loading video...</p>}>
                   <div className="aspect-h-9 aspect-w-16 relative w-full">
                     <video
-                      preload="none"
+                      preload="metadata"
                       autoPlay
                       loop
                       muted
+                      playsInline
+                      disablePictureInPicture
+                      webkit-playsinline="true"
                       className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-                      controlsList="nodownload nofullscreen noremoteplayback"
+                      style={{
+                        objectFit: 'cover',
+                      }}
                     >
                       <source src="/assets/videos/2.webm" type="video/webm" />
+                      <source src="/assets/videos/2.mp4" type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>

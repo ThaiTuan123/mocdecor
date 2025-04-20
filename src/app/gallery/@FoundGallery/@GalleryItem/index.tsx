@@ -13,7 +13,7 @@ import languages from '@/configs/languages';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
-import { BASE_URL } from '@/utils/constants';
+import { BASE_CDN_URL, BASE_URL } from '@/utils/constants';
 
 interface PreviewImage {
   id: string;
@@ -48,6 +48,7 @@ export default function GalleryItem({
 }: GalleryItemProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [selectedItem, setSelectedItem] = useState<SelectedItem>({
     input: [],
     countSelected: 0,
@@ -62,6 +63,8 @@ export default function GalleryItem({
   const [isAllowSubmit, setIsAllowSubmit] = useState(false);
   const [maxUploadLimit, setMaxUploadLimit] = useState(1);
   const [currentUploadLimit, setCurrentUploadLimit] = useState(1);
+  const [needUpload, setNeedUpload] = useState(false);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const MAX_BATCH_SIZE = 5;
   const MAX_FILE_SIZE_MB = 60;
@@ -80,14 +83,45 @@ export default function GalleryItem({
   }, [orderData]);
 
   useEffect(() => {
-    if (selectedUpload) {
-      const item = uploadState.find((it: any) => it.id === selectedUpload);
-      setSelectedItem(item || { input: [], countSelected: 0 });
-      setMaxUploadLimit(item?.imageLimit);
-      setCurrentUploadLimit(item?.imageLimit);
-      setPreviewImages(item?.input || []);
+    if (uploadState.length > 0 || isDataLoaded) {
+      setIsDataLoaded(true);
+      const isNoUploadNeeded =
+        uploadState.length === 0 ||
+        (uploadState.length > 0 &&
+          uploadState.every((item: any) => {
+            return item.imageLimit === 0;
+          }));
+
+      const isNeedUpload =
+        uploadState.length > 0 &&
+        uploadState.some((item: any) => {
+          return item.imageLimit >= 1;
+        });
+
+      if (isNoUploadNeeded && isDataLoaded) {
+        router.push(`/success?orderId=${orderId}&noUploadsNeeded=true`);
+        return;
+      }
+
+      setNeedUpload(isNeedUpload);
+      if (selectedUpload) {
+        const item = uploadState.find((it: any) => it.id === selectedUpload);
+        setSelectedItem(item || { input: [], countSelected: 0 });
+        setMaxUploadLimit(item?.imageLimit);
+        setCurrentUploadLimit(item?.imageLimit);
+        setPreviewImages(item?.input || []);
+      }
     }
-  }, [selectedUpload, uploadState]);
+  }, [selectedUpload, uploadState, orderId, router, isDataLoaded]);
+
+  useEffect(() => {
+    if (orderData) {
+      const timer = setTimeout(() => {
+        setIsDataLoaded(true);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [orderData]);
 
   useEffect(() => {
     if (uploadQueue.length > 0 && !isUploading) {
@@ -170,7 +204,7 @@ export default function GalleryItem({
       formData.append('file', file);
 
       try {
-        const response = await fetch('https://cdn.mocdecor99.com/single', {
+        const response = await fetch(`${BASE_CDN_URL}/single`, {
           method: 'POST',
           body: formData,
         });
@@ -179,7 +213,6 @@ export default function GalleryItem({
           const result = await response.json();
           updateImageStatus(id, 'done', result.paths, tabId);
         } else {
-          // console.error('Upload failed', response.statusText);
           updateImageStatus(id, 'error', null, tabId);
         }
       } catch (error) {
