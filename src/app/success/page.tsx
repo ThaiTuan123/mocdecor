@@ -12,6 +12,7 @@ import { useSearchParams } from 'next/navigation';
 function FinishContent() {
   const searchParams = useSearchParams();
   const orderCode = searchParams.get('orderId') || 'N/A';
+  const noUploadsNeeded = searchParams.get('noUploadsNeeded') === 'true';
 
   return (
     <div>
@@ -38,6 +39,9 @@ function FinishContent() {
             </div>
 
             <p className="mb-4 text-sm md:mb-5 md:text-lg lg:mb-6">
+              {noUploadsNeeded
+                ? `Đơn hàng ${orderCode} không yêu cầu tải ảnh lên. `
+                : ''}
               Đơn hàng của bạn sẽ được xác nhận trong vòng 24h. Nếu có bất kỳ
               thắc mắc nào, vui lòng liên hệ với chúng tôi qua :
             </p>
