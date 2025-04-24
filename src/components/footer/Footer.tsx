@@ -13,6 +13,7 @@ import {
 } from '@/components/footer/constant';
 import Link from 'next/link';
 import useMenu from '@/recoil/hooks/useMenu';
+import useImageFooter from '@/recoil/hooks/useImageFooter';
 
 const FooterTop = () => (
   <div className="bg-punga px-6 py-8 text-white md:py-1 2xl:px-96">
@@ -58,32 +59,36 @@ interface FooterLogoProps {
   className?: string;
 }
 
-const FooterLogo = ({ className }: FooterLogoProps) => (
-  <div
-    className={`relative flex w-1/3 items-center justify-center ${className}`}
-  >
-    {/* Background image */}
-    <Image
-      src={images.imageFooterBackground}
-      alt="Footer Background"
-      fill={true}
-      quality={75} // Optimize image quality
-      className="z-0 object-cover" // Ensure the background stays behind the logo
-      loading="lazy"
-    />
+const FooterLogo = ({ className }: FooterLogoProps) => {
+  const { data } = useImageFooter();
 
-    {/* Logo */}
-    <div className="relative z-10 flex items-center justify-center">
+  return (
+    <div
+      className={`relative flex w-1/3 items-center justify-center ${className}`}
+    >
+      {/* Background image */}
       <Image
-        src={images.logoWhite}
-        alt="Moc Decor Logo"
-        width={144} // Replace with the actual width of your logo
-        height={144} // Replace with the actual height of your logo
-        className="mx-auto mb-2 h-64 w-64 md:h-36 md:w-36"
+        src={data?.data?.image ?? images.imageFooterBackground}
+        alt="Footer Background"
+        fill={true}
+        quality={75} // Optimize image quality
+        className="z-0 object-cover" // Ensure the background stays behind the logo
+        loading="lazy"
       />
+
+      {/* Logo */}
+      <div className="relative z-10 flex items-center justify-center">
+        <Image
+          src={images.logoWhite}
+          alt="Moc Decor Logo"
+          width={144} // Replace with the actual width of your logo
+          height={144} // Replace with the actual height of your logo
+          className="mx-auto mb-2 h-64 w-64 md:h-36 md:w-36"
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 interface FooterLinksProps {
   className?: string;

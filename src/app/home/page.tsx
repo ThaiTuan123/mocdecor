@@ -35,6 +35,8 @@ import { fetchBlogs } from '@/services/api';
 import { blogsState } from '@/recoil/atoms/blogAtom';
 import useMocClient from '@/recoil/hooks/useMocClient';
 import useMocCustomerReview from '@/recoil/hooks/useMocCustomerReview';
+import useMocEvent from '@/recoil/hooks/useMocEvent';
+import useMocAbout from '@/recoil/hooks/useMocAbout';
 
 const CategorySection = () => {
   const { menu } = useMenu();
@@ -60,23 +62,25 @@ const CategorySection = () => {
   );
 };
 
-const HeaderSectionAbout = () => (
-  <div className="order-99 flex w-full flex-col items-center text-left lg:w-fit lg:items-start">
-    <TitleText
-      firstText={languages.get('home.title.firstText.about')}
-      secondText={languages.get('home.title.secondText.about')}
-      justifyCenter={false} // Optional, defaults to true
-    />
-    <Heading2
-      text={languages.get('home.title.header2.about')}
-      classNameText="text-center lg:text-left mb-0 lg:mb-6"
-    />
-  </div>
-);
+const HeaderSectionAbout = ({ title }: { title?: string }) => {
+  return (
+    <div className="order-99 flex w-full flex-col items-center text-left lg:w-fit lg:items-start">
+      <TitleText
+        firstText={languages.get('home.title.firstText.about')}
+        secondText={languages.get('home.title.secondText.about')}
+        justifyCenter={false} // Optional, defaults to true
+      />
+      <Heading2
+        text={title ?? languages.get('home.title.header2.about')}
+        classNameText="text-center lg:text-left mb-0 lg:mb-6"
+      />
+    </div>
+  );
+};
 
-const TextContentAbout = () => (
+const TextContentAbout = ({ content }: { content?: string }) => (
   <TextContent
-    text={languages.get('home.title.textContent.about')}
+    text={content ?? languages.get('home.title.textContent.about')}
     marginBottom={'mb-4'}
     className="order-2 !mb-3 md:my-4 lg:order-none 2xl:w-[600px]"
   />
@@ -100,10 +104,16 @@ const SocialLinksAbout = () => (
   </div>
 );
 
-const ImageContentAbout = () => (
+const ImageContentAbout = ({
+  image1,
+  image2,
+}: {
+  image1?: string;
+  image2?: string;
+}) => (
   <div className="order-1 mb-3 mt-4 w-full cursor-grab rounded-lg md:mb-0 lg:order-none">
     <Image
-      src={images.homeAbout2}
+      src={image2 ?? images.homeAbout2}
       alt="Mộc Decor"
       width={564}
       height={312}
@@ -111,7 +121,7 @@ const ImageContentAbout = () => (
     />
 
     <Image
-      src={images.homeAbout3}
+      src={image1 ?? images.homeAbout3}
       alt="Mộc Decor"
       width={564}
       height={312}
@@ -120,49 +130,55 @@ const ImageContentAbout = () => (
   </div>
 );
 
-const AboutSection = () => (
-  <section
-    id="about"
-    className="mb-4 flex flex-col px-6 pt-0 text-center 2xl:container md:flex-row md:py-8 md:pb-8 lg:px-0 2xl:mx-auto"
-  >
-    {/*Image left*/}
-    <div
-      id="contentLeft"
-      className="md:order-20 hidden w-full pr-8 md:w-1/2 lg:block lg:max-h-[630px] lg:pl-20 xl:max-h-[630px] xl:pr-0 2xl:pl-32 3xl:pl-96"
-    >
-      <Image
-        src={images.homeAbout1}
-        alt="Mộc Decor"
-        width={524}
-        height={630}
-        className="mx-auto h-252 rounded-lg px-8 md:object-fill lg:h-[630px] 3xl:px-10 3xl:pl-6"
-      />
-    </div>
+const AboutSection: React.FC = () => {
+  const { data } = useMocAbout();
 
-    <div
-      id="contentRight"
-      className="flex w-full flex-col items-start lg:max-h-[630px] lg:w-1/2 lg:pr-20 xl:max-h-[630px]"
+  const { content, image_1, image_2, title } = data.data;
+
+  return (
+    <section
+      id="about"
+      className="mb-4 flex flex-col px-6 pt-0 text-center 2xl:container md:flex-row md:py-8 md:pb-8 lg:px-0 2xl:mx-auto"
     >
-      <HeaderSectionAbout />
+      {/*Image left*/}
       <div
         id="contentLeft"
-        className="lg:order-20 block lg:hidden lg:w-1/2 lg:pl-20 2xl:pl-40"
+        className="md:order-20 hidden w-full pr-8 md:w-1/2 lg:block lg:max-h-[630px] lg:pl-20 xl:max-h-[630px] xl:pr-0 2xl:pl-32 3xl:pl-96"
       >
         <Image
-          src={images.homeAbout1}
+          src={image_1 ?? images.homeAbout1}
           alt="Mộc Decor"
-          width={1024}
-          height={768}
-          className="mx-auto hidden h-252 w-full max-w-lg rounded-lg object-cover lg:flex lg:h-auto lg:object-fill"
+          width={524}
+          height={630}
+          className="mx-auto h-252 rounded-lg px-8 md:object-fill lg:h-[630px] 3xl:px-10 3xl:pl-6"
         />
       </div>
-      <TextContentAbout />
-      <SeparatorAbout />
-      <SocialLinksAbout />
-      <ImageContentAbout />
-    </div>
-  </section>
-);
+
+      <div
+        id="contentRight"
+        className="flex w-full flex-col items-start lg:max-h-[630px] lg:w-1/2 lg:pr-20 xl:max-h-[630px]"
+      >
+        <HeaderSectionAbout title={title} />
+        <div
+          id="contentLeft"
+          className="lg:order-20 block lg:hidden lg:w-1/2 lg:pl-20 2xl:pl-40"
+        >
+          <Image
+            src={image_1 ?? images.homeAbout1}
+            alt="Mộc Decor"
+            width={1024}
+            height={768}
+            className="mx-auto hidden h-252 w-full max-w-lg rounded-lg object-cover lg:flex lg:h-auto lg:object-fill"
+          />
+        </div>
+        <TextContentAbout content={content} />
+        <SeparatorAbout />
+        <SocialLinksAbout />
+        <ImageContentAbout image1={image_1} image2={image_2} />
+      </div>
+    </section>
+  );
+};
 
 const OtherProductsSection: React.FC = () => {
   const handleClick = () => {
@@ -344,9 +360,10 @@ const BlogSection = () => {
 
 const GiftSection: React.FC = () => {
   const [isLoaded, setIsLoaded] = useRecoilState(isImageLoadedState);
+  const { data } = useMocEvent();
 
   const handleClick = () => {
-    alert('Discover button clicked!');
+    window.open(data.data.link, '_blank');
   };
   return (
     <section className="relative mt-8 flex h-648 2xl:container md:mt-0 md:h-96 md:max-h-96 2xl:mx-auto">
@@ -355,7 +372,7 @@ const GiftSection: React.FC = () => {
         className={`absolute inset-0 z-0 ${!isLoaded ? 'animate-pulse bg-gray-200' : ''}`}
       >
         <Image
-          src={images.giftHomeMobile} // Replace with the actual mobile background image
+          src={data?.data?.mobileImage ?? images.giftHomeMobile} // Replace with the actual mobile background image
           alt="Gift Section Background Mobile"
           fill={true}
           className="block object-cover md:hidden"
@@ -365,7 +382,7 @@ const GiftSection: React.FC = () => {
           quality={75}
         />
         <Image
-          src={images.giftHome} // Replace with the actual desktop background image
+          src={data?.data?.desktopImage ?? images.giftHome} // Replace with the actual desktop background image
           alt="Gift Section Background Desktop"
           fill={true}
           className="hidden object-cover md:block"
@@ -400,12 +417,42 @@ const GiftSection: React.FC = () => {
           <div className="mx-4 hidden h-24 w-1 bg-white md:block"></div>
           <div id="title">
             <div className="flex-n1 font-raleway flex flex-col items-center md:items-start">
-              <p className="font-raleway mb-4 text-4xl font-extrabold text-white">
-                {languages.get('home.title.header2.gift1')}
-              </p>
-              <p className="font-raleway text-4xl font-extrabold text-white">
-                {languages.get('home.title.header2.gift2')}
-              </p>
+              {data.data.title ? (
+                (() => {
+                  const words = data.data.title.split(' ');
+                  const totalWords = words.length;
+
+                  let firstPartWords = 2; // Mặc định phần đầu là 2 từ
+
+                  // Điều chỉnh số từ dựa trên tổng số từ
+                  if (totalWords >= 6) {
+                    firstPartWords = 3;
+                  }
+
+                  const firstPart = words.slice(0, firstPartWords).join(' ');
+                  const secondPart = words.slice(firstPartWords).join(' ');
+
+                  return (
+                    <>
+                      <p className="font-raleway mb-4 text-4xl font-extrabold text-white">
+                        {firstPart}
+                      </p>
+                      <p className="font-raleway text-4xl font-extrabold text-white">
+                        {secondPart}
+                      </p>
+                    </>
+                  );
+                })()
+              ) : (
+                <div>
+                  <p className="font-raleway mb-4 text-4xl font-extrabold text-white">
+                    {languages.get('home.title.header2.gift1')}
+                  </p>
+                  <p className="font-raleway text-4xl font-extrabold text-white">
+                    {languages.get('home.title.header2.gift2')}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

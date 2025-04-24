@@ -69,6 +69,23 @@ export const fetchMocCustomerReview = async () => {
   return apiRequest(url);
 };
 
+// Fetch Moc About
+export const fetchMocAbout = async () => {
+  const url = `${API.MOC_ABOUT}`;
+  return apiRequest(url);
+};
+
+// Fetch Moc Event
+export const fetchMocEvent = async () => {
+  const url = `${API.MOC_EVENT}`;
+  return apiRequest(url);
+};
+
+export const fetchMocFooter = async () => {
+  const url = `${API.MOC_FOOTER}`;
+  return apiRequest(url);
+}
+
 // Fetch top pos product category
 export const fetchTopProductCategory = async () => {
   const url = `${API.TOP_POS_PRODUCT_CATEGORY}`;
