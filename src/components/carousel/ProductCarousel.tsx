@@ -51,7 +51,10 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
         </button>
       )}
 
-      <div className="flex overflow-x-scroll no-scrollbar whitespace-nowrap" ref={carouselRef}>
+      <div
+        className="flex overflow-x-scroll whitespace-nowrap no-scrollbar"
+        ref={carouselRef}
+      >
         {/* Display images with horizontal scroll */}
         {displayImages.map((image, index) => (
           <div

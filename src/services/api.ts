@@ -84,7 +84,7 @@ export const fetchMocEvent = async () => {
 export const fetchMocFooter = async () => {
   const url = `${API.MOC_FOOTER}`;
   return apiRequest(url);
-}
+};
 
 // Fetch top pos product category
 export const fetchTopProductCategory = async () => {

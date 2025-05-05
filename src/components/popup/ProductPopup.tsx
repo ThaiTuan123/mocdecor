@@ -109,7 +109,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     if (skuSelected) {
       return formatCurrency(skuSelected.retail_price ?? 0);
     }
-    return  `${parseFloat(product.retail_price.split('-')[0]) === parseFloat(product.retail_price.split('-')[1]) ? formatCurrency(parseFloat(product.retail_price.split('-')[0])) : `${formatCurrency(parseFloat(product.retail_price.split('-')[0]))} - ${formatCurrency(parseFloat(product.retail_price.split('-')[1]))}`}`;
+    return `${parseFloat(product.retail_price.split('-')[0]) === parseFloat(product.retail_price.split('-')[1]) ? formatCurrency(parseFloat(product.retail_price.split('-')[0])) : `${formatCurrency(parseFloat(product.retail_price.split('-')[0]))} - ${formatCurrency(parseFloat(product.retail_price.split('-')[1]))}`}`;
   };
 
   const handleSizeChange = (
