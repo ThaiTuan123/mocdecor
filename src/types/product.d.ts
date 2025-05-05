@@ -29,5 +29,5 @@ export interface Product {
     noteProduct: string;
   };
   product_id: string;
-  retail_price: number;
+  retail_price: string;
 }

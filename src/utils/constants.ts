@@ -52,6 +52,9 @@ export class API {
   static UPLOAD_IMAGE = BASE_URL + '/single';
   static MOC_CLIENT = BASE_URL + '/public/settings/clients'; // Đối tác của Mộc
   static MOC_CUSTOMER_REVIEW = BASE_URL + '/public/settings/reviews'; // Đánh giá của khách hàng
+  static MOC_ABOUT = BASE_URL + '/public/settings/about'; // Về Mộc
+  static MOC_EVENT = BASE_URL + '/public/settings/event'; // Banner sự kiện
+  static MOC_FOOTER = BASE_URL + '/public/settings/footer'; // Ảnh footer
   static CONTACT = BASE_URL + '/public/contact/submit'; // Đánh giá của khách hàng
   static BANNER = BASE_URL + '/public/settings/banner'; // Đánh giá của khách hàng
 }
