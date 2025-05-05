@@ -107,10 +107,9 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   // TODO: Use effect to update price when the sku change
   const getTotalPrice = () => {
     if (skuSelected) {
-      return formatCurrency(skuSelected.retail_price);
+      return formatCurrency(skuSelected.retail_price ?? 0);
     }
-
-    return formatCurrency(product.retail_price);
+    return `${parseFloat(product.retail_price.split('-')[0]) === parseFloat(product.retail_price.split('-')[1]) ? formatCurrency(parseFloat(product.retail_price.split('-')[0])) : `${formatCurrency(parseFloat(product.retail_price.split('-')[0]))} - ${formatCurrency(parseFloat(product.retail_price.split('-')[1]))}`}`;
   };
 
   const handleSizeChange = (

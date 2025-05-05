@@ -419,6 +419,21 @@ export default function Products() {
     );
   };
 
+  const renderPrice = (priceRange: string) => {
+    if (!priceRange.includes('-')) {
+      return formatVietnameseCurrency(priceRange.trim());
+    }
+
+    const [minPrice, maxPrice] = priceRange
+      .split('-')
+      .map(price => price.trim());
+
+    if (Number(minPrice) === Number(maxPrice)) {
+      return formatVietnameseCurrency(minPrice);
+    }
+    return `${formatVietnameseCurrency(minPrice)} - ${formatVietnameseCurrency(maxPrice)}`;
+  };
+
   const renderProduct = () => {
     return (
       <div className="mt-8 grid min-h-52 grid-cols-2 gap-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
@@ -454,7 +469,7 @@ export default function Products() {
                   </span>
                 </div>
                 <span className="text-2lg text-caption">
-                  {formatVietnameseCurrency(item.retail_price)}
+                  {renderPrice(item.retail_price)}
                 </span>
               </div>
             </div>

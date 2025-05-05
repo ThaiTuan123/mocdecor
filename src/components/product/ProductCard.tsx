@@ -65,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
               </span>
             </div>
             <p className="font-raleway mt-2 text-sm font-normal text-orange-600 md:text-xl">
-              {`${formatCurrency(retail_price)} ${CURRENCY_SYMBOL}`}
+              {`${parseFloat(retail_price.split('-')[0]) === parseFloat(retail_price.split('-')[1]) ? formatCurrency(parseFloat(retail_price.split('-')[0])) : `${formatCurrency(parseFloat(retail_price.split('-')[0]))} - ${formatCurrency(parseFloat(retail_price.split('-')[1]))}`} ${CURRENCY_SYMBOL}`}
             </p>
           </>
         )}
