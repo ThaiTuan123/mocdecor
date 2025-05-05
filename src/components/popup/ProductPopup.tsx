@@ -538,33 +538,35 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         {renderFullScreenImage()}
         <div
           ref={popupRef}
-          className="relative flex h-auto w-375 flex-col rounded-lg bg-white p-4 py-12 md:w-580 lg:w-1024 lg:p-6"
+          className="relative flex h-auto w-375 max-h-[100vh] flex-col rounded-lg bg-white py-12 p-4 md:w-580 lg:w-1024 lg:p-6"
         >
-          <div className="flex justify-end py-2">
+          <div className="absolute right-2 top-2 z-10">
             <CancelButton onClick={onClose} />
           </div>
-          <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
-            <div className="flex w-full flex-col">
-              <Image
-                src={selectedImage}
-                alt={product.product.name}
-                width={300}
-                height={300}
-                className={`h-327 w-full cursor-zoom-in object-fill lg:h-[450px] lg:w-[450px] ${
-                  imageLoading ? 'blur-md' : 'blur-0'
-                }`}
-                onLoad={handleImageLoad}
-                onClick={toggleFullScreen}
-              />
-              <div className="h-[140px] w-full overflow-hidden pt-4 lg:h-[150px] lg:w-[450px] lg:pt-6">
-                <ProductCarousel
-                  images={imagesSku}
-                  onImageSelect={setSelectedImage}
-                  onImageHover={setSelectedImage}
+          <div className="md:pt-10">
+            <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
+              <div className="flex w-full flex-col">
+                <Image
+                  src={selectedImage}
+                  alt={product.product.name}
+                  width={300}
+                  height={300}
+                  className={`h-327 w-full cursor-zoom-in object-fill lg:h-[450px] lg:w-[450px] ${
+                    imageLoading ? 'blur-md' : 'blur-0'
+                  }`}
+                  onLoad={handleImageLoad}
+                  onClick={toggleFullScreen}
                 />
+                <div className="h-[100px] w-full overflow-hidden pt-2 lg:h-[150px] lg:w-[450px] lg:pt-6">
+                  <ProductCarousel
+                    images={imagesSku}
+                    onImageSelect={setSelectedImage}
+                    onImageHover={setSelectedImage}
+                  />
+                </div>
               </div>
+              {renderProductDetails()}
             </div>
-            {renderProductDetails()}
           </div>
         </div>
       </div>
