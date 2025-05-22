@@ -44,22 +44,37 @@ export default function FoundGallery({
       const itemsInitState: any = [];
       orderData.items.map((item: any, idx: number) => {
         if (item.images.length === 0) {
-          Array.from({ length: item.quantity || 0 }).map((_, index) => {
+          if (item.product.allow_merge_image) {
             const data = {
-              id: `${item.id}-${index + 1}`,
+              id: `${item.id}`,
               input: [],
               name: item.variationInfo.name,
               image: item.productImage,
               field: item.variationInfo.fields,
               variationId: item.variationId,
-              imageLimit: item.product?.imagesLimit || -1,
+              imageLimit: item.quantity || -1,
               detail: item.variationInfo.detail,
               countSelected: item.images?.length || 0,
             };
-            if (item.product?.imagesLimit) {
-              itemsInitState.push(data);
-            }
-          });
+            itemsInitState.push(data);
+          } else {
+            Array.from({ length: item.quantity || 0 }).map((_, index) => {
+              const data = {
+                id: `${item.id}-${index + 1}`,
+                input: [],
+                name: item.variationInfo.name,
+                image: item.productImage,
+                field: item.variationInfo.fields,
+                variationId: item.variationId,
+                imageLimit: item.product?.imagesLimit || -1,
+                detail: item.variationInfo.detail,
+                countSelected: item.images?.length || 0,
+              };
+              if (item.product?.imagesLimit) {
+                itemsInitState.push(data);
+              }
+            });
+          }
         } else {
           const imageArrType = checkArrayFormat(item.images);
           if (imageArrType === 1) {
