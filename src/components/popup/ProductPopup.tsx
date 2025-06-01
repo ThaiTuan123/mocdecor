@@ -53,13 +53,35 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   const [showToastError, setShowToastError] = useState(false);
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
-      if (
-        event.target instanceof HTMLElement &&
-        !INTERACTIVE_ELEMENTS.includes(event.target.tagName)
-      ) {
-        onClose();
-      }
+    if (!popupRef.current) {
+      return;
+    }
+
+    const target = event.target as Node;
+    const rect = popupRef.current.getBoundingClientRect();
+
+    // Check if the click coordinates are visually within the popup's bounds.
+    const isClickVisuallyInsidePopup =
+      event.clientX >= rect.left &&
+      event.clientX <= rect.right &&
+      event.clientY >= rect.top &&
+      event.clientY <= rect.bottom;
+
+    if (isClickVisuallyInsidePopup) {
+      // If the click is visually inside the popup (e.g., on an internal scrollbar),
+      // do nothing. This should prevent closing even if .contains() reports false
+      // for certain scrollbar targets.
+      return;
+    }
+
+    // If we reach here, the click is visually OUTSIDE the popup.
+    // Now, close it unless the target is an interactive element.
+    // It's good practice to ensure tagName is compared in a consistent case (e.g., uppercase).
+    if (
+      target instanceof HTMLElement &&
+      !INTERACTIVE_ELEMENTS.includes(target.tagName.toUpperCase())
+    ) {
+      onClose();
     }
   };
 
@@ -124,6 +146,25 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
   };
 
   useEffect(() => {
+    const isSelectFirstAttribute =
+      selectedSize &&
+      Object.keys(selectedSize).length > 0 &&
+      Object.values(selectedSize)?.[0] !== '';
+
+    if (isSelectFirstAttribute) {
+      const skuSelectedObj = product.product.sku.find((sku: any) => {
+        return sku.fields.some((field: any) => {
+          return (
+            selectedSize.hasOwnProperty(field.name) &&
+            selectedSize[field.name] === field.value
+          );
+        });
+      });
+      if (skuSelectedObj) {
+        setSelectedImage(skuSelectedObj.images?.[0]);
+      }
+    }
+
     const isSelectAllAttribute = Object.values(selectedSize).every(
       value => value !== ''
     );
@@ -215,11 +256,41 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
       });
     });
 
+    const extractNumber = (str: string): number | null => {
+      const match = str.match(/\d+$/); // Tìm số ở cuối chuỗi
+      return match ? parseInt(match[0], 10) : null;
+    };
+
+    const customSortAttributeValues = (values: string[]): string[] => {
+      const allMatchPattern = values.every(val =>
+        /^[^\d]+\s*\d+$/.test(val.trim())
+      );
+
+      if (allMatchPattern) {
+        return [...values].sort((a, b) => {
+          const numA = extractNumber(a.trim());
+          const numB = extractNumber(b.trim());
+          if (numA !== null && numB !== null) {
+            return numA - numB;
+          }
+          // Fallback to string comparison if numbers can't be extracted (should not happen if allMatchPattern is true)
+          return a.localeCompare(b);
+        });
+      }
+      // If not all values match the pattern, sort alphabetically or keep original
+      return [...values].sort((a, b) => a.localeCompare(b));
+    };
+
     const formattedOutputObj = Object.entries(attributesMap).map(
-      ([key, values]) => ({
-        attributeName: key,
-        attributeValue: values.map(({ value }) => value),
-      })
+      ([key, valuesObj]) => {
+        const rawAttributeValues = valuesObj.map(({ value }) => value);
+        const sortedAttributeValues =
+          customSortAttributeValues(rawAttributeValues);
+        return {
+          attributeName: key,
+          attributeValue: sortedAttributeValues,
+        };
+      }
     );
 
     const initStateSelectedSku = formattedOutputObj.reduce((acc: any, attr) => {
@@ -229,6 +300,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
     setSelectedSize(initStateSelectedSku);
     setFormattedOutput(formattedOutputObj);
+    console.log('Formatted Output:', formattedOutputObj);
   };
 
   const renderSizeButtons = () => {
@@ -376,16 +448,24 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         <span>{title}</span>
         <span>{activeAccordion === title ? '−' : '+'}</span>
       </button>
-      {activeAccordion === title && (
-        <div className="py-2 text-gray-600">
+      <div
+        className={`overflow-hidden transition-all duration-500 ease-in-out ${
+          activeAccordion === title
+            ? 'max-h-[300px] overflow-y-auto opacity-100'
+            : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="py-2 pb-6 text-gray-600">
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
-      )}
+      </div>
     </div>
   );
 
   const renderProductDetails = () => (
-    <div className="ml-0 flex flex-grow flex-col lg:ml-5 lg:w-full">
+    <div className="ml-0 flex flex-1 flex-col lg:ml-5 lg:w-full">
+      {' '}
+      {/* Ensure this container can grow */}
       <div>
         <h2 className="font-playfairBold text-2xl font-bold text-primary md:pt-0 md:text-4xl lg:min-h-20 lg:pt-6">
           {product.product.name.length > TITLE_MAX_LENGTH
@@ -430,8 +510,10 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           </div>
         </div>
       </div>
-
-      <div className="order-2 mt-4 pb-16 lg:order-none">
+      {/* Accordion Container: remove 'order-2', adjust padding for sticky buttons */}
+      <div className="mt-4 flex-1">
+        {' '}
+        {/* Use flex-1 to take available space, add padding for buttons */}
         {product?.note &&
           (() => {
             try {
@@ -477,7 +559,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             }
             return null;
           })()}
-
         {product?.delivery &&
           (() => {
             try {
@@ -499,7 +580,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             }
             return null;
           })()}
-
         {product?.product?.note_product &&
           (() => {
             const noteProduct = product.product.note_product.trim();
@@ -512,8 +592,8 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             return null;
           })()}
       </div>
-      <div className="sticky bottom-0 order-1 mb-8 flex gap-3 bg-white p-0 py-3 md:my-8 md:gap-5 md:py-8 lg:order-none">
-        {/*<div className="order-1 mt-4 flex gap-3 p-0 md:gap-5 lg:order-none lg:pb-1 lg:pt-16">*/}
+      {/* Button Container: remove 'order-1', ensure it's sticky to the bottom of renderProductDetails */}
+      <div className="sticky bottom-0 z-19 flex w-full items-center gap-3 bg-white p-4 shadow-lg md:gap-5">
         <button
           onClick={onClose}
           className="hidden w-1/2 transform rounded border border-brown-700 bg-white px-4 py-4 text-sm text-brown-700 transition-all duration-300 hover:scale-105 md:text-lg lg:block"
@@ -538,14 +618,22 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
         {renderFullScreenImage()}
         <div
           ref={popupRef}
-          className="relative flex h-auto w-375 max-h-[100vh] flex-col rounded-lg bg-white py-12 p-4 md:w-580 lg:w-1024 lg:p-6"
+          className="relative flex h-auto max-h-[90vh] w-375 flex-col rounded-lg bg-white p-4 py-6 md:w-580 lg:w-1024 lg:p-6" // Adjusted max-h and padding
         >
-          <div className="absolute right-2 top-2 z-10">
+          <div className="absolute right-2 top-2 z-40">
+            {' '}
+            {/* Increased z-index */}
             <CancelButton onClick={onClose} />
           </div>
-          <div className="md:pt-10">
-            <div className="flex max-h-[710px] flex-col overflow-y-auto p-0 lg:flex-row lg:p-3">
-              <div className="flex w-full flex-col">
+          <div className="flex flex-1 flex-col overflow-hidden md:pt-6">
+            {' '}
+            {/* Added flex-1 and overflow-hidden */}
+            <div className="flex flex-1 flex-col overflow-y-auto lg:flex-row">
+              {' '}
+              {/* Main scrollable area */}
+              <div className="w-full lg:w-auto">
+                {' '}
+                {/* Image side */}
                 <Image
                   src={selectedImage}
                   alt={product.product.name}
