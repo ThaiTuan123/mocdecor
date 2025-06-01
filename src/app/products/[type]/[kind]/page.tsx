@@ -69,10 +69,14 @@ export default function Products() {
   }, [slugId]);
 
   useEffect(() => {
+    let types = filterTags.major;
+    if (filterTags.major.includes('all')) {
+      types = (cateDetail?.subCategories?.map(item => item.id).filter(Boolean) as string[]) || [];
+    }
     const param = {
       categorySlug: categorySlug,
       price: filterRadio.price,
-      typeIds: filterTags.major,
+      typeIds: types,
       sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
       limit: PRODUCTS_PER_PAGE,
       page: currentPage,
@@ -89,10 +93,16 @@ export default function Products() {
 
   useEffect(() => {
     if (cateDetail?.subCategories) {
-      const updatedMenu = cateDetail.subCategories.map(item => ({
-        value: item.id || '',
-        label: item.text || '',
-      }));
+      const updatedMenu = [
+        {
+          value: 'all',
+          label: 'Tất cả',
+        },
+        ...cateDetail.subCategories.map(item => ({
+          value: item.id || '',
+          label: item.text || '',
+        })),
+      ];
       filterData[1].menu = updatedMenu;
     }
   }, [JSON.stringify(cateDetail?.subCategories)]);
