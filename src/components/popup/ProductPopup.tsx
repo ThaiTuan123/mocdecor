@@ -593,7 +593,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           })()}
       </div>
       {/* Button Container: remove 'order-1', ensure it's sticky to the bottom of renderProductDetails */}
-      <div className="sticky bottom-0 z-30 flex w-full items-center gap-3 bg-white p-4 shadow-lg md:gap-5">
+      <div className="sticky bottom-0 z-19 flex w-full items-center gap-3 bg-white p-4 shadow-lg md:gap-5">
         <button
           onClick={onClose}
           className="hidden w-1/2 transform rounded border border-brown-700 bg-white px-4 py-4 text-sm text-brown-700 transition-all duration-300 hover:scale-105 md:text-lg lg:block"
