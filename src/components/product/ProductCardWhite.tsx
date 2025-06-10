@@ -67,16 +67,16 @@ const ProductCardWhite: React.FC<ProductCardProps> = ({
         />
       </div>
       <div className="mt-4 px-1 text-start md:px-4 md:pb-4">
-        <h2 className="font-raleway truncate text-sm font-bold text-white md:text-xl">
+        <h2 className="truncate font-raleway text-sm font-bold text-white md:text-xl">
           {product.product.name}
         </h2>
         <div className="mt-2 flex items-center justify-start">
           <div className="flex items-start">{renderStars()}</div>
-          <span className="font-raleway ml-2 text-sm font-medium text-white">
+          <span className="ml-2 font-raleway text-sm font-medium text-white">
             ({rating.count})
           </span>
         </div>
-        <p className="font-raleway mt-2 text-sm font-normal text-white md:text-xl">
+        <p className="mt-2 font-raleway text-sm font-normal text-white md:text-xl">
           {retail_price} {CURRENCY_SYMBOL}
         </p>
       </div>

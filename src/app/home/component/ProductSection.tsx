@@ -56,7 +56,7 @@ const Section = React.memo(
     const [selectedProduct, setSelectedProduct] =
       useRecoilState<Product | null>(selectedProductState);
 
-    const showViewMoreButton = Array.isArray(products) && products.length > 0;
+    const showViewMoreButton = Array.isArray(products) && products.length > 7;
 
     const handleProductClick = (product: Product) => {
       setSelectedProduct(product);

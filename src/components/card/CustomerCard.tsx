@@ -53,7 +53,7 @@ const CustomerCard: React.FC<CardCustomerProps> = ({
               className="opacity-20"
             />
           </div>
-          <div className="font-raleway pt-5 text-start font-medium text-white">
+          <div className="pt-5 text-start font-raleway font-medium text-white">
             <p className="break-words text-sm md:text-lg">{textDescription}</p>
           </div>
         </div>
@@ -62,7 +62,7 @@ const CustomerCard: React.FC<CardCustomerProps> = ({
         <p className="font-raleway text-lg font-semibold uppercase md:text-xl">
           {nameCustomer}
         </p>
-        <p className="font-raleway mt-2 text-sm text-gray-100 md:text-lg">
+        <p className="mt-2 font-raleway text-sm text-gray-100 md:text-lg">
           {languages.get('home.title.p.roleCustomer')}
         </p>
       </div>

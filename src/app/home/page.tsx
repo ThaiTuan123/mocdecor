@@ -88,7 +88,7 @@ const TextContentAbout = ({ content }: { content?: string }) => (
 
 const SocialLinksAbout = () => (
   <div className="order-3 mt-0 flex items-center md:mt-4 lg:order-none">
-    <p className="font-raleway mr-5 text-smLh font-normal text-caption md:text-1.25lg">
+    <p className="mr-5 font-raleway-fixed text-smLh font-normal text-caption md:text-1.25lg">
       {languages.get('home.header4.socialLinks.about')}
     </p>
     <div className="flex space-x-4">
@@ -414,9 +414,9 @@ const GiftSection: React.FC = () => {
             quality={75}
             loading="lazy"
           />
-          <div className="mx-4 hidden h-24 w-1 bg-white md:block"></div>
+          <div className="mx-4 hidden h-24 w-1 bg-white md:block"></div>{' '}
           <div id="title">
-            <div className="flex-n1 font-raleway flex flex-col items-center md:items-start">
+            <div className="flex-n1 flex flex-col items-center md:items-start">
               {data.data.title ? (
                 (() => {
                   const words = data.data.title.split(' ');
@@ -434,7 +434,7 @@ const GiftSection: React.FC = () => {
 
                   return (
                     <>
-                      <p className="font-raleway mb-4 text-4xl font-extrabold text-white">
+                      <p className="mb-4 font-raleway text-4xl font-extrabold text-white">
                         {firstPart}
                       </p>
                       <p className="font-raleway text-4xl font-extrabold text-white">
@@ -445,7 +445,7 @@ const GiftSection: React.FC = () => {
                 })()
               ) : (
                 <div>
-                  <p className="font-raleway mb-4 text-4xl font-extrabold text-white">
+                  <p className="mb-4 font-raleway text-4xl font-extrabold text-white">
                     {languages.get('home.title.header2.gift1')}
                   </p>
                   <p className="font-raleway text-4xl font-extrabold text-white">

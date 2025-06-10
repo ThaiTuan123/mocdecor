@@ -13,6 +13,7 @@ function FinishContent() {
   const searchParams = useSearchParams();
   const orderCode = searchParams.get('orderId') || 'N/A';
   const noUploadsNeeded = searchParams.get('noUploadsNeeded') === 'true';
+  const linkConfirmOrder = searchParams.get('linkConfirmOrder') || '';
 
   return (
     <div>
@@ -32,7 +33,7 @@ function FinishContent() {
               </p>
               <button
                 className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
-                onClick={() => window.open('https://moc.com.vn', '_blank')}
+                onClick={() => window.open(linkConfirmOrder, '_blank')}
               >
                 <BsCashCoin className="h-5 w-5 text-black" />
               </button>
@@ -50,9 +51,7 @@ function FinishContent() {
               <button
                 className="rounded-md border border-gray-300 p-2 hover:outline hover:outline-2 hover:outline-primary"
                 onClick={() =>
-                  navigator.clipboard.writeText(
-                    'https://www.facebook.com/mocdecor99'
-                  )
+                  window.open('https://www.facebook.com/mocdecor99', '_blank')
                 }
               >
                 <IoLogoFacebook className="h-5 w-5 text-facebook" />
@@ -69,7 +68,7 @@ function FinishContent() {
 
             <button
               onClick={() => (window.location.href = '/')}
-              className="font-raleway transform rounded bg-primary px-14 py-4 uppercase text-white duration-150 hover:scale-105 md:px-16 lg:px-20"
+              className="transform rounded bg-primary px-14 py-4 font-raleway uppercase text-white duration-150 hover:scale-105 md:px-16 lg:px-20"
             >
               {languages.get('404.button.returnHome')}
             </button>

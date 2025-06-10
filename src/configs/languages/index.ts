@@ -24,7 +24,7 @@ class Languages {
       title: 'MocDecor',
       description: 'Đến với Mộc, đến với những món quà độc đáo',
       txtAddress: 'Địa chỉ:',
-      address: '59 Hùng Vương, Thị Trấn Nam Phước, Duy Xuyên, Quảng Nam',
+      address: 'R7RH+RPM, Đ. 28 Tháng 3, TT. Nam Phước, Duy Xuyên, Quảng Nam',
       txtPhone: 'Điện thoại:',
       phone: '037 866 3309 / 0965 920 507',
       txtEmail: 'Email:',

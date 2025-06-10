@@ -23,7 +23,7 @@ export default function NotFound() {
 
             <button
               onClick={() => (window.location.href = '/')}
-              className="font-raleway transform rounded bg-primary px-24 py-4 uppercase text-white duration-150 hover:scale-105 md:px-16 lg:px-20"
+              className="transform rounded bg-primary px-24 py-4 font-raleway uppercase text-white duration-150 hover:scale-105 md:px-16 lg:px-20"
             >
               {languages.get('404.button.returnHome')}
             </button>

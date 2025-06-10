@@ -36,6 +36,7 @@ interface GalleryItemProps {
   setSelectedUpload: Dispatch<SetStateAction<any>>;
   orderData: any;
   orderId: string;
+  linkConfirmOrder: string;
 }
 
 export default function GalleryItem({
@@ -45,6 +46,7 @@ export default function GalleryItem({
   setSelectedUpload,
   orderData,
   orderId,
+  linkConfirmOrder,
 }: GalleryItemProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -106,10 +108,18 @@ export default function GalleryItem({
       setNeedUpload(isNeedUpload);
       if (selectedUpload) {
         const item = uploadState.find((it: any) => it.id === selectedUpload);
-        setSelectedItem(item || { input: [], countSelected: 0 });
-        setMaxUploadLimit(item?.imageLimit);
-        setCurrentUploadLimit(item?.imageLimit);
-        setPreviewImages(item?.input || []);
+
+        if (item.allow_merge_image) {
+          setSelectedItem(item || { input: [], countSelected: 0 });
+          setMaxUploadLimit(item?.imageLimit * item?.quantity);
+          setCurrentUploadLimit(item?.imageLimit * item?.quantity);
+          setPreviewImages(item?.input || []);
+        } else {
+          setSelectedItem(item || { input: [], countSelected: 0 });
+          setMaxUploadLimit(item?.imageLimit);
+          setCurrentUploadLimit(item?.imageLimit);
+          setPreviewImages(item?.input || []);
+        }
       }
     }
   }, [selectedUpload, uploadState, orderId, router, isDataLoaded]);
@@ -286,9 +296,13 @@ export default function GalleryItem({
   const submitOrder = async () => {
     const note = (document.getElementById('note') as HTMLTextAreaElement)
       ?.value;
-    const allItemsComplete = uploadState.every(
-      (item: any) => item.input.length === item.imageLimit
-    );
+    const allItemsComplete = uploadState.every((item: any) => {
+      if (item.allow_merge_image) {
+        return item.imageLimit * item.quantity === item.input.length;
+      } else {
+        return item.input.length === item.imageLimit;
+      }
+    });
 
     if (!allItemsComplete) {
       toast.error(
@@ -343,7 +357,9 @@ export default function GalleryItem({
       );
 
       if (response.ok) {
-        router.push(`/success?orderId=${orderId}`);
+        router.push(
+          `/success?orderId=${orderId}&linkConfirmOrder=${linkConfirmOrder}`
+        );
       } else {
         console.error('Failed to submit order', response.statusText);
       }

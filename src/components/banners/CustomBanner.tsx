@@ -34,7 +34,7 @@ const CustomBanner: React.FC<CustomBannerProps> = ({
         <h1 className="font-playfairBold py-2 text-6xl font-bold text-white">
           {title}
         </h1>
-        <p className="font-raleway px-80 text-center text-xl text-white">
+        <p className="px-80 text-center font-raleway text-xl text-white">
           {description}
         </p>
       </div>

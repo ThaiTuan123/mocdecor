@@ -76,7 +76,7 @@ const HeroSection: React.FC<{
             />
           </button>
         </div>
-        <span className="font-raleway order-1 w-full text-center text-lg md:w-1/2 md:text-2lg lg:order-2">
+        <span className="order-1 w-full text-center font-raleway text-lg md:w-1/2 md:text-2lg lg:order-2">
           {descText}
         </span>
       </div>

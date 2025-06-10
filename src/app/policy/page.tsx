@@ -78,7 +78,7 @@ export default function Policy() {
                 {item?.title}
               </p>
               <span
-                className="font-raleway whitespace-pre-line text-justify text-sm leading-6 text-karaka sm:text-1.25lg"
+                className="whitespace-pre-line text-justify font-raleway text-sm leading-6 text-karaka sm:text-1.25lg"
                 dangerouslySetInnerHTML={{
                   __html: highlightPhoneNumbers(item?.desc),
                 }}

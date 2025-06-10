@@ -87,10 +87,11 @@ const config: Config = {
                     800: '#2d3748',
                     900: '#1a202c',
                 },
-            },
-            fontFamily: {
-                sans: ['var(--font-raleway)', ...fontFamily.sans],
+            }, fontFamily: {
+                sans: ['Raleway', 'var(--font-raleway)', ...fontFamily.sans],
                 serif: ['var(--font-playfair-display)', ...fontFamily.serif],
+                'raleway': ['Raleway', 'sans-serif'],
+                'raleway-fixed': ['Raleway', 'var(--font-raleway)', 'sans-serif'],
             },
             fontSize: {
                 '0.8x': ['0.5rem', '0.5rem'],       // 8px, 8px
@@ -213,7 +214,7 @@ const config: Config = {
     plugins: [
         require('@tailwindcss/aspect-ratio'),
 
-        function({ addUtilities }: { addUtilities: PluginAPI['addUtilities'] }) {
+        function ({ addUtilities }: { addUtilities: PluginAPI['addUtilities'] }) {
             addUtilities({
                 '.no-scrollbar': {
                     '-ms-overflow-style': 'none', /* IE and Edge */

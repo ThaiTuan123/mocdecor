@@ -300,7 +300,6 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
 
     setSelectedSize(initStateSelectedSku);
     setFormattedOutput(formattedOutputObj);
-    console.log('Formatted Output:', formattedOutputObj);
   };
 
   const renderSizeButtons = () => {
@@ -443,7 +442,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
     <div className="border-b border-gray-200">
       <button
         onClick={() => toggleAccordion(title)}
-        className="font-raleway flex w-full justify-between py-4 text-left text-lg text-black hover:text-gray-100"
+        className="flex w-full justify-between py-4 text-left font-raleway text-lg text-black hover:text-gray-100"
       >
         <span>{title}</span>
         <span>{activeAccordion === title ? '−' : '+'}</span>
@@ -472,7 +471,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
             ? `${product.product.name.substring(0, TITLE_MAX_LENGTH)}...`
             : product.product.name}
         </h2>
-        <p className="font-raleway mt-3 hidden text-xl text-orange-600 md:flex md:text-2xl">
+        <p className="mt-3 hidden font-raleway text-xl text-orange-600 md:flex md:text-2xl">
           {getTotalPrice()} {CURRENCY_SYMBOL}
         </p>
         <div className="mt-4 flex flex-col gap-3 rounded bg-brown-50 px-4 py-3 md:gap-4 md:py-3 lg:px-4 lg:py-4">
@@ -499,7 +498,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           {renderSizeButtons()}
           <div className="center flex flex-col gap-4 md:flex-row md:gap-6">
             <div className="flex w-full content-center md:w-18">
-              <p className="font-raleway w-18 content-center text-sm font-medium md:w-20 md:text-lg">
+              <p className="w-18 content-center font-raleway text-sm font-medium md:w-20 md:text-lg">
                 {languages.get('popup.text.quantity')}
               </p>
             </div>
@@ -593,7 +592,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ product, onClose }) => {
           })()}
       </div>
       {/* Button Container: remove 'order-1', ensure it's sticky to the bottom of renderProductDetails */}
-      <div className="sticky bottom-0 z-19 flex w-full items-center gap-3 bg-white p-4 shadow-lg md:gap-5">
+      <div className="z-19 sticky bottom-0 flex w-full items-center gap-3 bg-white p-4 shadow-lg md:gap-5">
         <button
           onClick={onClose}
           className="hidden w-1/2 transform rounded border border-brown-700 bg-white px-4 py-4 text-sm text-brown-700 transition-all duration-300 hover:scale-105 md:text-lg lg:block"
