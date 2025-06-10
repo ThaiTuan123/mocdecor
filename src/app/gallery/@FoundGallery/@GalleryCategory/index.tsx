@@ -100,7 +100,11 @@ export default function GalleryCategory({
                   title={order?.name}
                   detail={order?.detail}
                   selectedCount={order?.input?.length}
-                  totalCount={order?.imageLimit}
+                  totalCount={
+                    order?.allow_merge_image
+                      ? order?.imageLimit * order?.quantity
+                      : order?.imageLimit
+                  }
                   status={order?.id === selectedUpload ? 'active' : 'click'}
                   onClick={() => setSelectedUpload(order?.id)}
                 />

@@ -89,7 +89,7 @@ const ContactDetails = () => (
     <Line />
     <ContactItemList items={contactItems} />
     <div className="mt-4 flex">
-      <p className="font-raleway mb-2 text-xl text-caption">
+      <p className="mb-2 font-raleway text-xl text-caption">
         {languages.get('connectWithMoc')}
       </p>
       <SocialIcons icons={socialIcons} />

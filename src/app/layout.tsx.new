@@ -31,7 +31,10 @@ export default function RootLayout({
     Hotjar.init(siteId, hotjarVersion);
   }, []);
   return (
-    <html lang="vi" className={`${playfairDisplay.variable}`}>
+    <html
+      lang="vi"
+      className={`${playfairDisplay.variable}`}
+    >
       <body className="w-full !scroll-smooth">
         <DisableAnimations>
           <RecoilRoot>

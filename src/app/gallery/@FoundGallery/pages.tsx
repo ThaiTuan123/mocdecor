@@ -55,6 +55,8 @@ export default function FoundGallery({
               imageLimit: item.quantity || -1,
               detail: item.variationInfo.detail,
               countSelected: item.images?.length || 0,
+              allow_merge_image: item.product.allow_merge_image,
+              quantity: item.quantity || 0,
             };
             itemsInitState.push(data);
           } else {
@@ -69,6 +71,8 @@ export default function FoundGallery({
                 imageLimit: item.product?.imagesLimit || -1,
                 detail: item.variationInfo.detail,
                 countSelected: item.images?.length || 0,
+                allow_merge_image: item.product.allow_merge_image,
+                quantity: item.quantity || 0,
               };
               if (item.product?.imagesLimit) {
                 itemsInitState.push(data);
@@ -97,6 +101,8 @@ export default function FoundGallery({
               imageLimit: item.product?.imagesLimit || -1,
               detail: item.variationInfo.detail,
               countSelected: item.images?.length || 0,
+              allow_merge_image: item.product.allow_merge_image,
+              quantity: item.quantity || 0,
             };
             if (item.product?.imagesLimit) {
               itemsInitState.push(data);
@@ -122,6 +128,8 @@ export default function FoundGallery({
                 imageLimit: item.product?.imagesLimit || -1,
                 detail: item.variationInfo.detail,
                 countSelected: item.images?.length || 0,
+                allow_merge_image: item.product.allow_merge_image,
+                quantity: item.quantity || 0,
               };
               if (item.product?.imagesLimit) {
                 itemsInitState.push(data);
@@ -165,6 +173,7 @@ export default function FoundGallery({
         selectedUpload={selectedUpload}
         orderData={orderData}
         orderId={orderData.id}
+        linkConfirmOrder={orderData.link_confirm_order}
       />
     </div>
   );

@@ -169,22 +169,6 @@ const Header = () => {
             </div>
           )}
         </div>
-        <div
-          className="absolute bottom-4 mt-4 flex cursor-pointer items-center gap-3"
-          onClick={() => {
-            setHoveredLabelKey('');
-            router.push('/products/album-anh/all');
-          }}
-        >
-          <span className="text-lg text-karaka">
-            {languages.get('navbar.sub.view.read.more')}
-          </span>
-          <img
-            src={images.icons.ic_arrow_right}
-            alt=""
-            className="w-4 object-contain"
-          />
-        </div>
       </div>
     );
   };
@@ -288,7 +272,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="font-raleway fixed left-0 right-0 top-0 z-40 bg-white py-3 shadow-md">
+      <header className="fixed left-0 right-0 top-0 z-40 bg-white py-3 font-raleway shadow-md">
         <div className="relative flex h-12 items-center justify-between px-6 lg:container md:px-12 lg:mx-auto xl:px-16 2xl:px-16">
           <Link
             href="/"

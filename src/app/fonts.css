@@ -1,0 +1,47 @@
+/* Định nghĩa font Raleway từ local */
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('/assets/fonts/raleway/Raleway-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('/assets/fonts/raleway/Raleway-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('/assets/fonts/raleway/Raleway-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('/assets/fonts/raleway/Raleway-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Thiết lập font mặc định cho toàn bộ trang web */
+/* :root {
+  --font-raleway: 'Raleway', sans-serif;
+}
+
+html, body {
+  font-family: var(--font-raleway);
+} */
+
+/* Các class utility cho font */
+.font-raleway {
+  font-family: var(--font-raleway);
+}

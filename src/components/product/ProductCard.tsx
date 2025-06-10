@@ -55,16 +55,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ onClick, ...product }) => {
           </div>
         ) : (
           <>
-            <p className="font-raleway truncate text-sm font-bold text-brown-900 md:text-xl">
+            <p className="truncate font-raleway text-sm font-bold text-brown-900 md:text-xl">
               {product.product.name}
             </p>
             <div className="mt-2 flex items-center justify-start">
               <div className="flex items-start">{renderStars()}</div>
-              <span className="font-raleway ml-2 text-sm font-medium text-gray-100">
+              <span className="ml-2 font-raleway text-sm font-medium text-gray-100">
                 {rating.count}
               </span>
             </div>
-            <p className="font-raleway mt-2 text-sm font-normal text-orange-600 md:text-xl">
+            <p className="mt-2 font-raleway text-sm font-normal text-orange-600 md:text-xl">
               {`${parseFloat(retail_price.split('-')[0]) === parseFloat(retail_price.split('-')[1]) ? formatCurrency(parseFloat(retail_price.split('-')[0])) : `${formatCurrency(parseFloat(retail_price.split('-')[0]))} - ${formatCurrency(parseFloat(retail_price.split('-')[1]))}`} ${CURRENCY_SYMBOL}`}
             </p>
           </>

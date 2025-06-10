@@ -48,7 +48,7 @@ const FooterContactInfo = ({ className }: FooterContactInfoProps) => {
       <h3 className="font-playfairBold text-2xl font-bold">
         {contactInfoTitle}
       </h3>
-      <p className="text-l font-raleway pt-4 font-normal">{addressLabel}</p>
+      <p className="text-l pt-4 font-raleway font-normal">{addressLabel}</p>
       <p className="text-l font-raleway font-normal">{phoneLabel}</p>
       <p className="text-l font-raleway font-normal">{emailLabel}</p>
     </div>
@@ -109,7 +109,7 @@ const FooterLinks = ({ className }: FooterLinksProps) => {
         {menu?.otherType?.slice(0, 2).map((subItem, subIndex) => (
           <Link
             key={subIndex}
-            className="text-l font-raleway pt-2 font-normal hover:text-gray-300"
+            className="text-l pt-2 font-raleway font-normal hover:text-gray-300"
             href={`/products/${subItem.parentSlug}/${subItem.slug}`}
           >
             {subItem.text}
@@ -120,14 +120,14 @@ const FooterLinks = ({ className }: FooterLinksProps) => {
       <div className="flex flex-row space-x-4 md:flex-col md:space-x-0 xl:flex-row xl:space-x-4">
         {footerLinks.map((link, index) => (
           <Link key={index} href={link.href}>
-            <p className="text-l font-raleway pt-2 font-normal hover:text-gray-300">
+            <p className="text-l pt-2 font-raleway font-normal hover:text-gray-300">
               {link.text}
             </p>
           </Link>
         ))}
       </div>
 
-      <h3 className="font-raleway mt-4 pt-0 text-lg font-bold md:pt-7">
+      <h3 className="mt-4 pt-0 font-raleway text-lg font-bold md:pt-7">
         {languages.get('connectWithMoc')}
       </h3>
       <div className="mb-8 mt-2 flex space-x-4 md:mb-0">

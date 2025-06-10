@@ -33,7 +33,7 @@ const MotionImageCard: React.FC<MotionImageCardProps> = ({
         alt={alt}
         className="h-44 w-full rounded-lg object-cover md:h-full"
       />
-      <p className="font-raleway bottom-0 left-0 mt-4 text-lg font-semibold md:text-1.25lg md:font-normal">
+      <p className="bottom-0 left-0 mt-4 font-raleway text-lg font-semibold md:text-1.25lg md:font-normal">
         {text}
       </p>
     </motion.div>

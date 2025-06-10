@@ -67,11 +67,13 @@ export default function Products() {
       });
     }
   }, [slugId]);
-
   useEffect(() => {
     let types = filterTags.major;
     if (filterTags.major.includes('all')) {
-      types = (cateDetail?.subCategories?.map(item => item.id).filter(Boolean) as string[]) || [];
+      types =
+        (cateDetail?.subCategories
+          ?.map(item => item.id)
+          .filter(Boolean) as string[]) || [];
     }
     const param = {
       categorySlug: categorySlug,
@@ -86,6 +88,11 @@ export default function Products() {
       setProducts(data.products);
     });
   }, [filterTags, filterRadio, currentPage]);
+
+  // Reset về trang đầu tiên khi filter thay đổi
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterTags, filterRadio]);
 
   const onChangePagination = (page: number) => {
     setCurrentPage(page);
@@ -334,7 +341,6 @@ export default function Products() {
       </div>
     );
   };
-
   const onChangeRadio = (
     event: RadioChangeEvent,
     filter: keyof filtersRadioType
@@ -348,36 +354,41 @@ export default function Products() {
   const onChangeCheckbox = (list: any[], value: FilterKeys) => {
     setFilterTags(prev => ({ ...prev, [value]: list }));
   };
-
   const onRemoveTag = (tag: string) => {
+    // Kiểm tra nếu tag có prefix price_ hoặc sort_
+    if (tag.startsWith('price_')) {
+      setFilterRadio(prev => ({
+        ...prev,
+        price: 0,
+      }));
+      return;
+    }
+
+    if (tag.startsWith('sort_')) {
+      setFilterRadio(prev => ({
+        ...prev,
+        sort: 0,
+      }));
+      return;
+    }
+
+    // Xử lý các tag khác (major categories)
     let value = '';
     filterData.forEach(filterCategory => {
       filterCategory.menu.forEach(item => {
-        if (item.value === tag) {
+        if (item.value === tag || item.value.toString() === tag) {
           value = filterCategory.value;
         }
       });
     });
-    const filterCategoryValue = value as FilterKeys;
-    const newTags = filterTags[filterCategoryValue].filter(
-      (item: any) => item !== tag
-    );
-    setFilterTags(prev => ({ ...prev, [value]: newTags }));
 
-    // const updatedFilterTags = { ...filterTags, [filterCategoryValue]: newTags };
-
-    // if (!updatedFilterTags.major.length) {
-    //   const param = {
-    //     categorySlug: categorySlug,
-    //     price: filterRadio.price,
-    //     sortBy: filterRadio.sort ? filterRadio.sort : 'desc',
-    //   };
-    //   console.log('param', param);
-    //   fetchListProducts(param).then(data => {
-    //     setTotalProducts(data.count);
-    //     setProducts(data.products);
-    //   });
-    // }
+    if (value) {
+      const filterCategoryValue = value as FilterKeys;
+      const newTags = filterTags[filterCategoryValue].filter(
+        (item: any) => item !== tag
+      );
+      setFilterTags(prev => ({ ...prev, [value]: newTags }));
+    }
   };
 
   // const getPriceProduct = (product: any) => {
@@ -512,10 +523,35 @@ export default function Products() {
       </div>
     );
   };
-
   const renderFilterTag = () => {
     const mergeFilters = (major: string[]) => {
-      return [...major];
+      const allTags = [...major];
+
+      // Thêm tag cho price filter nếu được chọn
+      if (filterRadio.price > 0) {
+        const priceFilter = filterData.find(item => item.value === 'range');
+        const selectedPrice = priceFilter?.menu.find(
+          item => item.value === filterRadio.price
+        );
+        if (selectedPrice) {
+          // Thêm tag với prefix để phân biệt
+          allTags.push(`price_${selectedPrice.value}`);
+        }
+      }
+
+      // Thêm tag cho sort filter nếu được chọn
+      if (filterRadio.sort > 0) {
+        const sortFilter = filterData.find(item => item.value === 'sort');
+        const selectedSort = sortFilter?.menu.find(
+          item => item.value === filterRadio.sort
+        );
+        if (selectedSort) {
+          // Thêm tag với prefix để phân biệt
+          allTags.push(`sort_${selectedSort.value}`);
+        }
+      }
+
+      return allTags;
     };
 
     const mergeArr = mergeFilters(filterTags.major);
@@ -523,9 +559,29 @@ export default function Products() {
     const labelTag = (tag: string) => {
       let label;
 
+      // Kiểm tra nếu tag có prefix price_ hoặc sort_
+      if (tag.startsWith('price_')) {
+        const priceValue = tag.replace('price_', '');
+        const priceFilter = filterData.find(item => item.value === 'range');
+        const selectedPrice = priceFilter?.menu.find(
+          item => item.value.toString() === priceValue
+        );
+        return selectedPrice?.label;
+      }
+
+      if (tag.startsWith('sort_')) {
+        const sortValue = tag.replace('sort_', '');
+        const sortFilter = filterData.find(item => item.value === 'sort');
+        const selectedSort = sortFilter?.menu.find(
+          item => item.value.toString() === sortValue
+        );
+        return selectedSort?.label;
+      }
+
+      // Xử lý các tag khác (major categories)
       filterData.forEach(filterCategory => {
         filterCategory.menu.forEach(item => {
-          if (item.value === tag) {
+          if (item.value === tag || item.value.toString() === tag) {
             label = item.label;
           }
         });
@@ -533,6 +589,7 @@ export default function Products() {
 
       return label;
     };
+
     return (
       <div className="mt-6 flex flex-wrap gap-5">
         {mergeArr.map((item, index) => (
@@ -569,7 +626,7 @@ export default function Products() {
               key={index}
               className={`${
                 currentPage === item ? 'font-bold text-karaka' : 'text-doveGray'
-              } font-raleway relative block cursor-pointer text-lg`}
+              } relative block cursor-pointer font-raleway text-lg`}
             >
               {item}
               {currentPage === item && (
