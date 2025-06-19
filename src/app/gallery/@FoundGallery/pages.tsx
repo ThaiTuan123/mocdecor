@@ -52,7 +52,7 @@ export default function FoundGallery({
               image: item.productImage,
               field: item.variationInfo.fields,
               variationId: item.variationId,
-              imageLimit: item.quantity || -1,
+              imageLimit: item.product?.imagesLimit || -1,
               detail: item.variationInfo.detail,
               countSelected: item.images?.length || 0,
               allow_merge_image: item.product.allow_merge_image,

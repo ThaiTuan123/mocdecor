@@ -24,7 +24,7 @@ const ToastMessage: React.FC<ToastProps> = ({
 
   return (
     <div
-      className={`animate-slide-in fixed bottom-5 left-5 z-50 flex transform items-center gap-3 rounded-lg ${isError ? 'bg-red-500' : 'bg-green-500'} p-4 text-white shadow-lg transition-transform`}
+      className={`animate-slide-in fixed bottom-5 left-5 z-50 flex transform items-center gap-3 rounded-lg ${isError ? 'bg-red-500' : 'bg-primary'} p-4 text-white shadow-lg transition-transform`}
     >
       <AiOutlineCheck className="text-2xl" />
       <p className="font-medium">{message}</p>
