@@ -6,7 +6,7 @@ const menuLinks = [
   { href: '/contact', labelKey: 'contact' },
   { href: '/policy', labelKey: 'policy' },
   { href: '/blog', labelKey: 'blog' },
-  { href: '/gallery/1234', labelKey: 'gallery' },
+  { href: '/gallery', labelKey: 'gallery' },
 ];
 
 const icons = [{ src: images.icons.cart, alt: 'Shopping Cart', value: 'cart' }];
