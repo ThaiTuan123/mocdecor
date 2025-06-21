@@ -122,19 +122,25 @@ const Section = React.memo(
                 </div>
               </div>
             </div>
-          </div>
-
+          </div>{' '}
           <div className="px-6 py-7 2xl:container md:px-6 md:py-14 lg:px-20 lg:py-16 xl:px-36 2xl:mx-auto 3xl:px-80">
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-              {showViewMoreButton ? (
-                products &&
-                products.map((product, idx) => (
-                  <ProductCard
-                    key={`${product.product_id}-${index}`}
-                    {...product}
-                    onClick={() => handleProductClick(product)}
-                  />
-                ))
+              {Array.isArray(products) && products.length > 0 ? (
+                products.map((product, idx) => {
+                  console.log(
+                    'Rendering ProductCard for product:',
+                    product,
+                    'at index:',
+                    idx
+                  );
+                  return (
+                    <ProductCard
+                      key={`${product.product_id}-${index}`}
+                      {...product}
+                      onClick={() => handleProductClick(product)}
+                    />
+                  );
+                })
               ) : (
                 <div className="col-span-2 md:col-span-3 lg:col-span-4">
                   <p
@@ -208,6 +214,7 @@ const ProductSection = () => {
     const { category, subCategory } = tabActive[index];
     try {
       const response = await fetchProducts({ category, subCategory });
+      console.log(`Fetched products for tab ${index}:`, response);
       setProducts(prev => {
         const newProducts = [...prev];
         newProducts[index] = response;
@@ -237,7 +244,8 @@ const ProductSection = () => {
         };
 
         const isSpecialTab = index === 1; // đây là giá trị ảnh khung
-
+        console.log('products at tab: ', index);
+        console.log(products[index]);
         return (
           <Section
             key={index}
