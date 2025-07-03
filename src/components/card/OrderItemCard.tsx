@@ -10,6 +10,8 @@ interface OrderItemCardProps {
   totalCount: number;
   status: string; // Define possible statuses
   onClick: () => void; // Add onClick prop
+  isMobile?: boolean;
+  isExpanded?: boolean;
 }
 
 const OrderItemCard: React.FC<OrderItemCardProps> = ({
@@ -20,6 +22,8 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
   totalCount,
   status,
   onClick,
+  isMobile = false,
+  isExpanded = false,
 }) => {
   let bgColorClass = '';
   let errorIconElement = null;
@@ -62,14 +66,49 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
           <p className="font-raleway text-sm font-semibold">{title}</p>
           <p className="font-raleway text-sm">{detail}</p>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center justify-between">
           <p className="text-xs text-gray-600">
             Ảnh đã chọn:{' '}
             <strong className="text-black">
               {selectedCount}/{totalCount}
             </strong>
           </p>
-          {errorIconElement}
+          <div className="flex items-center">
+            {errorIconElement}
+            {isMobile && (
+              <div className="ml-2">
+                {isExpanded ? (
+                  <svg
+                    className="h-4 w-4 text-gray-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 15l7-7 7 7"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="h-4 w-4 text-gray-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
