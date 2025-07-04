@@ -388,23 +388,32 @@ export default function GalleryItem({
                 className="h-100 w-full rounded object-cover lg:h-150"
               />
               {image.status === 'loading' && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
-                  <span
-                    className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-gray-300 border-t-primary"
-                    aria-label="Loading"
-                  ></span>
+                <div className="absolute inset-0 flex items-center justify-center rounded bg-black bg-opacity-60">
+                  <div className="flex flex-col items-center">
+                    <span
+                      className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-gray-300 border-t-primary"
+                      aria-label="Loading"
+                    ></span>
+                    <span className="mt-1 text-xs text-white">Đang tải...</span>
+                  </div>
                 </div>
               )}
               {image.status === 'error' && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-90">
+                <div className="absolute inset-0 flex flex-col items-center justify-center rounded bg-red-600 bg-opacity-90">
                   <span
-                    className="inline-block text-2xl text-red-900"
+                    className="inline-block text-2xl text-white"
                     aria-label="Error"
                   >
-                    !
+                    ⚠️
                   </span>
+                  <span className="mt-1 text-xs text-white">Lỗi upload</span>
                 </div>
               )}
+              {/* {image.status === 'done' && (
+                <div className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-green-500">
+                  <span className="text-xs text-white">✓</span>
+                </div>
+              )} */}
               {isAllowSubmit && (
                 <RemoveImageButton onClick={() => removeImage(image.id)} />
               )}

@@ -1,6 +1,6 @@
 // src/app/gallery/@FoundGallery/@GalleryCategory/index.tsx
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import languages from '@/configs/languages';
 import LabelValue from '@/components/texts/LabelValue';
 import OrderItemCard from '@/components/card/OrderItemCard';
@@ -54,10 +54,10 @@ export default function GalleryCategory({
   >([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isAllowSubmit, setIsAllowSubmit] = useState(false);
+  const [note, setNote] = useState<string>('');
 
-  const BASE_CDN_URL =
-    process.env.NEXT_PUBLIC_CDN_URL || 'https://cdn.example.com';
-  const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.example.com';
+  const BASE_CDN_URL = process.env.BASE_CDN_URL || 'https://cdn.mocdecor99.com';
+  const BASE_URL = process.env.BASE_URL || 'https://api.mocdecor99.com';
   const MAX_BATCH_SIZE = 5;
 
   useEffect(() => {
@@ -175,18 +175,52 @@ export default function GalleryCategory({
     );
   };
 
+  const handleMobileRetry = (imageId: string, itemId: string) => {
+    // Find the failed image
+    const item = uploadState.find((item: any) => item.id === itemId);
+    const failedImage = item?.input.find((img: any) => img.id === imageId);
+
+    if (failedImage && failedImage.file) {
+      // Reset status to loading
+      setUploadState((prev: any[]) =>
+        prev.map(item =>
+          item.id === itemId
+            ? {
+                ...item,
+                input: item.input.map((image: any) =>
+                  image.id === imageId ? { ...image, status: 'loading' } : image
+                ),
+              }
+            : item
+        )
+      );
+
+      // Add to upload queue again
+      setUploadQueue(prev => [
+        ...prev,
+        {
+          id: imageId,
+          file: failedImage.file,
+          tabId: itemId,
+        },
+      ]);
+    }
+  };
+
   const submitOrder = async () => {
     const allItemsComplete = uploadState.every((item: any) => {
-      if (item.allow_merge_image) {
-        return item.imageLimit * item.quantity === item.input.length;
-      } else {
-        return item.input.length === item.imageLimit;
-      }
+      const successfulUploads = item.input.filter(
+        (img: any) => img.status === 'done'
+      ).length;
+      const requiredUploads = item.allow_merge_image
+        ? item.imageLimit * item.quantity
+        : item.imageLimit;
+      return successfulUploads >= requiredUploads;
     });
 
     if (!allItemsComplete) {
       toast.error(
-        'Bạn cần upload đầy đủ ảnh cho tất cả các sản phẩm trước khi xác nhận.'
+        'Bạn cần upload đầy đủ ảnh cho tất cả các sản phẩm trước khi xác nhận. Chỉ tính những ảnh upload thành công.'
       );
       return;
     }
@@ -198,6 +232,14 @@ export default function GalleryCategory({
     if (anyImageUploading) {
       toast.info('Chúng tôi đang xử lý ảnh của bạn. Vui lòng chờ...');
       return;
+    }
+
+    const hasErrorImages = uploadState.some((item: any) =>
+      item.input.some((image: any) => image.status === 'error')
+    );
+
+    if (hasErrorImages) {
+      toast.warn('Có một số ảnh upload bị lỗi.Vui lòng thử upload lại.');
     }
 
     const mergedItemsMap = new Map<string, string[][]>();
@@ -223,7 +265,7 @@ export default function GalleryCategory({
       })
     );
 
-    const payload = { items, note: '' };
+    const payload = { items, note };
     try {
       const response = await fetch(
         `${BASE_URL}/pos-orders/${orderId}/upload-images`,
@@ -295,55 +337,124 @@ export default function GalleryCategory({
             </div>
           </div>
 
-          {/* Progress indicator for mobile */}
-          {isMobile && uploadState.length > 0 && (
-            <div className="rounded-lg bg-gray-50 p-3">
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-700">
-                  Tiến độ upload
-                </span>
-                <span className="text-sm text-gray-600">
-                  {uploadState.reduce(
-                    (acc: number, item: any) => acc + item.input.length,
-                    0
+          {/* Progress indicator for mobile - chỉ hiển thị khi có hoạt động upload */}
+          {isMobile &&
+            uploadState.length > 0 &&
+            (uploadState.some((item: any) =>
+              item.input.some((img: any) => img.status === 'loading')
+            ) ||
+              uploadState.some((item: any) =>
+                item.input.some((img: any) => img.status === 'error')
+              )) && (
+              <div className="rounded-lg bg-gray-50 p-3">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700">
+                    Tiến độ upload
+                  </span>
+                  <span className="text-sm text-gray-600">
+                    {uploadState.reduce(
+                      (acc: number, item: any) =>
+                        acc +
+                        item.input.filter((img: any) => img.status === 'done')
+                          .length,
+                      0
+                    )}
+                    /
+                    {uploadState.reduce(
+                      (acc: number, item: any) =>
+                        acc +
+                        (item.allow_merge_image
+                          ? item.imageLimit * item.quantity
+                          : item.imageLimit),
+                      0
+                    )}{' '}
+                    ảnh
+                  </span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-gray-200">
+                  <div
+                    className="h-2 rounded-full bg-primary transition-all duration-300"
+                    style={{
+                      width: `${Math.min(
+                        100,
+                        (uploadState.reduce(
+                          (acc: number, item: any) =>
+                            acc +
+                            item.input.filter(
+                              (img: any) => img.status === 'done'
+                            ).length,
+                          0
+                        ) /
+                          uploadState.reduce(
+                            (acc: number, item: any) =>
+                              acc +
+                              (item.allow_merge_image
+                                ? item.imageLimit * item.quantity
+                                : item.imageLimit),
+                            0
+                          )) *
+                          100
+                      )}%`,
+                    }}
+                  ></div>
+                </div>
+
+                {/* Upload status details */}
+                <div className="mt-2 flex flex-wrap gap-2 text-xs">
+                  {uploadState.some((item: any) =>
+                    item.input.some((img: any) => img.status === 'loading')
+                  ) && (
+                    <span className="rounded-full bg-yellow-100 px-2 py-1 text-yellow-700">
+                      🔄{' '}
+                      {uploadState.reduce(
+                        (acc: number, item: any) =>
+                          acc +
+                          item.input.filter(
+                            (img: any) => img.status === 'loading'
+                          ).length,
+                        0
+                      )}{' '}
+                      đang tải
+                    </span>
                   )}
-                  /
+                  {uploadState.some((item: any) =>
+                    item.input.some((img: any) => img.status === 'error')
+                  ) && (
+                    <span className="rounded-full bg-red-100 px-2 py-1 text-red-700">
+                      ⚠️{' '}
+                      {uploadState.reduce(
+                        (acc: number, item: any) =>
+                          acc +
+                          item.input.filter(
+                            (img: any) => img.status === 'error'
+                          ).length,
+                        0
+                      )}{' '}
+                      lỗi
+                    </span>
+                  )}
                   {uploadState.reduce(
                     (acc: number, item: any) =>
                       acc +
-                      (item.allow_merge_image
-                        ? item.imageLimit * item.quantity
-                        : item.imageLimit),
+                      item.input.filter((img: any) => img.status === 'done')
+                        .length,
                     0
-                  )}{' '}
-                  ảnh
-                </span>
-              </div>
-              <div className="h-2 w-full rounded-full bg-gray-200">
-                <div
-                  className="h-2 rounded-full bg-primary transition-all duration-300"
-                  style={{
-                    width: `${Math.min(
-                      100,
-                      (uploadState.reduce(
-                        (acc: number, item: any) => acc + item.input.length,
+                  ) > 0 && (
+                    <span className="rounded-full bg-green-100 px-2 py-1 text-green-700">
+                      ✅{' '}
+                      {uploadState.reduce(
+                        (acc: number, item: any) =>
+                          acc +
+                          item.input.filter((img: any) => img.status === 'done')
+                            .length,
                         0
-                      ) /
-                        uploadState.reduce(
-                          (acc: number, item: any) =>
-                            acc +
-                            (item.allow_merge_image
-                              ? item.imageLimit * item.quantity
-                              : item.imageLimit),
-                          0
-                        )) *
-                        100
-                    )}%`,
-                  }}
-                ></div>
+                      )}{' '}
+                      hoàn thành
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </div>
 
@@ -356,7 +467,7 @@ export default function GalleryCategory({
 
       {/* Order List */}
       <div className={`${isMobile ? 'pb-4' : 'h-3/4'} overflow-y-auto`}>
-        {uploadState.length &&
+        {uploadState.length > 0 &&
           uploadState.map(
             (order: any) =>
               order?.imageLimit > 0 && (
@@ -386,6 +497,19 @@ export default function GalleryCategory({
                     onClick={() => handleItemClick(order?.id)}
                     isMobile={isMobile}
                     isExpanded={expandedItem === order?.id}
+                    uploadedCount={
+                      order?.input?.filter((img: any) => img.status === 'done')
+                        .length || 0
+                    }
+                    loadingCount={
+                      order?.input?.filter(
+                        (img: any) => img.status === 'loading'
+                      ).length || 0
+                    }
+                    errorCount={
+                      order?.input?.filter((img: any) => img.status === 'error')
+                        .length || 0
+                    }
                   />
 
                   {/* Mobile upload section */}
@@ -396,6 +520,7 @@ export default function GalleryCategory({
                         isAllowSubmit={isAllowSubmit}
                         onUpload={handleMobileUpload}
                         onRemove={handleMobileRemove}
+                        onRetry={handleMobileRetry}
                         previewImages={order?.input || []}
                         maxUploadLimit={
                           order?.allow_merge_image
@@ -413,6 +538,68 @@ export default function GalleryCategory({
       {/* Mobile Submit Button */}
       {isMobile && isAllowSubmit && (
         <div className="sticky bottom-0 z-10 border-t border-stroke bg-white px-6 py-4 shadow-lg">
+          {/* Submit status summary - chỉ hiển thị khi có hoạt động upload */}
+          {(uploadState.some((item: any) =>
+            item.input.some((img: any) => img.status === 'loading')
+          ) ||
+            uploadState.some((item: any) =>
+              item.input.some((img: any) => img.status === 'error')
+            )) && (
+            <div className="mb-3 text-center text-sm">
+              {uploadState.every((item: any) => {
+                const successfulUploads = item.input.filter(
+                  (img: any) => img.status === 'done'
+                ).length;
+                const requiredUploads = item.allow_merge_image
+                  ? item.imageLimit * item.quantity
+                  : item.imageLimit;
+                return successfulUploads >= requiredUploads;
+              }) ? (
+                <span className="text-green-600">
+                  ✅ Tất cả sản phẩm đã tải lên đủ ảnh
+                </span>
+              ) : (
+                <span className="text-orange-600">
+                  ⏳ Còn{' '}
+                  {
+                    uploadState.filter((item: any) => {
+                      const successfulUploads = item.input.filter(
+                        (img: any) => img.status === 'done'
+                      ).length;
+                      const requiredUploads = item.allow_merge_image
+                        ? item.imageLimit * item.quantity
+                        : item.imageLimit;
+                      return successfulUploads < requiredUploads;
+                    }).length
+                  }{' '}
+                  sản phẩm cần upload thêm ảnh
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Note input */}
+          <div className="mb-3">
+            <label
+              htmlFor="note"
+              className="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Ghi chú (tùy chọn)
+            </label>
+            <textarea
+              id="note"
+              value={note}
+              onChange={e => setNote(e.target.value)}
+              placeholder="Nhập ghi chú cho đơn hàng..."
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              rows={3}
+              maxLength={500}
+            />
+            <div className="mt-1 text-right text-xs text-gray-500">
+              {note.length}/500 ký tự
+            </div>
+          </div>
+
           <button
             className="w-full rounded-lg bg-primary px-6 py-3 font-semibold uppercase text-white shadow-md transition-all hover:bg-opacity-90 active:scale-95 disabled:bg-gray-300 disabled:text-gray-500"
             onClick={submitOrder}
