@@ -41,6 +41,25 @@ export default function FoundGallery({
 
   useEffect(() => {
     if (orderData && orderData.items && orderData.items.length > 0) {
+      // Save order to localStorage for order history
+      const existingOrders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+      const orderExists = existingOrders.find((order: any) => order.id === orderData.id);
+      
+      if (!orderExists) {
+        const orderHistoryItem = {
+          id: orderData.id,
+          insertedAt: orderData.insertedAt,
+          status: orderData.status,
+          viewedAt: new Date().toISOString()
+        };
+        existingOrders.push(orderHistoryItem);
+        
+        // Sort by insertedAt (newest first)
+        existingOrders.sort((a: any, b: any) => new Date(b.insertedAt).getTime() - new Date(a.insertedAt).getTime());
+        
+        localStorage.setItem('orderHistory', JSON.stringify(existingOrders));
+      }
+
       const itemsInitState: any = [];
       orderData.items.map((item: any, idx: number) => {
         if (item.images.length === 0) {

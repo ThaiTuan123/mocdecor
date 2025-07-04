@@ -9,6 +9,13 @@ const menuLinks = [
   { href: '/gallery', labelKey: 'gallery' },
 ];
 
-const icons = [{ src: images.icons.cart, alt: 'Shopping Cart', value: 'cart' }];
+const icons = [
+  {
+    src: images.icons.ic_order_history,
+    alt: 'Order History',
+    value: 'history',
+  },
+  { src: images.icons.cart, alt: 'Shopping Cart', value: 'cart' },
+];
 
 export { menuLinks, icons };

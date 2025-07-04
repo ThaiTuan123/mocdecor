@@ -23,6 +23,11 @@ div.hidden.md\:flex.md\:order-1.space-x-28.items-center
   height: 24px;
 }
 
+.history-icon-size {
+  width: 24px;
+  height: 24px;
+}
+
 @keyframes drawCheck {
   from {
     stroke-dashoffset: 30;

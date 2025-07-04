@@ -34,6 +34,26 @@ const Page: React.FC = () => {
           })
         );
         setOrderData(data);
+ 
+        // Save to localStorage for order history
+        if (data && data.id) {
+          try {
+            const existingUploaded = localStorage.getItem('uploadedOrders');
+            const uploadedList = existingUploaded
+              ? JSON.parse(existingUploaded)
+              : [];
+
+            if (!uploadedList.includes(orderId)) {
+              uploadedList.push(orderId);
+              localStorage.setItem(
+                'uploadedOrders',
+                JSON.stringify(uploadedList)
+              );
+            }
+          } catch (error) {
+            console.error('Error saving to localStorage:', error);
+          }
+        }
       });
     }
   }, [orderId]);
