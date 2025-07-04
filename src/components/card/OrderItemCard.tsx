@@ -67,10 +67,14 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
         alt="Product Image"
         className="size-24 rounded object-cover"
       />
-      <div className="ml-3 flex h-24 w-full flex-col justify-between">
+      <div className="ml-3 flex h-24 w-full flex-col justify-between overflow-hidden">
         <div className="flex flex-col gap-2">
-          <p className="font-raleway text-sm font-semibold">{title}</p>
-          <p className="font-raleway text-sm">{detail}</p>
+          <p className="line-clamp-2 font-raleway text-sm font-semibold leading-tight">
+            {title}
+          </p>
+          <p className="line-clamp-2 font-raleway text-sm leading-tight text-gray-600">
+            {detail}
+          </p>
         </div>
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
