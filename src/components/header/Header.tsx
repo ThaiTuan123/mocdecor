@@ -275,7 +275,7 @@ const Header = () => {
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-40 bg-white py-3 font-raleway shadow-md">
-        <div className="relative flex h-12 items-center justify-between px-6 lg:container md:px-12 lg:mx-auto xl:px-16 2xl:px-16">
+        <div className="relative flex h-12 w-full max-w-full items-center justify-between overflow-hidden px-6 lg:container md:px-12 lg:mx-auto xl:px-16 2xl:px-16">
           <Link
             href="/"
             className="flex items-center text-2xl font-bold md:order-2 md:mx-0"
@@ -372,7 +372,7 @@ const Header = () => {
             ))}
           </div>
           {/*Giỏ hàng & Lịch sử*/}
-          <div className="absolute right-0 top-2.5 hidden space-x-2 md:right-3 md:order-4 md:flex" style={{ right: '-1.375rem' }}>
+          <div className="absolute right-0 top-2.5 hidden space-x-2 md:right-3 md:order-4 md:flex">
             {icons.map(({ src, alt, value }) => (
               <div
                 className="relative"
