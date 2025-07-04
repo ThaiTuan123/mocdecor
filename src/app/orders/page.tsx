@@ -19,6 +19,14 @@ import { useRecoilState } from 'recoil';
 import { cartState } from '@/recoil/atoms/cartAtom';
 import { CartItem } from '@/types/cartType';
 import { BASE_URL } from '@/utils/constants';
+import ToastMessage from '@/components/toast/ToastMessage';
+import { getOrCreateBrowserId } from '@/utils/browserId';
+import { updateCart } from '@/services/api';
+import {
+  errorState,
+  loadingState,
+  successState,
+} from '@/recoil/atoms/cartStatusAtom';
 
 interface OrderItem {
   id: string;
@@ -62,11 +70,26 @@ const OrderHistory = () => {
   const [loading, setLoading] = useState(true);
   const [loadingDetails, setLoadingDetails] = useState<string | null>(null);
   const [orderDetails, setOrderDetails] = useState<{ [key: string]: any }>({});
+  const [loadingReorder, setLoadingReorder] = useState<string | null>(null);
   const [cartGlobal, setCartGlobal] = useRecoilState(cartState);
+  const [showToast, setShowToast] = useState(false);
+  const [showToastError, setShowToastError] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [browserId, setBrowserId] = useState<string | null>(null);
+  const [cartLoading, setCartLoading] = useRecoilState(loadingState);
+  const [cartSuccess, setCartSuccess] = useRecoilState(successState);
+  const [cartError, setCartError] = useRecoilState(errorState);
   const router = useRouter();
 
   useEffect(() => {
     loadOrderHistory();
+    
+    // Initialize browser ID
+    const initBrowserId = async () => {
+      const id = await getOrCreateBrowserId();
+      setBrowserId(id);
+    };
+    initBrowserId();
   }, []);
 
   const loadOrderHistory = async () => {
@@ -318,23 +341,150 @@ const OrderHistory = () => {
     router.push(`/gallery/${orderId}`);
   };
 
-  const handleReorder = (order: Order) => {
-    // Add all items from the order to cart
-    const newCartItems: CartItem[] = order.items.map(item => ({
-      mainId: item.id,
-      id: item.id,
-      quantity: item.quantity,
-      retail_price: item.price,
-      productName: item.name,
-      sellerSku: item.variation || `SKU-${item.id}`,
-      image: item.image,
-      skuName: item.variation,
-    }));
+  const handleReorder = async (order: Order) => {
+    if (order.items.length === 0) {
+      setToastMessage('Không có sản phẩm để thêm vào giỏ hàng');
+      setShowToastError(true);
+      setTimeout(() => setShowToastError(false), 3000);
+      return;
+    }
 
-    setCartGlobal(prev => [...prev, ...newCartItems]);
+    if (!browserId) {
+      setToastMessage('Đang khởi tạo phiên làm việc...');
+      setShowToastError(true);
+      setTimeout(() => setShowToastError(false), 3000);
+      return;
+    }
 
-    // Show success message
-    alert(`Đã thêm ${order.items.length} sản phẩm vào giỏ hàng`);
+    setLoadingReorder(order.id);
+
+    try {
+      // Add each item to cart using the same logic as ProductPopup
+      for (const item of order.items) {
+        if (item.variationId) {
+          const body = {
+            product: {
+              id: item.variationId,
+              quantity: item.quantity,
+            },
+          };
+
+          // Use the same handleUpdateCart function as ProductPopup
+          await handleUpdateCart(browserId, body);
+
+          // Update local cart state with proper merging
+          const cartUpdateObj: CartItem = {
+            mainId: item.productId || item.id,
+            id: item.variationId,
+            quantity: item.quantity,
+            retail_price: item.price,
+            productName: item.name,
+            sellerSku: item.variation || `SKU-${item.id}`,
+            image: item.image,
+            skuName: item.variation || item.detail || '',
+          };
+
+          setCartGlobal(prev => {
+            if (!prev || prev.length === 0) {
+              return [...prev, cartUpdateObj];
+            }
+
+            const existingItemIndex = prev.findIndex(
+              cartItem =>
+                cartItem.id === cartUpdateObj.id && 
+                cartItem.mainId === cartUpdateObj.mainId
+            );
+
+            if (existingItemIndex !== -1) {
+              const updatedCart = [...prev];
+              updatedCart[existingItemIndex] = {
+                ...updatedCart[existingItemIndex],
+                quantity:
+                  updatedCart[existingItemIndex].quantity + cartUpdateObj.quantity,
+              };
+              return updatedCart;
+            } else {
+              return [...prev, cartUpdateObj];
+            }
+          });
+        }
+      }
+
+      // Show success message
+      setToastMessage(`Đã thêm ${order.items.length} sản phẩm vào giỏ hàng thành công!`);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+
+    } catch (error) {
+      console.error('Error adding items to cart:', error);
+      
+      // Fallback: still add to local cart if API fails
+      order.items.forEach(item => {
+        const cartUpdateObj: CartItem = {
+          mainId: item.productId || item.id,
+          id: item.variationId || item.id,
+          quantity: item.quantity,
+          retail_price: item.price,
+          productName: item.name,
+          sellerSku: item.variation || `SKU-${item.id}`,
+          image: item.image,
+          skuName: item.variation || item.detail || '',
+        };
+
+        setCartGlobal(prev => {
+          if (!prev || prev.length === 0) {
+            return [...prev, cartUpdateObj];
+          }
+
+          const existingItemIndex = prev.findIndex(
+            cartItem =>
+              cartItem.id === cartUpdateObj.id && 
+              cartItem.mainId === cartUpdateObj.mainId
+          );
+
+          if (existingItemIndex !== -1) {
+            const updatedCart = [...prev];
+            updatedCart[existingItemIndex] = {
+              ...updatedCart[existingItemIndex],
+              quantity:
+                updatedCart[existingItemIndex].quantity + cartUpdateObj.quantity,
+            };
+            return updatedCart;
+          } else {
+            return [...prev, cartUpdateObj];
+          }
+        });
+      });
+
+      // Show warning message
+      setToastMessage(`Đã thêm ${order.items.length} sản phẩm vào giỏ hàng (chỉ cục bộ - có lỗi kết nối API)`);
+      setShowToastError(true);
+      setTimeout(() => setShowToastError(false), 3000);
+    } finally {
+      setLoadingReorder(null);
+    }
+  };
+
+  const handleUpdateCart = async (browserId: string, body: any) => {
+    try {
+      setCartLoading(true); // Bắt đầu trạng thái loading
+      setCartError(null); // Reset trạng thái lỗi
+      setCartSuccess(false); // Reset trạng thái thành công
+
+      await updateCart(browserId, body); // Gọi API
+
+      // Nếu thành công
+      setCartSuccess(true);
+      setTimeout(() => {
+        setCartSuccess(false);
+      }, 1000);
+    } catch (error) {
+      console.error('Error updating cart:', error); // Log lỗi để debug
+      setCartError('Failed to update cart. Please try again.'); // Thông báo lỗi
+      throw error; // Re-throw để handleReorder có thể catch
+    } finally {
+      setCartLoading(false); // Đặt lại trạng thái loading
+    }
   };
 
   if (loading) {
@@ -490,10 +640,31 @@ const OrderHistory = () => {
 
                     <button
                       onClick={() => handleReorder(order)}
-                      className="flex items-center gap-2 rounded-lg bg-primary bg-opacity-10 px-3 py-2 text-sm text-primary transition-colors hover:bg-opacity-20 sm:px-4"
+                      disabled={loadingReorder === order.id || cartLoading || order.items.length === 0}
+                      className="flex items-center gap-2 rounded-lg bg-primary bg-opacity-10 px-3 py-2 text-sm text-primary transition-colors hover:bg-opacity-20 sm:px-4 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      <FaRedo size={14} />
-                      Đặt lại
+                      {(loadingReorder === order.id || cartLoading) ? (
+                        <div className="h-4 w-4 animate-spin rounded-full border-b-2 border-primary"></div>
+                      ) : cartSuccess ? (
+                        <div className="flex h-4 w-4 items-center justify-center">
+                          <svg
+                            className="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path
+                              d="M5 13l4 4L19 7"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      ) : (
+                        <FaRedo size={14} />
+                      )}
+                      {(loadingReorder === order.id || cartLoading) ? 'Đang thêm...' : cartSuccess ? 'Thành công!' : 'Đặt lại'}
                     </button>
                   </div>
                 </div>
@@ -632,6 +803,21 @@ const OrderHistory = () => {
           </div>
         )}
       </div>
+      
+      {/* Toast Messages */}
+      {showToast && (
+        <ToastMessage
+          message={toastMessage}
+          onClose={() => setShowToast(false)}
+        />
+      )}
+      {showToastError && (
+        <ToastMessage
+          isError
+          message={toastMessage}
+          onClose={() => setShowToastError(false)}
+        />
+      )}
     </div>
   );
 };
