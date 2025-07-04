@@ -151,30 +151,53 @@ export default function FoundGallery({
 
   return (
     <div className="flex flex-col lg:flex-row lg:px-20 lg:py-9 2xl:px-52 3xl:px-96 4xl:mx-auto 4xl:max-w-7xl 4xl:px-0">
-      {/* Left Section - Gallery Category */}
-      {orderData && (
-        <GalleryCategory
+      {/* Mobile Layout */}
+      <div className="block lg:hidden">
+        {orderData && (
+          <GalleryCategory
+            uploadState={uploadState}
+            setUploadState={setUploadState}
+            setSelectedUpload={setSelectedUpload}
+            selectedUpload={selectedUpload}
+            orderId={orderData.id}
+            orderStatus={orderData.status}
+            insertedAt={orderData.insertedAt}
+            linkConfirmOrder={orderData.link_confirm_order}
+            isMobile={true}
+            orderData={orderData}
+          />
+        )}
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex lg:w-full">
+        {/* Left Section - Gallery Category */}
+        {orderData && (
+          <GalleryCategory
+            uploadState={uploadState}
+            setUploadState={setUploadState}
+            setSelectedUpload={setSelectedUpload}
+            selectedUpload={selectedUpload}
+            orderId={orderData.id}
+            orderStatus={orderData.status}
+            insertedAt={orderData.insertedAt}
+            linkConfirmOrder={orderData.link_confirm_order}
+            isMobile={false}
+            orderData={orderData}
+          />
+        )}
+
+        {/* Right Section - Gallery Item */}
+        <GalleryItem
           uploadState={uploadState}
           setUploadState={setUploadState}
           setSelectedUpload={setSelectedUpload}
           selectedUpload={selectedUpload}
+          orderData={orderData}
           orderId={orderData.id}
-          orderStatus={orderData.status}
-          insertedAt={orderData.insertedAt}
           linkConfirmOrder={orderData.link_confirm_order}
         />
-      )}
-
-      {/* Right Section - Gallery Item */}
-      <GalleryItem
-        uploadState={uploadState}
-        setUploadState={setUploadState}
-        setSelectedUpload={setSelectedUpload}
-        selectedUpload={selectedUpload}
-        orderData={orderData}
-        orderId={orderData.id}
-        linkConfirmOrder={orderData.link_confirm_order}
-      />
+      </div>
     </div>
   );
 }
