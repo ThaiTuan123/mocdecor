@@ -51,6 +51,8 @@ const Header = () => {
   const handleClickIcon = (value: string) => {
     if (value === 'cart') {
       setIsShowCart(true);
+    } else if (value === 'history') {
+      router.push('/orders');
     }
   };
 
@@ -291,14 +293,30 @@ const Header = () => {
               priority={true}
             />
           </Link>
-          <div className="ml-auto flex items-center gap-3 md:hidden">
+          <div className="ml-auto flex items-center gap-2 md:hidden">
+            <button
+              onClick={() => {
+                router.push('/orders');
+                setMenuOpen(false);
+                setSubNavMobile(false);
+              }}
+              className="relative p-1 text-black"
+              title="Lịch sử đơn hàng"
+            >
+              <Icon
+                src={images.icons.ic_order_history}
+                alt="Order History"
+                className="history-icon-size"
+              />
+            </button>
             <button
               onClick={() => {
                 setCartOpen(true);
                 setMenuOpen(false);
                 setSubNavMobile(false);
               }}
-              className="relative text-black"
+              className="relative p-1 text-black"
+              title="Giỏ hàng"
             >
               <div className="cart-icon-shake">
                 <Icon
@@ -324,6 +342,7 @@ const Header = () => {
           <div className="hidden items-center space-x-0 md:order-1 md:flex md:space-x-6 lg:space-x-20">
             {menuLinks.slice(0, 3).map(({ href, labelKey }) => (
               <div
+                key={href}
                 onClick={() =>
                   setHoveredLabelKey(hoveredLabelKey ? '' : labelKey)
                 }
@@ -352,16 +371,23 @@ const Header = () => {
               />
             ))}
           </div>
-          {/*Giỏ hàng*/}
-          <div className="absolute right-0 top-2.5 hidden space-x-4 md:right-3 md:order-4 md:flex">
+          {/*Giỏ hàng & Lịch sử*/}
+          <div className="absolute right-0 top-2.5 hidden space-x-2 md:right-3 md:order-4 md:flex" style={{ right: '-1.375rem' }}>
             {icons.map(({ src, alt, value }) => (
-              <div className="relative" key={alt}>
-                <div className={value === 'cart' ? 'cart-icon-shake' : ''}>
+              <div
+                className="relative"
+                key={`${alt}huhu`}
+                title={value === 'history' ? 'Lịch sử đơn hàng' : 'Giỏ hàng'}
+                style={value === 'history' ? { top: '-0.175rem' } : {}}
+              >
+                <div
+                  className={`${value === 'cart' ? 'cart-icon-shake' : ''} ${value === 'history' ? 'p-1' : ''}`}
+                >
                   <Icon
                     src={src}
                     alt={alt}
                     onClick={() => handleClickIcon(value)}
-                    className={value === 'cart' ? 'cart-icon-size' : ''}
+                    className={`${value === 'cart' ? 'cart-icon-size' : value === 'history' ? 'history-icon-size' : 'h-5 w-5'} ${value === 'history' ? 'transition-transform hover:scale-110' : ''}`}
                   />
                 </div>
                 {value === 'cart' && (

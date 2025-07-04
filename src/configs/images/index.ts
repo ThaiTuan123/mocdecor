@@ -37,6 +37,7 @@ const images = {
     ic_arrow_right: '/assets/imgs/icons/ic-arrow-right.webp',
     ic_filter: '/assets/imgs/icons/ic-filter.png',
     ic_dropdown_right: '/assets/imgs/icons/ic-dropdown-right.png',
+    ic_order_history: '/assets/imgs/icons/ic-order-history.svg',
 
     //home
     homeInstagram: '/assets/imgs/icons/ic-home-insta.png',
